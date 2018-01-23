@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PitchersEye</string>
+    <string name="string_login">Login</string>
 </resources>
