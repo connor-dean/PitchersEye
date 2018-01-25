@@ -1,6 +1,6 @@
 # PitchersEye
 
-Home of Connor, Jess and Tucker's CIS Capstone project (Name up for debate).
+Home of Connor and Jess's CIS Capstone project (Name up for debate).
 
 Link to Trello board: [https://trello.com/b/2yWHwqJt/pitcherseye]
 
