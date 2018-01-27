@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">PitchersEye</string>
     <string name="string_login">Login</string>
-    <string name="string_name">Name</string>
+    <string name="string_email">Email</string>
     <string name="string_password">******</string>
     <string name="string_schedule">Schedule</string>
     <string name="string_statistics">Stats</string>
     <string name="string_new_game">New Game</string>
+    <string name="string_new_user">New user? Register here!</string>
+    <string name="string_register">Register</string>
 </resources>

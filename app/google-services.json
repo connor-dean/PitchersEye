@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1075444014452",
+    "firebase_url": "https://pitcherseye-3cdd0.firebaseio.com",
+    "project_id": "pitcherseye-3cdd0",
+    "storage_bucket": "pitcherseye-3cdd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075444014452:android:4a6408363f360039",
+        "android_client_info": {
+          "package_name": "pitcherseye.pitcherseye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075444014452-5usm7hpnoe010gi2bh7bj0sc1e4aa4he.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pitcherseye.pitcherseye",
+            "certificate_hash": "5231f50996d8eb81aaddc7ddc7e92d1ab2b2379d"
+          }
+        },
+        {
+          "client_id": "1075444014452-c012e5f2ajh0d1t6vkpckv9jsdh6l83u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pitcherseye.pitcherseye",
+            "certificate_hash": "994a5dd61841a2c60c3a5e632fb5de7040b16767"
+          }
+        },
+        {
+          "client_id": "1075444014452-b5ms1gk3dtr9946f2d6vv1g86o2r8r0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb-j9Gm46KZ2_AEvrIuyEPMWNCGc5dymw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075444014452-b5ms1gk3dtr9946f2d6vv1g86o2r8r0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
