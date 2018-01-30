@@ -20,9 +20,11 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 public class MainActivity extends AppCompatActivity {
 
     // Buttons
+    Button mLogoutButton;
+    Button mNewGameButton;
     Button mScheduleButton;
     Button mStatsButton;
-    Button mNewGameButton;
+    FirebaseAuth mAuth;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
@@ -56,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = TaggingActivity.newIntent(MainActivity.this);
+                startActivityForResult(i, REQUEST_CODE_CALCULATE);
+            }
+        });
+
+        mLogoutButton = (Button) findViewById(R.id.button_logout);
+        mLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = LoginActivity.newIntent(MainActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
             }
         });
