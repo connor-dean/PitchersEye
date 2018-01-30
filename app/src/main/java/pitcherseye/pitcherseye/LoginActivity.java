@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,11 +44,27 @@ public class LoginActivity extends AppCompatActivity {
         mLogInProgress = (ProgressBar) findViewById(R.id.progress_login);
         mLogInProgress.setVisibility(View.GONE);
 
+        // Check if a user is already logged in
+        loginPersistance();
+
         // Log in event
         logInEvent();
 
         // Sign up event
         signUp();
+    }
+
+    public void loginPersistance() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        } else {
+            // User is signed out
+            //Log.d(TAG, "onAuthStateChanged:signed_out");
+        }
     }
 
     // Helper method for logInUser()
