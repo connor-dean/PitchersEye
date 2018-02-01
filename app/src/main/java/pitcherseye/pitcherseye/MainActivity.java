@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent i = LoginActivity.newIntent(MainActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                finish(); // Don't add to the backstack
             }
         });
     }

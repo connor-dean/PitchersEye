@@ -125,8 +125,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     // If the login was successful, direct user to the MainActivity
                     Intent i = MainActivity.newIntent(LoginActivity.this);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Clear the backstack
                     startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                    finish(); // Don't add to the backstack
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = SignUpActivity.newIntent(LoginActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                finish(); // Don't add to the backstack
             }
         });
     }
