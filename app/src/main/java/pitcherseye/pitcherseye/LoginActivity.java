@@ -1,5 +1,6 @@
 package pitcherseye.pitcherseye;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -30,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar mLogInProgress;
     TextView mSignUp;
 
+    public static Activity loginActivity;
+
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
 
@@ -37,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // For backstack management
+        loginActivity = this;
 
         // Instantiate Firebase instance
         mAuth = FirebaseAuth.getInstance();

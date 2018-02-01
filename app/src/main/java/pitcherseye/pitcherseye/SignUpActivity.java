@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import static java.security.AccessController.getContext;
+
 public class SignUpActivity extends AppCompatActivity {
 
     // UI Components
@@ -104,6 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
                             // If the registration was successful, direct user to the MainActivity
                             Intent i = MainActivity.newIntent(SignUpActivity.this);
                             startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                            LoginActivity.loginActivity.finish(); // Kill LoginActivity from the backstack
                             finish(); // Don't add to the backstack
                         } else {
                             // Check if the user already exists
