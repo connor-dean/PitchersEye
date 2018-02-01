@@ -142,7 +142,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = SignUpActivity.newIntent(LoginActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
-                finish(); // Don't add to the backstack
             }
         });
     }

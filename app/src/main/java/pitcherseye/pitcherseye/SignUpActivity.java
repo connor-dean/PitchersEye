@@ -103,8 +103,8 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // If the registration was successful, direct user to the MainActivity
                             Intent i = MainActivity.newIntent(SignUpActivity.this);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                            finish(); // Don't add to the backstack
                         } else {
                             // Check if the user already exists
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
