@@ -22,8 +22,13 @@ public class SignUpActivity extends AppCompatActivity {
 
     // UI Components
     Button mRegisterButton;
+    EditText mSignUpConfirmPassword;
     EditText mSignUpEmail;
+    EditText mSignUpFirstName;
+    EditText mSignUpLastName;
     EditText mSignUpPassword;
+    EditText mSignUpRegistrationID;
+    EditText mSignUpTeamID;
     FirebaseAuth mAuth;
     ProgressBar mSignUpProgress;
 
@@ -60,11 +65,21 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Receives input from text fields and verifies credentials
     private void registerUser() {
+        mSignUpFirstName = (EditText) findViewById(R.id.edt_first_name);
+        mSignUpLastName = (EditText) findViewById(R.id.edt_last_name);
         mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
         mSignUpPassword = (EditText) findViewById(R.id.edt_signup_password);
+        mSignUpConfirmPassword = (EditText) findViewById(R.id.edt_confirm_signup_password);
+        mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
+        mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);
 
+        final String fname = mSignUpFirstName.getText().toString().trim();
+        final String lname = mSignUpLastName.getText().toString().trim();
         final String email = mSignUpEmail.getText().toString().trim();
         final String password = mSignUpPassword.getText().toString().trim();
+        final String confirmPassword = mSignUpConfirmPassword.getText().toString().trim();
+        final String teamID = mSignUpTeamID.getText().toString().trim();
+        final String registrationID = mSignUpRegistrationID.getText().toString().trim();
 
         // Validate email, doesn't check valid emails, just the form for now
         if (email.isEmpty() || email == null) {
@@ -116,6 +131,21 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void validateEntry(String firstName, String lastName, String confPassword, String tID, String rID) {
+        if (firstName.isEmpty() || firstName == null) {
+            mSignUpFirstName.setError("First name is required");
+            mSignUpFirstName.requestFocus();
+            return;
+        }
+    }
+
+    public void stopRepeatingYourself(String checkedString, EditText editText) {
+        if(checkedString.isEmpty() || checkedString == null) {
+            editText.setError("Field is required");
+            editText.requestFocus();
+        }
     }
 
     public static Intent newIntent(Context packageContext) {
