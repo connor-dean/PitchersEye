@@ -1,0 +1,17 @@
+package pitcherseye.pitcherseye;
+
+import android.app.Activity;
+import android.view.inputmethod.InputMethodManager;
+
+/**
+ * Created by Connor on 2/6/2018.
+ */
+
+public class Utilities {
+
+    // Method to help hide virtual keyboard
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    }
+}
