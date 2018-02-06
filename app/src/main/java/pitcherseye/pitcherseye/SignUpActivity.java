@@ -51,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Hide keyboard
                 Utilities.hideSoftKeyboard(SignUpActivity.this);
                 registerUser();
             }
