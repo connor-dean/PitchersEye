@@ -8,11 +8,33 @@
     tools:context="pitcherseye.pitcherseye.LoginActivity" >
 
     <EditText
-        android:id="@+id/edt_signup_email"
+        android:id="@+id/edt_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:hint="@string/string_first_name"
+        app:layout_constraintBottom_toTopOf="@+id/edt_last_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/string_last_name"
+        app:layout_constraintBottom_toTopOf="@+id/edt_signup_email"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_signup_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
         android:hint="@string/string_email"
         app:layout_constraintBottom_toTopOf="@+id/edt_signup_password"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,7 +47,38 @@
         android:ems="10"
         android:inputType="textPassword"
         android:hint="@string/string_password"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup_register"
+        app:layout_constraintBottom_toTopOf="@id/edt_confirm_signup_password"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_confirm_signup_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/string_confirm_password"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_team_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/string_team_id"
+        app:layout_constraintTop_toBottomOf="@id/edt_confirm_signup_password"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_registration_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/string_registration_id"
+        app:layout_constraintTop_toBottomOf="@id/edt_team_id"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -33,11 +86,11 @@
         android:id="@+id/button_signup_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="20dp"
         android:text="@string/string_register"
+        app:layout_constraintTop_toBottomOf="@id/edt_registration_id"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_signup"
@@ -47,5 +100,12 @@
         app:layout_constraintTop_toBottomOf="@+id/button_signup_register"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 </android.support.constraint.ConstraintLayout>

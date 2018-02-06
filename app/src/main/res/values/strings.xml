@@ -1,12 +1,21 @@
 <resources>
     <string name="app_name">PitchersEye</string>
-    <string name="string_login">Login</string>
-    <string name="string_email">Email</string>
-    <string name="string_password">******</string>
+
+    <!-- Main menu -->
     <string name="string_schedule">Schedule</string>
     <string name="string_statistics">Stats</string>
     <string name="string_new_game">New Game</string>
+
+    <!-- Login/Registration -->
+    <string name="string_login">Login</string>
+    <string name="string_email">Email</string>
+    <string name="string_password">Password</string>
+    <string name="string_confirm_password">Confirm Password</string>
+    <string name="string_first_name">First Name</string>
+    <string name="string_last_name">Last Name</string>
     <string name="string_new_user">New user? Register here!</string>
     <string name="string_register">Register</string>
     <string name="string_logout">Logout</string>
+    <string name="string_team_id">Team ID</string>
+    <string name="string_registration_id">Registration ID</string>
 </resources>
