@@ -58,7 +58,7 @@
         android:ems="10"
         android:inputType="textPassword"
         android:hint="@string/string_confirm_password"
-        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/edt_team_id"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/string_team_id"
-        app:layout_constraintTop_toBottomOf="@id/edt_confirm_signup_password"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
