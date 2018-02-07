@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/baseball_field_opacity"
-    tools:context="pitcherseye.pitcherseye.LoginActivity">
+    tools:context="pitcherseye.pitcherseye.Activities.LoginActivity">
 
     <ImageView
         android:id="@+id/login_panel"

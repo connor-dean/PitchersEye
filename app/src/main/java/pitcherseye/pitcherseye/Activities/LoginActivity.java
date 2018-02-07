@@ -1,4 +1,4 @@
-package pitcherseye.pitcherseye;
+package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -21,6 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import pitcherseye.pitcherseye.R;
+import pitcherseye.pitcherseye.Utilities;
 
 public class LoginActivity extends AppCompatActivity {
 

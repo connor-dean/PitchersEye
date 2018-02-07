@@ -1,4 +1,4 @@
-package pitcherseye.pitcherseye;
+package pitcherseye.pitcherseye.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+
+import pitcherseye.pitcherseye.R;
+import pitcherseye.pitcherseye.Utilities;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -81,25 +84,24 @@ public class SignUpActivity extends AppCompatActivity {
         final String teamID = mSignUpTeamID.getText().toString().trim();
         final String registrationID = mSignUpRegistrationID.getText().toString().trim();
 
-        // Validate email, doesn't check valid emails, just the form for now
-        if (email.isEmpty() || email == null) {
-            mSignUpEmail.setError("Email is required.");
-            mSignUpEmail.requestFocus();
-            return;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mSignUpEmail.setError("You've entered an invalid email.");
-            mSignUpEmail.requestFocus();
+        // Wow you sure are repeating yourself...
+        stopRepeatingYourself(registrationID, mSignUpRegistrationID, "Registration ID");
+        stopRepeatingYourself(teamID, mSignUpTeamID, "Team ID");
+        stopRepeatingYourself(confirmPassword, mSignUpConfirmPassword, "Password");
+        stopRepeatingYourself(password, mSignUpPassword, "Password");
+        stopRepeatingYourself(email, mSignUpEmail, "Email");
+        stopRepeatingYourself(lname, mSignUpLastName, "Last name");
+        stopRepeatingYourself(fname, mSignUpFirstName, "First name");
+
+        if (password.length() < 6) {
+            mSignUpPassword.setError("Password requires at least 6 characters");
+            mSignUpPassword.requestFocus();
             return;
         }
 
-        // Validate password, we'll probably want to require special characters/casing in the future
-        if (password.isEmpty()  || password == null) {
-            mSignUpPassword.setError("Password is required.");
-            mSignUpPassword.requestFocus();
-            return;
-        } else if (password.length() < 6) {
-            mSignUpPassword.setError("Password requires at least 6 characters");
-            mSignUpPassword.requestFocus();
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mSignUpEmail.setError("You've entered an invalid email.");
+            mSignUpEmail.requestFocus();
             return;
         }
 
@@ -133,17 +135,9 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    public void validateEntry(String firstName, String lastName, String confPassword, String tID, String rID) {
-        if (firstName.isEmpty() || firstName == null) {
-            mSignUpFirstName.setError("First name is required");
-            mSignUpFirstName.requestFocus();
-            return;
-        }
-    }
-
-    public void stopRepeatingYourself(String checkedString, EditText editText) {
+    public void stopRepeatingYourself(String checkedString, EditText editText, String errorMessage) {
         if(checkedString.isEmpty() || checkedString == null) {
-            editText.setError("Field is required");
+            editText.setError(errorMessage + " is required.");
             editText.requestFocus();
         }
     }
