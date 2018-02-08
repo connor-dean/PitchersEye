@@ -120,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
                         } else {
                             // Check if the user already exists
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(getApplicationContext(), "User already regisered", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "User already registered", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
