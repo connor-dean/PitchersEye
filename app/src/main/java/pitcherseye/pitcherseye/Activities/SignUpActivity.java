@@ -84,26 +84,22 @@ public class SignUpActivity extends AppCompatActivity {
         final String teamID = mSignUpTeamID.getText().toString().trim();
         final String registrationID = mSignUpRegistrationID.getText().toString().trim();
 
-        // Wow you sure are repeating yourself...
-        stopRepeatingYourself(registrationID, mSignUpRegistrationID, "Registration ID");
-        stopRepeatingYourself(teamID, mSignUpTeamID, "Team ID");
-        stopRepeatingYourself(confirmPassword, mSignUpConfirmPassword, "Password");
-        stopRepeatingYourself(password, mSignUpPassword, "Password");
-        stopRepeatingYourself(email, mSignUpEmail, "Email");
-        stopRepeatingYourself(lname, mSignUpLastName, "Last name");
-        stopRepeatingYourself(fname, mSignUpFirstName, "First name");
-
-        if (password.length() < 6) {
-            mSignUpPassword.setError("Password requires at least 6 characters");
-            mSignUpPassword.requestFocus();
-            return;
-        }
-
+        // Wow you sure are repeating yourself... PLEASE RENAME BEFORE MERGING
+        if (stopRepeatingYourself(fname, mSignUpFirstName, "First name")) return;
+        if (stopRepeatingYourself(lname, mSignUpLastName, "Last name")) return;
+        if (stopRepeatingYourself(email, mSignUpEmail, "Email")) return;
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mSignUpEmail.setError("You've entered an invalid email.");
-            mSignUpEmail.requestFocus();
             return;
         }
+        if (stopRepeatingYourself(password, mSignUpPassword, "Password")) return;
+        if (password.length() < 6) {
+            mSignUpPassword.setError("Password requires at least 6 characters");
+            return;
+        }
+        if (stopRepeatingYourself(confirmPassword, mSignUpConfirmPassword, "Password")) return;
+        if (stopRepeatingYourself(teamID, mSignUpTeamID, "Team ID")) return;
+        if (stopRepeatingYourself(registrationID, mSignUpRegistrationID, "Registration ID")) return;
 
         // Display the progress bar while loading
         mSignUpProgress.setVisibility(View.VISIBLE);
@@ -135,10 +131,14 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    public void stopRepeatingYourself(String checkedString, EditText editText, String errorMessage) {
+
+    public boolean stopRepeatingYourself(String checkedString, EditText editText, String errorMessage) {
         if(checkedString.isEmpty() || checkedString == null) {
             editText.setError(errorMessage + " is required.");
             editText.requestFocus();
+            return true;
+        } else {
+            return false;
         }
     }
 
