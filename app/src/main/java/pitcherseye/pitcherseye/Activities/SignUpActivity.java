@@ -1,4 +1,4 @@
-package pitcherseye.pitcherseye;
+package pitcherseye.pitcherseye.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,17 +18,34 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
+import pitcherseye.pitcherseye.R;
+import pitcherseye.pitcherseye.Utilities;
+
 public class SignUpActivity extends AppCompatActivity {
 
     // UI Components
     Button mRegisterButton;
+    EditText mSignUpConfirmPassword;
     EditText mSignUpEmail;
+    EditText mSignUpFirstName;
+    EditText mSignUpLastName;
     EditText mSignUpPassword;
+    EditText mSignUpRegistrationID;
+    EditText mSignUpTeamID;
     FirebaseAuth mAuth;
     ProgressBar mSignUpProgress;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
+
+    // EditText strings to be used later
+    String fname;
+    String lname;
+    String email;
+    String password;
+    String confirmPassword;
+    String teamID;
+    String registrationID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +68,9 @@ public class SignUpActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Hide keyboard
+                Utilities.hideSoftKeyboard(SignUpActivity.this);
+                loadRegistrationValues();
                 registerUser();
             }
         });
@@ -58,33 +78,26 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Receives input from text fields and verifies credentials
     private void registerUser() {
-        mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
-        mSignUpPassword = (EditText) findViewById(R.id.edt_signup_password);
-
-        final String email = mSignUpEmail.getText().toString().trim();
-        final String password = mSignUpPassword.getText().toString().trim();
-
-        // Validate email, doesn't check valid emails, just the form for now
-        if (email.isEmpty() || email == null) {
-            mSignUpEmail.setError("Email is required.");
-            mSignUpEmail.requestFocus();
-            return;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        // Iterate through inputs and validate
+        if (validateInput(fname, mSignUpFirstName, "First name")) return;
+        if (validateInput(lname, mSignUpLastName, "Last name")) return;
+        if (validateInput(email, mSignUpEmail, "Email")) return;
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mSignUpEmail.setError("You've entered an invalid email.");
-            mSignUpEmail.requestFocus();
             return;
         }
-
-        // Validate password, we'll probably want to require special characters/casing in the future
-        if (password.isEmpty()  || password == null) {
-            mSignUpPassword.setError("Password is required.");
-            mSignUpPassword.requestFocus();
-            return;
-        } else if (password.length() < 6) {
-            mSignUpPassword.setError("Password requires at least 6 characters");
-            mSignUpPassword.requestFocus();
+        if (validateInput(password, mSignUpPassword, "Password")) return;
+        if (password.length() < 6) {
+            mSignUpPassword.setError("Password requires at least 6 characters.");
             return;
         }
+        if (validateInput(confirmPassword, mSignUpConfirmPassword, "Password")) return;
+        if(confirmPassword.compareTo(password) != 0) {
+            mSignUpConfirmPassword.setError("Passwords do no match.");
+            return;
+        }
+        if (validateInput(teamID, mSignUpTeamID, "Team ID")) return;
+        if (validateInput(registrationID, mSignUpRegistrationID, "Registration ID")) return;
 
         // Display the progress bar while loading
         mSignUpProgress.setVisibility(View.VISIBLE);
@@ -107,13 +120,43 @@ public class SignUpActivity extends AppCompatActivity {
                         } else {
                             // Check if the user already exists
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(getApplicationContext(), "User already regisered", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "User already registered", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
+    }
+
+    // Initialize/instantiate inputs from EditText fields
+    public void loadRegistrationValues() {
+        mSignUpFirstName = (EditText) findViewById(R.id.edt_first_name);
+        mSignUpLastName = (EditText) findViewById(R.id.edt_last_name);
+        mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
+        mSignUpPassword = (EditText) findViewById(R.id.edt_signup_password);
+        mSignUpConfirmPassword = (EditText) findViewById(R.id.edt_confirm_signup_password);
+        mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
+        mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);
+
+        fname = mSignUpFirstName.getText().toString().trim();
+        lname = mSignUpLastName.getText().toString().trim();
+        email = mSignUpEmail.getText().toString().trim();
+        password = mSignUpPassword.getText().toString().trim();
+        confirmPassword = mSignUpConfirmPassword.getText().toString().trim();
+        teamID = mSignUpTeamID.getText().toString().trim();
+        registrationID = mSignUpRegistrationID.getText().toString().trim();
+    }
+
+    // Made sure that fields aren't empty
+    public boolean validateInput(String checkedString, EditText editText, String errorMessage) {
+        if(checkedString.isEmpty() || checkedString == null) {
+            editText.setError(errorMessage + " is required.");
+            editText.requestFocus();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static Intent newIntent(Context packageContext) {

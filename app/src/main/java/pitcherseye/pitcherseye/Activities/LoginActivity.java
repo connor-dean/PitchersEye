@@ -1,4 +1,4 @@
-package pitcherseye.pitcherseye;
+package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,6 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import pitcherseye.pitcherseye.R;
+import pitcherseye.pitcherseye.Utilities;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -80,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Hide keyboard
+                Utilities.hideSoftKeyboard(LoginActivity.this);
                 logInUser();
             }
         });

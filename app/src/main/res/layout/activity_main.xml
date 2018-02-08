@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="pitcherseye.pitcherseye.MainActivity">
+    tools:context="pitcherseye.pitcherseye.Activities.MainActivity">
 
     <Button
         android:id="@+id/button_schedule"
