@@ -88,10 +88,14 @@ public class SignUpActivity extends AppCompatActivity {
         }
         if (validateInput(password, mSignUpPassword, "Password")) return;
         if (password.length() < 6) {
-            mSignUpPassword.setError("Password requires at least 6 characters");
+            mSignUpPassword.setError("Password requires at least 6 characters.");
             return;
         }
         if (validateInput(confirmPassword, mSignUpConfirmPassword, "Password")) return;
+        if(confirmPassword.compareTo(password) != 0) {
+            mSignUpConfirmPassword.setError("Passwords do no match.");
+            return;
+        }
         if (validateInput(teamID, mSignUpTeamID, "Team ID")) return;
         if (validateInput(registrationID, mSignUpRegistrationID, "Registration ID")) return;
 
