@@ -32,7 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText mLoginPassword;
     FirebaseAuth mAuth;
     ProgressBar mLogInProgress;
-    TextView mSignUp;
+    TextView mSignUpCoach;
+    TextView mSignUpPlayer;
 
     public static Activity loginActivity;
 
@@ -147,10 +148,18 @@ public class LoginActivity extends AppCompatActivity {
 
     // Redirect to the SignUpActivity
     public void signUp() {
-        mSignUp = (TextView) findViewById(R.id.txt_new_user);
-        mSignUp.setOnClickListener(new View.OnClickListener() {
+        mSignUpCoach = (TextView) findViewById(R.id.txt_new_user_coach);
+        mSignUpCoach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = SignUpActivity.newIntent(LoginActivity.this);
+                startActivityForResult(i, REQUEST_CODE_CALCULATE);
+            }
+        });
+        mSignUpPlayer = (TextView) findViewById(R.id.txt_new_user_player);
+        mSignUpPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent i = SignUpActivity.newIntent(LoginActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
             }
