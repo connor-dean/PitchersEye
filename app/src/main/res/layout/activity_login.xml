@@ -12,11 +12,12 @@
         android:layout_width="365dp"
         android:layout_height="219dp"
         android:background="@drawable/background_square"
-        app:layout_constraintBottom_toBottomOf="@id/txt_new_user"
+        app:layout_constraintBottom_toBottomOf="@id/txt_new_user_coach"
         app:layout_constraintLeft_toLeftOf="@id/edt_email"
         app:layout_constraintRight_toRightOf="@id/edt_email"
-        app:layout_constraintTop_toTopOf="@id/edt_email" />
-
+        app:layout_constraintTop_toTopOf="@id/edt_email"
+        />
+        <!--First left to left of constraint added-->
     <EditText
         android:id="@+id/edt_email"
         android:layout_width="wrap_content"
@@ -27,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@+id/edt_password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
+        <!--Second constraint left to left of-->
     <EditText
         android:id="@+id/edt_password"
         android:layout_width="wrap_content"
@@ -38,7 +39,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
+        <!--Third change-->
     <Button
         android:id="@+id/button_login"
         android:layout_width="wrap_content"
@@ -48,16 +49,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
+        <!--Fourth change-->
     <TextView
-        android:id="@+id/txt_new_user"
+        android:id="@+id/txt_new_user_coach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_new_user"
+        android:text="@string/string_new_user_coach"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_login" />
-
+        <!--Fifth change-->
+    <TextView
+        android:id="@+id/txt_new_user_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_new_user_player"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_new_user_coach" />
+        <!--6th change-->
     <ProgressBar
         android:id="@+id/progress_login"
         style="?android:attr/progressBarStyle"
@@ -65,13 +75,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_new_user" />
-
+        app:layout_constraintTop_toBottomOf="@+id/txt_new_user_player" />
+        <!--7th change-->
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
-
+<!--All changes made correctly to constraints-->
 </android.support.constraint.ConstraintLayout>

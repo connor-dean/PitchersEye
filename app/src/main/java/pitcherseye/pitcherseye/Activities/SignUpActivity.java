@@ -32,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mSignUpPassword;
     EditText mSignUpRegistrationID;
     EditText mSignUpTeamID;
+    EditText mSignUpPhoneNumber;
     FirebaseAuth mAuth;
     ProgressBar mSignUpProgress;
 
@@ -46,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
     String confirmPassword;
     String teamID;
     String registrationID;
+    String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         if (validateInput(teamID, mSignUpTeamID, "Team ID")) return;
         if (validateInput(registrationID, mSignUpRegistrationID, "Registration ID")) return;
+        if (validateInput(phoneNumber, mSignUpPhoneNumber,"Phone Number")) return;
 
         // Display the progress bar while loading
         mSignUpProgress.setVisibility(View.VISIBLE);
@@ -138,6 +141,7 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUpConfirmPassword = (EditText) findViewById(R.id.edt_confirm_signup_password);
         mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
         mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);
+        mSignUpPhoneNumber = (EditText) findViewById(R.id.edt_registration_phone_number);
 
         fname = mSignUpFirstName.getText().toString().trim();
         lname = mSignUpLastName.getText().toString().trim();
@@ -146,6 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
         confirmPassword = mSignUpConfirmPassword.getText().toString().trim();
         teamID = mSignUpTeamID.getText().toString().trim();
         registrationID = mSignUpRegistrationID.getText().toString().trim();
+        phoneNumber = mSignUpPhoneNumber.getText().toString().trim();
     }
 
     // Made sure that fields aren't empty

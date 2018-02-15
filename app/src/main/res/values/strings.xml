@@ -13,9 +13,11 @@
     <string name="string_confirm_password">Confirm Password</string>
     <string name="string_first_name">First Name</string>
     <string name="string_last_name">Last Name</string>
-    <string name="string_new_user">New user? Register here!</string>
+    <string name="string_new_user_coach">New coach? Register here!</string>
+    <string name="string_new_user_player">New player? Register here!</string>
     <string name="string_register">Register</string>
     <string name="string_logout">Logout</string>
     <string name="string_team_id">Team ID</string>
     <string name="string_registration_id">Registration ID</string>
+    <string name="string_registration_phone">Phone Number</string>
 </resources>
