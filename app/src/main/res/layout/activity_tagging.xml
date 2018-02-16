@@ -6,58 +6,13 @@
     android:layout_height="match_parent"
     tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity">
 
-    <!--<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintStart_toStartOf="@id/guideline"-->
-        <!--&gt;-->
-        <!--<TableRow>-->
-            <!--<Button-->
-                <!--android:text="R1C1"-->
-                <!--android:padding="3dip" />-->
-            <!--<Button-->
-                <!--android:text="R1C2"-->
-                <!--android:padding="3dip" />-->
-            <!--<Button-->
-                <!--android:text="R1C3"-->
-                <!--android:padding="3dip" />-->
-        <!--</TableRow>-->
-
-        <!--<TableRow>-->
-            <!--<Button-->
-                <!--android:text="R2C1"-->
-                <!--android:padding="3dip" />-->
-            <!--<Button-->
-                <!--android:text="R2C2"-->
-                <!--android:padding="3dip"-->
-                <!--/>-->
-            <!--<Button-->
-                <!--android:text="R2C3"-->
-                <!--android:padding="3dip" />-->
-        <!--</TableRow>-->
-        <!---->
-        <!--<TableRow>-->
-            <!--<Button-->
-                <!--android:text="R3C1"-->
-                <!--android:padding="3dip" />-->
-            <!--<Button-->
-                <!--android:text="R3C2"-->
-                <!---->
-                <!--android:padding="3dip" />-->
-            <!--<Button-->
-                <!--android:text="R3C3"-->
-                <!--android:padding="3dip" />-->
-        <!--</TableRow>-->
-    <!--</TableLayout>-->
-
-
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR1C1"
         android:text="R1C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVert"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintBottom_toTopOf="@+id/btnR2C1" />
 
     <Button
@@ -84,7 +39,7 @@
         android:text="R2C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVert"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintBottom_toTopOf="@+id/guideline" />
 
     <Button
@@ -111,7 +66,7 @@
         android:text="R3C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVert"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintTop_toBottomOf="@id/btnR2C1" />
 
     <Button
@@ -130,7 +85,88 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/btnR3C2"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C2"/>
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
+
+    <TextView
+        android:id="@+id/txt_R1C1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R1C1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toTopOf="@id/btnR1C1" />
+
+    <TextView
+        android:id="@+id/txt_R1C2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R1C2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R1C1" />
+
+    <TextView
+        android:id="@+id/txt_R1C3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R1C3"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R1C2"/>
+
+    <TextView
+        android:id="@+id/txt_R2C1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R2C1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R1C3"/>
+
+    <TextView
+        android:id="@+id/txt_R2C2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R2C2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R2C1"/>
+
+    <TextView
+        android:id="@+id/txt_R2C3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R2C3"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R2C2"/>
+
+    <TextView
+        android:id="@+id/txt_R3C1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R3C1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R2C3" />
+
+    <TextView
+        android:id="@+id/txt_R3C2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R3C2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R3C1"/>
+
+    <TextView
+        android:id="@+id/txt_R3C3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R3C3"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_R3C2"/>
 
 
     <android.support.constraint.Guideline
@@ -141,10 +177,18 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guidelineVert"
+        android:id="@+id/guidelineVertGrid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
 
 </android.support.constraint.ConstraintLayout>
