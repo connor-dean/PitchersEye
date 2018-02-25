@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import pitcherseye.pitcherseye.Objects.PitchingStats;
 import pitcherseye.pitcherseye.R;
 
 public class TaggingActivity extends Activity {
@@ -25,6 +29,7 @@ public class TaggingActivity extends Activity {
     Button mR3C2;
     Button mR3C3;
     Button mFinishGame;
+    DatabaseReference mDatabase;
     TextView mPitchCount;
     TextView mTextStrikes;
     TextView mTextBalls;
@@ -59,6 +64,9 @@ public class TaggingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
+
+        // Instantiate Firebase object
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate Buttons
         mR1C1 = (Button) findViewById(R.id.btnR1C1);
@@ -116,7 +124,7 @@ public class TaggingActivity extends Activity {
         mR1C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR1C3.setText(Integer.toString(++count_R1C3));
+                mTextR1C3.setText(Integer.toString(count_R1C3));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -130,7 +138,7 @@ public class TaggingActivity extends Activity {
         mR2C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR2C1.setText(Integer.toString(++count_R2C1));
+                mTextR2C1.setText(Integer.toString(count_R2C1));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -144,7 +152,7 @@ public class TaggingActivity extends Activity {
         mR2C2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR2C2.setText(Integer.toString(++count_R2C2));
+                mTextR2C2.setText(Integer.toString(count_R2C2));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -158,7 +166,7 @@ public class TaggingActivity extends Activity {
         mR2C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR2C3.setText(Integer.toString(++count_R2C3));
+                mTextR2C3.setText(Integer.toString(count_R2C3));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -172,7 +180,7 @@ public class TaggingActivity extends Activity {
         mR3C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR3C1.setText(Integer.toString(++count_R3C1));
+                mTextR3C1.setText(Integer.toString(count_R3C1));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -186,7 +194,7 @@ public class TaggingActivity extends Activity {
         mR3C2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR3C2.setText(Integer.toString(++count_R3C2));
+                mTextR3C2.setText(Integer.toString(count_R3C2));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -200,7 +208,7 @@ public class TaggingActivity extends Activity {
         mR3C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR3C3.setText(Integer.toString(++count_R3C3));
+                mTextR3C3.setText(Integer.toString(count_R3C3));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -215,6 +223,9 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Send stats
+                sendGameStats(0, 0, 0, pitchCounter, strikes, balls,
+                        count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
+                        count_R3C1, count_R3C2, count_R3C3);
             }
         });
 
@@ -280,6 +291,17 @@ public class TaggingActivity extends Activity {
                 break;
         }
     }*/
+
+    private void sendGameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+                               int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
+                               int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
+        // Defaulting to 0 until we establish further IDs
+        PitchingStats pitchingStats = new PitchingStats(gameID, playerID, teamID, pitchCount, strikeCount, ballCount,
+                R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
+                R2C3Count, R3C1Count, R3C2Count, R3C3Count);
+
+        mDatabase.child("pitchingStats").child(Integer.toString(gameID)).setValue(pitchingStats);
+    }
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, TaggingActivity.class);
