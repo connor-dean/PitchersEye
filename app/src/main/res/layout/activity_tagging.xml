@@ -63,20 +63,20 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR3C1"
-        android:text="R3C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="R3C1"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C1" />
+        app:layout_constraintTop_toBottomOf="@+id/btnR2C1" />
 
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR3C2"
-        android:text="R3C2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/btnR3C1"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
+        android:text="R3C2"
+        app:layout_constraintLeft_toRightOf="@+id/btnR3C1"
+        app:layout_constraintTop_toBottomOf="@+id/btnR2C2" />
 
     <Button
         android:background="@drawable/grid_button"
@@ -88,30 +88,56 @@
         app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
 
     <TextView
-        android:id="@+id/txt_pitch_count"
+        android:id="@+id/txt_pitch_count_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pitch Count: "
+        android:text="@string/string_pitch_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
         app:layout_constraintBottom_toTopOf="@id/btnR1C1" />
 
     <TextView
-        android:id="@+id/txt_R1C1"
+        android:id="@+id/txt_pitch_count_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R1C1: "
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@id/txt_pitch_count_label"
+        app:layout_constraintBottom_toTopOf="@id/btnR1C1" />
+
+    <TextView
+        android:id="@+id/txt_strikes_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_strikes"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
         app:layout_constraintTop_toTopOf="@id/btnR1C1" />
 
     <TextView
-        android:id="@+id/txt_R1C2"
+        android:id="@+id/txt_strikes_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R1C2: "
+        android:text="@string/string_initialize_count"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/txt_strikes_label"
+        app:layout_constraintTop_toTopOf="@id/btnR1C1" />
+
+
+    <TextView
+        android:id="@+id/txt_balls_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_balls"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R1C1" />
+        app:layout_constraintTop_toBottomOf="@id/txt_strikes_label" />
+
+    <TextView
+        android:id="@+id/txt_balls_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/txt_balls_label"
+        app:layout_constraintTop_toTopOf="@id/txt_balls_label"/>
 
     <TextView
         android:id="@+id/txt_R1C3"
@@ -120,7 +146,7 @@
         android:text="R1C3: "
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R1C2"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_balls_label"/>
 
     <TextView
         android:id="@+id/txt_R2C1"
@@ -176,6 +202,13 @@
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
         app:layout_constraintTop_toBottomOf="@id/txt_R3C2"/>
 
+    <Button
+        android:id="@+id/btn_finish_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish Game"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertStats"
+        app:layout_constraintBottom_toTopOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -197,6 +230,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.6" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>
