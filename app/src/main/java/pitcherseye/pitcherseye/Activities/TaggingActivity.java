@@ -16,7 +16,12 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import pitcherseye.pitcherseye.Objects.GameStats;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.R;
 
 public class TaggingActivity extends Activity {
@@ -62,6 +67,8 @@ public class TaggingActivity extends Activity {
     Boolean eventSet = false;
     Boolean isGame;
     Boolean isHome;
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    String eventDate = df.format(Calendar.getInstance().getTime());
 
     // Statistic counts
     int pitchCounter = 0;
@@ -327,7 +334,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Send stats
-                sendGameStats(0, 0, 0, pitchCounter, strikes, balls,
+                sendGameStats(eventDate, 0, 0, 0, pitchCounter, strikes, balls,
                         count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
                         count_R3C1, count_R3C2, count_R3C3);
             }
@@ -376,15 +383,15 @@ public class TaggingActivity extends Activity {
         pitcherSet = true;
     }
 
-    private void sendGameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+    private void sendGameStats(String eventDate, int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
         // Defaulting some statistics to 0 until we establish further IDs
-        GameStats gameStats = new GameStats(gameID, playerID, teamID, pitchCount, strikeCount, ballCount,
+        EventStats gameStats = new EventStats(eventDate, gameID, playerID, teamID, pitchCount, strikeCount, ballCount,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count);
 
-        mDatabase.child("pitchingStats").child(Integer.toString(gameID)).setValue(gameStats);
+        mDatabase.child("eventStats").child(Integer.toString(gameID)).setValue(gameStats);
     }
 
     public static Intent newIntent(Context packageContext) {

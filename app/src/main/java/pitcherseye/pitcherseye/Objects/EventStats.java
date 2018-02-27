@@ -1,13 +1,16 @@
 package pitcherseye.pitcherseye.Objects;
 
+import java.util.Date;
+
 /**
  * Created by Connor on 2/25/2018.
  */
 
-public class GameStats {
+public class EventStats {
 
     // Change pending
-    public int gameID;
+    public String eventDate;
+    public int eventID;
     public int playerID;
     public int teamID;
     public int pitchCount;
@@ -23,12 +26,20 @@ public class GameStats {
     public int R3C2Count;
     public int R3C3Count;
 
-    public GameStats() { }
+    /* TODO:
+        Will want to add:
+            - Event name
+            - Event date
+            - Array of pitcher IDs
+     */
 
-    public GameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+    public EventStats() { }
+
+    public EventStats(String eventDate, int eventID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                  int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                  int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
-        this.gameID = gameID;
+        this.eventDate = eventDate;
+        this.eventID = eventID;
         this.playerID = playerID;
         this.teamID = teamID;
         this.pitchCount = pitchCount;
