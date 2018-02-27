@@ -21,7 +21,16 @@
 
     <!-- Tagging -->
     <string name="string_pitch_count">Pitch Count: </string>
-    <string name="string_strikes">Strikes: </string>
-    <string name="string_balls">Balls: </string>
+    <string name="string_strikes">Strikes</string>
+    <string name="string_balls">Balls</string>
     <string name="string_initialize_count">0</string>
+
+    <!-- Event Entry -->
+    <string name="string_event_name">Event Name</string>
+    <string name="string_event_type">Game</string>
+    <string name="string_event_location">Home</string>
+    <string name="string_event_pitcher_first">P FName</string>
+    <string name="string_event_pitcher_last">P LName</string>
+    <string name="string_event_confirm">Confirm Event</string>
+    <string name="string_event_confirm_pitcher">Confirm Pitcher</string>
 </resources>

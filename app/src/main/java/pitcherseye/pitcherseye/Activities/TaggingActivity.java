@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +32,14 @@ public class TaggingActivity extends Activity {
     Button mR3C2;
     Button mR3C3;
     Button mFinishGame;
+    Button mConfirmEvent;
+    Button mConfirmPitcher;
+    CheckBox mEventType;
+    CheckBox mEventLocation;
     DatabaseReference mDatabase;
+    EditText mEventName;
+    EditText mPitcherFirst;
+    EditText mPitcherLast;
     TextView mPitchCount;
     TextView mTextStrikes;
     TextView mTextBalls;
@@ -44,11 +54,22 @@ public class TaggingActivity extends Activity {
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
 
+    // Event information
+    String eventName;
+    String pitcherFirstName;
+    String pitcherLastName;
+    Boolean pitcherSet = false;
+    Boolean eventSet = false;
+    Boolean isGame;
+    Boolean isHome;
+
+    // Statistic counts
     int pitchCounter = 0;
     int[] totalPitchCount = new int[pitchCounter];
     int strikes = 0;
     int balls = 0;
 
+    // Location counts
     int count_R1C1 = 0;
     int count_R1C2 = 0;
     int count_R1C3 = 0;
@@ -79,6 +100,17 @@ public class TaggingActivity extends Activity {
         mR3C2 = (Button) findViewById(R.id.btnR3C2);
         mR3C3 = (Button) findViewById(R.id.btnR3C3);
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
+        mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
+        mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
+
+        // Instantiate CheckBoxes
+        mEventType = (CheckBox) findViewById(R.id.chck_bx_event_type);
+        mEventLocation = (CheckBox) findViewById(R.id.chck_bx_event_location);
+
+        // Instantiate EditTexts
+        mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
+        mPitcherFirst = (EditText) findViewById(R.id.edt_txt_event_pitcher_first_name);
+        mPitcherLast = (EditText) findViewById(R.id.edt_txt_event_pitcher_last_name);
 
         // Instantiate TextViews
         mPitchCount = (TextView) findViewById(R.id.txt_pitch_count_counter);
@@ -91,6 +123,12 @@ public class TaggingActivity extends Activity {
         mTextR3C1 = (TextView) findViewById(R.id.txt_R3C1);
         mTextR3C2 = (TextView) findViewById(R.id.txt_R3C2);
         mTextR3C3 = (TextView) findViewById(R.id.txt_R3C3);
+
+
+        // Check to see if there is input for the event and the pitcher
+        // If there isn't, don't allow the user to tag the games
+        // This should disable buttons on start
+        enableTagging(eventSet, pitcherSet);
 
         // Needs refactoring eventually
         mR1C1.setOnClickListener(new View.OnClickListener() {
@@ -219,6 +257,67 @@ public class TaggingActivity extends Activity {
             }
         });
 
+        // Enter event name
+        mConfirmEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!eventSet) {
+                    // Grab event information
+                    saveEventInfo();
+
+                    // Disable event components
+                    mEventName.setEnabled(false);
+                    mEventType.setEnabled(false);
+                    mEventLocation.setEnabled(false);
+
+                    // Change button text
+                    mConfirmEvent.setText("Edit");
+                } else {
+                    // Enable components
+                    mEventName.setEnabled(true);
+                    mEventType.setEnabled(true);
+                    mEventLocation.setEnabled(true);
+
+                    mConfirmEvent.setText("Confirm");
+
+                    // Say that there has been a previous entry
+                    eventSet = false;
+                }
+                enableTagging(eventSet, pitcherSet);
+
+                // TODO create a Game object and send info to Firebase on game completion
+            }
+        });
+
+        mConfirmPitcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // If there isn't a pitcher set yet, save the input
+                if (!pitcherSet) {
+                    savePitcherInfo();
+
+                    // Disable EditTexts
+                    mPitcherFirst.setEnabled(false);
+                    mPitcherLast.setEnabled(false);
+
+                    // Change button text
+                    mConfirmPitcher.setText("Change Pitcher");
+                } else {
+                    // If there IS a pitcher set and the "Change Pitcher" button is selected,
+                    // update the fields to allow the user to enter a new pitcher
+                    mPitcherFirst.setEnabled(true);
+                    mPitcherLast.setEnabled(true);
+
+                    mConfirmPitcher.setText("Confirm Pitcher");
+
+                    pitcherSet = false;
+
+                    // TODO: Need to send statistics to Firebase for the previous pitcher
+                }
+                enableTagging(eventSet, pitcherSet);
+            }
+        });
+
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,6 +328,47 @@ public class TaggingActivity extends Activity {
             }
         });
 
+    }
+
+    private void enableTagging(Boolean eventSet, Boolean pitcherSet) {
+        if (eventSet && pitcherSet) {
+            mR1C1.setEnabled(true);
+            mR1C2.setEnabled(true);
+            mR1C3.setEnabled(true);
+            mR2C1.setEnabled(true);
+            mR2C2.setEnabled(true);
+            mR2C3.setEnabled(true);
+            mR3C1.setEnabled(true);
+            mR3C2.setEnabled(true);
+            mR3C3.setEnabled(true);
+        } else {
+            mR1C1.setEnabled(false);
+            mR1C2.setEnabled(false);
+            mR1C3.setEnabled(false);
+            mR2C1.setEnabled(false);
+            mR2C2.setEnabled(false);
+            mR2C3.setEnabled(false);
+            mR3C1.setEnabled(false);
+            mR3C2.setEnabled(false);
+            mR3C3.setEnabled(false);
+        }
+    }
+
+    private void saveEventInfo() {
+        eventName = mEventName.getText().toString().trim();
+        if (!mEventType.isChecked()) {
+            isGame = false;
+        }
+        if (!mEventLocation.isChecked()) {
+            isHome = false;
+        }
+        eventSet = true;
+    }
+
+    private void savePitcherInfo() {
+        pitcherFirstName = mPitcherFirst.getText().toString().trim();
+        pitcherLastName = mPitcherLast.getText().toString().trim();
+        pitcherSet = true;
     }
 
     private void sendGameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,

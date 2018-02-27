@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity">
 
+    <!-- Button Grid -->
+
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR1C1"
@@ -86,6 +88,82 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/btnR3C2"
         app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
+
+    <!-- Event Entry -->
+
+    <EditText
+        android:id="@+id/edt_txt_event_name_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/string_event_name"
+        app:layout_constraintBottom_toTopOf="@+id/edt_txt_event_pitcher_first_name"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chck_bx_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/string_event_type"
+        app:layout_constraintBottom_toTopOf="@+id/edt_txt_event_pitcher_last_name"
+        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_name_entry" />
+
+    <CheckBox
+        android:id="@+id/chck_bx_event_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="@string/string_event_location"
+        app:layout_constraintLeft_toRightOf="@+id/chck_bx_event_type"
+        app:layout_constraintTop_toTopOf="@+id/chck_bx_event_type" />
+
+    <EditText
+        android:id="@+id/edt_txt_event_pitcher_first_name"
+        android:layout_width="84dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:hint="@string/string_event_pitcher_first"
+        app:layout_constraintBottom_toTopOf="@+id/btnR1C1"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid" />
+
+    <EditText
+        android:id="@+id/edt_txt_event_pitcher_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:hint="@string/string_event_pitcher_last"
+        app:layout_constraintBottom_toTopOf="@+id/btnR1C3"
+        app:layout_constraintEnd_toEndOf="@+id/btnR1C3"
+        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_pitcher_first_name" />
+
+    <Button
+        android:id="@+id/btn_event_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_event_confirm"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toTopOf="@+id/edt_txt_event_name_entry" />
+
+    <Button
+        android:id="@+id/btn_event_pitcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_event_confirm_pitcher"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toTopOf="@+id/edt_txt_event_pitcher_first_name" />
+
+    <!-- Statistics -->
 
     <TextView
         android:id="@+id/txt_pitch_count_label"
@@ -225,13 +303,19 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".4"
+        />
+
+    <android.support.constraint.Guideline
         android:id="@+id/guidelineVertStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
-
+        app:layout_constraintGuide_percent="0.7" />
 
 
 </android.support.constraint.ConstraintLayout>
