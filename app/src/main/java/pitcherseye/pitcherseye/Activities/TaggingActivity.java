@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import pitcherseye.pitcherseye.Objects.PitchingStats;
+import pitcherseye.pitcherseye.Objects.GameStats;
 import pitcherseye.pitcherseye.R;
 
 public class TaggingActivity extends Activity {
@@ -305,6 +305,7 @@ public class TaggingActivity extends Activity {
                 } else {
                     // If there IS a pitcher set and the "Change Pitcher" button is selected,
                     // update the fields to allow the user to enter a new pitcher
+                    // Also sends the pitcher's stats after changing pitchers
                     mPitcherFirst.setEnabled(true);
                     mPitcherLast.setEnabled(true);
 
@@ -313,6 +314,10 @@ public class TaggingActivity extends Activity {
                     pitcherSet = false;
 
                     // TODO: Need to send statistics to Firebase for the previous pitcher
+                    // Send the pitcher's stats on change
+                    // Need to create variables for individual pitching statistics and not game stats
+
+
                 }
                 enableTagging(eventSet, pitcherSet);
             }
@@ -374,12 +379,12 @@ public class TaggingActivity extends Activity {
     private void sendGameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
-        // Defaulting to 0 until we establish further IDs
-        PitchingStats pitchingStats = new PitchingStats(gameID, playerID, teamID, pitchCount, strikeCount, ballCount,
+        // Defaulting some statistics to 0 until we establish further IDs
+        GameStats gameStats = new GameStats(gameID, playerID, teamID, pitchCount, strikeCount, ballCount,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count);
 
-        mDatabase.child("pitchingStats").child(Integer.toString(gameID)).setValue(pitchingStats);
+        mDatabase.child("pitchingStats").child(Integer.toString(gameID)).setValue(gameStats);
     }
 
     public static Intent newIntent(Context packageContext) {

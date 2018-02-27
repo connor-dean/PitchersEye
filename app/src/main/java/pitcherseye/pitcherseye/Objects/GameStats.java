@@ -4,7 +4,7 @@ package pitcherseye.pitcherseye.Objects;
  * Created by Connor on 2/25/2018.
  */
 
-public class PitchingStats {
+public class GameStats {
 
     // Change pending
     public int gameID;
@@ -23,9 +23,9 @@ public class PitchingStats {
     public int R3C2Count;
     public int R3C3Count;
 
-    public PitchingStats() { }
+    public GameStats() { }
 
-    public PitchingStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+    public GameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                  int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                  int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
         this.gameID = gameID;

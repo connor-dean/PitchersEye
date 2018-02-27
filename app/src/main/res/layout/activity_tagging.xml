@@ -101,67 +101,66 @@
         android:hint="@string/string_event_name"
         app:layout_constraintBottom_toTopOf="@+id/edt_txt_event_pitcher_first_name"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
         android:id="@+id/chck_bx_event_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/string_event_type"
-        app:layout_constraintBottom_toTopOf="@+id/edt_txt_event_pitcher_last_name"
-        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_name_entry" />
+        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/chck_bx_event_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/string_event_location"
         app:layout_constraintLeft_toRightOf="@+id/chck_bx_event_type"
-        app:layout_constraintTop_toTopOf="@+id/chck_bx_event_type" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edt_txt_event_pitcher_first_name"
-        android:layout_width="84dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/string_event_pitcher_first"
-        app:layout_constraintBottom_toTopOf="@+id/btnR1C1"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid" />
+        app:layout_constraintStart_toEndOf="@+id/btn_event_confirm"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edt_txt_event_pitcher_last_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/string_event_pitcher_last"
-        app:layout_constraintBottom_toTopOf="@+id/btnR1C3"
-        app:layout_constraintEnd_toEndOf="@+id/btnR1C3"
-        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_pitcher_first_name" />
+        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_pitcher_first_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_event_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
         android:text="@string/string_event_confirm"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintStart_toEndOf="@+id/chck_bx_event_location"
         app:layout_constraintTop_toTopOf="@+id/edt_txt_event_name_entry" />
 
     <Button
         android:id="@+id/btn_event_pitcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/string_event_confirm_pitcher"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toTopOf="@+id/edt_txt_event_pitcher_first_name" />
+        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_pitcher_last_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Statistics -->
 
@@ -307,8 +306,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".4"
-        />
+        app:layout_constraintGuide_begin="512dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineVertStats"
