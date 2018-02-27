@@ -23,7 +23,6 @@ public class PitchingStats {
     public int R3C2Count;
     public int R3C3Count;
 
-
     public PitchingStats() { }
 
     public PitchingStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
