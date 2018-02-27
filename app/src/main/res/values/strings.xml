@@ -18,4 +18,10 @@
     <string name="string_logout">Logout</string>
     <string name="string_team_id">Team ID</string>
     <string name="string_registration_id">Registration ID</string>
+
+    <!-- Tagging -->
+    <string name="string_pitch_count">Pitch Count: </string>
+    <string name="string_strikes">Strikes: </string>
+    <string name="string_balls">Balls: </string>
+    <string name="string_initialize_count">0</string>
 </resources>

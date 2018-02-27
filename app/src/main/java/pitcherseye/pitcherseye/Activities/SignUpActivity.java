@@ -17,7 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import pitcherseye.pitcherseye.Objects.User;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
 
@@ -33,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mSignUpRegistrationID;
     EditText mSignUpTeamID;
     FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
     ProgressBar mSignUpProgress;
 
     // Request Code
@@ -54,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Instantiate Firebase object
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate and hide progress bar
         mSignUpProgress = (ProgressBar) findViewById(R.id.progress_signup);
@@ -115,6 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
                             // If the registration was successful, direct user to the MainActivity
                             Intent i = MainActivity.newIntent(SignUpActivity.this);
                             startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                            sendUserInfo("1", fname, lname, email, password, teamID);
                             LoginActivity.loginActivity.finish(); // Kill LoginActivity from the backstack
                             finish(); // Don't add to the backstack
                         } else {
@@ -130,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     // Initialize/instantiate inputs from EditText fields
-    public void loadRegistrationValues() {
+    private void loadRegistrationValues() {
         mSignUpFirstName = (EditText) findViewById(R.id.edt_first_name);
         mSignUpLastName = (EditText) findViewById(R.id.edt_last_name);
         mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
@@ -149,7 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     // Made sure that fields aren't empty
-    public boolean validateInput(String checkedString, EditText editText, String errorMessage) {
+    private boolean validateInput(String checkedString, EditText editText, String errorMessage) {
         if(checkedString.isEmpty() || checkedString == null) {
             editText.setError(errorMessage + " is required.");
             editText.requestFocus();
@@ -157,6 +163,14 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    private void sendUserInfo(String userID, String userFName, String userLName, String userEmail, String userPassword, String userTeamID) {
+        // Instantiate User object
+        User user = new User(userFName, userLName, userEmail, userPassword, userTeamID);
+
+        // Send user information to Firebase
+        mDatabase.child("users").child(userID).setValue(user);
     }
 
     public static Intent newIntent(Context packageContext) {
