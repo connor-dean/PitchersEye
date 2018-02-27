@@ -334,7 +334,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Send stats
-                sendGameStats(eventDate, 0, 0, 0, pitchCounter, strikes, balls,
+                sendGameStats(0, eventName, eventDate, 0, 0, pitchCounter, strikes, balls,
                         count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
                         count_R3C1, count_R3C2, count_R3C3);
             }
@@ -383,11 +383,11 @@ public class TaggingActivity extends Activity {
         pitcherSet = true;
     }
 
-    private void sendGameStats(String eventDate, int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+    private void sendGameStats(int gameID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
         // Defaulting some statistics to 0 until we establish further IDs
-        EventStats gameStats = new EventStats(eventDate, gameID, playerID, teamID, pitchCount, strikeCount, ballCount,
+        EventStats gameStats = new EventStats(gameID, eventName, eventDate, playerID, teamID, pitchCount, strikeCount, ballCount,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count);
 

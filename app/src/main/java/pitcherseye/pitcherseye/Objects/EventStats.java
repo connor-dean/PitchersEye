@@ -9,8 +9,9 @@ import java.util.Date;
 public class EventStats {
 
     // Change pending
-    public String eventDate;
     public int eventID;
+    public String eventName;
+    public String eventDate;
     public int playerID;
     public int teamID;
     public int pitchCount;
@@ -35,11 +36,12 @@ public class EventStats {
 
     public EventStats() { }
 
-    public EventStats(String eventDate, int eventID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+    public EventStats(int eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                  int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                  int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
-        this.eventDate = eventDate;
         this.eventID = eventID;
+        this.eventName = eventName;
+        this.eventDate = eventDate;
         this.playerID = playerID;
         this.teamID = teamID;
         this.pitchCount = pitchCount;
