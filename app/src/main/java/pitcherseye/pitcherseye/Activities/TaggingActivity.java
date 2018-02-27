@@ -231,67 +231,6 @@ public class TaggingActivity extends Activity {
 
     }
 
-    //implement the onClick method here
-    /*public void onClick(View v) {
-        // Perform action on click
-        switch(v.getId()) {
-            case R.id.btnR1C1:
-                //totalPitchCount++;
-                //count_R1C1++;
-                mTextR1C1.setText(Integer.toString(count_R1C1++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR1C2:
-                *//*totalPitchCount++;
-                count_R1C2++;*//*
-                mTextR1C1.setText(Integer.toString(count_R1C2++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR1C3:
-                *//*totalPitchCount++;
-                count_R1C3++;*//*
-                mTextR1C1.setText(Integer.toString(count_R1C3++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR2C1:
-                *//*totalPitchCount++;
-                count_R2C1++;*//*
-                mTextR1C1.setText(Integer.toString(count_R2C1++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR2C2:
-                *//*totalPitchCount++;
-                count_R2C2++;*//*
-                mTextR1C1.setText(Integer.toString(count_R2C2++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR2C3:
-               *//* totalPitchCount++;
-                count_R2C3++;*//*
-                mTextR1C1.setText(Integer.toString(count_R2C3++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR3C1:
-                *//*totalPitchCount++;
-                count_R3C1++;*//*
-                mTextR1C1.setText(Integer.toString(count_R3C1++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR3C2:
-                *//*totalPitchCount++;
-                count_R3C2++;*//*
-                mTextR1C1.setText(Integer.toString(count_R3C2++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-            case R.id.btnR3C3:
-                *//*totalPitchCount++;
-                count_R3C3++;*//*
-                mTextR1C1.setText(Integer.toString(count_R3C3++));
-                mPitchCount.setText(Integer.toString(totalPitchCount++));
-                break;
-        }
-    }*/
-
     private void sendGameStats(int gameID, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
