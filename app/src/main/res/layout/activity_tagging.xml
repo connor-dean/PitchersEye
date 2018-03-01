@@ -280,13 +280,73 @@
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
         app:layout_constraintTop_toBottomOf="@id/txt_R3C2"/>
 
+
+    <!-- Results -->
+
+    <!-- Events -->
+    <Button
+        android:id="@+id/btn_result_fastball"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FB"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+
+    <Button
+        android:id="@+id/btn_result_changeup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="CH"
+        app:layout_constraintStart_toEndOf="@+id/btn_result_fastball"
+        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+
+    <Button
+        android:id="@+id/btn_result_curve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Cur"
+        app:layout_constraintStart_toEndOf="@+id/btn_result_changeup"
+        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+
+    <Button
+        android:id="@+id/btn_result_slider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="SL"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
+
+    <Button
+        android:id="@+id/btn_result_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="OTHER"
+        app:layout_constraintStart_toEndOf="@+id/btn_result_slider"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
+
+    <!-- Pitch Results -->
+    <Button
+        android:id="@+id/btn_result_hit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Hit"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />
+
     <Button
         android:id="@+id/btn_finish_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finish Game"
-        app:layout_constraintLeft_toRightOf="@+id/guidelineVertStats"
-        app:layout_constraintBottom_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -315,6 +375,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
-
 
 </android.support.constraint.ConstraintLayout>
