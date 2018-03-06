@@ -2,9 +2,11 @@ package pitcherseye.pitcherseye.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+
+import java.net.URI;
+import java.net.URL;
 
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
@@ -77,6 +82,31 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+    protected void sendEmail() {
+        Log.i("Send email", "Registration email confirmation");
+
+        String[] TO = {mSignUpEmail.toString()};
+        String[] CC = {"test@gmail.com"};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Pitcher's Eye Registration");
+        emailIntent.putExtra(Intent.EXTRA_TEXT,
+                "Your account has been registered. Please follow up coach registration " +
+                        "with a phone call to --- --- ----.");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Finished sending...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(SignUpActivity.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     // Receives input from text fields and verifies credentials
     private void registerUser() {
@@ -119,13 +149,16 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent i = MainActivity.newIntent(SignUpActivity.this);
                             startActivityForResult(i, REQUEST_CODE_CALCULATE);
                             LoginActivity.loginActivity.finish(); // Kill LoginActivity from the backstack
+                            //sendEmail();//Registration email------------------------------------
                             finish(); // Don't add to the backstack
                         } else {
                             // Check if the user already exists
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(getApplicationContext(), "User already registered", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "User already registered",
+                                        Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

@@ -35,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView mSignUpCoach;
     TextView mSignUpPlayer;
 
+    public boolean isCoach;
+
     public static Activity loginActivity;
 
     // Request Code
@@ -149,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
     // Redirect to the SignUpActivity
     public void signUp() {
         mSignUpCoach = (TextView) findViewById(R.id.txt_new_user_coach);
+        isCoach = true;
         mSignUpCoach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         mSignUpPlayer = (TextView) findViewById(R.id.txt_new_user_player);
+        isCoach = false;
         mSignUpPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
