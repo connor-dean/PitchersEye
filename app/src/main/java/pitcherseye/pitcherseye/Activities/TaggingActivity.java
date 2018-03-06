@@ -64,13 +64,33 @@ public class TaggingActivity extends Activity {
     Boolean eventSet = false;
     Boolean isGame;
     Boolean isHome;
+    Boolean locationSelected = false;
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String eventDate = df.format(Calendar.getInstance().getTime());
+
+    // Results
+    Button mFastball;
+    Button mChangeup;
+    Button mCurveball;
+    Button mSlider;
+    Button mOther;
+    TextView mFastballCount;
+    TextView mChangeupCount;
+    TextView mCurveballCount;
+    TextView mSliderCount;
+    TextView mOtherCount;
 
     // Statistic counts
     int pitchCounter = 0;
     int strikes = 0;
     int balls = 0;
+
+    // Events count
+    int fastballCount = 0;
+    int changeupCount = 0;
+    int curveballCount = 0;
+    int sliderCount = 0;
+    int otherCount = 0;
 
     // Location counts
     int count_R1C1 = 0;
@@ -102,6 +122,11 @@ public class TaggingActivity extends Activity {
         mR3C1 = (Button) findViewById(R.id.btnR3C1);
         mR3C2 = (Button) findViewById(R.id.btnR3C2);
         mR3C3 = (Button) findViewById(R.id.btnR3C3);
+        mFastball = (Button) findViewById(R.id.btn_result_fastball);
+        mChangeup = (Button) findViewById(R.id.btn_result_changeup);
+        mCurveball = (Button) findViewById(R.id.btn_result_curve);
+        mSlider = (Button) findViewById(R.id.btn_result_slider);
+        mOther = (Button) findViewById(R.id.btn_result_other);
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
         mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
         mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
@@ -119,19 +144,20 @@ public class TaggingActivity extends Activity {
         mPitchCount = (TextView) findViewById(R.id.txt_pitch_count_counter);
         mTextStrikes = (TextView) findViewById(R.id.txt_strikes_counter);
         mTextBalls = (TextView) findViewById(R.id.txt_balls_counter);
-        mTextR1C3 = (TextView) findViewById(R.id.txt_R1C3);
-        mTextR2C1 = (TextView) findViewById(R.id.txt_R2C1);
-        mTextR2C2 = (TextView) findViewById(R.id.txt_R2C2);
-        mTextR2C3 = (TextView) findViewById(R.id.txt_R2C3);
-        mTextR3C1 = (TextView) findViewById(R.id.txt_R3C1);
-        mTextR3C2 = (TextView) findViewById(R.id.txt_R3C2);
-        mTextR3C3 = (TextView) findViewById(R.id.txt_R3C3);
+        mFastballCount = (TextView) findViewById(R.id.txt_fastball_counter);
+        mChangeupCount = (TextView) findViewById(R.id.txt_changeup_counter);
+        mCurveballCount = (TextView) findViewById(R.id.txt_curveball_counter);
+        mSliderCount = (TextView) findViewById(R.id.txt_slider_counter);
+        mOtherCount = (TextView) findViewById(R.id.txt_other_counter);
 
 
         // Check to see if there is input for the event and the pitcher
         // If there isn't, don't allow the user to tag the games
         // This should disable buttons on start
+
+        // Also ensure that the workflow is set correctly on startup
         enableTagging(eventSet, pitcherSet);
+        disableResults();
 
         // Needs refactoring eventually
         mR1C1.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +171,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R1C1;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
@@ -159,13 +188,15 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R1C2;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
         mR1C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR1C3.setText(Integer.toString(count_R1C3));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -173,13 +204,15 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R1C3;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
         mR2C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR2C1.setText(Integer.toString(count_R2C1));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -187,13 +220,15 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R2C1;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
         mR2C2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR2C2.setText(Integer.toString(count_R2C2));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -201,13 +236,15 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R2C2;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
         mR2C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR2C3.setText(Integer.toString(count_R2C3));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -215,13 +252,16 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R2C3;
+
+                // Notify that we've selected the location for the workflow
+                //locationSelected = false;
+                enableTagging(locationSelected  = true);
             }
         });
 
         mR3C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR3C1.setText(Integer.toString(count_R3C1));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -229,13 +269,15 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R3C1;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
         mR3C2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR3C2.setText(Integer.toString(count_R3C2));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -243,13 +285,15 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R3C2;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
             }
         });
 
         mR3C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mTextR3C3.setText(Integer.toString(count_R3C3));
                 mPitchCount.setText(Integer.toString(++pitchCounter));
 
                 // Increase strikes
@@ -257,6 +301,65 @@ public class TaggingActivity extends Activity {
 
                 // Increase region count
                 ++count_R3C3;
+
+                // Notify that we've selected the location for the workflow
+                enableTagging(locationSelected = true);
+            }
+        });
+
+        // Result events
+        mFastball.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Increase count
+                mFastballCount.setText(Integer.toString(++fastballCount));
+
+                // Reenable grid
+                enableTagging(locationSelected = false);
+            }
+        });
+
+        mChangeup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Increase count
+                mChangeupCount.setText(Integer.toString(++changeupCount));
+
+                // Reenable grid
+                enableTagging(locationSelected = false);
+            }
+        });
+
+        mCurveball.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Increase count
+                mCurveballCount.setText(Integer.toString(++curveballCount));
+
+                // Reenable grid
+                enableTagging(locationSelected = false);
+            }
+        });
+
+        mSlider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Increase count
+                mSliderCount.setText(Integer.toString(++sliderCount));
+
+                // Reenable grid
+                enableTagging(locationSelected = false);
+            }
+        });
+
+        mOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Increase count
+                mOtherCount.setText(Integer.toString(++otherCount));
+
+                // Reenable grid
+                enableTagging(locationSelected = false);
             }
         });
 
@@ -335,12 +438,14 @@ public class TaggingActivity extends Activity {
                 // Send stats
                 sendGameStats(eventID, eventName, eventDate, 0, 0, pitchCounter, strikes, balls,
                         count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
-                        count_R3C1, count_R3C2, count_R3C3);
+                        count_R3C1, count_R3C2, count_R3C3, fastballCount, changeupCount,
+                        curveballCount, sliderCount, otherCount);
             }
         });
 
     }
 
+    // We'll call this when checking to see if the event name and pitchers are set
     private void enableTagging(Boolean eventSet, Boolean pitcherSet) {
         if (eventSet && pitcherSet) {
             mR1C1.setEnabled(true);
@@ -365,6 +470,57 @@ public class TaggingActivity extends Activity {
         }
     }
 
+    // Wrapper method to enable tagging during the result workflow
+    private void enableTagging(Boolean locationSelected) {
+        if (locationSelected) {
+            mR1C1.setEnabled(false);
+            mR1C2.setEnabled(false);
+            mR1C3.setEnabled(false);
+            mR2C1.setEnabled(false);
+            mR2C2.setEnabled(false);
+            mR2C3.setEnabled(false);
+            mR3C1.setEnabled(false);
+            mR3C2.setEnabled(false);
+            mR3C3.setEnabled(false);
+
+            mFastball.setEnabled(true);
+            mChangeup.setEnabled(true);
+            mCurveball.setEnabled(true);
+            mSlider.setEnabled(true);
+            mOther.setEnabled(true);
+
+            mConfirmEvent.setEnabled(false);
+            mConfirmPitcher.setEnabled(false);
+        } else {
+            mR1C1.setEnabled(true);
+            mR1C2.setEnabled(true);
+            mR1C3.setEnabled(true);
+            mR2C1.setEnabled(true);
+            mR2C2.setEnabled(true);
+            mR2C3.setEnabled(true);
+            mR3C1.setEnabled(true);
+            mR3C2.setEnabled(true);
+            mR3C3.setEnabled(true);
+
+            mFastball.setEnabled(false);
+            mChangeup.setEnabled(false);
+            mCurveball.setEnabled(false);
+            mSlider.setEnabled(false);
+            mOther.setEnabled(false);
+
+            mConfirmEvent.setEnabled(true);
+            mConfirmPitcher.setEnabled(true);
+        }
+    }
+
+    private void disableResults() {
+        mFastball.setEnabled(false);
+        mChangeup.setEnabled(false);
+        mCurveball.setEnabled(false);
+        mSlider.setEnabled(false);
+        mOther.setEnabled(false);
+    }
+
     private void saveEventInfo() {
         eventName = mEventName.getText().toString().trim();
         if (!mEventType.isChecked()) {
@@ -384,11 +540,13 @@ public class TaggingActivity extends Activity {
 
     private void sendGameStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
-                               int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
+                               int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
+                               int changeupCount, int curveballCount, int sliderCount, int otherCount) {
         // Defaulting some statistics to 0 until we establish further IDs
         EventStats gameStats = new EventStats(eventID, eventName, eventDate, playerID, teamID, pitchCount, strikeCount, ballCount,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
-                R2C3Count, R3C1Count, R3C2Count, R3C3Count);
+                R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
+                changeupCount, curveballCount, sliderCount, otherCount);
 
         mDatabase.child("eventStats").child(eventID).setValue(gameStats);
     }

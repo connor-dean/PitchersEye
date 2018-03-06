@@ -26,6 +26,11 @@ public class EventStats {
     public int R3C1Count;
     public int R3C2Count;
     public int R3C3Count;
+    public int fastballCount;
+    public int changeupCount;
+    public int curveballCount;
+    public int sliderCount;
+    public int otherCount;
 
     /* TODO:
         Will want to add:
@@ -38,7 +43,8 @@ public class EventStats {
 
     public EventStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                  int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
-                 int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count) {
+                 int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
+                      int changeupCount, int curveballCount, int sliderCount, int otherCount) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.eventDate = eventDate;
@@ -56,5 +62,10 @@ public class EventStats {
         this.R3C1Count = R3C1Count;
         this.R3C2Count = R3C2Count;
         this.R3C3Count = R3C3Count;
+        this.fastballCount = fastballCount;
+        this.changeupCount = changeupCount;
+        this.curveballCount = curveballCount;
+        this.sliderCount = sliderCount;
+        this.otherCount = otherCount;
     }
 }

@@ -218,67 +218,89 @@
         app:layout_constraintTop_toTopOf="@id/txt_balls_label"/>
 
     <TextView
-        android:id="@+id/txt_R1C3"
+        android:id="@+id/txt_fastball_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R1C3: "
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_fastball_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_balls_label"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_balls_label" />
 
     <TextView
-        android:id="@+id/txt_R2C1"
+        android:id="@+id/txt_fastball_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R2C1: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R1C3"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/txt_fastball_label"
+        app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
 
     <TextView
-        android:id="@+id/txt_R2C2"
+        android:id="@+id/txt_changeup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R2C2: "
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_changeup_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R2C1"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
 
     <TextView
-        android:id="@+id/txt_R2C3"
+        android:id="@+id/txt_changeup_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R2C3: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R2C2"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/txt_changeup_label"
+        app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
 
     <TextView
-        android:id="@+id/txt_R3C1"
+        android:id="@+id/txt_curveball_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R3C1: "
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_curveballs_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R2C3" />
+        app:layout_constraintTop_toBottomOf="@id/txt_changeup_label" />
 
     <TextView
-        android:id="@+id/txt_R3C2"
+        android:id="@+id/txt_curveball_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R3C2: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R3C1"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/txt_curveball_label"
+        app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
 
     <TextView
-        android:id="@+id/txt_R3C3"
+        android:id="@+id/txt_slider_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R3C3: "
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_sliders_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R3C2"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_curveball_label" />
+
+    <TextView
+        android:id="@+id/txt_slider_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/txt_slider_label"
+        app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
+
+    <TextView
+        android:id="@+id/txt_other_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_other_count"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_slider_label" />
+
+    <TextView
+        android:id="@+id/txt_other_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/txt_other_label"
+        app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
 
 
     <!-- Results -->
@@ -288,7 +310,7 @@
         android:id="@+id/btn_result_fastball"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FB"
+        android:text="@string/string_pitch_fastball"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
         app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
 
@@ -296,39 +318,37 @@
         android:id="@+id/btn_result_changeup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="CH"
-        app:layout_constraintStart_toEndOf="@+id/btn_result_fastball"
-        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+        android:layout_marginTop="8dp"
+        android:text="@string/string_pitch_changeup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
 
     <Button
         android:id="@+id/btn_result_curve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Cur"
-        app:layout_constraintStart_toEndOf="@+id/btn_result_changeup"
-        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+        android:layout_marginTop="8dp"
+        android:text="@string/string_pitch_curveball"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
 
     <Button
         android:id="@+id/btn_result_slider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="SL"
+        android:text="@string/string_pitch_slider"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_curve" />
 
     <Button
         android:id="@+id/btn_result_other"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="OTHER"
-        app:layout_constraintStart_toEndOf="@+id/btn_result_slider"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
+        android:text="@string/string_pitch_other"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />
 
     <!-- Pitch Results -->
 
@@ -359,7 +379,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="512dp" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineVertStats"
