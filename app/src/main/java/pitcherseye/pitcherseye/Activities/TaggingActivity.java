@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import pitcherseye.pitcherseye.Objects.EventStats;
+import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
 
@@ -45,13 +46,6 @@ public class TaggingActivity extends Activity {
     TextView mPitchCount;
     TextView mTextStrikes;
     TextView mTextBalls;
-    TextView mTextR1C3;
-    TextView mTextR2C1;
-    TextView mTextR2C2;
-    TextView mTextR2C3;
-    TextView mTextR3C1;
-    TextView mTextR3C2;
-    TextView mTextR3C3;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
@@ -80,17 +74,28 @@ public class TaggingActivity extends Activity {
     TextView mSliderCount;
     TextView mOtherCount;
 
-    // Statistic counts
-    int pitchCounter = 0;
-    int strikes = 0;
-    int balls = 0;
-
     // Events count
-    int fastballCount = 0;
-    int changeupCount = 0;
-    int curveballCount = 0;
-    int sliderCount = 0;
-    int otherCount = 0;
+    int eventPitchCount = 0;
+    int eventStrikesCount = 0;
+    int eventBallsCount = 0;
+
+    int eventFastballCount = 0;
+    int eventChangeupCount = 0;
+    int eventCurveballCount = 0;
+    int eventSliderCount = 0;
+    int eventOtherCount = 0;
+
+    // Individual Pitchers count
+
+    int pitcherPitchCount = 0;
+    int pitcherStrikesCount = 0;
+    int pitcherBallsCount = 0;
+
+    int pitcherFastballCount = 0;
+    int pitcherChangeupCount = 0;
+    int pitcherCurveballCount = 0;
+    int pitcherSliderCount = 0;
+    int pitcherOtherCount = 0;
 
     // Location counts
     int count_R1C1 = 0;
@@ -164,10 +169,10 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase pitch count
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R1C1;
@@ -181,10 +186,10 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase pitch count
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
-                // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                // Increase eventStrikes
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R1C2;
@@ -197,10 +202,10 @@ public class TaggingActivity extends Activity {
         mR1C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R1C3;
@@ -213,10 +218,10 @@ public class TaggingActivity extends Activity {
         mR2C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R2C1;
@@ -229,10 +234,10 @@ public class TaggingActivity extends Activity {
         mR2C2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R2C2;
@@ -245,10 +250,10 @@ public class TaggingActivity extends Activity {
         mR2C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R2C3;
@@ -262,10 +267,10 @@ public class TaggingActivity extends Activity {
         mR3C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R3C1;
@@ -278,10 +283,10 @@ public class TaggingActivity extends Activity {
         mR3C2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R3C2;
@@ -294,10 +299,10 @@ public class TaggingActivity extends Activity {
         mR3C3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPitchCount.setText(Integer.toString(++pitchCounter));
+                mPitchCount.setText(Integer.toString(++eventPitchCount));
 
                 // Increase strikes
-                mTextStrikes.setText(Integer.toString(++strikes));
+                mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
                 ++count_R3C3;
@@ -312,7 +317,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase count
-                mFastballCount.setText(Integer.toString(++fastballCount));
+                mFastballCount.setText(Integer.toString(++eventFastballCount));
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -323,7 +328,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase count
-                mChangeupCount.setText(Integer.toString(++changeupCount));
+                mChangeupCount.setText(Integer.toString(++eventChangeupCount));
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -334,7 +339,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase count
-                mCurveballCount.setText(Integer.toString(++curveballCount));
+                mCurveballCount.setText(Integer.toString(++eventCurveballCount));
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -345,7 +350,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase count
-                mSliderCount.setText(Integer.toString(++sliderCount));
+                mSliderCount.setText(Integer.toString(++eventSliderCount));
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -356,7 +361,7 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // Increase count
-                mOtherCount.setText(Integer.toString(++otherCount));
+                mOtherCount.setText(Integer.toString(++eventOtherCount));
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -419,9 +424,14 @@ public class TaggingActivity extends Activity {
 
                     pitcherSet = false;
 
-                    // TODO: Need to send statistics to Firebase for the previous pitcher
-                    // Send the pitcher's stats on change
-                    // Need to create variables for individual pitching statistics and not game stats
+                    // Generate unique ID
+                    String eventID = Utilities.createRandomHex(6);
+
+                    // Send individual statistics to Firebase
+                    sendPitcherStats(eventID, eventName, eventDate, 0, 0, pitcherPitchCount, pitcherStrikesCount,
+                            pitcherBallsCount, count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
+                            count_R3C1, count_R3C2, count_R3C3, pitcherFastballCount, pitcherChangeupCount,
+                            pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
 
 
                 }
@@ -436,10 +446,10 @@ public class TaggingActivity extends Activity {
                 String eventID = Utilities.createRandomHex(6);
 
                 // Send stats
-                sendGameStats(eventID, eventName, eventDate, 0, 0, pitchCounter, strikes, balls,
+                sendGameStats(eventID, eventName, eventDate, 0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
                         count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
-                        count_R3C1, count_R3C2, count_R3C3, fastballCount, changeupCount,
-                        curveballCount, sliderCount, otherCount);
+                        count_R3C1, count_R3C2, count_R3C3, eventFastballCount, eventChangeupCount,
+                        eventCurveballCount, eventSliderCount, eventOtherCount);
             }
         });
 
@@ -540,15 +550,29 @@ public class TaggingActivity extends Activity {
 
     private void sendGameStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
-                               int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
-                               int changeupCount, int curveballCount, int sliderCount, int otherCount) {
+                               int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int eventFastballCount,
+                               int eventChangeupCount, int eventCurveballCount, int eventSliderCount, int eventOtherCount) {
         // Defaulting some statistics to 0 until we establish further IDs
-        EventStats gameStats = new EventStats(eventID, eventName, eventDate, playerID, teamID, pitchCount, strikeCount, ballCount,
+        EventStats eventStats = new EventStats(eventID, eventName, eventDate, playerID, teamID, pitchCount, strikeCount, ballCount,
+                R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
+                R2C3Count, R3C1Count, R3C2Count, R3C3Count, eventFastballCount,
+                eventChangeupCount, eventCurveballCount, eventSliderCount, eventOtherCount);
+
+        mDatabase.child("eventStats").child(eventID).setValue(eventStats);
+    }
+
+    // Could have kept this in sendGameStats, but wanted an individual method in case we decide to change this
+    private void sendPitcherStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
+                                  int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
+                                  int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
+                                  int changeupCount, int curveballCount, int sliderCount, int otherCount) {
+
+        PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, playerID, teamID, pitchCount, strikeCount, ballCount,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
                 changeupCount, curveballCount, sliderCount, otherCount);
 
-        mDatabase.child("eventStats").child(eventID).setValue(gameStats);
+        mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
     }
 
     public static Intent newIntent(Context packageContext) {
