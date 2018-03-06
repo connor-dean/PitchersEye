@@ -24,6 +24,16 @@
     <string name="string_strikes">Strikes</string>
     <string name="string_balls">Balls</string>
     <string name="string_initialize_count">0</string>
+    <string name="string_pitch_fastball_count">Fastballs: </string>
+    <string name="string_pitch_changeup_count">Changeups: </string>
+    <string name="string_pitch_sliders_count">Sliders: </string>
+    <string name="string_pitch_curveballs_count">Curveballs: </string>
+    <string name="string_pitch_other_count">Other: </string>
+    <string name="string_pitch_fastball">FB</string>
+    <string name="string_pitch_changeup">ChU</string>
+    <string name="string_pitch_sliders">SL</string>
+    <string name="string_pitch_curveballs">CurB</string>
+    <string name="string_pitch_other">Oth</string>
 
     <!-- Event Entry -->
     <string name="string_event_name">Event Name</string>
