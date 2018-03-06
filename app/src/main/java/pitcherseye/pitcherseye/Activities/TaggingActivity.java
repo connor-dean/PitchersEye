@@ -98,15 +98,25 @@ public class TaggingActivity extends Activity {
     int pitcherOtherCount = 0;
 
     // Location counts
-    int count_R1C1 = 0;
-    int count_R1C2 = 0;
-    int count_R1C3 = 0;
-    int count_R2C1 = 0;
-    int count_R2C2 = 0;
-    int count_R2C3 = 0;
-    int count_R3C1 = 0;
-    int count_R3C2 = 0;
-    int count_R3C3 = 0;
+    int eventCount_R1C1 = 0;
+    int eventCount_R1C2 = 0;
+    int eventCount_R1C3 = 0;
+    int eventCount_R2C1 = 0;
+    int eventCount_R2C2 = 0;
+    int eventCount_R2C3 = 0;
+    int eventCount_R3C1 = 0;
+    int eventCount_R3C2 = 0;
+    int eventCount_R3C3 = 0;
+
+    int pitcherCount_R1C1 = 0;
+    int pitcherCount_R1C2 = 0;
+    int pitcherCount_R1C3 = 0;
+    int pitcherCount_R2C1 = 0;
+    int pitcherCount_R2C2 = 0;
+    int pitcherCount_R2C3 = 0;
+    int pitcherCount_R3C1 = 0;
+    int pitcherCount_R3C2 = 0;
+    int pitcherCount_R3C3 = 0;
 
 
     @Override
@@ -175,7 +185,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R1C1;
+                ++eventCount_R1C1;
+
+                // Increase pitcher region count
+                ++pitcherCount_R1C1;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -192,7 +205,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R1C2;
+                ++eventCount_R1C2;
+
+                // Increase pitcher region count
+                ++pitcherCount_R1C2;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -208,7 +224,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R1C3;
+                ++eventCount_R1C3;
+
+                // Increase pitcher region count
+                ++pitcherCount_R1C3;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -224,7 +243,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R2C1;
+                ++eventCount_R2C1;
+
+                // Increase pitcher region count
+                ++pitcherCount_R2C1;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -240,7 +262,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R2C2;
+                ++eventCount_R2C2;
+
+                // Increase pitcher region count
+                ++pitcherCount_R2C2;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -256,7 +281,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R2C3;
+                ++eventCount_R2C3;
+
+                // Increase pitcher region count
+                ++pitcherCount_R2C3;
 
                 // Notify that we've selected the location for the workflow
                 //locationSelected = false;
@@ -273,7 +301,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R3C1;
+                ++eventCount_R3C1;
+
+                // Increase pitcher region count
+                ++pitcherCount_R3C1;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -289,7 +320,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R3C2;
+                ++eventCount_R3C2;
+
+                // Increase pitcher region count
+                ++pitcherCount_R3C2;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -305,7 +339,10 @@ public class TaggingActivity extends Activity {
                 mTextStrikes.setText(Integer.toString(++eventStrikesCount));
 
                 // Increase region count
-                ++count_R3C3;
+                ++eventCount_R3C3;
+
+                // Increase pitcher region count
+                ++pitcherCount_R3C3;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -319,6 +356,9 @@ public class TaggingActivity extends Activity {
                 // Increase count
                 mFastballCount.setText(Integer.toString(++eventFastballCount));
 
+                // Increase pitcher count
+                ++pitcherFastballCount;
+
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
@@ -329,6 +369,9 @@ public class TaggingActivity extends Activity {
             public void onClick(View view) {
                 // Increase count
                 mChangeupCount.setText(Integer.toString(++eventChangeupCount));
+
+                // Increase pitcher count
+                ++pitcherChangeupCount;
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -341,6 +384,9 @@ public class TaggingActivity extends Activity {
                 // Increase count
                 mCurveballCount.setText(Integer.toString(++eventCurveballCount));
 
+                // Increase pitcher count
+                ++pitcherCurveballCount;
+
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
@@ -352,6 +398,9 @@ public class TaggingActivity extends Activity {
                 // Increase count
                 mSliderCount.setText(Integer.toString(++eventSliderCount));
 
+                // Increase pitcher count
+                ++pitcherSliderCount;
+
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
@@ -362,6 +411,9 @@ public class TaggingActivity extends Activity {
             public void onClick(View view) {
                 // Increase count
                 mOtherCount.setText(Integer.toString(++eventOtherCount));
+
+                // Increase pitcher count
+                ++pitcherOtherCount;
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -429,9 +481,9 @@ public class TaggingActivity extends Activity {
 
                     // Send individual statistics to Firebase
                     sendPitcherStats(eventID, eventName, eventDate, 0, 0, pitcherPitchCount, pitcherStrikesCount,
-                            pitcherBallsCount, count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
-                            count_R3C1, count_R3C2, count_R3C3, pitcherFastballCount, pitcherChangeupCount,
-                            pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
+                            pitcherBallsCount, pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
+                            pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
+                            pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
 
 
                 }
@@ -447,8 +499,8 @@ public class TaggingActivity extends Activity {
 
                 // Send stats
                 sendGameStats(eventID, eventName, eventDate, 0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
-                        count_R1C1, count_R1C2, count_R1C3, count_R2C1, count_R2C2, count_R2C3,
-                        count_R3C1, count_R3C2, count_R3C3, eventFastballCount, eventChangeupCount,
+                        eventCount_R1C1, eventCount_R1C2, eventCount_R1C3, eventCount_R2C1, eventCount_R2C2, eventCount_R2C3,
+                        eventCount_R3C1, eventCount_R3C2, eventCount_R3C3, eventFastballCount, eventChangeupCount,
                         eventCurveballCount, eventSliderCount, eventOtherCount);
             }
         });
