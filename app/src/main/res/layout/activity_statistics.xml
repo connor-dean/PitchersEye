@@ -6,13 +6,58 @@
     android:layout_height="match_parent"
     tools:context="pitcherseye.pitcherseye.Activities.StatisticsActivity">
 
-    <TextView
-        android:id="@+id/Stats"
+
+    <ListView
+        android:id="@+id/statistics_list_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guidelineVertListView"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineHorListView"
+        android:layout_height="300dp"
+        android:layout_width="450dp" />
+
+    <EditText
+        android:id="@+id/itemText"
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintTop_toBottomOf="@+id/statistics_list_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guidelineVertListView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/findButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stats"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Find"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineVertListView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineVertListView"
+        app:layout_constraintTop_toBottomOf="@+id/findButton"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHorListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
 </android.support.constraint.ConstraintLayout>
