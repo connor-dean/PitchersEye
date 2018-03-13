@@ -166,39 +166,71 @@
     <!-- Statistics -->
 
     <TextView
+        android:id="@+id/txt_pitcher_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/string_pitcher_count_label"
+        app:layout_constraintBottom_toTopOf="@id/txt_pitcher_pitch_count"
+        app:layout_constraintLeft_toLeftOf="@id/guidelineVertPitcherStats"/>
+
+    <TextView
+        android:id="@+id/txt_event_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/string_event_count_label"
+        app:layout_constraintBottom_toTopOf="@+id/txt_event_pitch_count"
+        app:layout_constraintLeft_toLeftOf="@id/guidelineVertEventStats" />
+
+    <TextView
         android:id="@+id/txt_pitch_count_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_pitch_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintBottom_toTopOf="@id/btnR1C1" />
+        app:layout_constraintTop_toTopOf="@+id/btnR1C1" />
 
     <TextView
-        android:id="@+id/txt_pitch_count_counter"
+        android:id="@+id/txt_pitcher_pitch_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@id/txt_pitch_count_label"
-        app:layout_constraintBottom_toTopOf="@id/btnR1C1" />
+        app:layout_constraintStart_toEndOf="@id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
+
+    <TextView
+        android:id="@+id/txt_event_pitch_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
 
     <TextView
         android:id="@+id/txt_strikes_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_strikes"
         android:layout_marginTop="20dp"
+        android:text="@string/string_strikes"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toTopOf="@id/btnR1C1" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_pitch_count_label" />
 
     <TextView
-        android:id="@+id/txt_strikes_counter"
+        android:id="@+id/txt_pitcher_strikes_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/txt_strikes_label"
-        app:layout_constraintTop_toTopOf="@id/btnR1C1" />
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_strikes_label" />
 
+    <TextView
+        android:id="@+id/txt_event_strikes_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@id/txt_strikes_label" />
 
     <TextView
         android:id="@+id/txt_balls_label"
@@ -210,11 +242,19 @@
         app:layout_constraintTop_toBottomOf="@id/txt_strikes_label" />
 
     <TextView
-        android:id="@+id/txt_balls_counter"
+        android:id="@+id/txt_pitcher_balls_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_balls_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@id/txt_balls_label"/>
+
+    <TextView
+        android:id="@+id/txt_event_balls_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="@id/txt_balls_label"/>
 
     <TextView
@@ -227,11 +267,19 @@
         app:layout_constraintTop_toBottomOf="@id/txt_balls_label" />
 
     <TextView
-        android:id="@+id/txt_fastball_counter"
+        android:id="@+id/txt_pitcher_fastball_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_fastball_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
+
+    <TextView
+        android:id="@+id/txt_event_fastball_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
 
     <TextView
@@ -244,11 +292,19 @@
         app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
 
     <TextView
-        android:id="@+id/txt_changeup_counter"
+        android:id="@+id/txt_pitcher_changeup_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_changeup_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
+
+    <TextView
+        android:id="@+id/txt_event_changeup_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
 
     <TextView
@@ -261,11 +317,19 @@
         app:layout_constraintTop_toBottomOf="@id/txt_changeup_label" />
 
     <TextView
-        android:id="@+id/txt_curveball_counter"
+        android:id="@+id/txt_pitcher_curveball_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_curveball_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
+
+    <TextView
+        android:id="@+id/txt_event_curveball_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
 
     <TextView
@@ -278,11 +342,19 @@
         app:layout_constraintTop_toBottomOf="@id/txt_curveball_label" />
 
     <TextView
-        android:id="@+id/txt_slider_counter"
+        android:id="@+id/txt_pitcher_slider_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_slider_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
+
+    <TextView
+        android:id="@+id/txt_event_slider_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
 
     <TextView
@@ -295,11 +367,19 @@
         app:layout_constraintTop_toBottomOf="@id/txt_slider_label" />
 
     <TextView
-        android:id="@+id/txt_other_counter"
+        android:id="@+id/txt_pitcher_other_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_other_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
+
+    <TextView
+        android:id="@+id/txt_event_other_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
 
 
@@ -386,6 +466,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertPitcherStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEventStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
 
 </android.support.constraint.ConstraintLayout>

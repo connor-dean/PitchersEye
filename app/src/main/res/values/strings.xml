@@ -20,6 +20,8 @@
     <string name="string_registration_id">Registration ID</string>
 
     <!-- Tagging -->
+    <string name="string_pitcher_count_label">Pitcher</string>
+    <string name="string_event_count_label">Event</string>
     <string name="string_pitch_count">Pitch Count: </string>
     <string name="string_strikes">Strikes: </string>
     <string name="string_balls">Balls: </string>

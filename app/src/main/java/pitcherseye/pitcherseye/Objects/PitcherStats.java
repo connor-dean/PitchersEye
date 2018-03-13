@@ -12,6 +12,7 @@ public class PitcherStats {
     public String eventID;
     public String eventName;
     public String eventDate;
+    public String playerName;
     public int playerID;
     public int teamID;
     public int pitchCount;
@@ -41,14 +42,16 @@ public class PitcherStats {
 
     public PitcherStats() {}
 
-    public PitcherStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
-                      int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
-                      int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
-                      int changeupCount, int curveballCount, int sliderCount, int otherCount) {
+    public PitcherStats(String eventID, String eventName, String eventDate, int playerID, String playerName,
+                        int teamID, int pitchCount, int strikeCount, int ballCount,
+                        int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
+                        int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
+                        int changeupCount, int curveballCount, int sliderCount, int otherCount) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.playerID = playerID;
+        this.playerName = playerName;
         this.teamID = teamID;
         this.pitchCount = pitchCount;
         this.strikeCount = strikeCount;
