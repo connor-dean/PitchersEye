@@ -612,6 +612,7 @@ public class TaggingActivity extends Activity {
                     pitcherSet = false;
                 }
                 enableTagging(eventSet, pitcherSet);
+                mUndo.setEnabled(false);
             }
         });
 
@@ -718,6 +719,9 @@ public class TaggingActivity extends Activity {
                     mEventOtherCount.setText(Integer.toString(--eventOtherCount));
                     mPitcherOtherCount.setText(Integer.toString(--pitcherOtherCount));
                 }
+                undoPitchRegion = 0;
+                undoPitchType = 0;
+                mUndo.setEnabled(false);
             }
         });
 
