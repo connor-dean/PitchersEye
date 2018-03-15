@@ -45,4 +45,6 @@
     <string name="string_event_pitcher_last">P LName</string>
     <string name="string_event_confirm">Confirm Event</string>
     <string name="string_event_confirm_pitcher">Confirm Pitcher</string>
+    <string name="string_finish_game">Finish Game</string>
+    <string name="string_undo">Undo</string>
 </resources>

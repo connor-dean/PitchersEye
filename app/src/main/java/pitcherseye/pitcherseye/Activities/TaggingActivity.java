@@ -36,6 +36,7 @@ public class TaggingActivity extends Activity {
     Button mR3C2;
     Button mR3C3;
     Button mFinishGame;
+    Button mUndo;
     Button mConfirmEvent;
     Button mConfirmPitcher;
     CheckBox mEventType;
@@ -102,7 +103,6 @@ public class TaggingActivity extends Activity {
     int eventOtherCount = 0;
 
     // Individual Pitchers count
-
     int pitcherPitchCount = 0;
     int pitcherStrikesCount = 0;
     int pitcherBallsCount = 0;
@@ -134,6 +134,10 @@ public class TaggingActivity extends Activity {
     int pitcherCount_R3C2 = 0;
     int pitcherCount_R3C3 = 0;
 
+    // Undo
+    int undoPitchRegion = 0;
+    int undoPitchType = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +163,7 @@ public class TaggingActivity extends Activity {
         mSlider = (Button) findViewById(R.id.btn_result_slider);
         mOther = (Button) findViewById(R.id.btn_result_other);
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
+        mUndo = (Button) findViewById(R.id.btn_undo);
         mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
         mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
 
@@ -196,6 +201,7 @@ public class TaggingActivity extends Activity {
 
         // Also ensure that the workflow is set correctly on startup
         enableTagging(eventSet, pitcherSet);
+        mUndo.setEnabled(false);
         disableResults();
 
         // Needs refactoring eventually
@@ -219,6 +225,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase pitcher region count
                 ++pitcherCount_R1C1;
+
+                // Keep track of previous pitch
+                undoPitchRegion = 1;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -246,6 +255,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher region count
                 ++pitcherCount_R1C2;
 
+                // Keep track of previous pitch
+                undoPitchRegion = 2;
+
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
             }
@@ -270,6 +282,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase pitcher region count
                 ++pitcherCount_R1C3;
+
+                // Keep track of previous pitch
+                undoPitchRegion = 3;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -296,6 +311,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher region count
                 ++pitcherCount_R2C1;
 
+                // Keep track of previous pitch
+                undoPitchRegion = 4;
+
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
             }
@@ -321,6 +339,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher region count
                 ++pitcherCount_R2C2;
 
+                // Keep track of previous pitch
+                undoPitchRegion = 5;
+
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
             }
@@ -345,6 +366,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase pitcher region count
                 ++pitcherCount_R2C3;
+
+                // Keep track of previous pitch
+                undoPitchRegion = 6;
 
                 // Notify that we've selected the location for the workflow
                 //locationSelected = false;
@@ -372,6 +396,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher region count
                 ++pitcherCount_R3C1;
 
+                // Keep track of previous pitch
+                undoPitchRegion = 7;
+
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
             }
@@ -396,6 +423,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase pitcher region count
                 ++pitcherCount_R3C2;
+
+                // Keep track of previous pitch
+                undoPitchRegion = 8;
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
@@ -422,6 +452,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher region count
                 ++pitcherCount_R3C3;
 
+                // Keep track of previous pitch
+                undoPitchRegion = 9;
+
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
             }
@@ -437,6 +470,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher count
                 mPitcherFastballCount.setText(Integer.toString(++pitcherFastballCount));
 
+                // Keep track of previous pitch
+                undoPitchType = 10;
+
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
@@ -450,6 +486,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase pitcher count
                 mPitcherChangeupCount.setText(Integer.toString(++pitcherChangeupCount));
+
+                // Keep track of previous pitch
+                undoPitchType = 11;
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -465,6 +504,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher count
                 mPitcherCurveballCount.setText(Integer.toString(++pitcherCurveballCount));
 
+                // Keep track of previous pitch
+                undoPitchType = 12;
+
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
@@ -479,6 +521,9 @@ public class TaggingActivity extends Activity {
                 // Increase pitcher count
                 mPitcherSliderCount.setText(Integer.toString(++pitcherSliderCount));
 
+                // Keep track of previous pitch
+                undoPitchType = 13;
+
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
@@ -492,6 +537,9 @@ public class TaggingActivity extends Activity {
 
                 // Increase pitcher count
                 mPitcherOtherCount.setText(Integer.toString(++pitcherOtherCount));
+
+                // Keep track of previous pitch
+                undoPitchType = 14;
 
                 // Reenable grid
                 enableTagging(locationSelected = false);
@@ -567,6 +615,112 @@ public class TaggingActivity extends Activity {
             }
         });
 
+        mUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Let's see if we can implement this logic
+//                for (int i = 0; i < 15; i++) {
+//                    if (i == undoPitchRegion) {
+//
+//                    }
+//                }
+
+                // Ouch
+                if (1 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R1C1;
+                    --pitcherCount_R1C1;
+                }
+                if (2 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R1C2;
+                    --pitcherCount_R1C2;
+                }
+                if (3 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R1C3;
+                    --pitcherCount_R1C3;
+                }
+                if (4 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R2C1;
+                    --pitcherCount_R2C1;
+                }
+                if (5 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R2C2;
+                    --pitcherCount_R2C2;
+                }
+                if (6 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R2C3;
+                    --pitcherCount_R2C3;
+                }
+                if (7 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R3C1;
+                    --pitcherCount_R3C1;
+                }
+                if (8 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R3C2;
+                    --pitcherCount_R3C2;
+                }
+                if (9 == undoPitchRegion) {
+                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+                    --eventCount_R3C2;
+                    --pitcherCount_R1C1;
+                }
+                if (10 == undoPitchType) {
+                    mEventFastballCount.setText(Integer.toString(--eventFastballCount));
+                    mPitcherFastballCount.setText(Integer.toString(--pitcherFastballCount));
+                }
+                if (11 == undoPitchType) {
+                    mEventChangeupCount.setText(Integer.toString(--eventChangeupCount));
+                    mPitcherChangeupCount.setText(Integer.toString(--pitcherChangeupCount));
+                }
+                if (12 == undoPitchType) {
+                    mEventCurveballCount.setText(Integer.toString(--eventCurveballCount));
+                    mPitcherCurveballCount.setText(Integer.toString(--pitcherCurveballCount));
+                }
+                if (13 == undoPitchType) {
+                    mEventSliderCount.setText(Integer.toString(--eventSliderCount));
+                    mPitcherSliderCount.setText(Integer.toString(--pitcherSliderCount));
+                }
+                if (14 == undoPitchType) {
+                    mEventOtherCount.setText(Integer.toString(--eventOtherCount));
+                    mPitcherOtherCount.setText(Integer.toString(--pitcherOtherCount));
+                }
+            }
+        });
+
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -587,7 +741,6 @@ public class TaggingActivity extends Activity {
                         pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
             }
         });
-
     }
 
     // We'll call this when checking to see if the event name and pitchers are set
@@ -602,6 +755,7 @@ public class TaggingActivity extends Activity {
             mR3C1.setEnabled(true);
             mR3C2.setEnabled(true);
             mR3C3.setEnabled(true);
+            mUndo.setEnabled(true);
         } else {
             mR1C1.setEnabled(false);
             mR1C2.setEnabled(false);
@@ -612,6 +766,7 @@ public class TaggingActivity extends Activity {
             mR3C1.setEnabled(false);
             mR3C2.setEnabled(false);
             mR3C3.setEnabled(false);
+            mUndo.setEnabled(false);
         }
     }
 
@@ -636,6 +791,8 @@ public class TaggingActivity extends Activity {
 
             mConfirmEvent.setEnabled(false);
             mConfirmPitcher.setEnabled(false);
+
+            mUndo.setEnabled(false);
         } else {
             mR1C1.setEnabled(true);
             mR1C2.setEnabled(true);
@@ -655,6 +812,8 @@ public class TaggingActivity extends Activity {
 
             mConfirmEvent.setEnabled(true);
             mConfirmPitcher.setEnabled(true);
+
+            mUndo.setEnabled(true);
         }
     }
 
@@ -740,5 +899,4 @@ public class TaggingActivity extends Activity {
         Intent i = new Intent(packageContext, TaggingActivity.class);
         return i;
     }
-
 }
