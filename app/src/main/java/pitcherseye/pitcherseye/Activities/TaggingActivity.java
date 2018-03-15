@@ -179,8 +179,6 @@ public class TaggingActivity extends Activity {
 
         // Instantiate EditTexts
         mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
-        //mPitcherFirst = (EditText) findViewById(R.id.edt_txt_event_pitcher_first_name);
-        //mPitcherLast = (EditText) findViewById(R.id.edt_txt_event_pitcher_last_name);
 
         // Instantiate TextViews
         mEventPitchCount = (TextView) findViewById(R.id.txt_event_pitch_count);
@@ -230,14 +228,13 @@ public class TaggingActivity extends Activity {
         // Check to see if there is input for the event and the pitcher
         // If there isn't, don't allow the user to tag the games
         // This should disable buttons on start
-
         // Also ensure that the workflow is set correctly on startup
         enableTagging(eventSet, pitcherSet);
         mUndo.setEnabled(false);
         mFinishGame.setEnabled(false);
         disableResults();
 
-        // Needs refactoring eventually
+        // TODO Needs refactoring eventually
         mR1C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -631,8 +628,6 @@ public class TaggingActivity extends Activity {
                     // If there IS a pitcher set and the "Change Pitcher" button is selected,
                     // update the fields to allow the user to enter a new pitcher
                     // Also sends the pitcher's stats after changing pitchers
-                    //mPitcherFirst.setEnabled(true);
-                    //mPitcherLast.setEnabled(true);
                     mSpinnerPitchers.setEnabled(true);
 
                     String eventID = Utilities.createRandomHex(6);
@@ -654,10 +649,10 @@ public class TaggingActivity extends Activity {
             }
         });
 
+        // TODO needs refactoring
         mUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO needs refactoring
                 if (1 == undoPitchRegion) {
                     mEventPitchCount.setText(Integer.toString(--eventPitchCount));
                     mEventStrikes.setText(Integer.toString(--eventStrikesCount));
@@ -877,9 +872,6 @@ public class TaggingActivity extends Activity {
     }
 
     private void savePitcherInfo() {
-        //pitcherFirstName = mPitcherFirst.getText().toString().trim();
-        //pitcherLastName = mPitcherLast.getText().toString().trim();
-        //pitcherName = pitcherFirstName + " " + pitcherLastName;
         pitcherName = mSpinnerPitchers.getSelectedItem().toString();
         pitcherSet = true;
     }
