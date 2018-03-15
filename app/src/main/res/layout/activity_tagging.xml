@@ -130,6 +130,17 @@
         app:layout_constraintStart_toEndOf="@+id/chck_bx_event_location"
         app:layout_constraintTop_toTopOf="@+id/edt_txt_event_name_entry" />
 
+    <Spinner
+        android:id="@+id/spin_pitcher_names"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_event_pitcher"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
+        app:layout_constraintTop_toTopOf="@+id/btn_event_pitcher" />
+
     <Button
         android:id="@+id/btn_event_pitcher"
         android:layout_width="wrap_content"
@@ -417,6 +428,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <Button
+        android:id="@+id/btn_undo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/string_undo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_finish_game"/>
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -458,26 +479,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8" />
-
-    <Button
-        android:id="@+id/btn_undo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/string_undo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_finish_game"/>
-
-    <Spinner
-        android:id="@+id/spin_pitcher_names"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_event_pitcher"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
-        app:layout_constraintTop_toTopOf="@+id/btn_event_pitcher" />
 
 </android.support.constraint.ConstraintLayout>
