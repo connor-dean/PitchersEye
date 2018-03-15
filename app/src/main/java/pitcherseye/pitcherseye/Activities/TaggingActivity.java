@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -178,8 +179,8 @@ public class TaggingActivity extends Activity {
 
         // Instantiate EditTexts
         mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
-        mPitcherFirst = (EditText) findViewById(R.id.edt_txt_event_pitcher_first_name);
-        mPitcherLast = (EditText) findViewById(R.id.edt_txt_event_pitcher_last_name);
+        //mPitcherFirst = (EditText) findViewById(R.id.edt_txt_event_pitcher_first_name);
+        //mPitcherLast = (EditText) findViewById(R.id.edt_txt_event_pitcher_last_name);
 
         // Instantiate TextViews
         mEventPitchCount = (TextView) findViewById(R.id.txt_event_pitch_count);
@@ -205,11 +206,12 @@ public class TaggingActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> pitchers = new ArrayList<String>();
-
+                pitchers.add(" ");
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
                     String pitcherFullName = pitcherFName + " " + pitcherLName;
+                    // Add empty space for the start
                     pitchers.add(pitcherFullName);
                 }
 
@@ -232,6 +234,7 @@ public class TaggingActivity extends Activity {
         // Also ensure that the workflow is set correctly on startup
         enableTagging(eventSet, pitcherSet);
         mUndo.setEnabled(false);
+        mFinishGame.setEnabled(false);
         disableResults();
 
         // Needs refactoring eventually
@@ -612,21 +615,25 @@ public class TaggingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 // If there isn't a pitcher set yet, save the input
-                if (!pitcherSet) {
+                if (!pitcherSet && mSpinnerPitchers.getSelectedItem().toString() != " ") {
                     savePitcherInfo();
 
                     // Disable EditTexts
-                    mPitcherFirst.setEnabled(false);
-                    mPitcherLast.setEnabled(false);
+                    //mPitcherFirst.setEnabled(false);
+                    //mPitcherLast.setEnabled(false);
+                    mSpinnerPitchers.setEnabled(false);
 
                     // Change button text
                     mConfirmPitcher.setText("Change Pitcher");
+                } else if (mSpinnerPitchers.getSelectedItem().toString() == " ") {
+                    Toast.makeText(getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
                 } else {
                     // If there IS a pitcher set and the "Change Pitcher" button is selected,
                     // update the fields to allow the user to enter a new pitcher
                     // Also sends the pitcher's stats after changing pitchers
-                    mPitcherFirst.setEnabled(true);
-                    mPitcherLast.setEnabled(true);
+                    //mPitcherFirst.setEnabled(true);
+                    //mPitcherLast.setEnabled(true);
+                    mSpinnerPitchers.setEnabled(true);
 
                     String eventID = Utilities.createRandomHex(6);
 
@@ -642,21 +649,15 @@ public class TaggingActivity extends Activity {
                     pitcherSet = false;
                 }
                 enableTagging(eventSet, pitcherSet);
-                mUndo.setEnabled(false  );
+                mUndo.setEnabled(false);
+                mFinishGame.setEnabled(false);
             }
         });
 
         mUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Let's see if we can implement this logic
-//                for (int i = 0; i < 15; i++) {
-//                    if (i == undoPitchRegion) {
-//
-//                    }
-//                }
-
-                // Ouch
+                // TODO needs refactoring
                 if (1 == undoPitchRegion) {
                     mEventPitchCount.setText(Integer.toString(--eventPitchCount));
                     mEventStrikes.setText(Integer.toString(--eventStrikesCount));
@@ -752,6 +753,7 @@ public class TaggingActivity extends Activity {
                 undoPitchRegion = 0;
                 undoPitchType = 0;
                 mUndo.setEnabled(false);
+                mFinishGame.setEnabled(false);
             }
         });
 
@@ -790,6 +792,7 @@ public class TaggingActivity extends Activity {
             mR3C2.setEnabled(true);
             mR3C3.setEnabled(true);
             mUndo.setEnabled(true);
+            mFinishGame.setEnabled(true);
         } else {
             mR1C1.setEnabled(false);
             mR1C2.setEnabled(false);
@@ -801,6 +804,7 @@ public class TaggingActivity extends Activity {
             mR3C2.setEnabled(false);
             mR3C3.setEnabled(false);
             mUndo.setEnabled(false);
+            mFinishGame.setEnabled(false);
         }
     }
 
@@ -827,6 +831,7 @@ public class TaggingActivity extends Activity {
             mConfirmPitcher.setEnabled(false);
 
             mUndo.setEnabled(false);
+            mFinishGame.setEnabled(false);
         } else {
             mR1C1.setEnabled(true);
             mR1C2.setEnabled(true);
@@ -848,6 +853,7 @@ public class TaggingActivity extends Activity {
             mConfirmPitcher.setEnabled(true);
 
             mUndo.setEnabled(true);
+            mFinishGame.setEnabled(true);
         }
     }
 
@@ -871,9 +877,10 @@ public class TaggingActivity extends Activity {
     }
 
     private void savePitcherInfo() {
-        pitcherFirstName = mPitcherFirst.getText().toString().trim();
-        pitcherLastName = mPitcherLast.getText().toString().trim();
-        pitcherName = pitcherFirstName + " " + pitcherLastName;
+        //pitcherFirstName = mPitcherFirst.getText().toString().trim();
+        //pitcherLastName = mPitcherLast.getText().toString().trim();
+        //pitcherName = pitcherFirstName + " " + pitcherLastName;
+        pitcherName = mSpinnerPitchers.getSelectedItem().toString();
         pitcherSet = true;
     }
 

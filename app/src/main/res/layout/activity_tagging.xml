@@ -95,14 +95,11 @@
         android:id="@+id/edt_txt_event_name_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:hint="@string/string_event_name"
-        app:layout_constraintBottom_toTopOf="@+id/edt_txt_event_pitcher_first_name"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/chck_bx_event_type"
@@ -124,26 +121,6 @@
         app:layout_constraintLeft_toRightOf="@+id/chck_bx_event_type"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edt_txt_event_pitcher_first_name"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/string_event_pitcher_first"
-        app:layout_constraintStart_toEndOf="@+id/btn_event_confirm"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/edt_txt_event_pitcher_last_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/string_event_pitcher_last"
-        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_pitcher_first_name"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btn_event_confirm"
         android:layout_width="wrap_content"
@@ -157,10 +134,10 @@
         android:id="@+id/btn_event_pitcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/string_event_confirm_pitcher"
-        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_pitcher_last_name"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEventStats"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Statistics -->
@@ -494,12 +471,13 @@
 
     <Spinner
         android:id="@+id/spin_pitcher_names"
-        android:layout_width="300dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnR3C3"
-        app:layout_constraintStart_toStartOf="@+id/btnR3C1"
-        app:layout_constraintTop_toBottomOf="@+id/btnR3C2" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_event_pitcher"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
+        app:layout_constraintTop_toTopOf="@+id/btn_event_pitcher" />
 
 </android.support.constraint.ConstraintLayout>
