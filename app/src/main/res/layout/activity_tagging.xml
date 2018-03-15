@@ -492,4 +492,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_finish_game"/>
 
+    <Spinner
+        android:id="@+id/spin_pitcher_names"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnR3C3"
+        app:layout_constraintStart_toStartOf="@+id/btnR3C1"
+        app:layout_constraintTop_toBottomOf="@+id/btnR3C2" />
+
 </android.support.constraint.ConstraintLayout>

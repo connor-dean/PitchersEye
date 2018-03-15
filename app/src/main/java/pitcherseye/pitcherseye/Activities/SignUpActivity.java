@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Hide keyboard
-                Utilities.hideSoftKeyboard(SignUpActivity.this);
+                //Utilities.hideSoftKeyboard(SignUpActivity.this);
                 loadRegistrationValues();
                 registerUser();
             }
@@ -120,7 +120,10 @@ public class SignUpActivity extends AppCompatActivity {
                             // If the registration was successful, direct user to the MainActivity
                             Intent i = MainActivity.newIntent(SignUpActivity.this);
                             startActivityForResult(i, REQUEST_CODE_CALCULATE);
-                            sendUserInfo("1", fname, lname, email, password, teamID);
+
+                            String userID = Utilities.createRandomHex(6);
+
+                            sendUserInfo(userID, fname, lname, email, password, teamID);
                             LoginActivity.loginActivity.finish(); // Kill LoginActivity from the backstack
                             finish(); // Don't add to the backstack
                         } else {

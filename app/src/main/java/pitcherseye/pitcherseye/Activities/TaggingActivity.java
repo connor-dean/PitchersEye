@@ -6,17 +6,24 @@ import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.Objects.PitcherStats;
@@ -45,9 +52,6 @@ public class TaggingActivity extends Activity {
     EditText mEventName;
     EditText mPitcherFirst;
     EditText mPitcherLast;
-    TextView mPitchCount;
-    TextView mTextStrikes;
-    TextView mTextBalls;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
@@ -57,6 +61,7 @@ public class TaggingActivity extends Activity {
     String pitcherFirstName;
     String pitcherLastName;
     String pitcherName;
+    Spinner mSpinnerPitchers;
     Boolean pitcherSet = false;
     Boolean eventSet = false;
     Boolean isGame;
@@ -194,6 +199,31 @@ public class TaggingActivity extends Activity {
         mPitcherCurveballCount = (TextView) findViewById(R.id.txt_pitcher_curveball_count);
         mPitcherSliderCount = (TextView) findViewById(R.id.txt_pitcher_slider_count);
         mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
+
+        // Instantiate and load pitchers into spinner
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> pitchers = new ArrayList<String>();
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                    String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
+                    String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
+                    String pitcherFullName = pitcherFName + " " + pitcherLName;
+                    pitchers.add(pitcherFullName);
+                }
+
+                mSpinnerPitchers = (Spinner) findViewById(R.id.spin_pitcher_names);
+                ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(TaggingActivity.this, android.R.layout.simple_spinner_item, pitchers);
+                pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mSpinnerPitchers.setAdapter(pitchersAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         // Check to see if there is input for the event and the pitcher
         // If there isn't, don't allow the user to tag the games
@@ -612,7 +642,7 @@ public class TaggingActivity extends Activity {
                     pitcherSet = false;
                 }
                 enableTagging(eventSet, pitcherSet);
-                mUndo.setEnabled(false);
+                mUndo.setEnabled(false  );
             }
         });
 
