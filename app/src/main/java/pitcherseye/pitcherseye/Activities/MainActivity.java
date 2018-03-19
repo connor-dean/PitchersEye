@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mScheduleButton = (Button) findViewById(R.id.button_schedule);
+        /*mScheduleButton = (Button) findViewById(R.id.button_schedule);
         mScheduleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = ScheduleActivity.newIntent(MainActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
             }
-        });
+        });*/
 
         mStatsButton = (Button) findViewById(R.id.button_statistics);
         mStatsButton.setOnClickListener(new View.OnClickListener() {
