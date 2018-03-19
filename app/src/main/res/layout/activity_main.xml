@@ -5,46 +5,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="pitcherseye.pitcherseye.Activities.MainActivity">
+    tools:context="pitcherseye.pitcherseye.Activities.MainActivity"
+    android:background="@drawable/main_background">
 
-    <Button
-        android:id="@+id/button_schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:text="@string/string_schedule"
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="196dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="156dp"
+        android:background="@drawable/main_ui_view"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertMain"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="196dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="156dp"
+        android:background="@drawable/main_ui_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertMain"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="99dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontalMain"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
+        app:srcCompat="@drawable/ic_clipboard" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="99dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertNewGame"
+        app:srcCompat="@drawable/ic_baseball"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontalMain" />
 
     <Button
         android:id="@+id/button_statistics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:text="@string/string_statistics"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontalMain" />
 
     <Button
         android:id="@+id/button_new_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="40dp"
         android:text="@string/string_new_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertNewGame"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontalMain" />
 
     <Button
         android:id="@+id/button_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_logout"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="239dp"
-        app:layout_constraintTop_toBottomOf="@id/button_statistics"/>
+        tools:layout_editor_absoluteY="0dp" />
+
+    <!-- Guidelines -->
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHorizontalMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <!-- Guidelines -->
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+    android:id="@+id/guidelineVertStats"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertNewGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
 
 </android.support.constraint.ConstraintLayout>
