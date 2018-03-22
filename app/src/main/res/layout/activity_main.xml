@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_view_stats"
         android:layout_width="99dp"
         android:layout_height="96dp"
         android:layout_marginBottom="8dp"
@@ -47,7 +47,7 @@
         app:srcCompat="@drawable/ic_clipboard" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/img_view_new_game"
         android:layout_width="99dp"
         android:layout_height="96dp"
         android:layout_marginEnd="8dp"
@@ -77,12 +77,15 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertNewGame"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontalMain" />
 
-    <Button
-        android:id="@+id/button_logout"
+    <ImageButton
+        android:id="@+id/img_button_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_logout"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     <!-- Guidelines -->
     <android.support.constraint.Guideline
