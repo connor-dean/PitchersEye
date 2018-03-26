@@ -31,6 +31,8 @@ import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
 
+import static java.lang.Math.round;
+
 public class TaggingActivity extends Activity {
 
     // Buttons
@@ -154,15 +156,15 @@ public class TaggingActivity extends Activity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate Buttons
-        mR1C1 = (Button) findViewById(R.id.btnR1C1);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3);
+        mR1C1 = (Button) findViewById(R.id.btnR1C1); mR1C1.getBackground().setAlpha(0);
+        mR1C2 = (Button) findViewById(R.id.btnR1C2); mR1C2.getBackground().setAlpha(0);
+        mR1C3 = (Button) findViewById(R.id.btnR1C3); mR1C3.getBackground().setAlpha(0);
+        mR2C1 = (Button) findViewById(R.id.btnR2C1); mR2C1.getBackground().setAlpha(0);
+        mR2C2 = (Button) findViewById(R.id.btnR2C2); mR2C2.getBackground().setAlpha(0);
+        mR2C3 = (Button) findViewById(R.id.btnR2C3); mR2C3.getBackground().setAlpha(0);
+        mR3C1 = (Button) findViewById(R.id.btnR3C1); mR3C1.getBackground().setAlpha(0);
+        mR3C2 = (Button) findViewById(R.id.btnR3C2); mR3C2.getBackground().setAlpha(0);
+        mR3C3 = (Button) findViewById(R.id.btnR3C3); mR3C3.getBackground().setAlpha(0);
         mFastball = (Button) findViewById(R.id.btn_result_fastball);
         mChangeup = (Button) findViewById(R.id.btn_result_changeup);
         mCurveball = (Button) findViewById(R.id.btn_result_curve);
@@ -261,6 +263,11 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
+                //adjustHeatMap(.5f, 0 , 0, 0 , 0 , 0 , 0 , 0, 0);
+                //mR1C1.getBackground().setAlpha(50);
             }
         });
 
@@ -290,6 +297,10 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
+                //mR1C2.getBackground().setAlpha(50);
             }
         });
 
@@ -318,6 +329,9 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -346,6 +360,9 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -374,6 +391,9 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -403,6 +423,9 @@ public class TaggingActivity extends Activity {
                 // Notify that we've selected the location for the workflow
                 //locationSelected = false;
                 enableTagging(locationSelected  = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -431,6 +454,9 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -459,6 +485,9 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -487,6 +516,9 @@ public class TaggingActivity extends Activity {
 
                 // Notify that we've selected the location for the workflow
                 enableTagging(locationSelected = true);
+
+                // Testing opacity
+                adjustHeatMapHelper();
             }
         });
 
@@ -801,6 +833,8 @@ public class TaggingActivity extends Activity {
             mUndo.setEnabled(false);
             mFinishGame.setEnabled(false);
         }
+        // TODO
+        //adjustHeatMapHelper();
     }
 
     // Wrapper method to enable tagging during the result workflow
@@ -850,6 +884,8 @@ public class TaggingActivity extends Activity {
             mUndo.setEnabled(true);
             mFinishGame.setEnabled(true);
         }
+        // TODO
+        //adjustHeatMapHelper();
     }
 
     private void disableResults() {
@@ -858,6 +894,39 @@ public class TaggingActivity extends Activity {
         mCurveball.setEnabled(false);
         mSlider.setEnabled(false);
         mOther.setEnabled(false);
+    }
+
+    // Adjust the heatmap
+    private void adjustHeatMap(int pitcherCount_R1C1, int pitcherCount_R1C2,int pitcherCount_R1C3,
+                               int pitcherCount_R2C1, int pitcherCount_R2C2,int pitcherCount_R2C3,
+                               int pitcherCount_R3C1, int pitcherCount_R3C2,int pitcherCount_R3C3) {
+        // Calculation
+        // eventCount_R1C1 / totalCount * 255
+        mR1C1.getBackground().setAlpha(round(pitcherCount_R1C1 / pitcherPitchCount * 255));
+        mR1C2.getBackground().setAlpha(round(pitcherCount_R1C2 / pitcherPitchCount * 255));
+        mR1C3.getBackground().setAlpha(round(pitcherCount_R1C3 / pitcherPitchCount * 255));
+        mR2C1.getBackground().setAlpha(round(pitcherCount_R2C1 / pitcherPitchCount * 255));
+        mR2C2.getBackground().setAlpha(round(pitcherCount_R2C2 / pitcherPitchCount * 255));
+        mR2C3.getBackground().setAlpha(round(pitcherCount_R2C3 / pitcherPitchCount * 255));
+        mR3C1.getBackground().setAlpha(round(pitcherCount_R3C1 / pitcherPitchCount * 255));
+        mR3C2.getBackground().setAlpha(round(pitcherCount_R3C2 / pitcherPitchCount * 255));
+        mR3C3.getBackground().setAlpha(round(pitcherCount_R3C3 / pitcherPitchCount * 255));
+
+        mR1C1.setText(Integer.toString(round(pitcherCount_R1C1 / pitcherPitchCount * 255)));
+        mR1C2.setText(Integer.toString(round(pitcherCount_R1C2 / pitcherPitchCount * 255)));
+        mR1C3.setText(Integer.toString(round(pitcherCount_R1C3 / pitcherPitchCount * 255)));
+        mR2C1.setText(Integer.toString(round(pitcherCount_R2C1 / pitcherPitchCount * 255)));
+        mR2C2.setText(Integer.toString(round(pitcherCount_R2C2 / pitcherPitchCount * 255)));
+        mR2C3.setText(Integer.toString(round(pitcherCount_R2C3 / pitcherPitchCount * 255)));
+        mR3C1.setText(Integer.toString(round(pitcherCount_R3C1 / pitcherPitchCount * 255)));
+        mR3C2.setText(Integer.toString(round(pitcherCount_R3C2 / pitcherPitchCount * 255)));
+        mR3C3.setText(Integer.toString(round(pitcherCount_R3C3 / pitcherPitchCount * 255)));
+    }
+
+    private void adjustHeatMapHelper() {
+        adjustHeatMap(pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3,
+                pitcherCount_R2C1, pitcherCount_R2C2, pitcherCount_R2C3,
+                pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3);
     }
 
     private void saveEventInfo() {
