@@ -147,6 +147,18 @@ public class TaggingActivity extends Activity {
     int undoPitchType = 0;
 
 
+    // TODO WOW THIS SUCKKKKS
+    double r1 = 0;
+    double r2 = 0;
+    double r3 = 0;
+    double r4 = 0;
+    double r5 = 0;
+    double r6 = 0;
+    double r7 = 0;
+    double r8 = 0;
+    double r9 = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,15 +168,15 @@ public class TaggingActivity extends Activity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate Buttons
-        mR1C1 = (Button) findViewById(R.id.btnR1C1); mR1C1.getBackground().setAlpha(0);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2); mR1C2.getBackground().setAlpha(0);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3); mR1C3.getBackground().setAlpha(0);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1); mR2C1.getBackground().setAlpha(0);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2); mR2C2.getBackground().setAlpha(0);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3); mR2C3.getBackground().setAlpha(0);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1); mR3C1.getBackground().setAlpha(0);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2); mR3C2.getBackground().setAlpha(0);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3); mR3C3.getBackground().setAlpha(0);
+        mR1C1 = (Button) findViewById(R.id.btnR1C1); //mR1C1.getBackground().setAlpha(0);
+        mR1C2 = (Button) findViewById(R.id.btnR1C2); //mR1C2.getBackground().setAlpha(0);
+        mR1C3 = (Button) findViewById(R.id.btnR1C3); //mR1C3.getBackground().setAlpha(0);
+        mR2C1 = (Button) findViewById(R.id.btnR2C1); //mR2C1.getBackground().setAlpha(0);
+        mR2C2 = (Button) findViewById(R.id.btnR2C2); //mR2C2.getBackground().setAlpha(0);
+        mR2C3 = (Button) findViewById(R.id.btnR2C3); //mR2C3.getBackground().setAlpha(0);
+        mR3C1 = (Button) findViewById(R.id.btnR3C1); //mR3C1.getBackground().setAlpha(0);
+        mR3C2 = (Button) findViewById(R.id.btnR3C2); //mR3C2.getBackground().setAlpha(0);
+        mR3C3 = (Button) findViewById(R.id.btnR3C3); //mR3C3.getBackground().setAlpha(0);
         mFastball = (Button) findViewById(R.id.btn_result_fastball);
         mChangeup = (Button) findViewById(R.id.btn_result_changeup);
         mCurveball = (Button) findViewById(R.id.btn_result_curve);
@@ -265,9 +277,12 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
                 //adjustHeatMap(.5f, 0 , 0, 0 , 0 , 0 , 0 , 0, 0);
                 //mR1C1.getBackground().setAlpha(50);
+
+                r1++;
             }
         });
 
@@ -299,8 +314,10 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
                 //mR1C2.getBackground().setAlpha(50);
+                r2++;
             }
         });
 
@@ -331,7 +348,9 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
+                r3++;
             }
         });
 
@@ -362,7 +381,9 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
+                r4++;
             }
         });
 
@@ -393,7 +414,9 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
+                r5++;
             }
         });
 
@@ -425,7 +448,9 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected  = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
+                r6++;
             }
         });
 
@@ -456,7 +481,9 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
+                r7++;
             }
         });
 
@@ -487,7 +514,8 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();r8++;
             }
         });
 
@@ -518,7 +546,9 @@ public class TaggingActivity extends Activity {
                 enableTagging(locationSelected = true);
 
                 // Testing opacity
-                adjustHeatMapHelper();
+                //adjustHeatMapHelper();
+                adjustHeatMap();
+                r9++;
             }
         });
 
@@ -897,37 +927,72 @@ public class TaggingActivity extends Activity {
     }
 
     // Adjust the heatmap
-    private void adjustHeatMap(int pitcherCount_R1C1, int pitcherCount_R1C2,int pitcherCount_R1C3,
-                               int pitcherCount_R2C1, int pitcherCount_R2C2,int pitcherCount_R2C3,
-                               int pitcherCount_R3C1, int pitcherCount_R3C2,int pitcherCount_R3C3) {
+/*    private void adjustHeatMap(int pitchCount_R1C1, int pitchCount_R1C2,int pitchCount_R1C3,
+                               int pitchCount_R2C1, int pitchCount_R2C2,int pitchCount_R2C3,
+                               int pitchCount_R3C1, int pitchCount_R3C2,int pitchCount_R3C3) {*/
+      private void adjustHeatMap() {
         // Calculation
         // eventCount_R1C1 / totalCount * 255
-        mR1C1.getBackground().setAlpha(round(pitcherCount_R1C1 / pitcherPitchCount * 255));
-        mR1C2.getBackground().setAlpha(round(pitcherCount_R1C2 / pitcherPitchCount * 255));
-        mR1C3.getBackground().setAlpha(round(pitcherCount_R1C3 / pitcherPitchCount * 255));
-        mR2C1.getBackground().setAlpha(round(pitcherCount_R2C1 / pitcherPitchCount * 255));
-        mR2C2.getBackground().setAlpha(round(pitcherCount_R2C2 / pitcherPitchCount * 255));
-        mR2C3.getBackground().setAlpha(round(pitcherCount_R2C3 / pitcherPitchCount * 255));
-        mR3C1.getBackground().setAlpha(round(pitcherCount_R3C1 / pitcherPitchCount * 255));
-        mR3C2.getBackground().setAlpha(round(pitcherCount_R3C2 / pitcherPitchCount * 255));
-        mR3C3.getBackground().setAlpha(round(pitcherCount_R3C3 / pitcherPitchCount * 255));
+/*        mR1C1.getBackground().setAlpha(round(eventCount_R1C1 / pitcherPitchCount * 255));
+        mR1C2.getBackground().setAlpha(round(eventCount_R1C2 / pitcherPitchCount * 255));
+        mR1C3.getBackground().setAlpha(round(eventCount_R1C3 / pitcherPitchCount * 255));
+        mR2C1.getBackground().setAlpha(round(eventCount_R2C1 / pitcherPitchCount * 255));
+        mR2C2.getBackground().setAlpha(round(eventCount_R2C2 / pitcherPitchCount * 255));
+        mR2C3.getBackground().setAlpha(round(eventCount_R2C3 / pitcherPitchCount * 255));
+        mR3C1.getBackground().setAlpha(round(eventCount_R3C1 / pitcherPitchCount * 255));
+        mR3C2.getBackground().setAlpha(round(eventCount_R3C2 / pitcherPitchCount * 255));
+        mR3C3.getBackground().setAlpha(round(eventCount_R3C3 / pitcherPitchCount * 255));
 
-        mR1C1.setText(Integer.toString(round(pitcherCount_R1C1 / pitcherPitchCount * 255)));
-        mR1C2.setText(Integer.toString(round(pitcherCount_R1C2 / pitcherPitchCount * 255)));
-        mR1C3.setText(Integer.toString(round(pitcherCount_R1C3 / pitcherPitchCount * 255)));
-        mR2C1.setText(Integer.toString(round(pitcherCount_R2C1 / pitcherPitchCount * 255)));
-        mR2C2.setText(Integer.toString(round(pitcherCount_R2C2 / pitcherPitchCount * 255)));
-        mR2C3.setText(Integer.toString(round(pitcherCount_R2C3 / pitcherPitchCount * 255)));
-        mR3C1.setText(Integer.toString(round(pitcherCount_R3C1 / pitcherPitchCount * 255)));
-        mR3C2.setText(Integer.toString(round(pitcherCount_R3C2 / pitcherPitchCount * 255)));
-        mR3C3.setText(Integer.toString(round(pitcherCount_R3C3 / pitcherPitchCount * 255)));
+        mR1C1.setText(Integer.toString(round(eventCount_R1C1 / pitcherPitchCount * 255)));
+        mR1C2.setText(Integer.toString(round(eventCount_R1C2 / pitcherPitchCount * 255)));
+        mR1C3.setText(Integer.toString(round(eventCount_R1C3 / pitcherPitchCount * 255)));
+        mR2C1.setText(Integer.toString(round(eventCount_R2C1 / pitcherPitchCount * 255)));
+        mR2C2.setText(Integer.toString(round(eventCount_R2C2 / pitcherPitchCount * 255)));
+        mR2C3.setText(Integer.toString(round(eventCount_R2C3 / pitcherPitchCount * 255)));
+        mR3C1.setText(Integer.toString(round(eventCount_R3C1 / pitcherPitchCount * 255)));
+        mR3C2.setText(Integer.toString(round(eventCount_R3C2 / pitcherPitchCount * 255)));
+        mR3C3.setText(Integer.toString(round(eventCount_R3C3 / pitcherPitchCount * 255)));*/
+
+          int stuff1 = (int) r1 / pitcherPitchCount;
+          int stuff2 = (int) r2 / pitcherPitchCount;
+          int stuff3 = (int) r3 / pitcherPitchCount;
+          int stuff4 = (int) r4 / pitcherPitchCount;
+          int stuff5 = (int) r5 / pitcherPitchCount;
+          int stuff6 = (int) r6 / pitcherPitchCount;
+          int stuff7 = (int) r7 / pitcherPitchCount;
+          int stuff8 = (int) r8 / pitcherPitchCount;
+          int stuff9 = (int) r9 / pitcherPitchCount;
+
+
+
+
+          mR1C1.getBackground().setAlpha(stuff1);
+          mR1C2.getBackground().setAlpha(stuff2);
+          mR1C3.getBackground().setAlpha(stuff3);
+          mR2C1.getBackground().setAlpha(stuff4);
+          mR2C2.getBackground().setAlpha(stuff5);
+          mR2C3.getBackground().setAlpha(stuff6);
+          mR3C1.getBackground().setAlpha(stuff7);
+          mR3C2.getBackground().setAlpha(stuff8);
+          mR3C3.getBackground().setAlpha(stuff9);
+
+          mR1C1.setText(Integer.toString(stuff1));
+          mR1C2.setText(Double.toString((r2 / pitcherPitchCount * 255)));
+          mR1C3.setText(Double.toString((r3 / pitcherPitchCount * 255)));
+          mR2C1.setText(Double.toString((r4 / pitcherPitchCount * 255)));
+          mR2C2.setText(Double.toString((r5 / pitcherPitchCount * 255)));
+          mR2C3.setText(Double.toString((r6 / pitcherPitchCount * 255)));
+          mR3C1.setText(Double.toString(r7 / pitcherPitchCount * 255));
+          mR3C2.setText(Double.toString((r8 / pitcherPitchCount * 255)));
+          mR3C3.setText(Double.toString((r9 / pitcherPitchCount * 255)));
+
     }
 
-    private void adjustHeatMapHelper() {
+/*    private void adjustHeatMapHelper() {
         adjustHeatMap(pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3,
                 pitcherCount_R2C1, pitcherCount_R2C2, pitcherCount_R2C3,
                 pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3);
-    }
+    }*/
 
     private void saveEventInfo() {
         eventName = mEventName.getText().toString().trim();
