@@ -47,4 +47,7 @@
     <string name="string_event_confirm_pitcher">Confirm Pitcher</string>
     <string name="string_finish_game">Finish Game</string>
     <string name="string_undo">Undo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
