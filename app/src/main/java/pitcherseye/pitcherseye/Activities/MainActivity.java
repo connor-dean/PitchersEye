@@ -15,7 +15,7 @@ import pitcherseye.pitcherseye.R;
 public class MainActivity extends AppCompatActivity {
 
     // Buttons
-    ImageButton mLogoutButton;
+    Button mLogoutButton;
     Button mNewGameButton;
     Button mStatsButton;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mLogoutButton = (ImageButton) findViewById(R.id.img_button_logout);
+        mLogoutButton = (Button) findViewById(R.id.button_logout);
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
