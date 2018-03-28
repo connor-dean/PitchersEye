@@ -9,13 +9,15 @@
 
     <EditText
         android:id="@+id/edt_txt_event_name_entry"
-        android:layout_width="252dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:hint="@string/string_event_name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <CheckBox
         android:id="@+id/chck_bx_event_type"
@@ -64,6 +66,20 @@
         android:text="@string/string_event_confirm_pitcher"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@id/spin_pitcher_names" />
+        app:layout_constraintTop_toBottomOf="@id/spin_pitcher_names"/>
+
+    <Button
+        android:id="@+id/btn_confirm_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toBottomOf="@+id/btn_event_pitcher"/>
 
 </android.support.constraint.ConstraintLayout>

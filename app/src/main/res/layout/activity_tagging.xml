@@ -297,15 +297,15 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEventStats" />
 
 
-    <ImageButton
-        android:id="@+id/img_button_menu"
+    <Button
+        android:id="@+id/button_event_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:src="?android:attr/findOnPageNextDrawable"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_edit_event_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -585,6 +585,5 @@
 
         </TableLayout>
     </ScrollView>
-
 
 </android.support.constraint.ConstraintLayout>

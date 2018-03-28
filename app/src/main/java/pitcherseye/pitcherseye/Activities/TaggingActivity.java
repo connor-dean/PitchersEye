@@ -1,6 +1,9 @@
 package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import pitcherseye.pitcherseye.Fragments.EventInfoFragment;
 import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
@@ -33,7 +37,7 @@ import pitcherseye.pitcherseye.Utilities;
 
 import static java.lang.Math.round;
 
-public class TaggingActivity extends Activity {
+public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener {
 
     // Buttons
     Button mR1C1;
@@ -53,8 +57,7 @@ public class TaggingActivity extends Activity {
     CheckBox mEventLocation;
     DatabaseReference mDatabase;
     EditText mEventName;
-    EditText mPitcherFirst;
-    EditText mPitcherLast;
+    Button mEditEventInfo;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
@@ -168,6 +171,7 @@ public class TaggingActivity extends Activity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate Buttons
+        mEditEventInfo = (Button) findViewById(R.id.button_event_info);
         mR1C1 = (Button) findViewById(R.id.btnR1C1); //mR1C1.getBackground().setAlpha(0);
         mR1C2 = (Button) findViewById(R.id.btnR1C2); //mR1C2.getBackground().setAlpha(0);
         mR1C3 = (Button) findViewById(R.id.btnR1C3); //mR1C3.getBackground().setAlpha(0);
@@ -227,10 +231,11 @@ public class TaggingActivity extends Activity {
                     pitchers.add(pitcherFullName);
                 }
 
-                mSpinnerPitchers = (Spinner) findViewById(R.id.spin_pitcher_names);
+                // TODO move to fragment
+                /*mSpinnerPitchers = (Spinner) findViewById(R.id.spin_pitcher_names);
                 ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(TaggingActivity.this, android.R.layout.simple_spinner_item, pitchers);
                 pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mSpinnerPitchers.setAdapter(pitchersAdapter);
+                mSpinnerPitchers.setAdapter(pitchersAdapter);*/
             }
 
             @Override
@@ -247,6 +252,16 @@ public class TaggingActivity extends Activity {
         mUndo.setEnabled(false);
         mFinishGame.setEnabled(false);
         disableResults();
+
+        // Open DialogFragment
+        mEditEventInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                EventInfoFragment infoFragment = new EventInfoFragment();
+                infoFragment.show(fm, "Hello");
+            }
+        });
 
         // TODO Needs refactoring eventually
         mR1C1.setOnClickListener(new View.OnClickListener() {
@@ -639,7 +654,8 @@ public class TaggingActivity extends Activity {
         });
 
         // Enter event name
-        mConfirmEvent.setOnClickListener(new View.OnClickListener() {
+        // TODO moving to fragment
+        /*mConfirmEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!eventSet) {
@@ -812,7 +828,7 @@ public class TaggingActivity extends Activity {
                 mUndo.setEnabled(false);
                 mFinishGame.setEnabled(false);
             }
-        });
+        });*/
 
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1065,5 +1081,19 @@ public class TaggingActivity extends Activity {
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, TaggingActivity.class);
         return i;
+    }
+
+    @Override
+    public void sendInput(String dialogEventName, Boolean dialogIsGame, Boolean dialogIsHome, String dialogPitcherName) {
+        //mEventName.setText(dialogEventName);
+        mR1C1.setText(dialogEventName);
+        mR1C2.setText(dialogIsGame.toString());
+        mR1C3.setText(dialogIsHome.toString());
+        mR2C1.setText(dialogPitcherName);
+
+        eventName = dialogEventName;
+        isGame = dialogIsGame;
+        isHome = dialogIsHome;
+        pitcherName = dialogPitcherName;
     }
 }
