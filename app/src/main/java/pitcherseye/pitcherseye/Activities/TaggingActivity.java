@@ -56,7 +56,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     CheckBox mEventType;
     CheckBox mEventLocation;
     DatabaseReference mDatabase;
-    EditText mEventName;
+    //EditText mEventName;
     Button mEditEventInfo;
 
     // Request Code
@@ -83,6 +83,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mSlider;
     Button mOther;
 
+    TextView mEventName;
+    TextView mPitcherName;
 
     TextView mEventFastballCount;
     TextView mEventStrikes;
@@ -167,6 +169,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
 
+        // Display DialogFragment
+        displayDialogFragment();
+
         // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -196,9 +201,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mEventLocation = (CheckBox) findViewById(R.id.chck_bx_event_location);
 
         // Instantiate EditTexts
-        mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
+        //mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
 
         // Instantiate TextViews
+        mEventName = (TextView) findViewById(R.id.txt_event_name);
+        mPitcherName = (TextView) findViewById(R.id.txt_pitcher_name);
+
         mEventPitchCount = (TextView) findViewById(R.id.txt_event_pitch_count);
         mEventStrikes = (TextView) findViewById(R.id.txt_event_strikes_count);
         mEventBalls = (TextView) findViewById(R.id.txt_event_balls_count);
@@ -1010,6 +1018,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3);
     }*/
 
+    private void displayDialogFragment() {
+        FragmentManager fm = getFragmentManager();
+        EventInfoFragment infoFragment = new EventInfoFragment();
+        infoFragment.show(fm, "Hello");
+    }
+
     private void saveEventInfo() {
         eventName = mEventName.getText().toString().trim();
         if (!mEventType.isChecked()) {
@@ -1086,10 +1100,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     @Override
     public void sendInput(String dialogEventName, Boolean dialogIsGame, Boolean dialogIsHome, String dialogPitcherName) {
         //mEventName.setText(dialogEventName);
-        mR1C1.setText(dialogEventName);
+        /*mR1C1.setText(dialogEventName);
         mR1C2.setText(dialogIsGame.toString());
         mR1C3.setText(dialogIsHome.toString());
-        mR2C1.setText(dialogPitcherName);
+        mR2C1.setText(dialogPitcherName);*/
+
+        mEventName.setText(dialogEventName);
+        mPitcherName.setText(dialogPitcherName);
 
         eventName = dialogEventName;
         isGame = dialogIsGame;
