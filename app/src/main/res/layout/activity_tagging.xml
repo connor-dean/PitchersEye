@@ -155,9 +155,9 @@
 
 
 
-    <!-- Results -->
+    <!--&lt;!&ndash; Results &ndash;&gt;
 
-    <!-- Events -->
+    &lt;!&ndash; Events &ndash;&gt;
     <Button
         android:id="@+id/btn_result_fastball"
         android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/string_pitch_other"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />-->
 
     <!-- Pitch Results -->
 

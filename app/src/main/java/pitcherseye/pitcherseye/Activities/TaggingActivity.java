@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import pitcherseye.pitcherseye.Fragments.EventInfoFragment;
+import pitcherseye.pitcherseye.Fragments.ResultsFragment;
 import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
@@ -53,8 +54,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mUndo;
     //Button mConfirmEvent;
     //Button mConfirmPitcher;
-    CheckBox mEventType;
-    CheckBox mEventLocation;
+    /*CheckBox mEventType;
+    CheckBox mEventLocation;*/
     DatabaseReference mDatabase;
     //EditText mEventName;
     Button mEditEventInfo;
@@ -77,11 +78,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     String eventDate = df.format(Calendar.getInstance().getTime());
 
     // Results
-    Button mFastball;
+    /*Button mFastball;
     Button mChangeup;
     Button mCurveball;
     Button mSlider;
-    Button mOther;
+    Button mOther;*/
 
     TextView mEventName;
     TextView mPitcherName;
@@ -170,7 +171,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         setContentView(R.layout.activity_tagging);
 
         // Display DialogFragment
-        displayDialogFragment();
+        displayEventInfoFragment();
 
         // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -186,19 +187,19 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mR3C1 = (Button) findViewById(R.id.btnR3C1); //mR3C1.getBackground().setAlpha(0);
         mR3C2 = (Button) findViewById(R.id.btnR3C2); //mR3C2.getBackground().setAlpha(0);
         mR3C3 = (Button) findViewById(R.id.btnR3C3); //mR3C3.getBackground().setAlpha(0);
-        mFastball = (Button) findViewById(R.id.btn_result_fastball);
+        /*mFastball = (Button) findViewById(R.id.btn_result_fastball);
         mChangeup = (Button) findViewById(R.id.btn_result_changeup);
         mCurveball = (Button) findViewById(R.id.btn_result_curve);
         mSlider = (Button) findViewById(R.id.btn_result_slider);
-        mOther = (Button) findViewById(R.id.btn_result_other);
+        mOther = (Button) findViewById(R.id.btn_result_other);*/
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
         mUndo = (Button) findViewById(R.id.btn_undo);
         //mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
         //mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
 
         // Instantiate CheckBoxes
-        mEventType = (CheckBox) findViewById(R.id.chck_bx_event_type);
-        mEventLocation = (CheckBox) findViewById(R.id.chck_bx_event_location);
+        /*mEventType = (CheckBox) findViewById(R.id.chck_bx_event_type);
+        mEventLocation = (CheckBox) findViewById(R.id.chck_bx_event_location);*/
 
         // Instantiate EditTexts
         //mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
@@ -297,7 +298,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 1;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
@@ -306,6 +307,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //mR1C1.getBackground().setAlpha(50);
 
                 r1++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -334,13 +338,16 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 2;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 //mR1C2.getBackground().setAlpha(50);
                 r2++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -368,12 +375,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 3;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r3++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -401,12 +411,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 4;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r4++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -434,12 +447,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 5;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r5++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -468,12 +484,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 // Notify that we've selected the location for the workflow
                 //locationSelected = false;
-                enableTagging(locationSelected  = true);
+                //enableTagging(locationSelected  = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r6++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -501,12 +520,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 7;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r7++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -534,11 +556,16 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 8;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
-                adjustHeatMap();r8++;
+                adjustHeatMap();
+
+                r8++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
@@ -566,16 +593,20 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 undoPitchRegion = 9;
 
                 // Notify that we've selected the location for the workflow
-                enableTagging(locationSelected = true);
+                //enableTagging(locationSelected = true);
 
                 // Testing opacity
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r9++;
+
+                // Open ResultsFragment
+                displayPitchResultsFragment();
             }
         });
 
-        // Result events
+        // TODO Clean up
+        /*// Result events
         mFastball.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -659,7 +690,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Reenable grid
                 enableTagging(locationSelected = false);
             }
-        });
+        });*/
 
         // Enter event name
         // TODO moving to fragment
@@ -904,11 +935,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             mR3C2.setEnabled(false);
             mR3C3.setEnabled(false);
 
-            mFastball.setEnabled(true);
+            // TODO cleanup
+            /*mFastball.setEnabled(true);
             mChangeup.setEnabled(true);
             mCurveball.setEnabled(true);
             mSlider.setEnabled(true);
-            mOther.setEnabled(true);
+            mOther.setEnabled(true);*/
 
             //mConfirmEvent.setEnabled(false);
             //mConfirmPitcher.setEnabled(false);
@@ -926,11 +958,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             mR3C2.setEnabled(true);
             mR3C3.setEnabled(true);
 
-            mFastball.setEnabled(false);
+            // TODO cleanup
+            /*mFastball.setEnabled(false);
             mChangeup.setEnabled(false);
             mCurveball.setEnabled(false);
             mSlider.setEnabled(false);
-            mOther.setEnabled(false);
+            mOther.setEnabled(false);*/
 
             //mConfirmEvent.setEnabled(true);
             //mConfirmPitcher.setEnabled(true);
@@ -955,12 +988,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mR3C3.setEnabled(true);
     }
 
+    // TODO cleanup
     private void disableResults() {
-        mFastball.setEnabled(false);
+        /*mFastball.setEnabled(false);
         mChangeup.setEnabled(false);
         mCurveball.setEnabled(false);
         mSlider.setEnabled(false);
-        mOther.setEnabled(false);
+        mOther.setEnabled(false);*/
     }
 
     // Adjust the heatmap
@@ -1031,20 +1065,28 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3);
     }*/
 
-    private void displayDialogFragment() {
+    // TODO improve logs
+    private void displayEventInfoFragment() {
         FragmentManager fm = getFragmentManager();
         EventInfoFragment infoFragment = new EventInfoFragment();
-        infoFragment.show(fm, "Hello");
+        infoFragment.show(fm, "Open EventInfoFragment");
     }
 
+    private void displayPitchResultsFragment() {
+        FragmentManager fm = getFragmentManager();
+        ResultsFragment resultsFragment = new ResultsFragment();
+        resultsFragment.show(fm, "Open ResultsFragment");
+    }
+
+    // TODO refactor
     private void saveEventInfo() {
         eventName = mEventName.getText().toString().trim();
-        if (!mEventType.isChecked()) {
+        /*if (!mEventType.isChecked()) {
             isGame = false;
         }
         if (!mEventLocation.isChecked()) {
             isHome = false;
-        }
+        }*/
         eventSet = true;
     }
 

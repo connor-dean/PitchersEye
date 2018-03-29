@@ -31,11 +31,11 @@
     <string name="string_pitch_sliders_count">Sliders: </string>
     <string name="string_pitch_curveballs_count">Curveballs: </string>
     <string name="string_pitch_other_count">Other: </string>
-    <string name="string_pitch_fastball">FB</string>
-    <string name="string_pitch_changeup">ChU</string>
-    <string name="string_pitch_slider">SL</string>
-    <string name="string_pitch_curveball">CurB</string>
-    <string name="string_pitch_other">Oth</string>
+    <string name="string_pitch_fastball">Fastball</string>
+    <string name="string_pitch_changeup">Changeup</string>
+    <string name="string_pitch_slider">Slider</string>
+    <string name="string_pitch_curveball">Curveball</string>
+    <string name="string_pitch_other">Other</string>
 
     <!-- Event Entry -->
     <string name="string_event_name">Event Name</string>
