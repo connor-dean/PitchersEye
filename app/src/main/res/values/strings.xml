@@ -20,8 +20,31 @@
     <string name="string_registration_id">Registration ID</string>
 
     <!-- Tagging -->
+    <string name="string_pitcher_count_label">Pitcher</string>
+    <string name="string_event_count_label">Event</string>
     <string name="string_pitch_count">Pitch Count: </string>
     <string name="string_strikes">Strikes: </string>
     <string name="string_balls">Balls: </string>
     <string name="string_initialize_count">0</string>
+    <string name="string_pitch_fastball_count">Fastballs: </string>
+    <string name="string_pitch_changeup_count">Changeups: </string>
+    <string name="string_pitch_sliders_count">Sliders: </string>
+    <string name="string_pitch_curveballs_count">Curveballs: </string>
+    <string name="string_pitch_other_count">Other: </string>
+    <string name="string_pitch_fastball">FB</string>
+    <string name="string_pitch_changeup">ChU</string>
+    <string name="string_pitch_slider">SL</string>
+    <string name="string_pitch_curveball">CurB</string>
+    <string name="string_pitch_other">Oth</string>
+
+    <!-- Event Entry -->
+    <string name="string_event_name">Event Name</string>
+    <string name="string_event_type">Game</string>
+    <string name="string_event_location">Home</string>
+    <string name="string_event_pitcher_first">P FName</string>
+    <string name="string_event_pitcher_last">P LName</string>
+    <string name="string_event_confirm">Confirm Event</string>
+    <string name="string_event_confirm_pitcher">Confirm Pitcher</string>
+    <string name="string_finish_game">Finish Game</string>
+    <string name="string_undo">Undo</string>
 </resources>

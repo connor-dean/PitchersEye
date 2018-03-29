@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity">
 
+    <!-- Button Grid -->
+
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR1C1"
@@ -87,40 +89,136 @@
         app:layout_constraintLeft_toRightOf="@+id/btnR3C2"
         app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
 
+    <!-- Event Entry -->
+
+    <EditText
+        android:id="@+id/edt_txt_event_name_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/string_event_name"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chck_bx_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/string_event_type"
+        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chck_bx_event_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/string_event_location"
+        app:layout_constraintLeft_toRightOf="@+id/chck_bx_event_type"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_event_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/string_event_confirm"
+        app:layout_constraintStart_toEndOf="@+id/chck_bx_event_location"
+        app:layout_constraintTop_toTopOf="@+id/edt_txt_event_name_entry" />
+
+    <Spinner
+        android:id="@+id/spin_pitcher_names"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_event_pitcher"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
+        app:layout_constraintTop_toTopOf="@+id/btn_event_pitcher" />
+
+    <Button
+        android:id="@+id/btn_event_pitcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/string_event_confirm_pitcher"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Statistics -->
+
+    <TextView
+        android:id="@+id/txt_pitcher_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/string_pitcher_count_label"
+        app:layout_constraintBottom_toTopOf="@id/txt_pitcher_pitch_count"
+        app:layout_constraintLeft_toLeftOf="@id/guidelineVertPitcherStats"/>
+
+    <TextView
+        android:id="@+id/txt_event_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/string_event_count_label"
+        app:layout_constraintBottom_toTopOf="@+id/txt_event_pitch_count"
+        app:layout_constraintLeft_toLeftOf="@id/guidelineVertEventStats" />
+
     <TextView
         android:id="@+id/txt_pitch_count_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_pitch_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintBottom_toTopOf="@id/btnR1C1" />
+        app:layout_constraintTop_toTopOf="@+id/btnR1C1" />
 
     <TextView
-        android:id="@+id/txt_pitch_count_counter"
+        android:id="@+id/txt_pitcher_pitch_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@id/txt_pitch_count_label"
-        app:layout_constraintBottom_toTopOf="@id/btnR1C1" />
+        app:layout_constraintStart_toEndOf="@id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
+
+    <TextView
+        android:id="@+id/txt_event_pitch_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
 
     <TextView
         android:id="@+id/txt_strikes_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_strikes"
         android:layout_marginTop="20dp"
+        android:text="@string/string_strikes"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toTopOf="@id/btnR1C1" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_pitch_count_label" />
 
     <TextView
-        android:id="@+id/txt_strikes_counter"
+        android:id="@+id/txt_pitcher_strikes_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/txt_strikes_label"
-        app:layout_constraintTop_toTopOf="@id/btnR1C1" />
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_strikes_label" />
 
+    <TextView
+        android:id="@+id/txt_event_strikes_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@id/txt_strikes_label" />
 
     <TextView
         android:id="@+id/txt_balls_label"
@@ -132,83 +230,213 @@
         app:layout_constraintTop_toBottomOf="@id/txt_strikes_label" />
 
     <TextView
-        android:id="@+id/txt_balls_counter"
+        android:id="@+id/txt_pitcher_balls_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/string_initialize_count"
-        app:layout_constraintLeft_toRightOf="@+id/txt_balls_label"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
         app:layout_constraintTop_toTopOf="@id/txt_balls_label"/>
 
     <TextView
-        android:id="@+id/txt_R1C3"
+        android:id="@+id/txt_event_balls_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R1C3: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_balls_label"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@id/txt_balls_label"/>
 
     <TextView
-        android:id="@+id/txt_R2C1"
+        android:id="@+id/txt_fastball_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R2C1: "
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_fastball_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R1C3"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_balls_label" />
 
     <TextView
-        android:id="@+id/txt_R2C2"
+        android:id="@+id/txt_pitcher_fastball_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R2C2: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R2C1"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
 
     <TextView
-        android:id="@+id/txt_R2C3"
+        android:id="@+id/txt_event_fastball_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R2C3: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R2C2"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
 
     <TextView
-        android:id="@+id/txt_R3C1"
+        android:id="@+id/txt_changeup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R3C1: "
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_changeup_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R2C3" />
+        app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
 
     <TextView
-        android:id="@+id/txt_R3C2"
+        android:id="@+id/txt_pitcher_changeup_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R3C2: "
-        android:layout_marginTop="20dp"
-        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R3C1"/>
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
 
     <TextView
-        android:id="@+id/txt_R3C3"
+        android:id="@+id/txt_event_changeup_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R3C3: "
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
+
+    <TextView
+        android:id="@+id/txt_curveball_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_curveballs_count"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-        app:layout_constraintTop_toBottomOf="@id/txt_R3C2"/>
+        app:layout_constraintTop_toBottomOf="@id/txt_changeup_label" />
+
+    <TextView
+        android:id="@+id/txt_pitcher_curveball_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
+
+    <TextView
+        android:id="@+id/txt_event_curveball_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
+
+    <TextView
+        android:id="@+id/txt_slider_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_sliders_count"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_curveball_label" />
+
+    <TextView
+        android:id="@+id/txt_pitcher_slider_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
+
+    <TextView
+        android:id="@+id/txt_event_slider_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
+
+    <TextView
+        android:id="@+id/txt_other_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/string_pitch_other_count"
+        app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+        app:layout_constraintTop_toBottomOf="@id/txt_slider_label" />
+
+    <TextView
+        android:id="@+id/txt_pitcher_other_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertPitcherStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
+
+    <TextView
+        android:id="@+id/txt_event_other_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_initialize_count"
+        app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+        app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
+
+
+    <!-- Results -->
+
+    <!-- Events -->
+    <Button
+        android:id="@+id/btn_result_fastball"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_pitch_fastball"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+
+    <Button
+        android:id="@+id/btn_result_changeup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_pitch_changeup"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
+
+    <Button
+        android:id="@+id/btn_result_curve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_pitch_curveball"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
+
+    <Button
+        android:id="@+id/btn_result_slider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_pitch_slider"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_curve" />
+
+    <Button
+        android:id="@+id/btn_result_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/string_pitch_other"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />
+
+    <!-- Pitch Results -->
 
     <Button
         android:id="@+id/btn_finish_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finish Game"
-        app:layout_constraintLeft_toRightOf="@+id/guidelineVertStats"
-        app:layout_constraintBottom_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/btn_undo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/string_undo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_finish_game"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -225,13 +453,31 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
         android:id="@+id/guidelineVertStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.6" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertPitcherStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
 
-
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEventStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
 
 </android.support.constraint.ConstraintLayout>
