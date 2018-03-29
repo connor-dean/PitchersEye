@@ -51,8 +51,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mR3C3;
     Button mFinishGame;
     Button mUndo;
-    Button mConfirmEvent;
-    Button mConfirmPitcher;
+    //Button mConfirmEvent;
+    //Button mConfirmPitcher;
     CheckBox mEventType;
     CheckBox mEventLocation;
     DatabaseReference mDatabase;
@@ -193,8 +193,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mOther = (Button) findViewById(R.id.btn_result_other);
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
         mUndo = (Button) findViewById(R.id.btn_undo);
-        mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
-        mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
+        //mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
+        //mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
 
         // Instantiate CheckBoxes
         mEventType = (CheckBox) findViewById(R.id.chck_bx_event_type);
@@ -256,7 +256,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         // If there isn't, don't allow the user to tag the games
         // This should disable buttons on start
         // Also ensure that the workflow is set correctly on startup
-        enableTagging(eventSet, pitcherSet);
+        //enableTagging(eventSet, pitcherSet);
         mUndo.setEnabled(false);
         mFinishGame.setEnabled(false);
         disableResults();
@@ -910,8 +910,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             mSlider.setEnabled(true);
             mOther.setEnabled(true);
 
-            mConfirmEvent.setEnabled(false);
-            mConfirmPitcher.setEnabled(false);
+            //mConfirmEvent.setEnabled(false);
+            //mConfirmPitcher.setEnabled(false);
 
             mUndo.setEnabled(false);
             mFinishGame.setEnabled(false);
@@ -932,14 +932,27 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             mSlider.setEnabled(false);
             mOther.setEnabled(false);
 
-            mConfirmEvent.setEnabled(true);
-            mConfirmPitcher.setEnabled(true);
+            //mConfirmEvent.setEnabled(true);
+            //mConfirmPitcher.setEnabled(true);
 
             mUndo.setEnabled(true);
             mFinishGame.setEnabled(true);
         }
         // TODO
         //adjustHeatMapHelper();
+    }
+
+    // We'll use this method in the EventInfoFragment after info has been entered
+    public void enableTagging() {
+        mR1C1.setEnabled(true);
+        mR1C2.setEnabled(true);
+        mR1C3.setEnabled(true);
+        mR2C1.setEnabled(true);
+        mR2C2.setEnabled(true);
+        mR2C3.setEnabled(true);
+        mR3C1.setEnabled(true);
+        mR3C2.setEnabled(true);
+        mR3C3.setEnabled(true);
     }
 
     private void disableResults() {
