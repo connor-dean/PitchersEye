@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,14 @@ import pitcherseye.pitcherseye.Utilities;
 
 import static java.lang.Math.round;
 
+// TODO master list
+/* - Change pitcher workflow
+   - Fix undo workflow
+   - Task to check for Firebase send success
+   - Styling
+   - Heatmap
+*/
+
 public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener {
 
     // Buttons
@@ -51,6 +60,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mR3C2;
     Button mR3C3;
     Button mFinishGame;
+    ProgressBar mProgressFinishGame;
     Button mUndo;
     //Button mConfirmEvent;
     //Button mConfirmPitcher;
@@ -69,10 +79,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     String pitcherLastName;
     String pitcherName;
     Spinner mSpinnerPitchers;
+    int pitcherSpinnerIndex = 0;
     Boolean pitcherSet = false;
     Boolean eventSet = false;
-    Boolean isGame;
-    Boolean isHome;
+
+    Boolean isGame = false;
+    Boolean isHome = false;
     Boolean locationSelected = false;
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String eventDate = df.format(Calendar.getInstance().getTime());
@@ -187,22 +199,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mR3C1 = (Button) findViewById(R.id.btnR3C1); //mR3C1.getBackground().setAlpha(0);
         mR3C2 = (Button) findViewById(R.id.btnR3C2); //mR3C2.getBackground().setAlpha(0);
         mR3C3 = (Button) findViewById(R.id.btnR3C3); //mR3C3.getBackground().setAlpha(0);
-        /*mFastball = (Button) findViewById(R.id.btn_result_fastball);
-        mChangeup = (Button) findViewById(R.id.btn_result_changeup);
-        mCurveball = (Button) findViewById(R.id.btn_result_curve);
-        mSlider = (Button) findViewById(R.id.btn_result_slider);
-        mOther = (Button) findViewById(R.id.btn_result_other);*/
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
         mUndo = (Button) findViewById(R.id.btn_undo);
-        //mConfirmEvent = (Button) findViewById(R.id.btn_event_confirm);
-        //mConfirmPitcher = (Button) findViewById(R.id.btn_event_pitcher);
 
-        // Instantiate CheckBoxes
-        /*mEventType = (CheckBox) findViewById(R.id.chck_bx_event_type);
-        mEventLocation = (CheckBox) findViewById(R.id.chck_bx_event_location);*/
-
-        // Instantiate EditTexts
-        //mEventName = (EditText) findViewById(R.id.edt_txt_event_name_entry);
+        // Instantiate ProgressBar
+        mProgressFinishGame = (ProgressBar) findViewById(R.id.progress_finish_game);
+        mProgressFinishGame.setVisibility(View.GONE);
 
         // Instantiate TextViews
         mEventName = (TextView) findViewById(R.id.txt_event_name);
@@ -253,14 +255,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             }
         });
 
+        // TODO cleanup
         // Check to see if there is input for the event and the pitcher
         // If there isn't, don't allow the user to tag the games
         // This should disable buttons on start
         // Also ensure that the workflow is set correctly on startup
         //enableTagging(eventSet, pitcherSet);
-        mUndo.setEnabled(false);
-        mFinishGame.setEnabled(false);
-        disableResults();
+        //mUndo.setEnabled(false);
+        //mFinishGame.setEnabled(false);
+        //disableResults();
 
         // Open DialogFragment
         mEditEventInfo.setOnClickListener(new View.OnClickListener() {
@@ -872,6 +875,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Display ProgressBar
+                mProgressFinishGame.setVisibility(View.VISIBLE);
+
                 // Create the eventID and save with this event
                 String eventID = Utilities.createRandomHex(6);
 
@@ -887,6 +893,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         pitcherBallsCount, pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
                         pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
                         pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
+
+                // Send back to MainActivity
+                Intent i = MainActivity.newIntent(TaggingActivity.this);
+                startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                finish();
             }
         });
     }
@@ -1024,20 +1035,20 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mR3C2.setText(Integer.toString(round(eventCount_R3C2 / pitcherPitchCount * 255)));
         mR3C3.setText(Integer.toString(round(eventCount_R3C3 / pitcherPitchCount * 255)));*/
 
-          int stuff1 = (int) r1 / pitcherPitchCount;
-          int stuff2 = (int) r2 / pitcherPitchCount;
-          int stuff3 = (int) r3 / pitcherPitchCount;
-          int stuff4 = (int) r4 / pitcherPitchCount;
-          int stuff5 = (int) r5 / pitcherPitchCount;
-          int stuff6 = (int) r6 / pitcherPitchCount;
-          int stuff7 = (int) r7 / pitcherPitchCount;
-          int stuff8 = (int) r8 / pitcherPitchCount;
-          int stuff9 = (int) r9 / pitcherPitchCount;
+//          int stuff1 = (int) r1 / pitcherPitchCount;
+//          int stuff2 = (int) r2 / pitcherPitchCount;
+//          int stuff3 = (int) r3 / pitcherPitchCount;
+//          int stuff4 = (int) r4 / pitcherPitchCount;
+//          int stuff5 = (int) r5 / pitcherPitchCount;
+//          int stuff6 = (int) r6 / pitcherPitchCount;
+//          int stuff7 = (int) r7 / pitcherPitchCount;
+//          int stuff8 = (int) r8 / pitcherPitchCount;
+//          int stuff9 = (int) r9 / pitcherPitchCount;
 
 
 
 
-          mR1C1.getBackground().setAlpha(stuff1);
+          /*mR1C1.getBackground().setAlpha(stuff1);
           mR1C2.getBackground().setAlpha(stuff2);
           mR1C3.getBackground().setAlpha(stuff3);
           mR2C1.getBackground().setAlpha(stuff4);
@@ -1055,7 +1066,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
           mR2C3.setText(Double.toString((r6 / pitcherPitchCount * 255)));
           mR3C1.setText(Double.toString(r7 / pitcherPitchCount * 255));
           mR3C2.setText(Double.toString((r8 / pitcherPitchCount * 255)));
-          mR3C3.setText(Double.toString((r9 / pitcherPitchCount * 255)));
+          mR3C3.setText(Double.toString((r9 / pitcherPitchCount * 255)));*/
 
     }
 
@@ -1078,7 +1089,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         resultsFragment.show(fm, "Open ResultsFragment");
     }
 
-    // TODO refactor
+    // TODO don't think we need this
     private void saveEventInfo() {
         eventName = mEventName.getText().toString().trim();
         /*if (!mEventType.isChecked()) {
@@ -1090,11 +1101,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         eventSet = true;
     }
 
+    // TODO don't think we need this
     private void savePitcherInfo() {
         pitcherName = mSpinnerPitchers.getSelectedItem().toString();
         pitcherSet = true;
     }
 
+    // Once a game has been finished, grab the event stats and send them to Firebase
     private void sendEventStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount, int ballCount,
                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int eventFastballCount,
@@ -1108,7 +1121,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("eventStats").child(eventID).setValue(eventStats);
     }
 
-    // Could have kept this in sendEventStats, but wanted an individual method in case we decide to change this
+    // Once a pitcher has been changed, grab the pitcher's information and send that to Firebase
     private void sendPitcherStats(String eventID, String eventName, String eventDate, int playerID, String pitcherName, int teamID, int pitchCount, int strikeCount, int ballCount,
                                   int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
@@ -1126,6 +1139,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         resetPitcherStats();
     }
 
+    // We'll call this once the user changes pitchers. We'll keep the event stats but reset the current pitcher's
     public void resetPitcherStats() {
         pitcherCount_R1C1 = 0;
         pitcherCount_R1C2 = 0;
@@ -1147,19 +1161,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount = 0));
     }
 
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, TaggingActivity.class);
-        return i;
-    }
-
+    // Use this to retrieve information from EventInfoFragment's entry
     @Override
-    public void sendInput(String dialogEventName, Boolean dialogIsGame, Boolean dialogIsHome, String dialogPitcherName) {
-        //mEventName.setText(dialogEventName);
-        /*mR1C1.setText(dialogEventName);
-        mR1C2.setText(dialogIsGame.toString());
-        mR1C3.setText(dialogIsHome.toString());
-        mR2C1.setText(dialogPitcherName);*/
-
+    public void sendInput(String dialogEventName, Boolean dialogIsGame, Boolean dialogIsHome, String dialogPitcherName, int dialogPitcherSpinnerIndex) {
         mEventName.setText(dialogEventName);
         mPitcherName.setText(dialogPitcherName);
 
@@ -1167,5 +1171,43 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isGame = dialogIsGame;
         isHome = dialogIsHome;
         pitcherName = dialogPitcherName;
+        pitcherSpinnerIndex = dialogPitcherSpinnerIndex;
+    }
+
+    // Getters/Setters
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public int getPitcherSpinnerIndex() {
+        return pitcherSpinnerIndex;
+    }
+
+    public void setPitcherSpinnerIndex(int pitcherSpinnerIndex) {
+        this.pitcherSpinnerIndex = pitcherSpinnerIndex;
+    }
+
+    public Boolean getGame() {
+        return isGame;
+    }
+
+    public void setGame(Boolean game) {
+        isGame = game;
+    }
+    public Boolean getHome() {
+        return isHome;
+    }
+
+    public void setHome(Boolean home) {
+        isHome = home;
+    }
+
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, TaggingActivity.class);
+        return i;
     }
 }

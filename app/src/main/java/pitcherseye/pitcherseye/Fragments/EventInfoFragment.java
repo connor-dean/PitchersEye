@@ -42,8 +42,10 @@ public class EventInfoFragment extends DialogFragment {
     EditText mEventName;
     Spinner mSpinnerPitchers;
 
+    TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+
     public interface OnInputListener {
-        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName);
+        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
     }
 
     public OnInputListener mOnInputListener;
@@ -56,17 +58,18 @@ public class EventInfoFragment extends DialogFragment {
         mConfirmEvent = (Button) view.findViewById(R.id.btn_event_confirm);
         mConfirmPitcher = (Button) view.findViewById(R.id.btn_event_pitcher);
         mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
-
         mEventType = (CheckBox) view.findViewById(R.id.chck_bx_event_type);
         mEventLocation = (CheckBox) view.findViewById(R.id.chck_bx_event_location);
-
         // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
-
         mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_pitcher_names);
 
+        // Display previously entered values
+        TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+        mEventName.setText(taggingActivity.getEventName());
+        mEventLocation.setChecked(taggingActivity.getHome());
+        mEventType.setChecked(taggingActivity.getGame());
 
         // Instantiate and load pitchers into spinner
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
@@ -82,11 +85,13 @@ public class EventInfoFragment extends DialogFragment {
                     pitchers.add(pitcherFullName);
                 }
 
-                // TODO move to fragment
+                // Load values into Spinner and set the index
+                TaggingActivity taggingActivity = (TaggingActivity) getActivity();
                 mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_pitcher_names);
                 ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, pitchers);
                 pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mSpinnerPitchers.setAdapter(pitchersAdapter);
+                mSpinnerPitchers.setSelection(taggingActivity.getPitcherSpinnerIndex());
             }
 
             @Override
@@ -104,13 +109,15 @@ public class EventInfoFragment extends DialogFragment {
                 // Check to make sure there is an entry in the spinner
                 String pitcherName = "";
                 String eventName = "";
-                if (mSpinnerPitchers.getSelectedItem().toString() == " ") {
+                if (mSpinnerPitchers.getSelectedItem().toString().trim() == "") {
                     Toast.makeText(getActivity(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
                 } else if (mEventName.getText().toString() == "") {
                     Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
                 } else {
                     pitcherName = mSpinnerPitchers.getSelectedItem().toString();
+                    int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
                     eventName = mEventName.getText().toString().trim();
+
 
                     if (!mEventType.isChecked()) {
                         isGame = false;
@@ -121,7 +128,7 @@ public class EventInfoFragment extends DialogFragment {
                     Boolean eventSet = true;
                     Boolean pitcherSet = true;
 
-                    mOnInputListener.sendInput(eventName, isGame, isHome, pitcherName);
+                    mOnInputListener.sendInput(eventName, isGame, isHome, pitcherName, pitcherIndex);
 
                     getDialog().dismiss();
 
