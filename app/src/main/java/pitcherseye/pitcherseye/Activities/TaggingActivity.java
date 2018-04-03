@@ -46,6 +46,7 @@ import static java.lang.Math.round;
    - Add "Ball" selection
    - Task to check for Firebase send success
    - Styling
+        - Move colors and strings to res files
    - Heatmap
 */
 
@@ -1194,7 +1195,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         pitcherSpinnerIndex = dialogPitcherSpinnerIndex;
 
         EventInfoFragment eventInfoFragment = new EventInfoFragment();
-        eventInfoFragment.setPitcherName(dialogEventName);
+        //eventInfoFragment.setPitcherName(dialogPitcherName);
+        this.setPitcherName(dialogPitcherName);
     }
 
     // Getters/Setters

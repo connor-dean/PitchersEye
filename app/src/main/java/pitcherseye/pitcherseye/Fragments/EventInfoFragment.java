@@ -61,25 +61,15 @@ public class EventInfoFragment extends DialogFragment {
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
-        // Retrieve pitcher information
-        if (pitcherName.isEmpty()) {
-            pitcherName = "";
-        } else {
-            pitcherName = taggingActivity.getPitcherName();
-        }
-
-        /*mConfirmEvent = (Button) view.findViewById(R.id.btn_event_confirm);
-        mConfirmPitcher = (Button) view.findViewById(R.id.btn_event_pitcher);*/
         mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
         mEventType = (CheckBox) view.findViewById(R.id.chck_bx_event_type);
         mEventLocation = (CheckBox) view.findViewById(R.id.chck_bx_event_location);
-        // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
         mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_pitcher_names);
 
         // Display previously entered values
-        TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
         mEventName.setText(taggingActivity.getEventName());
         mEventLocation.setChecked(taggingActivity.getHome());
         mEventType.setChecked(taggingActivity.getGame());
@@ -124,7 +114,7 @@ public class EventInfoFragment extends DialogFragment {
                     Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
                 } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty()) {
                     Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
-                } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(pitcherName)) {
+                } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName())) {
                     Toast.makeText(getActivity().getApplicationContext(), "Enter a new pitcher to continue session", Toast.LENGTH_SHORT).show();
                 } else {
                     pitcherName = mSpinnerPitchers.getSelectedItem().toString();
