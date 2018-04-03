@@ -12,55 +12,65 @@
     <Button
         android:id="@+id/btn_result_fastball"
         android:layout_width="240dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_fastball"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnR1C3"/>
+        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
 
     <Button
         android:id="@+id/btn_result_changeup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_changeup"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_fastball"
         app:layout_constraintStart_toStartOf="@+id/btn_result_fastball"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
 
     <Button
         android:id="@+id/btn_result_curve"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_curveball"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_changeup"
         app:layout_constraintStart_toStartOf="@+id/btn_result_changeup"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
 
     <Button
         android:id="@+id/btn_result_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_slider"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_curve"
         app:layout_constraintStart_toStartOf="@+id/btn_result_curve"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_curve"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_curve" />
 
     <Button
         android:id="@+id/btn_result_other"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_other"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_slider"
         app:layout_constraintStart_toStartOf="@+id/btn_result_slider"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider"/>
+        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />
 
 </android.support.constraint.ConstraintLayout>
