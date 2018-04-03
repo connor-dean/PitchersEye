@@ -42,7 +42,8 @@ import static java.lang.Math.round;
 // TODO master list
 /* - Change pitcher workflow XXX
         - Spinner validation is giving me issues  <--------------
-   - Fix undo workflow
+   - Fix undo workflow XXX
+   - Add "Ball" selection
    - Task to check for Firebase send success
    - Styling
    - Heatmap
