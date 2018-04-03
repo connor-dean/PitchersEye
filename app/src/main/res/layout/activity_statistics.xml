@@ -1,62 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pitcherseye.pitcherseye.Activities.StatisticsActivity">
+    >
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerview"
+        android:scrollbars="vertical"
 
-    <ListView
-        android:id="@+id/statistics_list_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/guidelineVertListView"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineHorListView"
-        android:layout_height="450dp"
-        android:layout_width="800dp" />
-
-    <EditText
-        android:id="@+id/itemText"
-        android:layout_width="181dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintTop_toBottomOf="@+id/statistics_list_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/guidelineVertListView"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <Button
-        android:id="@+id/findButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineVertListView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineVertListView"
-        app:layout_constraintTop_toBottomOf="@+id/findButton"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineHorListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
-
-</android.support.constraint.ConstraintLayout>
+        >
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
