@@ -17,15 +17,15 @@ public class EventStats {
     public int pitchCount;
     public int strikeCount;
     public int ballCount;
-    public int R1C1Count;
-    public int R1C2Count;
-    public int R1C3Count;
-    public int R2C1Count;
-    public int R2C2Count;
-    public int R2C3Count;
-    public int R3C1Count;
-    public int R3C2Count;
-    public int R3C3Count;
+    private int R1C1Count;
+    private int R1C2Count;
+    private int R1C3Count;
+    private int R2C1Count;
+    private int R2C2Count;
+    private int R2C3Count;
+    private int R3C1Count;
+    private int R3C2Count;
+    private int R3C3Count;
 
     /* TODO:
         Will want to add:
