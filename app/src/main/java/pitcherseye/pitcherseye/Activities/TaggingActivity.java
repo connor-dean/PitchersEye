@@ -40,7 +40,8 @@ import pitcherseye.pitcherseye.Utilities;
 import static java.lang.Math.round;
 
 // TODO master list
-/* - Change pitcher workflow
+/* - Change pitcher workflow XXX
+        - Spinner validation is giving me issues  <--------------
    - Fix undo workflow
    - Task to check for Firebase send success
    - Styling
@@ -311,6 +312,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 r1++;
 
+                mUndo.setEnabled(true);
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -349,6 +352,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //mR1C2.getBackground().setAlpha(50);
                 r2++;
 
+                mUndo.setEnabled(true);
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -384,6 +389,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r3++;
+
+                mUndo.setEnabled(true);
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -421,6 +428,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 adjustHeatMap();
                 r4++;
 
+                mUndo.setEnabled(true);
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -456,6 +465,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r5++;
+
+                mUndo.setEnabled(true);
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -494,6 +505,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 adjustHeatMap();
                 r6++;
 
+                mUndo.setEnabled(true);
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -529,6 +542,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r7++;
+
+                mUndo.setEnabled(true);
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -567,6 +582,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 r8++;
 
+                mUndo.setEnabled(true);
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -602,6 +619,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r9++;
+
+                mUndo.setEnabled(true);
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -767,12 +786,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 mUndo.setEnabled(false);
                 mFinishGame.setEnabled(false);
             }
-        });
+        }); */
 
         // TODO needs refactoring
         mUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mUndo.setEnabled(false);
                 if (1 == undoPitchRegion) {
                     mEventPitchCount.setText(Integer.toString(--eventPitchCount));
                     mEventStrikes.setText(Integer.toString(--eventStrikesCount));
@@ -867,10 +887,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 }
                 undoPitchRegion = 0;
                 undoPitchType = 0;
-                mUndo.setEnabled(false);
-                mFinishGame.setEnabled(false);
+                //mFinishGame.setEnabled(false);
             }
-        });*/
+        });
 
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1172,6 +1191,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isHome = dialogIsHome;
         pitcherName = dialogPitcherName;
         pitcherSpinnerIndex = dialogPitcherSpinnerIndex;
+
+        EventInfoFragment eventInfoFragment = new EventInfoFragment();
+        eventInfoFragment.setPitcherName(dialogEventName);
     }
 
     // Getters/Setters
@@ -1204,6 +1226,14 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     public void setHome(Boolean home) {
         isHome = home;
+    }
+
+    public String getPitcherName() {
+        return pitcherName;
+    }
+
+    public void setPitcherName(String pitcherName) {
+        this.pitcherName = pitcherName;
     }
 
     public static Intent newIntent(Context packageContext) {

@@ -33,14 +33,17 @@ import pitcherseye.pitcherseye.R;
 
 public class EventInfoFragment extends DialogFragment {
 
-    Button mConfirmEvent;
-    Button mConfirmPitcher;
+    /*Button mConfirmEvent;
+    Button mConfirmPitcher;*/
     Button mConfirmChange;
     CheckBox mEventType;
     CheckBox mEventLocation;
     DatabaseReference mDatabase;
     EditText mEventName;
     Spinner mSpinnerPitchers;
+
+    String pitcherName = "";
+    String eventName = "";
 
     TaggingActivity taggingActivity = (TaggingActivity) getActivity();
 
@@ -55,8 +58,18 @@ public class EventInfoFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_event_info, container, false);
 
-        mConfirmEvent = (Button) view.findViewById(R.id.btn_event_confirm);
-        mConfirmPitcher = (Button) view.findViewById(R.id.btn_event_pitcher);
+        // Make sure the user can't exit the DialogFragment without confirming their input
+        getDialog().setCanceledOnTouchOutside(false);
+
+        // Retrieve pitcher information
+        if (pitcherName.isEmpty()) {
+            pitcherName = "";
+        } else {
+            pitcherName = taggingActivity.getPitcherName();
+        }
+
+        /*mConfirmEvent = (Button) view.findViewById(R.id.btn_event_confirm);
+        mConfirmPitcher = (Button) view.findViewById(R.id.btn_event_pitcher);*/
         mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
         mEventType = (CheckBox) view.findViewById(R.id.chck_bx_event_type);
         mEventLocation = (CheckBox) view.findViewById(R.id.chck_bx_event_location);
@@ -107,17 +120,16 @@ public class EventInfoFragment extends DialogFragment {
                 Boolean isHome = true;
 
                 // Check to make sure there is an entry in the spinner
-                String pitcherName = "";
-                String eventName = "";
-                if (mSpinnerPitchers.getSelectedItem().toString().trim() == "") {
-                    Toast.makeText(getActivity(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
-                } else if (mEventName.getText().toString() == "") {
+                if (mEventName.getText().toString().trim().isEmpty()) {
                     Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
+                } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty()) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
+                } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(pitcherName)) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Enter a new pitcher to continue session", Toast.LENGTH_SHORT).show();
                 } else {
                     pitcherName = mSpinnerPitchers.getSelectedItem().toString();
                     int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
                     eventName = mEventName.getText().toString().trim();
-
 
                     if (!mEventType.isChecked()) {
                         isGame = false;
@@ -131,10 +143,6 @@ public class EventInfoFragment extends DialogFragment {
                     mOnInputListener.sendInput(eventName, isGame, isHome, pitcherName, pitcherIndex);
 
                     getDialog().dismiss();
-
-                    // Enable tagging
-                    //TaggingActivity taggingActivity = new TaggingActivity();
-                    //taggingActivity.enableTagging();
                 }
             }
         });
@@ -159,6 +167,22 @@ public class EventInfoFragment extends DialogFragment {
         } catch (ClassCastException cce){
             Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
+    }
+
+    public String getPitcherName() {
+        return pitcherName;
+    }
+
+    public void setPitcherName(String pitcherName) {
+        this.pitcherName = pitcherName;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
 }

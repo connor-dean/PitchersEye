@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="@id/edt_txt_event_name_entry"
         app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
 
-    <Button
+<!--    <Button
         android:id="@+id/btn_event_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,18 +47,18 @@
         android:text="@string/string_event_confirm"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />
+        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />-->
 
     <Spinner
         android:id="@+id/spin_pitcher_names"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/btn_event_confirm" />
+        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />
 
-    <Button
+<!--    <Button
         android:id="@+id/btn_event_pitcher"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -66,18 +66,18 @@
         android:text="@string/string_event_confirm_pitcher"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@id/spin_pitcher_names"/>
+        app:layout_constraintTop_toBottomOf="@id/spin_pitcher_names"/>-->
 
     <Button
         android:id="@+id/btn_confirm_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/string_confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/btn_event_pitcher"/>
+        app:layout_constraintTop_toBottomOf="@+id/spin_pitcher_names" />
 
 </android.support.constraint.ConstraintLayout>

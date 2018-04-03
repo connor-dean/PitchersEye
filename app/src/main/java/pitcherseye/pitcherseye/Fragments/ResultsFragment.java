@@ -27,6 +27,9 @@ public class ResultsFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_results, container, false);
 
+        // Make sure the user can't exit the DialogFragment without confirming their input
+        getDialog().setCanceledOnTouchOutside(false);
+
         // Buttons
         mFastball = (Button) view.findViewById(R.id.btn_result_fastball);
         mChangeup = (Button) view.findViewById(R.id.btn_result_changeup);
