@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
 /**
@@ -21,6 +22,28 @@ public class ResultsFragment extends DialogFragment {
     Button mCurveball;
     Button mSlider;
     Button mOther;
+
+    int undoPitchType = 0;
+
+    int pitcherFastballCount = 0;
+    int eventFastballCount = 0;
+    int pitcherChangeupCount = 0;
+    int eventChangeupCount = 0;
+    int pitcherCurveballCount = 0;
+    int eventCurveballCount = 0;
+    int pitcherSliderCount = 0;
+    int eventSliderCount = 0;
+    int pitcherOtherCount = 0;
+    int eventOtherCount = 0;
+
+    TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+
+    public interface OnInputListener {
+        void sendInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+                       int pitcherSliderCount, int pitcherOtherCount);
+    }
+
+    public OnInputListener mOnInputListener;
 
     @Nullable
     @Override
@@ -37,21 +60,20 @@ public class ResultsFragment extends DialogFragment {
         mSlider = (Button) view.findViewById(R.id.btn_result_slider);
         mOther = (Button) view.findViewById(R.id.btn_result_other);
 
+        //final TaggingActivity taggingActivity = new TaggingActivity();
+
         // Result events
         mFastball.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            /*    // Increase count
-                mEventFastballCount.setText(Integer.toString(++eventFastballCount));
-
-                // Increase pitcher count
-                mPitcherFastballCount.setText(Integer.toString(++pitcherFastballCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 10;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);*/
+                // Increase count
+                ++pitcherFastballCount;
+                ++eventFastballCount;
+                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
+                //taggingActivity.setPitcherFastballCount(++pitcherFastballCount);
+                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
                 getDialog().dismiss();
             }
         });
@@ -59,17 +81,13 @@ public class ResultsFragment extends DialogFragment {
         mChangeup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            /*    // Increase count
-                mEventChangeupCount.setText(Integer.toString(++eventChangeupCount));
-
-                // Increase pitcher count
-                mPitcherChangeupCount.setText(Integer.toString(++pitcherChangeupCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 11;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);*/
+                // Increase count
+                ++pitcherChangeupCount;
+                ++eventChangeupCount;
+                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
+                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
                 getDialog().dismiss();
             }
         });
@@ -77,17 +95,13 @@ public class ResultsFragment extends DialogFragment {
         mCurveball.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   // Increase count
-                mEventCurveballCount.setText(Integer.toString(++eventCurveballCount));
-
-                // Increase pitcher count
-                mPitcherCurveballCount.setText(Integer.toString(++pitcherCurveballCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 12;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);*/
+                // Increase count
+                ++pitcherCurveballCount;
+                ++eventCurveballCount;
+                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
+                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
                 getDialog().dismiss();
             }
         });
@@ -95,17 +109,13 @@ public class ResultsFragment extends DialogFragment {
         mSlider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   // Increase count
-                mEventSliderCount.setText(Integer.toString(++eventSliderCount));
-
-                // Increase pitcher count
-                mPitcherSliderCount.setText(Integer.toString(++pitcherSliderCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 13;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);*/
+                // Increase count
+                ++pitcherSliderCount;
+                ++eventSliderCount;
+                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
+                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
                 getDialog().dismiss();
             }
         });
@@ -113,17 +123,13 @@ public class ResultsFragment extends DialogFragment {
         mOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   // Increase count
-                mEventOtherCount.setText(Integer.toString(++eventOtherCount));
-
-                // Increase pitcher count
-                mPitcherOtherCount.setText(Integer.toString(++pitcherOtherCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 14;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);*/
+                // Increase count
+                ++pitcherOtherCount;
+                ++eventOtherCount;
+                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
+                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                        pitcherSliderCount, pitcherOtherCount);*/
                 getDialog().dismiss();
             }
         });

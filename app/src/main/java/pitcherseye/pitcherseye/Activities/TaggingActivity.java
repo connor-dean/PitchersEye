@@ -50,7 +50,7 @@ import static java.lang.Math.round;
    - Heatmap
 */
 
-public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener {
+public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener {
 
     // Buttons
     Button mR1C1;
@@ -1160,6 +1160,30 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         //resetPitcherStats();
     }
 
+    // Use this to update count on TextView components
+    public void updatePitcherResultsCounts(int pitcherFastball, int pitcherChangeup, int pitcherCurveball,
+                                            int pitcherSlider, int pitcherOther) {
+        /*mPitcherFastballCount.setText(Integer.toString(pitcherFastball));
+        mPitcherChangeupCount.setText(Integer.toString(pitcherChangeup));
+        mPitcherCurveballCount.setText(Integer.toString(pitcherCurveball));
+        mPitcherSliderCount.setText(Integer.toString(pitcherSlider));
+        mPitcherOtherCount.setText(Integer.toString(pitcherOther));*/
+        pitcherFastballCount = pitcherFastball;
+        pitcherChangeupCount = pitcherChangeup;
+        pitcherCurveballCount = pitcherCurveball;
+        pitcherSliderCount = pitcherSlider;
+        pitcherOtherCount = pitcherOther;
+        //updateComponents();
+    }
+
+    public void updateComponents() {
+        mPitcherFastballCount.setText(Integer.toString(pitcherFastballCount));
+        mPitcherChangeupCount.setText(Integer.toString(pitcherChangeupCount));
+        mPitcherCurveballCount.setText(Integer.toString(pitcherCurveballCount));
+        mPitcherSliderCount.setText(Integer.toString(pitcherSliderCount));
+        mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount));
+    }
+
     // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
     public void sendPitcherStatsWrapper() {
         String eventID = Utilities.createRandomHex(6);
@@ -1210,6 +1234,17 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         this.setPitcherName(dialogPitcherName);
     }
 
+    @Override
+    public void sendInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+                          int pitcherSliderCount, int pitcherOtherCount) {
+        this.pitcherFastballCount = pitcherFastballCount;
+        this.pitcherChangeupCount = pitcherChangeupCount;
+        this.pitcherCurveballCount = pitcherCurveballCount;
+        this.pitcherSliderCount = pitcherSliderCount;
+        this.pitcherOtherCount = pitcherOtherCount;
+        updateComponents();
+    }
+
     // Getters/Setters
     public String getEventName() {
         return eventName;
@@ -1254,6 +1289,48 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         return pitcherPitchCount;
     }
 
+
+
+    public int getPitcherFastballCount() {
+        return pitcherFastballCount;
+    }
+
+    public void setPitcherFastballCount(int pitcherFastballCount) {
+        this.pitcherFastballCount = pitcherFastballCount;
+        //updateComponents();
+    }
+
+    public int getPitcherChangeupCount() {
+        return pitcherChangeupCount;
+    }
+
+    public void setPitcherChangeupCount(int pitcherChangeupCount) {
+        this.pitcherChangeupCount = pitcherChangeupCount;
+    }
+
+    public int getPitcherCurveballCount() {
+        return pitcherCurveballCount;
+    }
+
+    public void setPitcherCurveballCount(int pitcherCurveballCount) {
+        this.pitcherCurveballCount = pitcherCurveballCount;
+    }
+
+    public int getPitcherSliderCount() {
+        return pitcherSliderCount;
+    }
+
+    public void setPitcherSliderCount(int pitcherSliderCount) {
+        this.pitcherSliderCount = pitcherSliderCount;
+    }
+
+    public int getPitcherOtherCount() {
+        return pitcherOtherCount;
+    }
+
+    public void setPitcherOtherCount(int pitcherOtherCount) {
+        this.pitcherOtherCount = pitcherOtherCount;
+    }
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, TaggingActivity.class);
