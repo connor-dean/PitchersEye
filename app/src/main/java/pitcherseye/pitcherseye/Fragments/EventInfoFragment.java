@@ -117,6 +117,12 @@ public class EventInfoFragment extends DialogFragment {
                 } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName())) {
                     Toast.makeText(getActivity().getApplicationContext(), "Enter a new pitcher to continue session", Toast.LENGTH_SHORT).show();
                 } else {
+
+                    // Check to see if it's the beginning of the game before we update the statistics in TaggingActivity
+                    if (taggingActivity.getPitcherPitchCount() > 0) {
+                        taggingActivity.sendPitcherStatsWrapper();
+                    }
+
                     pitcherName = mSpinnerPitchers.getSelectedItem().toString();
                     int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
                     eventName = mEventName.getText().toString().trim();
@@ -127,9 +133,8 @@ public class EventInfoFragment extends DialogFragment {
                     if (!mEventLocation.isChecked()) {
                         isHome = false;
                     }
-                    Boolean eventSet = true;
-                    Boolean pitcherSet = true;
 
+                    // Send the information to TaggingActivity
                     mOnInputListener.sendInput(eventName, isGame, isHome, pitcherName, pitcherIndex);
 
                     getDialog().dismiss();
@@ -140,15 +145,6 @@ public class EventInfoFragment extends DialogFragment {
         return view;
     }
 
-    public static EventInfoFragment newInstance(String title) {
-        EventInfoFragment frag = new EventInfoFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        frag.setArguments(args);
-        return frag;
-    }
-
-    // mOnInputListener.sendInput(input);
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

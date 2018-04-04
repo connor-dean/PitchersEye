@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -39,16 +40,6 @@
         app:layout_constraintEnd_toEndOf="@id/edt_txt_event_name_entry"
         app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
 
-<!--    <Button
-        android:id="@+id/btn_event_confirm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/string_event_confirm"
-        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />-->
-
     <Spinner
         android:id="@+id/spin_pitcher_names"
         android:layout_width="0dp"
@@ -57,16 +48,6 @@
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />
-
-<!--    <Button
-        android:id="@+id/btn_event_pitcher"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/string_event_confirm_pitcher"
-        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@id/spin_pitcher_names"/>-->
 
     <Button
         android:id="@+id/btn_confirm_info"

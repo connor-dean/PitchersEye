@@ -1157,6 +1157,17 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
 
         // Reset pitcher statistics
+        //resetPitcherStats();
+    }
+
+    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
+    public void sendPitcherStatsWrapper() {
+        String eventID = Utilities.createRandomHex(6);
+        sendPitcherStats(eventID, eventName, eventDate, 0,
+                pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
+                pitcherBallsCount, pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
+                pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
+                pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
         resetPitcherStats();
     }
 
@@ -1238,6 +1249,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     public void setPitcherName(String pitcherName) {
         this.pitcherName = pitcherName;
     }
+
+    public int getPitcherPitchCount() {
+        return pitcherPitchCount;
+    }
+
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, TaggingActivity.class);
