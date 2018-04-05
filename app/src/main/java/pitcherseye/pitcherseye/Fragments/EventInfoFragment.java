@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class EventInfoFragment extends DialogFragment {
     DatabaseReference mDatabase;
     EditText mEventName;
     Spinner mSpinnerPitchers;
+    TextView mEventInfo;
 
     String pitcherName = "";
     String eventName = "";
@@ -65,6 +69,7 @@ public class EventInfoFragment extends DialogFragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
         mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_pitcher_names);
+        mEventInfo = (TextView) view.findViewById(R.id.txt_edit_event);
 
         // Display previously entered values
         final TaggingActivity taggingActivity = (TaggingActivity) getActivity();

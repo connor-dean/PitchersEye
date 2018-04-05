@@ -6,7 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity"
-    android:background="#dcdde1">
+    android:background="@color/colorTaggingBackground">
+
+   <View
+        android:id="@+id/view_event_header"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/ichabodNavyBlue"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_edit_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/string_event_information_header"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/edt_txt_event_name_entry"
@@ -18,14 +41,14 @@
         android:hint="@string/string_event_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/view_event_header"/>
 
     <CheckBox
         android:id="@+id/chck_bx_event_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/string_event_type"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
@@ -35,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="38dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/string_event_location"
         app:layout_constraintEnd_toEndOf="@id/edt_txt_event_name_entry"
         app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
@@ -53,14 +76,14 @@
         android:id="@+id/btn_confirm_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/tagging_button"
         android:text="@string/string_confirm"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/spin_pitcher_names" />
+        app:layout_constraintTop_toBottomOf="@+id/spin_pitcher_names"/>
 
 </android.support.constraint.ConstraintLayout>
