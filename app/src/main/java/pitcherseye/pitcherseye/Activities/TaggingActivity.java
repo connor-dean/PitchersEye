@@ -68,6 +68,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mR3C1;
     Button mR3C2;
     Button mR3C3;
+    Button mBallLow;
+    Button mBallHigh;
+    Button mBallRight;
+    Button mBallLeft;
     Button mFinishGame;
     ProgressBar mProgressFinishGame;
     Button mUndo;
@@ -210,6 +214,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mR3C1 = (Button) findViewById(R.id.btnR3C1); //mR3C1.getBackground().setAlpha(0);
         mR3C2 = (Button) findViewById(R.id.btnR3C2); //mR3C2.getBackground().setAlpha(0);
         mR3C3 = (Button) findViewById(R.id.btnR3C3); //mR3C3.getBackground().setAlpha(0);
+        mBallLow = (Button) findViewById(R.id.btn_ball_low);
+        mBallHigh = (Button) findViewById(R.id.btn_ball_high);
+        mBallRight = (Button) findViewById(R.id.btn_ball_right);
+        mBallLeft = (Button) findViewById(R.id.btn_ball_left);
         mFinishGame = (Button) findViewById(R.id.btn_finish_game);
         mUndo = (Button) findViewById(R.id.btn_undo);
 

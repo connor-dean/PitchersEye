@@ -57,6 +57,8 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR1C1"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R1C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,6 +68,8 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR1C2"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="R1C2"
@@ -75,6 +79,8 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR1C3"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R1C3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,6 +90,8 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR2C1"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R2C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,6 +101,8 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR2C2"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R2C2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,6 +114,8 @@
         android:id="@+id/btnR2C3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R2C3"
         app:layout_constraintLeft_toRightOf="@id/btnR2C2"
         app:layout_constraintBottom_toTopOf="@+id/guideline"/>
@@ -113,6 +125,8 @@
         android:id="@+id/btnR3C1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R3C1"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintTop_toBottomOf="@+id/btnR2C1" />
@@ -122,6 +136,8 @@
         android:id="@+id/btnR3C2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R3C2"
         app:layout_constraintLeft_toRightOf="@+id/btnR3C1"
         app:layout_constraintTop_toBottomOf="@+id/btnR2C2" />
@@ -129,6 +145,8 @@
     <Button
         android:background="@drawable/grid_button"
         android:id="@+id/btnR3C3"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         android:text="R3C3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -285,7 +303,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.125" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineVertEvent"
@@ -653,5 +671,45 @@
         android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertEventStatsEnd" />
+
+    <Button
+        android:id="@+id/btn_ball_low"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ball_button"
+        android:text="Low"
+        app:layout_constraintEnd_toEndOf="@+id/btnR3C3"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
+        app:layout_constraintTop_toBottomOf="@+id/btnR3C2" />
+
+    <Button
+        android:id="@+id/btn_ball_high"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ball_button"
+        android:text="High"
+        app:layout_constraintBottom_toTopOf="@+id/btnR1C2"
+        app:layout_constraintEnd_toEndOf="@+id/btnR1C3"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid" />
+
+    <Button
+        android:id="@+id/btn_ball_right"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ball_button"
+        android:text="Right"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ball_low"
+        app:layout_constraintStart_toEndOf="@+id/btnR2C3"
+        app:layout_constraintTop_toTopOf="@+id/btn_ball_high" />
+
+    <Button
+        android:id="@+id/btn_ball_left"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ball_button"
+        android:text="Left"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ball_low"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertGrid"
+        app:layout_constraintTop_toTopOf="@+id/btn_ball_high" />
 
 </android.support.constraint.ConstraintLayout>
