@@ -46,13 +46,14 @@ import static java.lang.Math.round;
         - Adjust for Result type XXX
         - Do something similar that we did for updating result count, save class level booleans in updatePitcherResultsCounts XXX
         - Refactor mUndo, can keep it similar, but need to break down. XXX
-        - Fix undo button's disabled state <---
-        - Full testing regression <---
+        - Fix undo button's disabled state XXX
    - Add "Ball" selection
    - Task to check for Firebase send success
    - Styling
         - Move colors and strings to res files
-   - Heatmap
+   - Disable back button on dialog
+   - Heatmap (Tentative)
+   - Full testing regression
 */
 
 public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener {
@@ -192,7 +193,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
 
-        // Display DialogFragment
+        // Display DialogFragment for initial data entry
         displayEventInfoFragment();
 
         // Instantiate Firebase object
