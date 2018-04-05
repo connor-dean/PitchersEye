@@ -22,6 +22,8 @@
     <!-- Tagging -->
     <string name="string_pitcher_count_label">Pitcher</string>
     <string name="string_event_count_label">Event</string>
+    <string name="string_event_header">Event: </string>
+    <string name="string_pitcher_header">Pitcher: </string>
     <string name="string_pitch_count">Pitch Count: </string>
     <string name="string_strikes">Strikes: </string>
     <string name="string_balls">Balls: </string>
@@ -36,6 +38,19 @@
     <string name="string_pitch_slider">Slider</string>
     <string name="string_pitch_curveball">Curveball</string>
     <string name="string_pitch_other">Other</string>
+    <string name="string_r1c1">R1C1</string>
+    <string name="string_r1c2">R1C2</string>
+    <string name="string_r1c3">R1C3</string>
+    <string name="string_r2c1">R2C1</string>
+    <string name="string_r2c2">R2C2</string>
+    <string name="string_r2c3">R2C3</string>
+    <string name="string_r3c1">R3C1</string>
+    <string name="string_r3c2">R3C2</string>
+    <string name="string_r3c3">R3C3</string>
+    <string name="string_ball_low">Low</string>
+    <string name="string_ball_high">High</string>
+    <string name="string_ball_left">Left</string>
+    <string name="string_ball_right">Right</string>
 
     <!-- Event Entry -->
     <string name="string_event_name">Event Name</string>
@@ -50,6 +65,4 @@
     <string name="string_edit_event_info">Edit Event Info</string>
     <string name="string_confirm">Confirm</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

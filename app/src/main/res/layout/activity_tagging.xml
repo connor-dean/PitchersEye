@@ -5,24 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity"
-    android:background="#dcdde1">
+    android:background="@color/colorTaggingBackground">
+
+
+    <!-- Header -->
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/ichabodNavyBlue"
-        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalBanner"
-        />
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalBanner" />
 
     <TextView
         android:id="@+id/txt_event_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Event: "
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/string_event_header"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text=""
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/txt_event_name_label"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,10 +44,10 @@
         android:id="@+id/txt_pitcher_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Pitcher: "
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/string_pitcher_header"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVertStats"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,311 +56,204 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text=""
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/txt_pitcher_name_label"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <Button
+        android:id="@+id/button_event_info"
+        android:background="@drawable/main_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/string_edit_event_info"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Button Grid -->
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR1C1"
-        android:stateListAnimator="@null"
-        android:elevation="10dp"
-        android:text="R1C1"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r1c1"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintBottom_toTopOf="@+id/btnR2C1" />
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR1C2"
-        android:stateListAnimator="@null"
-        android:elevation="10dp"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R1C2"
+        android:text="@string/string_r1c2"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/btnR2C2"
         app:layout_constraintLeft_toRightOf="@+id/btnR1C1" />
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR1C3"
-        android:stateListAnimator="@null"
-        android:elevation="10dp"
-        android:text="R1C3"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r1c3"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         app:layout_constraintLeft_toRightOf="@id/btnR1C2"
         app:layout_constraintBottom_toTopOf="@id/btnR2C3"/>
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR2C1"
-        android:stateListAnimator="@null"
-        android:elevation="10dp"
-        android:text="R2C1"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r2c1"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintBottom_toTopOf="@+id/guideline" />
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR2C2"
-        android:stateListAnimator="@null"
-        android:elevation="10dp"
-        android:text="R2C2"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r2c2"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintLeft_toRightOf="@id/btnR2C1" />
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR2C3"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r2c3"
         android:stateListAnimator="@null"
         android:elevation="10dp"
-        android:text="R2C3"
         app:layout_constraintLeft_toRightOf="@id/btnR2C2"
         app:layout_constraintBottom_toTopOf="@+id/guideline"/>
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR3C1"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r3c1"
         android:stateListAnimator="@null"
         android:elevation="10dp"
-        android:text="R3C1"
         app:layout_constraintLeft_toRightOf="@id/guidelineVertGrid"
         app:layout_constraintTop_toBottomOf="@+id/btnR2C1" />
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR3C2"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r3c2"
         android:stateListAnimator="@null"
         android:elevation="10dp"
-        android:text="R3C2"
         app:layout_constraintLeft_toRightOf="@+id/btnR3C1"
         app:layout_constraintTop_toBottomOf="@+id/btnR2C2" />
 
     <Button
-        android:background="@drawable/grid_button"
         android:id="@+id/btnR3C3"
-        android:stateListAnimator="@null"
-        android:elevation="10dp"
-        android:text="R3C3"
+        android:background="@drawable/grid_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/string_r3c3"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
         app:layout_constraintLeft_toRightOf="@+id/btnR3C2"
         app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
 
-    <!-- Event Entry -->
 
-    <!--<EditText
-        android:id="@+id/edt_txt_event_name_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/string_event_name"
+    <Button
+        android:id="@+id/btn_ball_low"
+        android:background="@drawable/ball_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/string_ball_low"
+        app:layout_constraintEnd_toEndOf="@+id/btnR3C3"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/chck_bx_event_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/string_event_type"
-        app:layout_constraintStart_toEndOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/chck_bx_event_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/string_event_location"
-        app:layout_constraintLeft_toRightOf="@+id/chck_bx_event_type"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnR3C2" />
 
     <Button
-        android:id="@+id/btn_event_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="@string/string_event_confirm"
-        app:layout_constraintStart_toEndOf="@+id/chck_bx_event_location"
-        app:layout_constraintTop_toTopOf="@+id/edt_txt_event_name_entry" />
-
-    <Spinner
-        android:id="@+id/spin_pitcher_names"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_event_pitcher"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
-        app:layout_constraintTop_toTopOf="@+id/btn_event_pitcher" />
+        android:id="@+id/btn_ball_high"
+        android:background="@drawable/ball_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/string_ball_high"
+        app:layout_constraintBottom_toTopOf="@+id/btnR1C2"
+        app:layout_constraintEnd_toEndOf="@+id/btnR1C3"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid" />
 
     <Button
-        android:id="@+id/btn_event_pitcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/string_event_confirm_pitcher"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEventStats"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-
-
-    <!--&lt;!&ndash; Results &ndash;&gt;
-
-    &lt;!&ndash; Events &ndash;&gt;
-    <Button
-        android:id="@+id/btn_result_fastball"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/string_pitch_fastball"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toTopOf="@+id/btnR1C3" />
+        android:id="@+id/btn_ball_right"
+        android:background="@drawable/ball_button"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:text="@string/string_ball_right"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ball_low"
+        app:layout_constraintStart_toEndOf="@+id/btnR2C3"
+        app:layout_constraintTop_toTopOf="@+id/btn_ball_high" />
 
     <Button
-        android:id="@+id/btn_result_changeup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/string_pitch_changeup"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
+        android:id="@+id/btn_ball_left"
+        android:background="@drawable/ball_button"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:text="@string/string_ball_left"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ball_low"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertGrid"
+        app:layout_constraintTop_toTopOf="@+id/btn_ball_high" />
 
-    <Button
-        android:id="@+id/btn_result_curve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/string_pitch_curveball"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
 
-    <Button
-        android:id="@+id/btn_result_slider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/string_pitch_slider"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_curve" />
-
-    <Button
-        android:id="@+id/btn_result_other"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/string_pitch_other"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_result_slider" />-->
-
-    <!-- Pitch Results -->
+    <!-- Undo/Finish -->
 
     <Button
         android:id="@+id/btn_finish_game"
+        android:background="@drawable/tagging_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/tagging_button"
-        android:text="Finish Game"
-        android:textColor="#FFFFFF"
+        android:text="@string/string_finish_game"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/btn_undo"
+        android:background="@drawable/tagging_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/tagging_button"
         android:text="@string/string_undo"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineHorizontalBanner"
+    <ProgressBar
+        android:id="@+id/progress_finish_game"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.075" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertGrid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.125" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertPitcherStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertEventStats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertEventStatsEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
-
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertEventStatsEnd" />
 
 
     <!-- Statistics -->
@@ -384,24 +279,11 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollview_stats"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEventStats" />
 
-
-    <Button
-        android:id="@+id/button_event_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/main_button"
-        android:text="@string/string_edit_event_info"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/scrollview_stats"
+        android:background="@drawable/tagging_scrollview"
         android:layout_width="381dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/tagging_scrollview"
         android:padding="24dp"
         android:outlineProvider="bounds"
         android:clipToPadding="false"
@@ -412,7 +294,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TableRow
@@ -577,7 +459,6 @@
 
             </TableRow>
 
-
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
@@ -678,58 +559,66 @@
             </TableRow>
 
         </TableLayout>
+
     </ScrollView>
 
 
+    <!-- Guidelines -->
 
-    <ProgressBar
-        android:id="@+id/progress_finish_game"
-        style="?android:attr/progressBarStyle"
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHorizontalBanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertEventStatsEnd" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.075" />
 
-    <Button
-        android:id="@+id/btn_ball_low"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@drawable/ball_button"
-        android:text="Low"
-        app:layout_constraintEnd_toEndOf="@+id/btnR3C3"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid"
-        app:layout_constraintTop_toBottomOf="@+id/btnR3C2" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
 
-    <Button
-        android:id="@+id/btn_ball_high"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@drawable/ball_button"
-        android:text="High"
-        app:layout_constraintBottom_toTopOf="@+id/btnR1C2"
-        app:layout_constraintEnd_toEndOf="@+id/btnR1C3"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.125" />
 
-    <Button
-        android:id="@+id/btn_ball_right"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:background="@drawable/ball_button"
-        android:text="Right"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_ball_low"
-        app:layout_constraintStart_toEndOf="@+id/btnR2C3"
-        app:layout_constraintTop_toTopOf="@+id/btn_ball_high" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
 
-    <Button
-        android:id="@+id/btn_ball_left"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:background="@drawable/ball_button"
-        android:text="Left"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_ball_low"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertGrid"
-        app:layout_constraintTop_toTopOf="@+id/btn_ball_high" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertPitcherStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEventStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineVertEventStatsEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
 
 </android.support.constraint.ConstraintLayout>

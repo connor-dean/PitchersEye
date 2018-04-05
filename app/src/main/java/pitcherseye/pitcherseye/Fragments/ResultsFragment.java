@@ -141,5 +141,4 @@ public class ResultsFragment extends DialogFragment {
 
         return view;
     }
-
 }
