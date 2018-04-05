@@ -47,7 +47,9 @@ import static java.lang.Math.round;
         - Do something similar that we did for updating result count, save class level booleans in updatePitcherResultsCounts XXX
         - Refactor mUndo, can keep it similar, but need to break down. XXX
         - Fix undo button's disabled state XXX
-   - Add "Ball" selection
+   - Add "Ball" selection <---
+        - Hook up to "Undo"
+        - New Pitcher <---
    - Task to check for Firebase send success
    - Styling
         - Move colors and strings to res files
@@ -161,6 +163,17 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     int pitcherCount_R3C2 = 0;
     int pitcherCount_R3C3 = 0;
 
+    // Balls
+    int eventBallsCountLow = 0;
+    int eventBallsCountHigh = 0;
+    int eventBallsCountLeft = 0;
+    int eventBallsCountRight = 0;
+
+    int pitcherBallsCountLow = 0;
+    int pitcherBallsCountHigh = 0;
+    int pitcherBallsCountLeft = 0;
+    int pitcherBallsCountRight = 0;
+
     // Undo
     int undoPitchRegion = 0;
     int undoPitchType = 0;
@@ -179,6 +192,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Boolean isR3C1;
     Boolean isR3C2;
     Boolean isR3C3;
+    Boolean isBallLow;
+    Boolean isBallHigh;
+    Boolean isBallLeft;
+    Boolean isBallRight;
 
     // TODO WOW THIS SUCKKKKS
     double r1 = 0;
@@ -317,7 +334,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(true, false, false,
                         false, false, false,
-                        false, false, false);
+                        false, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -362,7 +381,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, true, false,
                         false, false, false,
-                        false, false, false);
+                        false, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -405,7 +426,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, true,
                         false, false, false,
-                        false, false, false);
+                        false, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -448,7 +471,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, false,
                         true, false, false,
-                        false, false, false);
+                        false, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -491,7 +516,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, true, false,
-                        false, false, false);
+                        false, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -535,7 +562,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, true,
-                        false, false, false);
+                        false, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -578,7 +607,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
-                        true, false, false);
+                        true, false, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -622,7 +653,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
-                        false, true, false);
+                        false, true, false,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
@@ -665,11 +698,89 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
-                        false, false, true);
+                        false, false, true,
+                        false, false, false,
+                        false);
 
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
+                displayPitchResultsFragment();
+            }
+        });
+
+        mBallLow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
+                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
+                mEventBalls.setText(Integer.toString(++eventBallsCount));
+                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
+                ++eventBallsCountLow;
+                ++pitcherBallsCountLow;
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        false, false, false,
+                        true, false, false,
+                        false);
+                mUndo.setEnabled(true);
+                displayPitchResultsFragment();
+            }
+        });
+
+        mBallHigh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
+                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
+                mEventBalls.setText(Integer.toString(++eventBallsCount));
+                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
+                ++eventBallsCountHigh;
+                ++pitcherBallsCountHigh;
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        false, false, false,
+                        false, true, false,
+                        false);
+                mUndo.setEnabled(true);
+                displayPitchResultsFragment();
+            }
+        });
+
+        mBallLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
+                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
+                mEventBalls.setText(Integer.toString(++eventBallsCount));
+                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
+                ++eventBallsCountLeft;
+                ++pitcherBallsCountLeft;
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        false, false, false,
+                        false, false, true,
+                        false);
+                mUndo.setEnabled(true);
+                displayPitchResultsFragment();
+            }
+        });
+
+        mBallRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
+                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
+                mEventBalls.setText(Integer.toString(++eventBallsCount));
+                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
+                ++eventBallsCountRight;
+                ++pitcherBallsCountRight;
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        false, false, false,
+                        false, false, false,
+                        true);
+                mUndo.setEnabled(true);
                 displayPitchResultsFragment();
             }
         });
@@ -679,11 +790,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             @Override
             public void onClick(View view) {
                 mUndo.setEnabled(false);
-
                 decreaseTotalPitchCount();
                 getLastRegionResults(isR1C1, isR1C2, isR1C3,
                         isR2C1, isR2C2, isR2C3,
-                        isR3C1, isR3C2, isR3C3);
+                        isR3C1, isR3C2, isR3C3,
+                        isBallLow, isBallHigh,
+                        isBallLeft, isBallRight);
                 checkLastPitchResult();
             }
         });
@@ -922,7 +1034,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     private void setLastRegionResult(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
                                      Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
-                                     Boolean isR3C1, Boolean isR3C2, Boolean isR3C3) {
+                                     Boolean isR3C1, Boolean isR3C2, Boolean isR3C3,
+                                     Boolean isBallLow, Boolean isBallHigh,
+                                     Boolean isBallLeft, Boolean isBallRight) {
         this.isR1C1 = isR1C1;
         this.isR1C2 = isR1C2;
         this.isR1C3 = isR1C3;
@@ -932,46 +1046,94 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         this.isR3C1 = isR3C1;
         this.isR3C2 = isR3C2;
         this.isR3C3 = isR3C3;
+        this.isBallLow = isBallLow;
+        this.isBallHigh = isBallHigh;
+        this.isBallLeft = isBallLeft;
+        this.isBallRight = isBallRight;
     }
 
     private void getLastRegionResults(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
                                       Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
-                                      Boolean isR3C1, Boolean isR3C2, Boolean isR3C3) {
+                                      Boolean isR3C1, Boolean isR3C2, Boolean isR3C3,
+                                      Boolean isBallLow, Boolean isBallHigh,
+                                      Boolean isBallLeft, Boolean isBallRight) {
         if (isR1C1) {
             --eventCount_R1C1;
             --pitcherCount_R1C1;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR1C2) {
             --eventCount_R1C2;
             --pitcherCount_R1C2;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR1C3) {
             --eventCount_R1C3;
             --pitcherCount_R1C3;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR2C1) {
             --eventCount_R2C1;
             --pitcherCount_R2C1;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR2C2) {
             --eventCount_R2C2;
             --pitcherCount_R2C2;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR2C3) {
             --eventCount_R2C3;
             --pitcherCount_R2C3;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR3C1) {
             --eventCount_R3C1;
             --pitcherCount_R3C1;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR3C2) {
             --eventCount_R3C2;
             --pitcherCount_R3C2;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
         }
         if (isR3C3) {
             --eventCount_R3C3;
             --pitcherCount_R3C3;
+            mEventStrikes.setText(Integer.toString(--eventStrikesCount));
+            mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
+        }
+        if (isBallLow) {
+            --eventBallsCountLow;
+            --pitcherBallsCountLow;
+            mEventBalls.setText(Integer.toString(--eventBallsCount));
+            mPitcherBalls.setText(Integer.toString(--pitcherBallsCount));
+        }
+        if (isBallHigh) {
+            --eventBallsCountHigh;
+            --pitcherBallsCountHigh;
+            mEventBalls.setText(Integer.toString(--eventBallsCount));
+            mPitcherBalls.setText(Integer.toString(--pitcherBallsCount));
+        }
+        if (isBallLeft) {
+            --eventBallsCountLeft;
+            --pitcherBallsCountLeft;
+            mEventBalls.setText(Integer.toString(--eventBallsCount));
+            mPitcherBalls.setText(Integer.toString(--pitcherBallsCount));
+        }
+        if (isBallRight) {
+            --eventBallsCountRight;
+            --pitcherBallsCountRight;
+            mEventBalls.setText(Integer.toString(--eventBallsCount));
+            mPitcherBalls.setText(Integer.toString(--pitcherBallsCount));
         }
         isR1C1 = false;
         isR1C2 = false;
@@ -982,6 +1144,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isR3C1 = false;
         isR3C2 = false;
         isR3C3 = false;
+        isBallLow = false;
+        isBallHigh = false;
+        isBallLeft = false;
+        isBallRight = false;
     }
 
     private void decreaseTotalPitchCount() {
@@ -1097,6 +1263,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         pitcherCount_R3C1 = 0;
         pitcherCount_R3C2 = 0;
         pitcherCount_R3C3 = 0;
+        pitcherBallsCountLow = 0;
+        pitcherBallsCountHigh = 0;
+        pitcherBallsCountLeft = 0;
+        pitcherBallsCountRight = 0;
 
         mPitcherPitchCount.setText(Integer.toString(pitcherPitchCount = 0));
         mPitcherStrikes.setText(Integer.toString(pitcherStrikesCount = 0));
