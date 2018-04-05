@@ -47,11 +47,12 @@ import static java.lang.Math.round;
         - Do something similar that we did for updating result count, save class level booleans in updatePitcherResultsCounts XXX
         - Refactor mUndo, can keep it similar, but need to break down. XXX
         - Fix undo button's disabled state XXX
-   - Add "Ball" selection <---
+   - Add "Ball" selection XXX
         - Hook up to "Undo" XXX
         - New Pitcher XXX
-        - Adjust Objects to take balls regions
+        - Adjust Objects to take balls regions XXX
    - Styling
+        - Add header to tagging
         - Move colors and strings to res files
    - Disable back button on dialog
    - Full testing regression

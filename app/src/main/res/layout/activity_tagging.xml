@@ -7,7 +7,12 @@
     tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity"
     android:background="#dcdde1">
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/ichabodNavyBlue"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalBanner"
+        />
 
     <TextView
         android:id="@+id/txt_event_name_label"
@@ -16,6 +21,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Event: "
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertEvent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,6 +33,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
         app:layout_constraintStart_toEndOf="@+id/txt_event_name_label"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,10 +42,11 @@
         android:id="@+id/txt_pitcher_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Pitcher: "
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertStats"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertStats"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -46,6 +56,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
         app:layout_constraintStart_toEndOf="@+id/txt_pitcher_name_label"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -292,11 +304,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/guidelineHorizontalBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.075" />
+
+    <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineVertGrid"
@@ -310,7 +329,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineVertStats"
@@ -371,9 +390,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/main_button"
         android:text="@string/string_edit_event_info"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

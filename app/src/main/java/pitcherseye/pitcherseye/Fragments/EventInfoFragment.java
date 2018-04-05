@@ -33,8 +33,6 @@ import pitcherseye.pitcherseye.R;
 
 public class EventInfoFragment extends DialogFragment {
 
-    /*Button mConfirmEvent;
-    Button mConfirmPitcher;*/
     Button mConfirmChange;
     CheckBox mEventType;
     CheckBox mEventLocation;

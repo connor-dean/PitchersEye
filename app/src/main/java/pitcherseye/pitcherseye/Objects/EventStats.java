@@ -6,6 +6,12 @@ import java.util.Date;
  * Created by Connor on 2/25/2018.
  */
 
+/* TODO:
+    Will want to add:
+    - Event name
+    - Event date
+    - Array of pitcher IDs
+*/
 public class EventStats {
 
     // Change pending
@@ -35,13 +41,6 @@ public class EventStats {
     public int curveballCount;
     public int sliderCount;
     public int otherCount;
-
-    /* TODO:
-        Will want to add:
-            - Event name
-            - Event date
-            - Array of pitcher IDs
-     */
 
     public EventStats() { }
 
