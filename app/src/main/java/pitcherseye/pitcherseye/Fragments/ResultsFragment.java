@@ -25,7 +25,7 @@ public class ResultsFragment extends DialogFragment {
 
     int undoPitchType = 0;
 
-    int pitcherFastballCount = 0;
+    /*int pitcherFastballCount = 0;
     int eventFastballCount = 0;
     int pitcherChangeupCount = 0;
     int eventChangeupCount = 0;
@@ -34,16 +34,27 @@ public class ResultsFragment extends DialogFragment {
     int pitcherSliderCount = 0;
     int eventSliderCount = 0;
     int pitcherOtherCount = 0;
-    int eventOtherCount = 0;
+    int eventOtherCount = 0;*/
+
+    int pitcherFastballCount;
+    int eventFastballCount;
+    int pitcherChangeupCount;
+    int eventChangeupCount;
+    int pitcherCurveballCount;
+    int eventCurveballCount;
+    int pitcherSliderCount;
+    int eventSliderCount;
+    int pitcherOtherCount;
+    int eventOtherCount;
 
     TaggingActivity taggingActivity = (TaggingActivity) getActivity();
 
     public interface OnInputListener {
-        void sendInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+        void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
                        int pitcherSliderCount, int pitcherOtherCount);
     }
 
-    public OnInputListener mOnInputListener;
+    public OnInputListener mOnInputResultsListener;
 
     @Nullable
     @Override
@@ -61,6 +72,7 @@ public class ResultsFragment extends DialogFragment {
         mOther = (Button) view.findViewById(R.id.btn_result_other);
 
         //final TaggingActivity taggingActivity = new TaggingActivity();
+        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
 
         // Result events
         mFastball.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +81,16 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherFastballCount;
                 ++eventFastballCount;
-                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+                /*mOnInputResultsListener.sendResultsInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
                         pitcherSliderCount, pitcherOtherCount);*/
                 //taggingActivity.setPitcherFastballCount(++pitcherFastballCount);
-                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
+
+                /*taggingActivity.updatePitcherResultsCounts(
+                        taggingActivity.getPitcherFastballCount() + 1,
+                        taggingActivity.getPitcherChangeupCount(),
+                        pitcherCurveballCount,
                         pitcherSliderCount, pitcherOtherCount);*/
+                taggingActivity.updatePitcherResultsCounts(true, false, false, false, false);
                 getDialog().dismiss();
             }
         });
@@ -84,10 +101,7 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherChangeupCount;
                 ++eventChangeupCount;
-                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
-                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
+                taggingActivity.updatePitcherResultsCounts(false, true, false, false, false);
                 getDialog().dismiss();
             }
         });
@@ -98,10 +112,7 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherCurveballCount;
                 ++eventCurveballCount;
-                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
-                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
+                taggingActivity.updatePitcherResultsCounts(false, false, true, false, false);
                 getDialog().dismiss();
             }
         });
@@ -112,10 +123,7 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherSliderCount;
                 ++eventSliderCount;
-                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
-                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
+                taggingActivity.updatePitcherResultsCounts(false, false, false, true, false);
                 getDialog().dismiss();
             }
         });
@@ -126,10 +134,7 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherOtherCount;
                 ++eventOtherCount;
-                /*mOnInputListener.sendInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
-                /*taggingActivity.updatePitcherResultsCounts(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
+                taggingActivity.updatePitcherResultsCounts(false, false, false, false, true);
                 getDialog().dismiss();
             }
         });

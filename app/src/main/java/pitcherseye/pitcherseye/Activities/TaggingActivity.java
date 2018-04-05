@@ -41,8 +41,13 @@ import static java.lang.Math.round;
 
 // TODO master list
 /* - Change pitcher workflow XXX
-        - Spinner validation is giving me issues  <--------------
+        - Spinner validation is giving me issues  XXX
    - Fix undo workflow XXX
+        - Adjust for Result type XXX
+        - Do something similar that we did for updating result count, save class level booleans in updatePitcherResultsCounts XXX
+        - Refactor mUndo, can keep it similar, but need to break down. XXX
+        - Fix undo button's disabled state <---
+        - Full testing regression <---
    - Add "Ball" selection
    - Task to check for Firebase send success
    - Styling
@@ -65,12 +70,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mFinishGame;
     ProgressBar mProgressFinishGame;
     Button mUndo;
-    //Button mConfirmEvent;
-    //Button mConfirmPitcher;
-    /*CheckBox mEventType;
-    CheckBox mEventLocation;*/
     DatabaseReference mDatabase;
-    //EditText mEventName;
     Button mEditEventInfo;
 
     // Request Code
@@ -91,13 +91,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Boolean locationSelected = false;
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String eventDate = df.format(Calendar.getInstance().getTime());
-
-    // Results
-    /*Button mFastball;
-    Button mChangeup;
-    Button mCurveball;
-    Button mSlider;
-    Button mOther;*/
 
     TextView mEventName;
     TextView mPitcherName;
@@ -167,6 +160,20 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     int undoPitchRegion = 0;
     int undoPitchType = 0;
 
+    Boolean isFastball;
+    Boolean isChangeup;
+    Boolean isCurveball;
+    Boolean isSlider;
+    Boolean isOther;
+    Boolean isR1C1;
+    Boolean isR1C2;
+    Boolean isR1C3;
+    Boolean isR2C1;
+    Boolean isR2C2;
+    Boolean isR2C3;
+    Boolean isR3C1;
+    Boolean isR3C2;
+    Boolean isR3C3;
 
     // TODO WOW THIS SUCKKKKS
     double r1 = 0;
@@ -244,12 +251,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                     // Add empty space for the start
                     pitchers.add(pitcherFullName);
                 }
-
-                // TODO move to fragment
-                /*mSpinnerPitchers = (Spinner) findViewById(R.id.spin_pitcher_names);
-                ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(TaggingActivity.this, android.R.layout.simple_spinner_item, pitchers);
-                pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mSpinnerPitchers.setAdapter(pitchersAdapter);*/
             }
 
             @Override
@@ -257,16 +258,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
             }
         });
-
-        // TODO cleanup
-        // Check to see if there is input for the event and the pitcher
-        // If there isn't, don't allow the user to tag the games
-        // This should disable buttons on start
-        // Also ensure that the workflow is set correctly on startup
-        //enableTagging(eventSet, pitcherSet);
-        //mUndo.setEnabled(false);
-        //mFinishGame.setEnabled(false);
-        //disableResults();
 
         // Open DialogFragment
         mEditEventInfo.setOnClickListener(new View.OnClickListener() {
@@ -314,6 +305,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 r1++;
 
+                // Undo workflow
+                setLastRegionResult(true, false, false,
+                        false, false, false,
+                        false, false, false);
+
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
@@ -354,6 +350,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //mR1C2.getBackground().setAlpha(50);
                 r2++;
 
+                // Undo workflow
+                setLastRegionResult(false, true, false,
+                        false, false, false,
+                        false, false, false);
+
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
@@ -391,6 +392,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r3++;
+
+                // Undo workflow
+                setLastRegionResult(false, false, true,
+                        false, false, false,
+                        false, false, false);
 
                 mUndo.setEnabled(true);
 
@@ -430,6 +436,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 adjustHeatMap();
                 r4++;
 
+                // Undo workflow
+                setLastRegionResult(false, false, false,
+                        true, false, false,
+                        false, false, false);
+
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
@@ -467,6 +478,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r5++;
+
+                // Undo workflow
+                setLastRegionResult(false, false, false,
+                        false, true, false,
+                        false, false, false);
 
                 mUndo.setEnabled(true);
 
@@ -507,6 +523,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 adjustHeatMap();
                 r6++;
 
+                // Undo workflow
+                setLastRegionResult(false, false, false,
+                        false, false, true,
+                        false, false, false);
+
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
@@ -544,6 +565,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 //adjustHeatMapHelper();
                 adjustHeatMap();
                 r7++;
+
+                // Undo workflow
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        true, false, false);
 
                 mUndo.setEnabled(true);
 
@@ -584,6 +610,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 r8++;
 
+                // Undo workflow
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        false, true, false);
+
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
@@ -622,6 +653,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 adjustHeatMap();
                 r9++;
 
+                // Undo workflow
+                setLastRegionResult(false, false, false,
+                        false, false, false,
+                        false, false, true);
+
                 mUndo.setEnabled(true);
 
                 // Open ResultsFragment
@@ -629,267 +665,17 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             }
         });
 
-        // TODO Clean up
-        /*// Result events
-        mFastball.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                mEventFastballCount.setText(Integer.toString(++eventFastballCount));
-
-                // Increase pitcher count
-                mPitcherFastballCount.setText(Integer.toString(++pitcherFastballCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 10;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);
-            }
-        });
-
-        mChangeup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                mEventChangeupCount.setText(Integer.toString(++eventChangeupCount));
-
-                // Increase pitcher count
-                mPitcherChangeupCount.setText(Integer.toString(++pitcherChangeupCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 11;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);
-            }
-        });
-
-        mCurveball.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                mEventCurveballCount.setText(Integer.toString(++eventCurveballCount));
-
-                // Increase pitcher count
-                mPitcherCurveballCount.setText(Integer.toString(++pitcherCurveballCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 12;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);
-            }
-        });
-
-        mSlider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                mEventSliderCount.setText(Integer.toString(++eventSliderCount));
-
-                // Increase pitcher count
-                mPitcherSliderCount.setText(Integer.toString(++pitcherSliderCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 13;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);
-            }
-        });
-
-        mOther.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                mEventOtherCount.setText(Integer.toString(++eventOtherCount));
-
-                // Increase pitcher count
-                mPitcherOtherCount.setText(Integer.toString(++pitcherOtherCount));
-
-                // Keep track of previous pitch
-                undoPitchType = 14;
-
-                // Reenable grid
-                enableTagging(locationSelected = false);
-            }
-        });*/
-
-        // Enter event name
-        // TODO moving to fragment
-        /*mConfirmEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!eventSet) {
-                    // Grab event information
-                    saveEventInfo();
-
-                    // Disable event components
-                    mEventName.setEnabled(false);
-                    mEventType.setEnabled(false);
-                    mEventLocation.setEnabled(false);
-
-                    // Change button text
-                    mConfirmEvent.setText("Edit");
-                } else {
-                    // Enable components
-                    mEventName.setEnabled(true);
-                    mEventType.setEnabled(true);
-                    mEventLocation.setEnabled(true);
-
-                    mConfirmEvent.setText("Confirm");
-
-                    // Say that there has been a previous entry
-                    eventSet = false;
-                }
-                enableTagging(eventSet, pitcherSet);
-
-                // TODO create a Game object and send info to Firebase on game completion
-            }
-        });
-
-        mConfirmPitcher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // If there isn't a pitcher set yet, save the input
-                if (!pitcherSet && mSpinnerPitchers.getSelectedItem().toString() != " ") {
-                    savePitcherInfo();
-
-                    // Disable EditTexts
-                    //mPitcherFirst.setEnabled(false);
-                    //mPitcherLast.setEnabled(false);
-                    mSpinnerPitchers.setEnabled(false);
-
-                    // Change button text
-                    mConfirmPitcher.setText("Change Pitcher");
-                } else if (mSpinnerPitchers.getSelectedItem().toString() == " ") {
-                    Toast.makeText(getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
-                } else {
-                    // If there IS a pitcher set and the "Change Pitcher" button is selected,
-                    // update the fields to allow the user to enter a new pitcher
-                    // Also sends the pitcher's stats after changing pitchers
-                    mSpinnerPitchers.setEnabled(true);
-
-                    String eventID = Utilities.createRandomHex(6);
-
-                    // Send individual statistics to Firebase
-                    sendPitcherStats(eventID, eventName, eventDate, 0,
-                            pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
-                            pitcherBallsCount, pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
-                            pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
-                            pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
-
-                    mConfirmPitcher.setText("Confirm Pitcher");
-
-                    pitcherSet = false;
-                }
-                enableTagging(eventSet, pitcherSet);
-                mUndo.setEnabled(false);
-                mFinishGame.setEnabled(false);
-            }
-        }); */
-
         // TODO needs refactoring
         mUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mUndo.setEnabled(false);
-                if (1 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R1C1;
-                    --pitcherCount_R1C1;
-                }
-                if (2 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R1C2;
-                    --pitcherCount_R1C2;
-                }
-                if (3 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R1C3;
-                    --pitcherCount_R1C3;
-                }
-                if (4 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R2C1;
-                    --pitcherCount_R2C1;
-                }
-                if (5 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R2C2;
-                    --pitcherCount_R2C2;
-                }
-                if (6 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R2C3;
-                    --pitcherCount_R2C3;
-                }
-                if (7 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R3C1;
-                    --pitcherCount_R3C1;
-                }
-                if (8 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R3C2;
-                    --pitcherCount_R3C2;
-                }
-                if (9 == undoPitchRegion) {
-                    mEventPitchCount.setText(Integer.toString(--eventPitchCount));
-                    mEventStrikes.setText(Integer.toString(--eventStrikesCount));
-                    mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
-                    mPitcherStrikes.setText(Integer.toString(--pitcherStrikesCount));
-                    --eventCount_R3C2;
-                    --pitcherCount_R1C1;
-                }
-                if (10 == undoPitchType) {
-                    mEventFastballCount.setText(Integer.toString(--eventFastballCount));
-                    mPitcherFastballCount.setText(Integer.toString(--pitcherFastballCount));
-                }
-                if (11 == undoPitchType) {
-                    mEventChangeupCount.setText(Integer.toString(--eventChangeupCount));
-                    mPitcherChangeupCount.setText(Integer.toString(--pitcherChangeupCount));
-                }
-                if (12 == undoPitchType) {
-                    mEventCurveballCount.setText(Integer.toString(--eventCurveballCount));
-                    mPitcherCurveballCount.setText(Integer.toString(--pitcherCurveballCount));
-                }
-                if (13 == undoPitchType) {
-                    mEventSliderCount.setText(Integer.toString(--eventSliderCount));
-                    mPitcherSliderCount.setText(Integer.toString(--pitcherSliderCount));
-                }
-                if (14 == undoPitchType) {
-                    mEventOtherCount.setText(Integer.toString(--eventOtherCount));
-                    mPitcherOtherCount.setText(Integer.toString(--pitcherOtherCount));
-                }
-                undoPitchRegion = 0;
-                undoPitchType = 0;
-                //mFinishGame.setEnabled(false);
+
+                decreaseTotalPitchCount();
+                getLastRegionResults(isR1C1, isR1C2, isR1C3,
+                        isR2C1, isR2C2, isR2C3,
+                        isR3C1, isR3C2, isR3C3);
+                checkLastPitchResult();
             }
         });
 
@@ -967,16 +753,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             mR3C2.setEnabled(false);
             mR3C3.setEnabled(false);
 
-            // TODO cleanup
-            /*mFastball.setEnabled(true);
-            mChangeup.setEnabled(true);
-            mCurveball.setEnabled(true);
-            mSlider.setEnabled(true);
-            mOther.setEnabled(true);*/
-
-            //mConfirmEvent.setEnabled(false);
-            //mConfirmPitcher.setEnabled(false);
-
             mUndo.setEnabled(false);
             mFinishGame.setEnabled(false);
         } else {
@@ -989,16 +765,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             mR3C1.setEnabled(true);
             mR3C2.setEnabled(true);
             mR3C3.setEnabled(true);
-
-            // TODO cleanup
-            /*mFastball.setEnabled(false);
-            mChangeup.setEnabled(false);
-            mCurveball.setEnabled(false);
-            mSlider.setEnabled(false);
-            mOther.setEnabled(false);*/
-
-            //mConfirmEvent.setEnabled(true);
-            //mConfirmPitcher.setEnabled(true);
 
             mUndo.setEnabled(true);
             mFinishGame.setEnabled(true);
@@ -1018,15 +784,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mR3C1.setEnabled(true);
         mR3C2.setEnabled(true);
         mR3C3.setEnabled(true);
-    }
-
-    // TODO cleanup
-    private void disableResults() {
-        /*mFastball.setEnabled(false);
-        mChangeup.setEnabled(false);
-        mCurveball.setEnabled(false);
-        mSlider.setEnabled(false);
-        mOther.setEnabled(false);*/
     }
 
     // Adjust the heatmap
@@ -1113,12 +870,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     // TODO don't think we need this
     private void saveEventInfo() {
         eventName = mEventName.getText().toString().trim();
-        /*if (!mEventType.isChecked()) {
-            isGame = false;
-        }
-        if (!mEventLocation.isChecked()) {
-            isHome = false;
-        }*/
         eventSet = true;
     }
 
@@ -1160,20 +911,151 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         //resetPitcherStats();
     }
 
+    private void setLastRegionResult(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
+                                     Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
+                                     Boolean isR3C1, Boolean isR3C2, Boolean isR3C3) {
+        this.isR1C1 = isR1C1;
+        this.isR1C2 = isR1C2;
+        this.isR1C3 = isR1C3;
+        this.isR2C1 = isR2C1;
+        this.isR2C2 = isR2C2;
+        this.isR2C3 = isR2C3;
+        this.isR3C1 = isR3C1;
+        this.isR3C2 = isR3C2;
+        this.isR3C3 = isR3C3;
+    }
+
+    private void getLastRegionResults(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
+                                      Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
+                                      Boolean isR3C1, Boolean isR3C2, Boolean isR3C3) {
+        if (isR1C1) {
+            --eventCount_R1C1;
+            --pitcherCount_R1C1;
+        }
+        if (isR1C2) {
+            --eventCount_R1C2;
+            --pitcherCount_R1C2;
+        }
+        if (isR1C3) {
+            --eventCount_R1C3;
+            --pitcherCount_R1C3;
+        }
+        if (isR2C1) {
+            --eventCount_R2C1;
+            --pitcherCount_R2C1;
+        }
+        if (isR2C2) {
+            --eventCount_R2C2;
+            --pitcherCount_R2C2;
+        }
+        if (isR2C3) {
+            --eventCount_R2C3;
+            --pitcherCount_R2C3;
+        }
+        if (isR3C1) {
+            --eventCount_R3C1;
+            --pitcherCount_R3C1;
+        }
+        if (isR3C2) {
+            --eventCount_R3C2;
+            --pitcherCount_R3C2;
+        }
+        if (isR3C3) {
+            --eventCount_R3C3;
+            --pitcherCount_R3C3;
+        }
+        isR1C1 = false;
+        isR1C2 = false;
+        isR1C3 = false;
+        isR2C1 = false;
+        isR2C2 = false;
+        isR2C3 = false;
+        isR3C1 = false;
+        isR3C2 = false;
+        isR3C3 = false;
+    }
+
+    private void decreaseTotalPitchCount() {
+        mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
+        mEventPitchCount.setText(Integer.toString(--eventPitchCount));
+    }
+
+    private void checkLastPitchResult() {
+        if (isFastball) {
+            mPitcherFastballCount.setText(Integer.toString(--pitcherFastballCount));
+            mEventFastballCount.setText(Integer.toString(--eventFastballCount));
+        }
+        if (isChangeup) {
+            mPitcherChangeupCount.setText(Integer.toString(--pitcherChangeupCount));
+            mEventChangeupCount.setText(Integer.toString(--eventChangeupCount));
+        }
+        if (isCurveball) {
+            mPitcherCurveballCount.setText(Integer.toString(--pitcherCurveballCount));
+            mEventCurveballCount.setText(Integer.toString(--eventCurveballCount));
+        }
+        if (isSlider) {
+            mPitcherSliderCount.setText(Integer.toString(--pitcherSliderCount));
+            mEventSliderCount.setText(Integer.toString(--eventSliderCount));
+        }
+        if (isOther) {
+            mPitcherOtherCount.setText(Integer.toString(--pitcherOtherCount));
+            mEventOtherCount.setText(Integer.toString(--eventOtherCount));
+        }
+        isFastball = false;
+        isChangeup = false;
+        isCurveball = false;
+        isSlider = false;
+        isOther = false;
+    }
+
     // Use this to update count on TextView components
     public void updatePitcherResultsCounts(int pitcherFastball, int pitcherChangeup, int pitcherCurveball,
                                             int pitcherSlider, int pitcherOther) {
-        /*mPitcherFastballCount.setText(Integer.toString(pitcherFastball));
-        mPitcherChangeupCount.setText(Integer.toString(pitcherChangeup));
-        mPitcherCurveballCount.setText(Integer.toString(pitcherCurveball));
-        mPitcherSliderCount.setText(Integer.toString(pitcherSlider));
-        mPitcherOtherCount.setText(Integer.toString(pitcherOther));*/
+
         pitcherFastballCount = pitcherFastball;
         pitcherChangeupCount = pitcherChangeup;
         pitcherCurveballCount = pitcherCurveball;
         pitcherSliderCount = pitcherSlider;
         pitcherOtherCount = pitcherOther;
+
+        mPitcherFastballCount.setText(Integer.toString(pitcherFastballCount));
+        mPitcherChangeupCount.setText(Integer.toString(pitcherChangeup));
+        mPitcherCurveballCount.setText(Integer.toString(pitcherCurveball));
+        mPitcherSliderCount.setText(Integer.toString(pitcherSlider));
+        mPitcherOtherCount.setText(Integer.toString(pitcherOther));
         //updateComponents();
+    }
+
+    public void updatePitcherResultsCounts(Boolean isFastball, Boolean isChangeup, Boolean isCurveball,
+                                           Boolean isSlider, Boolean isOther) {
+
+        // Save the results so we can tell which pitch was thrown last in case of an "undo"
+        this.isFastball = isFastball;
+        this.isChangeup = isChangeup;
+        this.isCurveball = isCurveball;
+        this.isSlider = isSlider;
+        this.isOther = isOther;
+
+        if (isFastball) {
+            mPitcherFastballCount.setText(Integer.toString(++pitcherFastballCount));
+            mEventFastballCount.setText(Integer.toString(++eventFastballCount));
+        }
+        if (isChangeup) {
+            mPitcherChangeupCount.setText(Integer.toString(++pitcherChangeupCount));
+            mEventChangeupCount.setText(Integer.toString(++eventChangeupCount));
+        }
+        if (isCurveball) {
+            mPitcherCurveballCount.setText(Integer.toString(++pitcherCurveballCount));
+            mEventCurveballCount.setText(Integer.toString(++eventCurveballCount));
+        }
+        if (isSlider) {
+            mPitcherSliderCount.setText(Integer.toString(++pitcherSliderCount));
+            mEventSliderCount.setText(Integer.toString(++eventSliderCount));
+        }
+        if (isOther) {
+            mPitcherOtherCount.setText(Integer.toString(++pitcherOtherCount));
+            mEventOtherCount.setText(Integer.toString(++eventOtherCount));
+        }
     }
 
     public void updateComponents() {
@@ -1235,14 +1117,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     }
 
     @Override
-    public void sendInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+    public void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
                           int pitcherSliderCount, int pitcherOtherCount) {
-        this.pitcherFastballCount = pitcherFastballCount;
-        this.pitcherChangeupCount = pitcherChangeupCount;
-        this.pitcherCurveballCount = pitcherCurveballCount;
-        this.pitcherSliderCount = pitcherSliderCount;
-        this.pitcherOtherCount = pitcherOtherCount;
-        updateComponents();
+        mPitcherFastballCount.setText(Integer.toString(pitcherFastballCount));
+        mPitcherChangeupCount.setText(Integer.toString(pitcherChangeupCount));
+        mPitcherCurveballCount.setText(Integer.toString(pitcherCurveballCount));
+        mPitcherSliderCount.setText(Integer.toString(pitcherSliderCount));
+        mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount));
     }
 
     // Getters/Setters
@@ -1297,8 +1178,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     public void setPitcherFastballCount(int pitcherFastballCount) {
         this.pitcherFastballCount = pitcherFastballCount;
-        //updateComponents();
     }
+
 
     public int getPitcherChangeupCount() {
         return pitcherChangeupCount;
