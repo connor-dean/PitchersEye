@@ -51,10 +51,11 @@ import static java.lang.Math.round;
         - Hook up to "Undo" XXX
         - New Pitcher XXX
         - Adjust Objects to take balls regions XXX
-   - Styling
-        - Add header to tagging
-        - Move colors and strings to res files
-   - Disable back button on dialog
+   - Styling XXX
+        - Add header to tagging XXX
+        - Move colors and strings to res files XXX
+   - Disable back button on dialog <---
+   - Refactor code
    - Full testing regression
    - Heatmap (Tentative)
    - Task to check for Firebase send success
