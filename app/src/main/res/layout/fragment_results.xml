@@ -4,70 +4,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dcdde1">
+    android:background="@color/colorTaggingBackground">
 
-    <!-- Results -->
+    <!-- Header -->
+
+    <View
+        android:id="@+id/view_results_header"
+        android:background="@color/ichabodNavyBlue"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_edit_results"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/string_pitch_result_header"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/btn_result_fastball"
+        app:layout_constraintStart_toStartOf="@+id/btn_result_fastball"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <!-- Events -->
+
     <Button
         android:id="@+id/btn_result_fastball"
+        android:background="@drawable/tagging_button_enabled"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/tagging_button_enabled"
         android:text="@string/string_pitch_fastball"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/view_results_header" />
 
     <Button
         android:id="@+id/btn_result_changeup"
+        android:background="@drawable/tagging_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_changeup"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_fastball"
         app:layout_constraintStart_toStartOf="@+id/btn_result_fastball"
         app:layout_constraintTop_toBottomOf="@+id/btn_result_fastball" />
 
     <Button
         android:id="@+id/btn_result_curve"
+        android:background="@drawable/tagging_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_curveball"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_changeup"
         app:layout_constraintStart_toStartOf="@+id/btn_result_changeup"
         app:layout_constraintTop_toBottomOf="@+id/btn_result_changeup" />
 
     <Button
         android:id="@+id/btn_result_slider"
+        android:background="@drawable/tagging_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_slider"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_curve"
         app:layout_constraintStart_toStartOf="@+id/btn_result_curve"
         app:layout_constraintTop_toBottomOf="@+id/btn_result_curve" />
 
     <Button
         android:id="@+id/btn_result_other"
+        android:background="@drawable/tagging_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/tagging_button"
         android:text="@string/string_pitch_other"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_result_slider"
         app:layout_constraintStart_toStartOf="@+id/btn_result_slider"

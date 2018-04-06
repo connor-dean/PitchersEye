@@ -2,11 +2,14 @@
     <string name="app_name">PitchersEye</string>
 
     <!-- Main menu -->
+
     <string name="string_schedule">Schedule</string>
     <string name="string_statistics">Stats</string>
     <string name="string_new_game">New Game</string>
 
+
     <!-- Login/Registration -->
+
     <string name="string_login">Login</string>
     <string name="string_email">Email</string>
     <string name="string_password">Password</string>
@@ -19,7 +22,9 @@
     <string name="string_team_id">Team ID</string>
     <string name="string_registration_id">Registration ID</string>
 
+
     <!-- Tagging -->
+
     <string name="string_pitcher_count_label">Pitcher</string>
     <string name="string_event_count_label">Event</string>
     <string name="string_event_header">Event: </string>
@@ -52,7 +57,9 @@
     <string name="string_ball_left">Left</string>
     <string name="string_ball_right">Right</string>
 
+
     <!-- Event Entry -->
+
     <string name="string_event_information_header">Event Information</string>
     <string name="string_event_name">Event Name</string>
     <string name="string_event_type">Game</string>
@@ -65,5 +72,10 @@
     <string name="string_undo">Undo</string>
     <string name="string_edit_event_info">Edit Event Info</string>
     <string name="string_confirm">Confirm</string>
+
+
+    <!-- Results -->
+
+    <string name="string_pitch_result_header">Pitch Type</string>
 
 </resources>
