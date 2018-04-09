@@ -17,7 +17,11 @@ public class PitcherStats {
     public int teamID;
     public int pitchCount;
     public int strikeCount;
-    public int ballCount;
+    public int pitcherBallCount;
+    public int pitcherBallCountLow;
+    public int pitcherBallCountHigh;
+    public int pitcherBallCountLeft;
+    public int pitcherBallCountRight;
     public int R1C1Count;
     public int R1C2Count;
     public int R1C3Count;
@@ -43,7 +47,8 @@ public class PitcherStats {
     public PitcherStats() {}
 
     public PitcherStats(String eventID, String eventName, String eventDate, int playerID, String playerName,
-                        int teamID, int pitchCount, int strikeCount, int ballCount,
+                        int teamID, int pitchCount, int strikeCount, int pitcherBallCount, int pitcherBallCountLow,
+                        int pitcherBallCountHigh, int pitcherBallCountLeft, int pitcherBallCountRight,
                         int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                         int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
                         int changeupCount, int curveballCount, int sliderCount, int otherCount) {
@@ -55,7 +60,11 @@ public class PitcherStats {
         this.teamID = teamID;
         this.pitchCount = pitchCount;
         this.strikeCount = strikeCount;
-        this.ballCount = ballCount;
+        this.pitcherBallCount = pitcherBallCount;
+        this.pitcherBallCountLow = pitcherBallCountLow;
+        this.pitcherBallCountHigh = pitcherBallCountHigh;
+        this.pitcherBallCountLeft = pitcherBallCountLeft;
+        this.pitcherBallCountRight = pitcherBallCountRight;
         this.R1C1Count = R1C1Count;
         this.R1C2Count = R1C2Count;
         this.R1C3Count = R1C3Count;
