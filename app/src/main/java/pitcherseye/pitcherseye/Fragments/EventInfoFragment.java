@@ -47,8 +47,6 @@ public class EventInfoFragment extends DialogFragment {
     String pitcherName = "";
     String eventName = "";
 
-    TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-
     public interface OnInputListener {
         void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
     }
@@ -157,21 +155,4 @@ public class EventInfoFragment extends DialogFragment {
             Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
     }
-
-    public String getPitcherName() {
-        return pitcherName;
-    }
-
-    public void setPitcherName(String pitcherName) {
-        this.pitcherName = pitcherName;
-    }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
 }
