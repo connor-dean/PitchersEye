@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MainActivity"/>
-        <activity android:name=".Activities.ScheduleActivity"/>
         <activity android:name=".Activities.StatisticsActivity"/>
         <activity android:name=".Activities.TaggingActivity"/>
         <activity android:name=".Activities.SignUpActivity"

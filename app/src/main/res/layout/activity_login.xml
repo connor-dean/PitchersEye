@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/login_panel"
+        android:background="@drawable/background_square"
         android:layout_width="365dp"
         android:layout_height="219dp"
-        android:background="@drawable/background_square"
         app:layout_constraintBottom_toBottomOf="@id/txt_new_user"
         app:layout_constraintLeft_toLeftOf="@id/edt_email"
         app:layout_constraintRight_toRightOf="@id/edt_email"
