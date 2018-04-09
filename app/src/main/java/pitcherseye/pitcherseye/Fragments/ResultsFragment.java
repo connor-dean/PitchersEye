@@ -23,19 +23,6 @@ public class ResultsFragment extends DialogFragment {
     Button mSlider;
     Button mOther;
 
-    int undoPitchType = 0;
-
-    /*int pitcherFastballCount = 0;
-    int eventFastballCount = 0;
-    int pitcherChangeupCount = 0;
-    int eventChangeupCount = 0;
-    int pitcherCurveballCount = 0;
-    int eventCurveballCount = 0;
-    int pitcherSliderCount = 0;
-    int eventSliderCount = 0;
-    int pitcherOtherCount = 0;
-    int eventOtherCount = 0;*/
-
     int pitcherFastballCount;
     int eventFastballCount;
     int pitcherChangeupCount;
@@ -81,15 +68,6 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherFastballCount;
                 ++eventFastballCount;
-                /*mOnInputResultsListener.sendResultsInput(pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
-                //taggingActivity.setPitcherFastballCount(++pitcherFastballCount);
-
-                /*taggingActivity.updatePitcherResultsCounts(
-                        taggingActivity.getPitcherFastballCount() + 1,
-                        taggingActivity.getPitcherChangeupCount(),
-                        pitcherCurveballCount,
-                        pitcherSliderCount, pitcherOtherCount);*/
                 taggingActivity.updatePitcherResultsCounts(true, false, false, false, false);
                 getDialog().dismiss();
             }
