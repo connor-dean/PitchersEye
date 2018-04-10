@@ -1,9 +1,9 @@
 package pitcherseye.pitcherseye.Fragments;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,21 +28,16 @@ import java.util.List;
 import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
-public class EventInfoFragment extends DialogFragment {
+public class ChangePitcherFragment extends DialogFragment {
 
     Button mConfirmChange;
-    CheckBox mEventType;
-    CheckBox mEventLocation;
     DatabaseReference mDatabase;
-    EditText mEventName;
     Spinner mSpinnerPitchers;
-    TextView mEventInfo;
 
     String pitcherName = "";
-    String eventName = "";
 
     public interface OnInputListener {
-        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
+        void sendInput(String pitcherName, int pitcherSpinnerIndex);
     }
 
     public OnInputListener mOnInputListener;
@@ -50,24 +45,17 @@ public class EventInfoFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_event_info, container, false);
+        final View view = inflater.inflate(R.layout.fragment_change_pitcher, container, false);
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
-        mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
-        mEventType = (CheckBox) view.findViewById(R.id.chck_bx_event_type);
-        mEventLocation = (CheckBox) view.findViewById(R.id.chck_bx_event_location);
+        mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_pitcher_change);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
-        mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_pitcher_names);
-        mEventInfo = (TextView) view.findViewById(R.id.txt_edit_event);
+        mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_change_pitcher_names);
 
         // Display previously entered values
         final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-        mEventName.setText(taggingActivity.getEventName());
-        mEventLocation.setChecked(taggingActivity.getHome());
-        mEventType.setChecked(taggingActivity.getGame());
 
         // Instantiate and load pitchers into spinner
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
@@ -100,13 +88,9 @@ public class EventInfoFragment extends DialogFragment {
         mConfirmChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean isGame = true;
-                Boolean isHome = true;
 
-                // Check to make sure there is an entry in the spinner
-                if (mEventName.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
-                } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty()  || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
+                /*// Check to make sure there is an entry in the spinner
+                if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
                     Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
                 } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName())) {
                     Toast.makeText(getActivity().getApplicationContext(), "Enter a new pitcher to continue session", Toast.LENGTH_SHORT).show();
@@ -119,20 +103,12 @@ public class EventInfoFragment extends DialogFragment {
 
                     pitcherName = mSpinnerPitchers.getSelectedItem().toString();
                     int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
-                    eventName = mEventName.getText().toString().trim();
-
-                    if (!mEventType.isChecked()) {
-                        isGame = false;
-                    }
-                    if (!mEventLocation.isChecked()) {
-                        isHome = false;
-                    }
 
                     // Send the information to TaggingActivity
-                    mOnInputListener.sendInput(eventName, isGame, isHome, pitcherName, pitcherIndex);
+                    mOnInputListener.sendInput(pitcherName, pitcherIndex);*/
 
                     getDialog().dismiss();
-                }
+                //}
             }
         });
 

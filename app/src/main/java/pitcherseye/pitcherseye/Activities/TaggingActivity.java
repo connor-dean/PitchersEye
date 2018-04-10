@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import pitcherseye.pitcherseye.Fragments.ChangePitcherFragment;
 import pitcherseye.pitcherseye.Fragments.EventInfoFragment;
 import pitcherseye.pitcherseye.Fragments.ResultsFragment;
 import pitcherseye.pitcherseye.Objects.EventStats;
@@ -84,7 +85,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     ProgressBar mProgressFinishGame;
     Button mUndo;
     DatabaseReference mDatabase;
-    Button mEditEventInfo;
+    Button mChangePitcher;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
@@ -205,7 +206,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate Buttons
-        mEditEventInfo = (Button) findViewById(R.id.button_event_info);
+        mChangePitcher = (Button) findViewById(R.id.button_event_info);
         mR1C1 = (Button) findViewById(R.id.btnR1C1); //mR1C1.getBackground().setAlpha(0);
         mR1C2 = (Button) findViewById(R.id.btnR1C2); //mR1C2.getBackground().setAlpha(0);
         mR1C3 = (Button) findViewById(R.id.btnR1C3); //mR1C3.getBackground().setAlpha(0);
@@ -273,12 +274,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         });
 
         // Open DialogFragment
-        mEditEventInfo.setOnClickListener(new View.OnClickListener() {
+        mChangePitcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
+                /*FragmentManager fm = getFragmentManager();
                 EventInfoFragment infoFragment = new EventInfoFragment();
-                infoFragment.show(fm, "Hello");
+                infoFragment.show(fm, "Open EventInfoFragment");*/
+                FragmentManager fm = getFragmentManager();
+                ChangePitcherFragment pitcherFragment = new ChangePitcherFragment();
+                pitcherFragment.show(fm, "Open ChangePitcherFragment");
             }
         });
 
@@ -614,10 +618,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
                         pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
 
+                // Display EventInfoFragment to confirm results
+                displayEventInfoFragment();
+
                 // Send back to MainActivity
-                Intent i = MainActivity.newIntent(TaggingActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
-                finish();
+                /*Intent i = MainActivity.newIntent(TaggingActivity.this);
+                startActivityForResult(i, REQUEST_CODE_CALCULATE);*/
+                //finish();
             }
         });
     }
