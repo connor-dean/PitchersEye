@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorTaggingBackground"
-    tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity">
+    tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity"
+    android:focusableInTouchMode="true" >
 
-   <View
+    <View
         android:id="@+id/view_event_header"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/ichabodNavyBlue"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_edit_event"
@@ -29,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edt_txt_event_name_entry"
@@ -38,12 +38,14 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="16dp"
         android:hint="@string/string_event_name"
         android:inputType="text"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_event_header"/>
+        app:layout_constraintTop_toBottomOf="@id/view_event_header" />
 
     <CheckBox
         android:id="@+id/chck_bx_event_type"
@@ -72,7 +74,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location"/>
+        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />
 
     <Button
         android:id="@+id/btn_confirm_info"
@@ -86,6 +88,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/spin_pitcher_names"/>
+        app:layout_constraintTop_toBottomOf="@+id/spin_pitcher_names" />
 
 </android.support.constraint.ConstraintLayout>
