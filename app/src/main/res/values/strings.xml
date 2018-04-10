@@ -62,8 +62,13 @@
 
     <string name="string_event_information_header">Event Information</string>
     <string name="string_event_name">Event Name</string>
-    <string name="string_event_type">Game</string>
-    <string name="string_event_location">Home</string>
+    <string name="string_event_type_label">Event Type:</string>
+    <string name="string_event_type_game">Game</string>
+    <string name="string_event_type_practice">Practice</string>
+    <string name="string_event_location_label">Event Location:</string>
+    <string name="string_event_location_home">Home</string>
+    <string name="string_event_location_away">Away</string>
+    <string name="string_select_pitcher">&lt;Select Pitcher&gt;</string>
     <string name="string_event_pitcher_first">P FName</string>
     <string name="string_event_pitcher_last">P LName</string>
     <string name="string_event_confirm">Confirm Event</string>

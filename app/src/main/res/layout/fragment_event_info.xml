@@ -47,25 +47,79 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_event_header" />
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/chck_bx_event_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:text="@string/string_event_type"
-        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
+        tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="160dp" />
 
     <CheckBox
         android:id="@+id/chck_bx_event_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:layout_marginTop="16dp"
         android:text="@string/string_event_location"
+        tools:layout_editor_absoluteX="413dp"
+        tools:layout_editor_absoluteY="160dp" />-->
+
+    <RadioGroup
+        android:id="@+id/radio_group_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:checkedButton="@id/radio_event_type_game"
+        app:layout_constraintStart_toStartOf="@id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry">
+
+        <TextView
+            android:id="@+id/txt_event_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_event_type_label" />
+
+        <RadioButton
+            android:id="@+id/radio_event_type_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_event_type_game" />
+
+        <RadioButton
+            android:id="@+id/radio_event_type_practice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_event_type_practice" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_group_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:checkedButton="@id/radio_event_location_home"
         app:layout_constraintEnd_toEndOf="@id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
+        app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry">
+
+        <TextView
+            android:id="@+id/txt_event_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_event_location_label" />
+
+        <RadioButton
+            android:id="@+id/radio_event_location_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_event_location_home" />
+
+        <RadioButton
+            android:id="@+id/radio_event_location_away"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_event_location_away" />
+
+    </RadioGroup>
 
     <Spinner
         android:id="@+id/spin_pitcher_names"
@@ -74,7 +128,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
         app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />
+        app:layout_constraintTop_toBottomOf="@id/radio_group_event_type" />
 
     <Button
         android:id="@+id/btn_confirm_info"

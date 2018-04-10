@@ -56,7 +56,7 @@ import static java.lang.Math.round;
         - Add header to tagging XXX
         - Move colors and strings to res files XXX
    - Disable back button on dialog <---
-   - Rework workflow for pitcher/event fragments <---
+   - Rework workflow for pitcher/event fragments XXX
    - Add speed workflow dialog
    - Pick backstack on main menu after finishing game XXX
    - Refactor code
@@ -65,7 +65,8 @@ import static java.lang.Math.round;
    - Task to check for Firebase send success
 */
 
-public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener {
+public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
+                                                            ChangePitcherFragment.OnInputListener {
 
     // Buttons
     Button mR1C1;
@@ -95,8 +96,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     String pitcherName;
     int pitcherSpinnerIndex = 0;
 
-    Boolean isGame = false;
-    Boolean isHome = false;
+    Boolean isGame = true;
+    Boolean isHome = true;
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String eventDate = df.format(Calendar.getInstance().getTime());
 
@@ -194,10 +195,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Boolean isBallLeft;
     Boolean isBallRight;
 
+    Boolean eventInfoSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
+        setEventInfoSet(false); // Default that the event isn't set
 
         // Display DialogFragment for initial data entry
         displayEventInfoFragment();
@@ -597,34 +601,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Display ProgressBar
-                mProgressFinishGame.setVisibility(View.VISIBLE);
-
-                // Create the eventID and save with this event
-                String eventID = Utilities.createRandomHex(6);
-
-                // Send event stats
-                sendEventStats(eventID, eventName, eventDate, 0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
-                        eventBallsCountLow, eventBallsCountHigh, eventBallsCountLeft, eventBallsCountRight,
-                        eventCount_R1C1, eventCount_R1C2, eventCount_R1C3, eventCount_R2C1, eventCount_R2C2, eventCount_R2C3,
-                        eventCount_R3C1, eventCount_R3C2, eventCount_R3C3, eventFastballCount, eventChangeupCount,
-                        eventCurveballCount, eventSliderCount, eventOtherCount);
-
-                // Send individual stats as well
-                sendPitcherStats(eventID, eventName, eventDate, 0,
-                        pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
-                        pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
-                        pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
-                        pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
-                        pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
-
                 // Display EventInfoFragment to confirm results
                 displayEventInfoFragment();
-
-                // Send back to MainActivity
-                /*Intent i = MainActivity.newIntent(TaggingActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);*/
-                //finish();
             }
         });
     }
@@ -859,7 +837,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     }
 
     // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
-    public void sendPitcherStatsWrapper() {
+    public void sendPitcherStatsHelper() {
         String eventID = Utilities.createRandomHex(6);
         sendPitcherStats(eventID, eventName, eventDate, 0,
                 pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
@@ -896,6 +874,34 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount = 0));
     }
 
+    public void finishGameHelper() {
+        // Display ProgressBar
+        mProgressFinishGame.setVisibility(View.VISIBLE);
+
+        // Create the eventID and save with this event
+        String eventID = Utilities.createRandomHex(6);
+
+        // Send event stats
+        sendEventStats(eventID, eventName, eventDate, 0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
+                eventBallsCountLow, eventBallsCountHigh, eventBallsCountLeft, eventBallsCountRight,
+                eventCount_R1C1, eventCount_R1C2, eventCount_R1C3, eventCount_R2C1, eventCount_R2C2, eventCount_R2C3,
+                eventCount_R3C1, eventCount_R3C2, eventCount_R3C3, eventFastballCount, eventChangeupCount,
+                eventCurveballCount, eventSliderCount, eventOtherCount);
+
+        // Send individual stats as well
+        sendPitcherStats(eventID, eventName, eventDate, 0,
+                pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
+                pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
+                pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
+                pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
+                pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
+
+        // Send back to MainActivity
+        Intent i = MainActivity.newIntent(TaggingActivity.this);
+        startActivityForResult(i, REQUEST_CODE_CALCULATE);
+        finish();
+    }
+
     // Use this to retrieve information from EventInfoFragment's entry
     @Override
     public void sendInput(String dialogEventName, Boolean dialogIsGame, Boolean dialogIsHome, String dialogPitcherName, int dialogPitcherSpinnerIndex) {
@@ -908,6 +914,16 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         pitcherName = dialogPitcherName;
         pitcherSpinnerIndex = dialogPitcherSpinnerIndex;
         this.setPitcherName(dialogPitcherName);
+    }
+
+    // Use this to retrieve pitcher information from ChangePitcherFragment
+    @Override
+    public void sendInput(String changePitcherDialogName, int changePitcherDialogSpinnerIndex) {
+        mPitcherName.setText(changePitcherDialogName);
+
+        pitcherName = changePitcherDialogName;
+        pitcherSpinnerIndex = changePitcherDialogSpinnerIndex;
+        this.setPitcherName(changePitcherDialogName);
     }
 
     @Override
@@ -952,6 +968,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     public int getPitcherPitchCount() {
         return pitcherPitchCount;
     }
+
+    public Boolean getEventInfoSet() { return eventInfoSet; }
+
+    public void setEventInfoSet(Boolean eventInfoSet) { this.eventInfoSet = eventInfoSet; }
 
     @Override
     public void onBackPressed() {

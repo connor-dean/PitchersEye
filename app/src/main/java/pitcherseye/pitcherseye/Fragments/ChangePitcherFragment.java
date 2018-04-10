@@ -10,10 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +37,7 @@ public class ChangePitcherFragment extends DialogFragment {
         void sendInput(String pitcherName, int pitcherSpinnerIndex);
     }
 
-    public OnInputListener mOnInputListener;
+    public OnInputListener mOnInputListenerChangePitcher;
 
     @Nullable
     @Override
@@ -62,7 +59,7 @@ public class ChangePitcherFragment extends DialogFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> pitchers = new ArrayList<String>();
-                pitchers.add("<Select Pitcher>");
+                pitchers.add(getString(R.string.string_select_pitcher));
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
@@ -88,27 +85,26 @@ public class ChangePitcherFragment extends DialogFragment {
         mConfirmChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*// Check to make sure there is an entry in the spinner
+                // Check to make sure there is an entry in the spinner
                 if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
                     Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
                 } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName())) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Enter a new pitcher to continue session", Toast.LENGTH_SHORT).show();
+                    // If a new pitcher isn't selected, just close the dialog
+                    getDialog().dismiss();
                 } else {
-
                     // Check to see if it's the beginning of the game before we update the statistics in TaggingActivity
                     if (taggingActivity.getPitcherPitchCount() > 0) {
-                        taggingActivity.sendPitcherStatsWrapper();
+                        taggingActivity.sendPitcherStatsHelper();
                     }
 
                     pitcherName = mSpinnerPitchers.getSelectedItem().toString();
                     int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
 
                     // Send the information to TaggingActivity
-                    mOnInputListener.sendInput(pitcherName, pitcherIndex);*/
+                    mOnInputListenerChangePitcher.sendInput(pitcherName, pitcherIndex);
 
                     getDialog().dismiss();
-                //}
+                }
             }
         });
 
@@ -119,7 +115,7 @@ public class ChangePitcherFragment extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mOnInputListener = (OnInputListener) getActivity();
+            mOnInputListenerChangePitcher = (OnInputListener) getActivity();
         } catch (ClassCastException cce){
             Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
