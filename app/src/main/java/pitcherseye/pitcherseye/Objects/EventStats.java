@@ -5,19 +5,13 @@ import java.util.Date;
 /**
  * Created by Connor on 2/25/2018.
  */
-
-/* TODO:
-    Will want to add:
-    - Event name
-    - Event date
-    - Array of pitcher IDs
-*/
 public class EventStats {
 
-    // Change pending
     public String eventID;
     public String eventName;
     public String eventDate;
+    public Boolean isGame;
+    public Boolean isHome;
     public int playerID;
     public int teamID;
     public int pitchCount;
@@ -44,7 +38,8 @@ public class EventStats {
 
     public EventStats() { }
 
-    public EventStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount,
+    public EventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
+                      int playerID, int teamID, int pitchCount, int strikeCount,
                       int eventBallCount, int eventBallCountLow, int eventBallCountHigh, int eventBallCountLeft,
                       int eventBallCountRight, int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                       int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
@@ -52,6 +47,8 @@ public class EventStats {
         this.eventID = eventID;
         this.eventName = eventName;
         this.eventDate = eventDate;
+        this.isGame = isGame;
+        this.isHome = isHome;
         this.playerID = playerID;
         this.teamID = teamID;
         this.pitchCount = pitchCount;

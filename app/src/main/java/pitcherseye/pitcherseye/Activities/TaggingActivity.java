@@ -201,7 +201,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
+
         setEventInfoSet(false); // Default that the event isn't set
+        setGame(true);
+        setHome(true);
 
         // Display DialogFragment for initial data entry
         displayEventInfoFragment();
@@ -621,13 +624,14 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     }
 
     // Once a game has been finished, grab the event stats and send them to Firebase
-    private void sendEventStats(String eventID, String eventName, String eventDate, int playerID, int teamID, int pitchCount, int strikeCount,
-                                int eventBallCount, int eventBallCountLow, int eventBallCountHigh, int eventBallCountLeft, int eventBallCountRight,
-                               int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
-                               int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int eventFastballCount,
-                               int eventChangeupCount, int eventCurveballCount, int eventSliderCount, int eventOtherCount) {
+    private void sendEventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
+                                int playerID, int teamID, int pitchCount, int strikeCount, int eventBallCount,
+                                int eventBallCountLow, int eventBallCountHigh, int eventBallCountLeft, int eventBallCountRight,
+                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
+                                int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int eventFastballCount,
+                                int eventChangeupCount, int eventCurveballCount, int eventSliderCount, int eventOtherCount) {
         // Defaulting some statistics to 0 until we establish further IDs
-        EventStats eventStats = new EventStats(eventID, eventName, eventDate, playerID, teamID, pitchCount, strikeCount,
+        EventStats eventStats = new EventStats(eventID, eventName, eventDate, isGame, isHome, playerID, teamID, pitchCount, strikeCount,
                 eventBallCount, eventBallCountLow, eventBallCountHigh, eventBallCountLeft, eventBallCountRight,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count, eventFastballCount,
@@ -637,17 +641,18 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     }
 
     // Once a pitcher has been changed, grab the pitcher's information and send that to Firebase
-    private void sendPitcherStats(String eventID, String eventName, String eventDate, int playerID, String pitcherName, int teamID, int pitchCount, int strikeCount, int pitcherBallCount,
+    private void sendPitcherStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
+                                  int playerID, String pitcherName, int teamID, int pitchCount, int strikeCount, int pitcherBallCount,
                                   int pitcherBallCountLow, int pitcherBallCountHigh, int pitcherBallCountLeft, int pitcherBallCountRight,
                                   int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
                                   int changeupCount, int curveballCount, int sliderCount, int otherCount) {
 
-        PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, playerID,
-                pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount, pitcherBallCountLow,
-                pitcherBallCountHigh, pitcherBallCountLeft, pitcherBallCountRight,
-                R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
-                R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
+        PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, isGame, isHome,
+                playerID, pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount,
+                pitcherBallCountLow, pitcherBallCountHigh, pitcherBallCountLeft,
+                pitcherBallCountRight, R1C1Count, R1C2Count, R1C3Count, R2C1Count,
+                R2C2Count, R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
                 changeupCount, curveballCount, sliderCount, otherCount);
 
         mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
@@ -839,7 +844,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
     public void sendPitcherStatsHelper() {
         String eventID = Utilities.createRandomHex(6);
-        sendPitcherStats(eventID, eventName, eventDate, 0,
+        sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
                 pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
                 pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
@@ -882,14 +887,14 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         String eventID = Utilities.createRandomHex(6);
 
         // Send event stats
-        sendEventStats(eventID, eventName, eventDate, 0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
+        sendEventStats(eventID, eventName, eventDate, isGame, isHome,0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
                 eventBallsCountLow, eventBallsCountHigh, eventBallsCountLeft, eventBallsCountRight,
                 eventCount_R1C1, eventCount_R1C2, eventCount_R1C3, eventCount_R2C1, eventCount_R2C2, eventCount_R2C3,
                 eventCount_R3C1, eventCount_R3C2, eventCount_R3C3, eventFastballCount, eventChangeupCount,
                 eventCurveballCount, eventSliderCount, eventOtherCount);
 
         // Send individual stats as well
-        sendPitcherStats(eventID, eventName, eventDate, 0,
+        sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
                 pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
                 pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
@@ -949,13 +954,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         return isGame;
     }
 
+    public void setGame(Boolean game) { isGame = game; }
+
     public Boolean getHome() {
         return isHome;
     }
 
-    public void setHome(Boolean home) {
-        isHome = home;
-    }
+    public void setHome(Boolean home) { isHome = home; }
 
     public String getPitcherName() {
         return pitcherName;

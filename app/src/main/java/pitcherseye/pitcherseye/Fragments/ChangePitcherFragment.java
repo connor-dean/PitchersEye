@@ -96,19 +96,22 @@ public class ChangePitcherFragment extends DialogFragment {
                     if (taggingActivity.getPitcherPitchCount() > 0) {
                         taggingActivity.sendPitcherStatsHelper();
                     }
-
-                    pitcherName = mSpinnerPitchers.getSelectedItem().toString();
-                    int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
-
-                    // Send the information to TaggingActivity
-                    mOnInputListenerChangePitcher.sendInput(pitcherName, pitcherIndex);
-
+                    savePitcherInputs();
                     getDialog().dismiss();
                 }
             }
         });
 
         return view;
+    }
+
+    public void savePitcherInputs() {
+        int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
+
+        pitcherName = mSpinnerPitchers.getSelectedItem().toString();
+        mOnInputListenerChangePitcher.sendInput(pitcherName, pitcherIndex); // Send the information to TaggingActivity
+
+        getDialog().dismiss();
     }
 
     @Override

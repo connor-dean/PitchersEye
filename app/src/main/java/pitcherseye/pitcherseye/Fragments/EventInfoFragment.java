@@ -64,6 +64,9 @@ public class EventInfoFragment extends DialogFragment {
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
+        isGame = taggingActivity.getGame();
+        isHome = taggingActivity.getHome();
+
         mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
@@ -86,8 +89,8 @@ public class EventInfoFragment extends DialogFragment {
             mEventName.setText(taggingActivity.getEventName());
         }
 
-        if (!taggingActivity.getGame()) { mRadioPractice.setChecked(true); }
-        if (!taggingActivity.getHome()) { mRadioAway.setChecked(true); }
+        if (!isGame) { mRadioPractice.setChecked(true); }
+        if (!isHome) { mRadioAway.setChecked(true); }
 
         // Instantiate and load pitchers into spinner
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
