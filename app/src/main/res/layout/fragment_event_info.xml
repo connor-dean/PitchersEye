@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTaggingBackground"
+    tools:context="pitcherseye.pitcherseye.Activities.TaggingActivity"
+    android:focusableInTouchMode="true" >
+
+    <View
+        android:id="@+id/view_event_header"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/ichabodNavyBlue"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_edit_event"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/string_event_information_header"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_txt_event_name_entry"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="16dp"
+        android:hint="@string/string_event_name"
+        android:inputType="text"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_event_header" />
+
+    <CheckBox
+        android:id="@+id/chck_bx_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/string_event_type"
+        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
+
+    <CheckBox
+        android:id="@+id/chck_bx_event_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/string_event_location"
+        app:layout_constraintEnd_toEndOf="@id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toBottomOf="@id/edt_txt_event_name_entry" />
+
+    <Spinner
+        android:id="@+id/spin_pitcher_names"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toBottomOf="@+id/chck_bx_event_location" />
+
+    <Button
+        android:id="@+id/btn_confirm_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/tagging_button"
+        android:text="@string/string_confirm"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintStart_toStartOf="@+id/edt_txt_event_name_entry"
+        app:layout_constraintTop_toBottomOf="@+id/spin_pitcher_names" />
+
+</android.support.constraint.ConstraintLayout>
