@@ -256,6 +256,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherSliderCount = (TextView) findViewById(R.id.txt_pitcher_slider_count);
         mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
 
+
+
         // Disabble undo button at startup
         mUndo.setEnabled(false);
 
@@ -313,6 +315,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 mUndo.setEnabled(true);
 
+                adjustHeatMap();
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -336,6 +340,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -360,6 +365,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -384,6 +390,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -408,6 +415,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -432,6 +440,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -456,6 +465,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -480,6 +490,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -504,6 +515,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -657,6 +669,43 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
         mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
     }
+
+    // Adjust the heatmap
+/*    private void adjustHeatMap(int pitchCount_R1C1, int pitchCount_R1C2,int pitchCount_R1C3,
+                               int pitchCount_R2C1, int pitchCount_R2C2,int pitchCount_R2C3,
+                               int pitchCount_R3C1, int pitchCount_R3C2,int pitchCount_R3C3) {*/
+    private void adjustHeatMap() {
+        // This works, need to implement a "cold" zone
+        // Reset colors when pitcher changed
+        // Keep borders
+
+        mR1C1.setText(Double.toString((pitcherCount_R1C1  * 255 / pitcherPitchCount)));
+        mR1C2.setText(Double.toString((pitcherCount_R1C2  * 255 / pitcherPitchCount)));
+        mR1C3.setText(Double.toString((pitcherCount_R1C3  * 255 / pitcherPitchCount)));
+        mR2C1.setText(Double.toString((pitcherCount_R2C1  * 255 / pitcherPitchCount)));
+        mR2C2.setText(Double.toString((pitcherCount_R2C2  * 255 / pitcherPitchCount)));
+        mR2C3.setText(Double.toString((pitcherCount_R2C3  * 255 / pitcherPitchCount)));
+        mR3C1.setText(Double.toString((pitcherCount_R3C1  * 255 / pitcherPitchCount)));
+        mR3C2.setText(Double.toString((pitcherCount_R3C2  * 255 / pitcherPitchCount)));
+        mR3C3.setText(Double.toString((pitcherCount_R3C3  * 255 / pitcherPitchCount)));
+
+
+        mR1C1.getBackground().setAlpha(pitcherCount_R1C1  * 255 / pitcherPitchCount);
+        mR1C2.getBackground().setAlpha(pitcherCount_R1C2  * 255 / pitcherPitchCount);
+        mR1C3.getBackground().setAlpha(pitcherCount_R1C3  * 255 / pitcherPitchCount);
+        mR2C1.getBackground().setAlpha(pitcherCount_R2C1  * 255 / pitcherPitchCount);
+        mR2C2.getBackground().setAlpha(pitcherCount_R2C2  * 255 / pitcherPitchCount);
+        mR2C3.getBackground().setAlpha(pitcherCount_R2C3  * 255 / pitcherPitchCount);
+        mR3C1.getBackground().setAlpha(pitcherCount_R3C1  * 255 / pitcherPitchCount);
+        mR3C2.getBackground().setAlpha(pitcherCount_R3C2  * 255 / pitcherPitchCount);
+        mR3C3.getBackground().setAlpha(pitcherCount_R3C3  * 255 / pitcherPitchCount);
+    }
+
+/*    private void adjustHeatMapHelper() {
+        adjustHeatMap(pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3,
+                pitcherCount_R2C1, pitcherCount_R2C2, pitcherCount_R2C3,
+                pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3);
+    }*/
 
     private void setLastRegionResult(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
                                      Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
