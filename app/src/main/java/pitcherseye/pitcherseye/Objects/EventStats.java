@@ -73,4 +73,11 @@ public class EventStats {
         this.sliderCount = sliderCount;
         this.otherCount = otherCount;
     }
+    public String getEventName() { return eventName; }
+
+    public String getEventDate() { return eventDate; }
+
+    public Boolean getGame() { return isGame; }
+
+    public Boolean getHome() { return isHome; }
 }
