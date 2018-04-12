@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context="pitcherseye.pitcherseye.Activities.MainActivity"
-    android:background="#E0E0E0">
+    android:background="@color/greyBackground">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_stats"
