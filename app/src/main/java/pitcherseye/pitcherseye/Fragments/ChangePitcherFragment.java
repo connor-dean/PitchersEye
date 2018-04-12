@@ -97,6 +97,7 @@ public class ChangePitcherFragment extends DialogFragment {
                         taggingActivity.sendPitcherStatsHelper();
                     }
                     savePitcherInputs();
+                    taggingActivity.resetHeatMap();
                     getDialog().dismiss();
                 }
             }
@@ -110,8 +111,6 @@ public class ChangePitcherFragment extends DialogFragment {
 
         pitcherName = mSpinnerPitchers.getSelectedItem().toString();
         mOnInputListenerChangePitcher.sendInput(pitcherName, pitcherIndex); // Send the information to TaggingActivity
-
-        getDialog().dismiss();
     }
 
     @Override
