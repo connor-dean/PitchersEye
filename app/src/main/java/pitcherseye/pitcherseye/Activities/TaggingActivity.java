@@ -287,9 +287,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mChangePitcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*FragmentManager fm = getFragmentManager();
-                EventInfoFragment infoFragment = new EventInfoFragment();
-                infoFragment.show(fm, "Open EventInfoFragment");*/
                 FragmentManager fm = getFragmentManager();
                 ChangePitcherFragment pitcherFragment = new ChangePitcherFragment();
                 pitcherFragment.show(fm, "Open ChangePitcherFragment");

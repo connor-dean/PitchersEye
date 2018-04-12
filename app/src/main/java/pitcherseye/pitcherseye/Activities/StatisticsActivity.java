@@ -7,17 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
 
 import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.R;
@@ -31,8 +26,8 @@ import pitcherseye.pitcherseye.R;
 public class StatisticsActivity extends AppCompatActivity {
     private RecyclerView mEventRecyclerView;
     private DatabaseReference mRef;
-    private static Context context;
-    
+    private static Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +54,7 @@ public class StatisticsActivity extends AppCompatActivity {
         mEventRecyclerView.setAdapter(recyclerAdapter);
     }
 
-    public static class EventStatsViewHolder extends RecyclerView.ViewHolder {
+    public static class EventStatsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         View mView;
         TextView mStatisticsEventName;
         TextView mStatisticsDate;
@@ -69,21 +64,22 @@ public class StatisticsActivity extends AppCompatActivity {
 
         public EventStatsViewHolder(final View itemView) {
             super(itemView);
+            mContext = itemView.getContext();
             mView = itemView;
             mStatisticsEventName = (TextView) itemView.findViewById(R.id.txt_event_stats_name);
             mStatisticsDate = (TextView) itemView.findViewById(R.id.txt_event_stats_date);
             mStatisticsEventType = (TextView) itemView.findViewById(R.id.txt_stats_event_type);
             mStatisticsEventLocation = (TextView) itemView.findViewById(R.id.txt_stats_event_location);
             mStatisticsViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_event);
+            mStatisticsViewEvent.setOnClickListener(this);
+        }
 
-            // onClick listener to view the event
-            mStatisticsViewEvent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // THIS WORKS
-                    mStatisticsDate.setText("Today");
-                }
-            });
+        @Override
+        public void onClick(View view) {
+            // This works and will direct you to MainActivity
+            final Intent intent;
+            intent = new Intent(mContext, MainActivity.class);
+            mContext.startActivity(intent);
         }
 
         public void setEventName(String eventName)
