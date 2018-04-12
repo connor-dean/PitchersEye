@@ -79,18 +79,26 @@ public class StatisticsActivity extends AppCompatActivity {
             mStatisticsDate.setText(eventDate + "");
         }
         public void setEventType(Boolean eventType) {
-            //if (eventType) {
-                mStatisticsEventType.setText("Game" + "");
-            //} else {
-                //mStatisticsEventType.setText("Practice" + "");
-            //}
+            // TODO
+            // Need to fix the null error once we sanitize Firebase
+            if (eventType == null) {
+                mStatisticsEventType.setText("Null");
+            } else if (eventType){
+                mStatisticsEventType.setText("Game");
+            } else {
+                mStatisticsEventType.setText("Practice");
+            }
         }
         public void setEventLocation(Boolean eventLocation) {
-            //if (eventLocation) {
-                mStatisticsEventLocation.setText("Home" + "");
-            //} else {
-            //    mStatisticsEventLocation.setText("Away" + "");
-            //}
+            // TODO
+            // Need to fix the null error once we sanitize Firebase
+            if (eventLocation == null) {
+                mStatisticsEventLocation.setText("Null");
+            } else if (eventLocation){
+                mStatisticsEventLocation.setText("Home");
+            } else {
+                mStatisticsEventLocation.setText("Away");
+            }
         }
     }
 
