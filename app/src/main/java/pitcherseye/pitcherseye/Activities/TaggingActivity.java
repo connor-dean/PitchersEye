@@ -214,15 +214,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
         // Instantiate Buttons
         mChangePitcher = (Button) findViewById(R.id.button_event_info);
-        mR1C1 = (Button) findViewById(R.id.btnR1C1); //mR1C1.getBackground().setAlpha(0);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2); //mR1C2.getBackground().setAlpha(0);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3); //mR1C3.getBackground().setAlpha(0);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1); //mR2C1.getBackground().setAlpha(0);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2); //mR2C2.getBackground().setAlpha(0);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3); //mR2C3.getBackground().setAlpha(0);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1); //mR3C1.getBackground().setAlpha(0);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2); //mR3C2.getBackground().setAlpha(0);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3); //mR3C3.getBackground().setAlpha(0);
+        mR1C1 = (Button) findViewById(R.id.btnR1C1);
+        mR1C2 = (Button) findViewById(R.id.btnR1C2);
+        mR1C3 = (Button) findViewById(R.id.btnR1C3);
+        mR2C1 = (Button) findViewById(R.id.btnR2C1);
+        mR2C2 = (Button) findViewById(R.id.btnR2C2);
+        mR2C3 = (Button) findViewById(R.id.btnR2C3);
+        mR3C1 = (Button) findViewById(R.id.btnR3C1);
+        mR3C2 = (Button) findViewById(R.id.btnR3C2);
+        mR3C3 = (Button) findViewById(R.id.btnR3C3);
         mBallLow = (Button) findViewById(R.id.btn_ball_low);
         mBallHigh = (Button) findViewById(R.id.btn_ball_high);
         mBallRight = (Button) findViewById(R.id.btn_ball_right);
