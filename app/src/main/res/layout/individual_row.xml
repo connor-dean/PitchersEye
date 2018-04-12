@@ -70,6 +70,7 @@
                 android:text="location"/>
 
             <ImageButton
+                android:id="@+id/img_button_view_event"
                 android:background="@android:color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

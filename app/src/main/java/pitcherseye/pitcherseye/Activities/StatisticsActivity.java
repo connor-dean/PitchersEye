@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +31,7 @@ import pitcherseye.pitcherseye.R;
 public class StatisticsActivity extends AppCompatActivity {
     private RecyclerView mEventRecyclerView;
     private DatabaseReference mRef;
+    private static Context context;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +65,27 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView mStatisticsDate;
         TextView mStatisticsEventType;
         TextView mStatisticsEventLocation;
+        ImageButton mStatisticsViewEvent;
 
-        public EventStatsViewHolder(View itemView) {
+        public EventStatsViewHolder(final View itemView) {
             super(itemView);
             mView = itemView;
             mStatisticsEventName = (TextView) itemView.findViewById(R.id.txt_event_stats_name);
             mStatisticsDate = (TextView) itemView.findViewById(R.id.txt_event_stats_date);
             mStatisticsEventType = (TextView) itemView.findViewById(R.id.txt_stats_event_type);
             mStatisticsEventLocation = (TextView) itemView.findViewById(R.id.txt_stats_event_location);
+            mStatisticsViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_event);
+
+            // onClick listener to view the event
+            mStatisticsViewEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // THIS WORKS
+                    mStatisticsDate.setText("Today");
+                }
+            });
         }
+
         public void setEventName(String eventName)
         {
             // This is where the content of the TextViews will be loaded
