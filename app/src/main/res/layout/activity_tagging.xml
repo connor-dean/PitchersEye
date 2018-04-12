@@ -11,9 +11,9 @@
     <!-- Header -->
 
     <View
+        android:background="@color/ichabodNavyBlue"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/ichabodNavyBlue"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontalBanner" />
 
     <TextView
@@ -67,11 +67,11 @@
 
     <Button
         android:id="@+id/button_event_info"
+        android:background="@drawable/tagging_event_info_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/tagging_event_info_button"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/string_change_pitcher"
@@ -84,9 +84,9 @@
 
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal3"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid3"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid2"
@@ -106,9 +106,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal2" />
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal3"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid4"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid3"
@@ -128,9 +128,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal2" />
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal3"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid5"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid4"
@@ -150,9 +150,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal2"/>
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal4"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid3"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid2"
@@ -172,9 +172,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal3" />
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal4"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid4"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid3"
@@ -194,9 +194,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal3" />
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal4"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid5"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid4"
@@ -216,9 +216,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal3"/>
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal5"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid3"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid2"
@@ -238,9 +238,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal4" />
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal5"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid4"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid3"
@@ -260,9 +260,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal4" />
 
     <View
+        android:background="@drawable/grid_view_strike"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal5"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid5"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid4"
@@ -282,9 +282,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal4" />
 
     <View
+        android:background="@drawable/grid_view_ball"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal5"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal6"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid2"
@@ -292,9 +292,9 @@
 
     <Button
         android:id="@+id/btn_ball_low"
+        android:background="@drawable/ball_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/ball_button"
         android:text="@string/string_ball_low"
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal5"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal6"
@@ -302,9 +302,9 @@
         app:layout_constraintEnd_toStartOf="@id/guidelineVertGrid5"/>
 
     <View
+        android:background="@drawable/grid_view_ball"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal1"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal2"
         app:layout_constraintStart_toStartOf="@+id/guidelineVertGrid2"
@@ -322,9 +322,9 @@
         app:layout_constraintEnd_toStartOf="@id/guidelineVertGrid5" />
 
     <View
+        android:background="@drawable/grid_view_ball"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal6"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid2"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid1"
@@ -342,9 +342,9 @@
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal1" />
 
     <View
+        android:background="@drawable/grid_view_ball"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/grid_view"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal6"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid6"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid5"
@@ -360,6 +360,7 @@
         app:layout_constraintEnd_toEndOf="@id/guidelineVertGrid6"
         app:layout_constraintStart_toStartOf="@id/guidelineVertGrid5"
         app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal1" />
+
 
     <!-- Undo/Finish -->
 
