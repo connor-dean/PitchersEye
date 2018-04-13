@@ -214,15 +214,15 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
         // Instantiate Buttons
         mChangePitcher = (Button) findViewById(R.id.button_event_info);
-        mR1C1 = (Button) findViewById(R.id.btnR1C1); //mR1C1.getBackground().setAlpha(0);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2); //mR1C2.getBackground().setAlpha(0);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3); //mR1C3.getBackground().setAlpha(0);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1); //mR2C1.getBackground().setAlpha(0);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2); //mR2C2.getBackground().setAlpha(0);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3); //mR2C3.getBackground().setAlpha(0);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1); //mR3C1.getBackground().setAlpha(0);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2); //mR3C2.getBackground().setAlpha(0);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3); //mR3C3.getBackground().setAlpha(0);
+        mR1C1 = (Button) findViewById(R.id.btnR1C1);
+        mR1C2 = (Button) findViewById(R.id.btnR1C2);
+        mR1C3 = (Button) findViewById(R.id.btnR1C3);
+        mR2C1 = (Button) findViewById(R.id.btnR2C1);
+        mR2C2 = (Button) findViewById(R.id.btnR2C2);
+        mR2C3 = (Button) findViewById(R.id.btnR2C3);
+        mR3C1 = (Button) findViewById(R.id.btnR3C1);
+        mR3C2 = (Button) findViewById(R.id.btnR3C2);
+        mR3C3 = (Button) findViewById(R.id.btnR3C3);
         mBallLow = (Button) findViewById(R.id.btn_ball_low);
         mBallHigh = (Button) findViewById(R.id.btn_ball_high);
         mBallRight = (Button) findViewById(R.id.btn_ball_right);
@@ -256,8 +256,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherSliderCount = (TextView) findViewById(R.id.txt_pitcher_slider_count);
         mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
 
-        // Disabble undo button at startup
+        // Disable undo button at startup
         mUndo.setEnabled(false);
+
+        // Set opacity on start
+        resetHeatMap();
 
         // Instantiate and load pitchers into spinner
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
@@ -313,6 +316,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
                 mUndo.setEnabled(true);
 
+                adjustHeatMap();
+
                 // Open ResultsFragment
                 displayPitchResultsFragment();
             }
@@ -336,6 +341,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -360,6 +366,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -384,6 +391,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -408,6 +416,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -432,6 +441,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -456,6 +466,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -480,6 +491,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -504,6 +516,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
+                adjustHeatMap();
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -525,6 +538,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         true, false, false,
                         false);
                 mUndo.setEnabled(true);
+                adjustHeatMap();
+
                 displayPitchResultsFragment();
             }
         });
@@ -544,6 +559,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, true, false,
                         false);
                 mUndo.setEnabled(true);
+                adjustHeatMap();
+
                 displayPitchResultsFragment();
             }
         });
@@ -563,6 +580,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, true,
                         false);
                 mUndo.setEnabled(true);
+                adjustHeatMap();
+
                 displayPitchResultsFragment();
             }
         });
@@ -582,6 +601,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         true);
                 mUndo.setEnabled(true);
+                adjustHeatMap();
+
                 displayPitchResultsFragment();
             }
         });
@@ -604,8 +625,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Display EventInfoFragment to confirm results
-                displayEventInfoFragment();
+                displayEventInfoFragment();  // Display EventInfoFragment to confirm results
             }
         });
     }
@@ -656,6 +676,41 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 changeupCount, curveballCount, sliderCount, otherCount);
 
         mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
+    }
+
+    // Adjust the heatmap
+    public void resetHeatMap() {
+        mR1C1.getBackground().setAlpha(0);
+        mR1C2.getBackground().setAlpha(0);
+        mR1C3.getBackground().setAlpha(0);
+        mR2C1.getBackground().setAlpha(0);
+        mR2C2.getBackground().setAlpha(0);
+        mR2C3.getBackground().setAlpha(0);
+        mR3C1.getBackground().setAlpha(0);
+        mR3C2.getBackground().setAlpha(0);
+        mR3C3.getBackground().setAlpha(0);
+        mBallLow.getBackground().setAlpha(0);
+        mBallHigh.getBackground().setAlpha(0);
+        mBallLeft.getBackground().setAlpha(0);
+        mBallRight.getBackground().setAlpha(0);
+    }
+
+    private void adjustHeatMap() {
+        // Keep borders
+
+        mR1C1.getBackground().setAlpha(pitcherCount_R1C1  * 255 / pitcherPitchCount);
+        mR1C2.getBackground().setAlpha(pitcherCount_R1C2  * 255 / pitcherPitchCount);
+        mR1C3.getBackground().setAlpha(pitcherCount_R1C3  * 255 / pitcherPitchCount);
+        mR2C1.getBackground().setAlpha(pitcherCount_R2C1  * 255 / pitcherPitchCount);
+        mR2C2.getBackground().setAlpha(pitcherCount_R2C2  * 255 / pitcherPitchCount);
+        mR2C3.getBackground().setAlpha(pitcherCount_R2C3  * 255 / pitcherPitchCount);
+        mR3C1.getBackground().setAlpha(pitcherCount_R3C1  * 255 / pitcherPitchCount);
+        mR3C2.getBackground().setAlpha(pitcherCount_R3C2  * 255 / pitcherPitchCount);
+        mR3C3.getBackground().setAlpha(pitcherCount_R3C3  * 255 / pitcherPitchCount);
+        mBallLow.getBackground().setAlpha(pitcherBallsCountLow * 255 / pitcherPitchCount);
+        mBallHigh.getBackground().setAlpha(pitcherBallsCountHigh * 255 / pitcherPitchCount);
+        mBallLeft.getBackground().setAlpha(pitcherBallsCountLeft * 255 / pitcherPitchCount);
+        mBallRight.getBackground().setAlpha(pitcherBallsCountRight * 255 / pitcherPitchCount);
     }
 
     private void setLastRegionResult(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,

@@ -28,7 +28,8 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/img_button_statistics"
                 android:layout_width="wrap_content"
                 android:layout_height="440dp"
                 android:layout_alignParentTop="true"
@@ -68,7 +69,8 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/img_button_new_game"
                 android:layout_width="wrap_content"
                 android:layout_height="440dp"
                 android:layout_alignParentTop="true"

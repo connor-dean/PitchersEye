@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     Button mLogoutButton;
     Button mNewGameButton;
     Button mStatsButton;
+    ImageButton mStatsImageButton;
+    ImageButton mNewGameImageButton;
 
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
@@ -26,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mStatsImageButton = (ImageButton) findViewById(R.id.img_button_statistics);
+        mStatsImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = StatisticsActivity.newIntent(MainActivity.this);
+                startActivityForResult(i, REQUEST_CODE_CALCULATE);
+            }
+        });
 
         mStatsButton = (Button) findViewById(R.id.button_statistics);
         mStatsButton.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mNewGameImageButton = (ImageButton) findViewById(R.id.img_button_new_game);
+        mNewGameImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = TaggingActivity.newIntent(MainActivity.this);
+                startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                finish(); // Don't add to the backstack
+            }
+        });
 
         mNewGameButton = (Button) findViewById(R.id.button_new_game);
         mNewGameButton.setOnClickListener(new View.OnClickListener() {

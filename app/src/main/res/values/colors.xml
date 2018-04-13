@@ -9,4 +9,6 @@
     <color name="colorAccent">#A3C8E3</color>
     <color name="colorWhiteOpaque">#CCFFFFFF</color>
     <color name="cardBackground">#E6E6E6</color>
+    <color name="gridStrikeColor">#d8d5d3</color>
+    <color name="gridBallColor">#b7b0ac</color>
 </resources>
