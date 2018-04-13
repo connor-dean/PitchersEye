@@ -10,31 +10,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.R;
 
-//https://www.androidhive.info/2016/01/android-working-with-recycler-view/
-//https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
-//https://firebaseui.com/docs/android/index.html?com/firebase/ui/FirebaseRecyclerViewAdapter.html\
-//https://www.coderefer.com/firebaseui-android-firebase-database/
-//https://www.coderefer.com/android-recyclerview-cardview-tutorial/
-//Need to do layout constraints for everything
 public class StatisticsActivity extends AppCompatActivity {
     private static RecyclerView mEventRecyclerView;
     private DatabaseReference mRef;
     private static Context mContext;
     private static String eventName;
     public static ArrayList<String> eventNameList = new ArrayList<>();
-
+    public static ArrayList<Integer> eventPitchCount = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +48,19 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(EventStatsViewHolder viewHolder, EventStats model, int position) {
                 viewHolder.setEventName(model.getEventName());
-                loadIndexArray(model.getEventName(), position);
                 viewHolder.setEventDate(model.getEventDate());
                 viewHolder.setEventType(model.getGame());
                 viewHolder.setEventLocation(model.getHome());
+                viewHolder.setTotalPitchCount(model.getPitchCount());
+
+                loadIndexArray(model.getEventName(), position, model.getPitchCount());
             }
 
-            public void loadIndexArray(String eventName, int position) {
+            public void loadIndexArray(String eventName, int position, int totalPitchCount) {
                 eventNameList.add(eventName);
+                eventPitchCount.add(totalPitchCount);
                 Log.e("Load array", eventName + " position: " + position + "");
-
-                ReportsActivity reportsActivity = new ReportsActivity();
-                reportsActivity.loadIndexArray(eventName, position);
+                Log.e("Loaded index", eventNameList.get(position) + "");
             }
         };
         mEventRecyclerView.setAdapter(recyclerAdapter);
@@ -97,36 +90,19 @@ public class StatisticsActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            // This works and will direct you to MainActivity
-
-            // Get adapter position displays the index
-            //Toast.makeText(view.getContext(), getAdapterPosition() + "", Toast.LENGTH_SHORT).show();
-            Toast.makeText(view.getContext(), getEventName(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-            ReportsActivity reportsActivity = new ReportsActivity();
-            reportsActivity.setIndex(getAdapterPosition());
-
             final Intent intent;
             intent = new Intent(view.getContext(), ReportsActivity.class);
-            mContext.startActivity(intent);
-        }
 
-        public String getEventName(int index) {
-            for (int i = 0; i < index; i++) {
-                if (i == index) {
-                    eventName = mStatisticsEventName.getText().toString();
-                } else {
-                    eventName = "Nope";
-                }
-            }
-            return eventName;
+            intent.putExtra("index", getAdapterPosition());
+            intent.putExtra("eventName", eventNameList.get(getAdapterPosition()));
+            intent.putExtra("totalPitchCount", eventPitchCount.get(getAdapterPosition()));
+
+            mContext.startActivity(intent);
         }
 
         public void setEventName(String eventName)
         {
-            // This is where the content of the TextViews will be loaded
             mStatisticsEventName.setText(eventName + "");
-            StatisticsActivity.eventName = eventName;
-            statisticsActivity.setEventName(eventName);
         }
 
         public void setEventDate(String eventDate) {
@@ -154,24 +130,16 @@ public class StatisticsActivity extends AppCompatActivity {
                 mStatisticsEventLocation.setText("Away");
             }
         }
+
+        public void setTotalPitchCount(int eventPitchCount) {
+
+        }
+
     }
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    /*public void loadIndexArray(String eventName, int position) {
-        eventNameList.add(eventName);
-        Log.e("Load array", eventName + " position: " + position + "");
-
-        ReportsActivity reportsActivity = new ReportsActivity();
-        reportsActivity.loadIndexArray(eventName, position);
-    }*/
-
 
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, StatisticsActivity.class);

@@ -80,4 +80,6 @@ public class EventStats {
     public Boolean getGame() { return isGame; }
 
     public Boolean getHome() { return isHome; }
+
+    public int getPitchCount() { return pitchCount; }
 }
