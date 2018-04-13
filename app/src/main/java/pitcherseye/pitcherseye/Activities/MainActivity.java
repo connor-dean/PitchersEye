@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = TaggingActivity.newIntent(MainActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                finish(); // Don't add to the backstack
             }
         });
 

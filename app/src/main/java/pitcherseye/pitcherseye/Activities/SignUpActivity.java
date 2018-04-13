@@ -73,8 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Hide keyboard
-                //Utilities.hideSoftKeyboard(SignUpActivity.this);
                 loadRegistrationValues();
                 registerUser();
             }
@@ -101,8 +99,10 @@ public class SignUpActivity extends AppCompatActivity {
             mSignUpConfirmPassword.setError("Passwords do no match.");
             return;
         }
-        if (validateInput(teamID, mSignUpTeamID, "Team ID")) return;
-        if (validateInput(registrationID, mSignUpRegistrationID, "Registration ID")) return;
+
+        // Keep this commented out until we can scale
+        /*if (validateInput(teamID, mSignUpTeamID, "Team ID")) return;
+        if (validateInput(registrationID, mSignUpRegistrationID, "Registration ID")) return;*/
 
         // Display the progress bar while loading
         mSignUpProgress.setVisibility(View.VISIBLE);
@@ -123,7 +123,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                             String userID = Utilities.createRandomHex(6);
 
-                            sendUserInfo(userID, fname, lname, email, password, teamID);
+                            // TeamID will default to 0 until we can scale
+                            sendUserInfo(userID, fname, lname, email, password, Integer.toString(0));
                             LoginActivity.loginActivity.finish(); // Kill LoginActivity from the backstack
                             finish(); // Don't add to the backstack
                         } else {
@@ -145,16 +146,19 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
         mSignUpPassword = (EditText) findViewById(R.id.edt_signup_password);
         mSignUpConfirmPassword = (EditText) findViewById(R.id.edt_confirm_signup_password);
-        mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
-        mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);
+        // Keep this commented out until we can scale
+        /*mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
+        mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);*/
 
         fname = mSignUpFirstName.getText().toString().trim();
         lname = mSignUpLastName.getText().toString().trim();
         email = mSignUpEmail.getText().toString().trim();
         password = mSignUpPassword.getText().toString().trim();
         confirmPassword = mSignUpConfirmPassword.getText().toString().trim();
-        teamID = mSignUpTeamID.getText().toString().trim();
-        registrationID = mSignUpRegistrationID.getText().toString().trim();
+
+        // Keep this commented out until we can scale
+        /*teamID = mSignUpTeamID.getText().toString().trim();
+        registrationID = mSignUpRegistrationID.getText().toString().trim();*/
     }
 
     // Made sure that fields aren't empty

@@ -2,26 +2,33 @@
     <string name="app_name">PitchersEye</string>
 
     <!-- Main menu -->
+
     <string name="string_schedule">Schedule</string>
     <string name="string_statistics">Stats</string>
     <string name="string_new_game">New Game</string>
 
+
     <!-- Login/Registration -->
+
     <string name="string_login">Login</string>
     <string name="string_email">Email</string>
     <string name="string_password">Password</string>
     <string name="string_confirm_password">Confirm Password</string>
     <string name="string_first_name">First Name</string>
     <string name="string_last_name">Last Name</string>
-    <string name="string_new_user">New user? Register here!</string>
+    <string name="string_new_user"><u>New user? Register here!</u></string>
     <string name="string_register">Register</string>
     <string name="string_logout">Logout</string>
     <string name="string_team_id">Team ID</string>
     <string name="string_registration_id">Registration ID</string>
 
+
     <!-- Tagging -->
+
     <string name="string_pitcher_count_label">Pitcher</string>
     <string name="string_event_count_label">Event</string>
+    <string name="string_event_header">Event: </string>
+    <string name="string_pitcher_header">Pitcher: </string>
     <string name="string_pitch_count">Pitch Count: </string>
     <string name="string_strikes">Strikes: </string>
     <string name="string_balls">Balls: </string>
@@ -31,20 +38,53 @@
     <string name="string_pitch_sliders_count">Sliders: </string>
     <string name="string_pitch_curveballs_count">Curveballs: </string>
     <string name="string_pitch_other_count">Other: </string>
-    <string name="string_pitch_fastball">FB</string>
-    <string name="string_pitch_changeup">ChU</string>
-    <string name="string_pitch_slider">SL</string>
-    <string name="string_pitch_curveball">CurB</string>
-    <string name="string_pitch_other">Oth</string>
+    <string name="string_pitch_fastball">Fastball</string>
+    <string name="string_pitch_changeup">Changeup</string>
+    <string name="string_pitch_slider">Slider</string>
+    <string name="string_pitch_curveball">Curveball</string>
+    <string name="string_pitch_other">Other</string>
+    <string name="string_r1c1">R1C1</string>
+    <string name="string_r1c2">R1C2</string>
+    <string name="string_r1c3">R1C3</string>
+    <string name="string_r2c1">R2C1</string>
+    <string name="string_r2c2">R2C2</string>
+    <string name="string_r2c3">R2C3</string>
+    <string name="string_r3c1">R3C1</string>
+    <string name="string_r3c2">R3C2</string>
+    <string name="string_r3c3">R3C3</string>
+    <string name="string_ball_low">Low</string>
+    <string name="string_ball_high">High</string>
+    <string name="string_ball_left">Left</string>
+    <string name="string_ball_right">Right</string>
+
 
     <!-- Event Entry -->
+
+    <string name="string_event_information_header">Event Information</string>
     <string name="string_event_name">Event Name</string>
-    <string name="string_event_type">Game</string>
-    <string name="string_event_location">Home</string>
+    <string name="string_event_type_label">Event Type:</string>
+    <string name="string_event_type_game">Game</string>
+    <string name="string_event_type_practice">Practice</string>
+    <string name="string_event_location_label">Event Location:</string>
+    <string name="string_event_location_home">Home</string>
+    <string name="string_event_location_away">Away</string>
+    <string name="string_select_pitcher">&lt;Select Pitcher&gt;</string>
     <string name="string_event_pitcher_first">P FName</string>
     <string name="string_event_pitcher_last">P LName</string>
     <string name="string_event_confirm">Confirm Event</string>
     <string name="string_event_confirm_pitcher">Confirm Pitcher</string>
     <string name="string_finish_game">Finish Game</string>
     <string name="string_undo">Undo</string>
+    <string name="string_edit_event_info">Edit Event Info</string>
+    <string name="string_confirm">Confirm</string>
+    <string name="string_change_pitcher">Change Pitcher</string>
+
+
+    <!-- Results -->
+
+    <string name="string_pitch_result_header">Pitch Type</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
