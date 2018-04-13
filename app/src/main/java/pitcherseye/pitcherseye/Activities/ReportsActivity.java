@@ -31,9 +31,10 @@ public class ReportsActivity extends AppCompatActivity {
         }
 
 
-        //ArrayList<String> eventNamesListReports = (ArrayList<String>) getIntent().getSerializableExtra("key");
+        ArrayList<String> eventNamesListReports = (ArrayList<String>) getIntent().getSerializableExtra("eventName");
 
         final StatisticsActivity statisticsActivity = new StatisticsActivity();
+
 
         //List<String> eventNameListReports = new ArrayList<String>(statisticsActivity.getEventNameList());
 
@@ -42,6 +43,7 @@ public class ReportsActivity extends AppCompatActivity {
         }
 
         mReportHeader = (TextView) findViewById(R.id.txt_reports_event_header);
+        //mReportHeader.setText(statisticsActivity.getEventName());
         mReportHeader.setText(statisticsActivity.getEventName());
     }
 

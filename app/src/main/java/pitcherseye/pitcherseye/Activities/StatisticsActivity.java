@@ -56,9 +56,7 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(EventStatsViewHolder viewHolder, EventStats model, int position) {
                 viewHolder.setEventName(model.getEventName());
-
                 loadIndexArray(model.getEventName(), position);
-
                 viewHolder.setEventDate(model.getEventDate());
                 viewHolder.setEventType(model.getGame());
                 viewHolder.setEventLocation(model.getHome());
@@ -102,13 +100,25 @@ public class StatisticsActivity extends AppCompatActivity {
             // This works and will direct you to MainActivity
 
             // Get adapter position displays the index
-            Toast.makeText(view.getContext(), getAdapterPosition() + "", Toast.LENGTH_SHORT).show();
-
-            setEventName(eventName);
+            //Toast.makeText(view.getContext(), getAdapterPosition() + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), getEventName(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+            ReportsActivity reportsActivity = new ReportsActivity();
+            reportsActivity.setIndex(getAdapterPosition());
 
             final Intent intent;
             intent = new Intent(view.getContext(), ReportsActivity.class);
             mContext.startActivity(intent);
+        }
+
+        public String getEventName(int index) {
+            for (int i = 0; i < index; i++) {
+                if (i == index) {
+                    eventName = mStatisticsEventName.getText().toString();
+                } else {
+                    eventName = "Nope";
+                }
+            }
+            return eventName;
         }
 
         public void setEventName(String eventName)
@@ -161,7 +171,6 @@ public class StatisticsActivity extends AppCompatActivity {
         ReportsActivity reportsActivity = new ReportsActivity();
         reportsActivity.loadIndexArray(eventName, position);
     }*/
-
 
 
     public static Intent newIntent(Context packageContext) {
