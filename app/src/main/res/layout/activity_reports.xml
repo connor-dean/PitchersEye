@@ -34,222 +34,224 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/string_statistics"
+                android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textAllCaps="true"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </RelativeLayout>
 
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="32dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_pitch_count_label"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_pitch_count"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toTopOf="@+id/btnR1C1" />
+
+                <TextView
+                    android:id="@+id/txt_reports_event_pitch_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_strikes_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_strikes"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_pitch_count_label" />
+
+                <TextView
+                    android:id="@+id/txt_reports_event_strikes_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@id/txt_strikes_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_balls_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_balls"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_strikes_label" />
+
+                <TextView
+                    android:id="@+id/txt_event_balls_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@id/txt_balls_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_fastball_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_pitch_fastball_count"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_balls_label" />
+
+                <TextView
+                    android:id="@+id/txt_event_fastball_count"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_changeup_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_pitch_changeup_count"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
+
+                <TextView
+                    android:id="@+id/txt_event_changeup_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_curveball_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_pitch_curveballs_count"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_changeup_label" />
+
+                <TextView
+                    android:id="@+id/txt_event_curveball_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_slider_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_pitch_sliders_count"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_curveball_label" />
+
+                <TextView
+                    android:id="@+id/txt_event_slider_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_other_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_pitch_other_count"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_slider_label" />
+
+                <TextView
+                    android:id="@+id/txt_event_other_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"
+                    app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
+                    app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
+
+            </TableRow>
+
+        </TableLayout>
+
     </LinearLayout>
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/txt_pitch_count_label"
-                android:layout_width="127dp"
-                android:layout_height="wrap_content"
-                android:text="@string/string_pitch_count"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toTopOf="@+id/btnR1C1" />
-
-            <TextView
-                android:id="@+id/txt_reports_event_pitch_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_strikes_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_strikes"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@+id/txt_pitch_count_label" />
-
-            <TextView
-                android:id="@+id/txt_event_strikes_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@id/txt_strikes_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_balls_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_balls"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@id/txt_strikes_label" />
-
-            <TextView
-                android:id="@+id/txt_event_balls_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@id/txt_balls_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_fastball_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_pitch_fastball_count"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@id/txt_balls_label" />
-
-            <TextView
-                android:id="@+id/txt_event_fastball_count"
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_changeup_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_pitch_changeup_count"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
-
-            <TextView
-                android:id="@+id/txt_event_changeup_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_curveball_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_pitch_curveballs_count"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@id/txt_changeup_label" />
-
-            <TextView
-                android:id="@+id/txt_event_curveball_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_slider_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_pitch_sliders_count"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@id/txt_curveball_label" />
-
-            <TextView
-                android:id="@+id/txt_event_slider_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:id="@+id/txt_other_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_pitch_other_count"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                app:layout_constraintTop_toBottomOf="@id/txt_slider_label" />
-
-            <TextView
-                android:id="@+id/txt_event_other_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/string_initialize_count"
-                app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
-                app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
-
-        </TableRow>
-
-    </TableLayout>
 
     <!-- Guidelines -->
     <android.support.constraint.Guideline
