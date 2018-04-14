@@ -257,8 +257,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
 
         // Disable undo button at startup
-        mUndo.setEnabled(false);
-
         // Set opacity on start
         resetHeatMap();
 
@@ -690,6 +688,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mBallHigh.getBackground().setAlpha(0);
         mBallLeft.getBackground().setAlpha(0);
         mBallRight.getBackground().setAlpha(0);
+        mUndo.setEnabled(false);
     }
 
     private void adjustHeatMap() {

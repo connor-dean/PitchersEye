@@ -20,16 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.MainActivity"
+            android:screenOrientation="sensorLandscape"/>
         <activity android:name=".Activities.StatisticsActivity" />
-        <activity android:name=".Activities.TaggingActivity" />
+        <activity android:name=".Activities.TaggingActivity"
+            android:screenOrientation="sensorLandscape"/>
         <activity
             android:name=".Activities.SignUpActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Activities.ReportsActivity"
             android:label="@string/title_activity_reports"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="sensorLandscape"></activity>
     </application>
 
 </manifest>
