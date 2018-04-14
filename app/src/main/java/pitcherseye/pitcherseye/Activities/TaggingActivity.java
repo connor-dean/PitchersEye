@@ -693,8 +693,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     }
 
     private void adjustHeatMap() {
-        // Keep borders
-
         mR1C1.getBackground().setAlpha(pitcherCount_R1C1  * 255 / pitcherPitchCount);
         mR1C2.getBackground().setAlpha(pitcherCount_R1C2  * 255 / pitcherPitchCount);
         mR1C3.getBackground().setAlpha(pitcherCount_R1C3  * 255 / pitcherPitchCount);

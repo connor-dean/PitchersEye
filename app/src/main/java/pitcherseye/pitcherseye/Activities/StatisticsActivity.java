@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +41,11 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<Integer> eventR3C1ArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR3C2ArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR3C3ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventBallCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventBallLowArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventBallHighArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventBallLeftArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventBallRightArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +55,6 @@ public class StatisticsActivity extends AppCompatActivity {
         mEventRecyclerView.setHasFixedSize(true);
         mEventRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRef = FirebaseDatabase.getInstance().getReference("/eventStats");
-
-        final StatisticsActivity statisticsActivity = new StatisticsActivity();
 
         FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> recyclerAdapter = new FirebaseRecyclerAdapter<EventStats, EventStatsViewHolder>(
                 EventStats.class,
@@ -72,6 +74,8 @@ public class StatisticsActivity extends AppCompatActivity {
                                                     model.getEventR1C3Count(), model.getEventR2C1Count(), model.getEventR2C2Count(),
                                                     model.getEventR2C3Count(), model.getEventR3C1Count(), model.getEventR3C2Count(),
                                                     model.getEventR3C3Count(), position);
+                viewHolder.loadBallLocationArray(model.getEventBallCount(), model.getEventBallCountLow(), model.getEventBallCountHigh(),
+                                                  model.getEventBallCountLeft(), model.getEventBallCountRight(), position);
             }
         };
         mEventRecyclerView.setAdapter(recyclerAdapter);
@@ -118,6 +122,11 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("eventR3C1", eventR3C1ArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR3C2", eventR3C2ArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR3C3", eventR3C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallCount", eventBallCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallLow", eventBallLowArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallHigh", eventBallHighArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallLeft", eventBallLeftArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallRight", eventBallRightArrayList.get(getAdapterPosition()));
 
             mContext.startActivity(intent);
         }
@@ -177,10 +186,17 @@ public class StatisticsActivity extends AppCompatActivity {
             eventR3C3ArrayList.add(eventR3C3Count);
             Log.e("R1C1: ", eventR1C1ArrayList.get(position) + "");
         }
-    }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+        // Load Ball information
+        public void loadBallLocationArray(int eventBallCount, int eventBallLow, int eventBallHigh,
+                                          int eventBallLeft, int eventBallRight, int position) {
+            eventBallCountArrayList.add(eventBallCount);
+            eventBallLowArrayList.add(eventBallLow);
+            eventBallHighArrayList.add(eventBallHigh);
+            eventBallLeftArrayList.add(eventBallLeft);
+            eventBallRightArrayList.add(eventBallRight);
+            Log.e("Ball Count: ", eventBallCountArrayList.get(position) + "");
+        }
     }
 
     // Clear out the ArrayLists to ensure that we're reloading them
