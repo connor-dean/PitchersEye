@@ -38,13 +38,14 @@
 
             <Button
                 android:id="@+id/button_statistics"
-                android:background="@drawable/main_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/string_statistics"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="6dp"/>
+                android:layout_marginTop="6dp"
+                android:background="@drawable/tagging_button"
+                android:text="@string/string_statistics"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -79,13 +80,14 @@
 
             <Button
                 android:id="@+id/button_new_game"
-                android:background="@drawable/main_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/string_new_game"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="6dp" />
+                android:layout_marginTop="6dp"
+                android:background="@drawable/tagging_button"
+                android:text="@string/string_new_game"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
