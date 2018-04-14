@@ -84,8 +84,15 @@
 
     <string name="string_pitch_result_header">Pitch Type</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_reports">ReportsActivity</string>
+    <!-- Reports -->
+    <string name="string_reports_r1c1">R1C1: </string>
+    <string name="string_reports_r1c2">R1C2: </string>
+    <string name="string_reports_r1c3">R1C3: </string>
+    <string name="string_reports_r2c1">R2C1: </string>
+    <string name="string_reports_r2c2">R2C2: </string>
+    <string name="string_reports_r2c3">R2C3: </string>
+    <string name="string_reports_r3c1">R3C1: </string>
+    <string name="string_reports_r3c2">R3C2: </string>
+    <string name="string_reports_r3c3">R3C3: </string>
 
 </resources>

@@ -14,9 +14,18 @@ import pitcherseye.pitcherseye.R;
 
 public class ReportsActivity extends AppCompatActivity {
 
-    TextView mReportHeader;
-    TextView mReportPitchCount;
-    TextView mReportStrikeCount;
+    TextView mReportsEventHeader;
+    TextView mReportsEventPitchCount;
+    TextView mReportsEventStrikeCount;
+    TextView mReportsEventR1C1;
+    TextView mReportsEventR1C2;
+    TextView mReportsEventR1C3;
+    TextView mReportsEventR2C1;
+    TextView mReportsEventR2C2;
+    TextView mReportsEventR2C3;
+    TextView mReportsEventR3C1;
+    TextView mReportsEventR3C2;
+    TextView mReportsEventR3C3;
 
     String eventName;
     int index;
@@ -55,12 +64,30 @@ public class ReportsActivity extends AppCompatActivity {
         eventR3C3 = getIntent().getIntExtra("eventR3C3", 99);
 
         // Instantiate widgets
-        mReportHeader = (TextView) findViewById(R.id.txt_reports_event_header);
-        mReportPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
-        mReportStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
+        mReportsEventHeader = (TextView) findViewById(R.id.txt_reports_event_header);
+        mReportsEventPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
+        mReportsEventStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
+        mReportsEventR1C1 = (TextView) findViewById(R.id.txt_reports_event_r1c1_count);
+        mReportsEventR1C2 = (TextView) findViewById(R.id.txt_reports_event_r1c2_count);
+        mReportsEventR1C3 = (TextView) findViewById(R.id.txt_reports_event_r1c3_count);
+        mReportsEventR2C1 = (TextView) findViewById(R.id.txt_reports_event_r2c1_count);
+        mReportsEventR2C2 = (TextView) findViewById(R.id.txt_reports_event_r2c2_count);
+        mReportsEventR2C3 = (TextView) findViewById(R.id.txt_reports_event_r2c3_count);
+        mReportsEventR3C1 = (TextView) findViewById(R.id.txt_reports_event_r3c1_count);
+        mReportsEventR3C2 = (TextView) findViewById(R.id.txt_reports_event_r3c2_count);
+        mReportsEventR3C3 = (TextView) findViewById(R.id.txt_reports_event_r3c3_count);
 
-        mReportHeader.setText(eventName);
-        mReportPitchCount.setText(Integer.toString(eventPitchCount));
-        mReportStrikeCount.setText(Integer.toString(eventStrikeCount));
+        mReportsEventHeader.setText(eventName);
+        mReportsEventPitchCount.setText(Integer.toString(eventPitchCount));
+        mReportsEventStrikeCount.setText(Integer.toString(eventStrikeCount));
+        mReportsEventR1C1.setText(Integer.toString(eventR1C1));
+        mReportsEventR1C2.setText(Integer.toString(eventR1C2));
+        mReportsEventR1C3.setText(Integer.toString(eventR1C3));
+        mReportsEventR2C1.setText(Integer.toString(eventR2C1));
+        mReportsEventR2C2.setText(Integer.toString(eventR2C2));
+        mReportsEventR2C3.setText(Integer.toString(eventR2C3));
+        mReportsEventR3C1.setText(Integer.toString(eventR3C1));
+        mReportsEventR3C2.setText(Integer.toString(eventR3C2));
+        mReportsEventR3C3.setText(Integer.toString(eventR3C3));
     }
 }

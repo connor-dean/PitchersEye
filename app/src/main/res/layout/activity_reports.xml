@@ -43,34 +43,33 @@
         </RelativeLayout>
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="32dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner">
+            android:orientation="vertical">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/txt_pitch_count_label"
+                    android:id="@+id/txt_reports_event_pitch_count_label"
                     android:layout_width="127dp"
                     android:layout_height="wrap_content"
                     android:text="@string/string_pitch_count"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toTopOf="@+id/btnR1C1" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/txt_reports_event_pitch_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@+id/txt_pitch_count_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -79,23 +78,19 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_reports_strikes_label"
+                    android:id="@+id/txt_reports_event_strikes_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/string_strikes"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_pitch_count_label" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_reports_event_strikes_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintStart_toEndOf="@id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@id/txt_strikes_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -104,23 +99,19 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_balls_label"
+                    android:id="@+id/txt_reports_event_balls_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/string_balls"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@id/txt_strikes_label" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_event_balls_count"
+                    android:id="@+id/txt_reports_event_balls_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@id/txt_balls_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -129,23 +120,19 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_fastball_label"
+                    android:id="@+id/txt_reports_event_fastball_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/string_pitch_fastball_count"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@id/txt_balls_label" />
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/txt_event_fastball_count"
+                    android:id="@+id/txt_reports_event_fastball_count"
                     android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@+id/txt_fastball_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -154,23 +141,19 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_changeup_label"
+                    android:id="@+id/txt_reports_event_changeup_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/string_pitch_changeup_count"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_event_changeup_count"
+                    android:id="@+id/txt_reports_event_changeup_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@+id/txt_changeup_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -179,23 +162,18 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_curveball_label"
+                    android:id="@+id/txt_reports_event_curveball_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_pitch_curveballs_count"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@id/txt_changeup_label" />
+                    android:text="@string/string_pitch_curveballs_count"/>
 
                 <TextView
-                    android:id="@+id/txt_event_curveball_count"
+                    android:id="@+id/txt_reports_event_curveball_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintStart_toEndOf="@+id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@+id/txt_curveball_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -204,23 +182,19 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_slider_label"
+                    android:id="@+id/txt_reports_event_slider_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/string_pitch_sliders_count"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@id/txt_curveball_label" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_event_slider_count"
+                    android:id="@+id/txt_reports_event_slider_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@+id/txt_slider_label" />
+                    android:text="@string/string_initialize_count" />
 
             </TableRow>
 
@@ -229,29 +203,226 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/txt_other_label"
+                    android:id="@+id/txt_reports_event_other_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/string_pitch_other_count"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toRightOf="@id/guidelineVertStats"
-                    app:layout_constraintTop_toBottomOf="@id/txt_slider_label" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_event_other_count"
+                    android:id="@+id/txt_reports_event_other_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/string_initialize_count"
-                    app:layout_constraintLeft_toRightOf="@+id/guidelineVertEventStats"
-                    app:layout_constraintTop_toTopOf="@+id/txt_other_label" />
+                    android:text="@string/string_initialize_count" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="32dp"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r1c1_count_label"
+                    android:layout_width="127dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_reports_r1c1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r1c1_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_initialize_count" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r1c2_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r1c2"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r1c2_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r1c3_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r1c3"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r1c3_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r2c1_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r2c1"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r2c1_count"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r2c2_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r2c2"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
+                    app:layout_constraintTop_toBottomOf="@id/txt_fastball_label"/>
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r2c2_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r2c3_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r2c3"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r2c3_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r3c1_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r3c1"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r3c1_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r3c2_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r3c2"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r3c2_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r3c3_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_reports_r3c3"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txt_reports_event_r3c3_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/string_initialize_count"/>
 
             </TableRow>
 
         </TableLayout>
 
     </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <!-- Guidelines -->
     <android.support.constraint.Guideline
