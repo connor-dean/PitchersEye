@@ -424,6 +424,241 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C2"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <Button
+        android:id="@+id/btnR1C1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r1c1"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C2"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C3"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <Button
+        android:id="@+id/btnR1C2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r1c2"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C3"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <Button
+        android:id="@+id/btnR1C3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r1c3"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C1" />
+
+    <Button
+        android:id="@+id/btnR2C1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r2c1"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C2" />
+
+    <Button
+        android:id="@+id/btnR2C2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r2c2"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C2" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C3" />
+
+    <Button
+        android:id="@+id/btnR2C3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r2c3"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C3" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C1"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C2" />
+
+    <Button
+        android:id="@+id/btnR3C1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r3c1"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C1"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C2"  />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C3"  />
+
+    <Button
+        android:id="@+id/btnR3C2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r3c2"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C3" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@+id/btnR2C3" />
+
+    <Button
+        android:id="@+id/btnR3C3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r3c3"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintTop_toBottomOf="@id/btnR3C2"
+        app:layout_constraintStart_toStartOf="@id/btnR3C1"
+        app:layout_constraintEnd_toEndOf="@id/btnR3C3" />
+
+    <Button
+        android:id="@+id/btn_ball_low"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_low"
+        app:layout_constraintTop_toBottomOf="@id/btnR3C2"
+        app:layout_constraintStart_toStartOf="@id/btnR3C1"
+        app:layout_constraintEnd_toEndOf="@id/btnR3C3"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintBottom_toTopOf="@+id/btnR1C2"
+        app:layout_constraintEnd_toEndOf="@id/btnR1C3"
+        app:layout_constraintStart_toStartOf="@id/btnR1C1"/>
+
+    <Button
+        android:id="@+id/btn_ball_high"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_high"
+        app:layout_constraintBottom_toTopOf="@+id/btnR1C2"
+        app:layout_constraintEnd_toEndOf="@id/btnR1C3"
+        app:layout_constraintStart_toStartOf="@id/btnR1C1" />
+
+    <View
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C1"/>
+
+    <Button
+        android:id="@+id/btn_ball_left"
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_left"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C1"/>
+
+    <View
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintLeft_toRightOf="@id/btnR2C3" />
+
+    <Button
+        android:id="@+id/btn_ball_right"
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_right"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintLeft_toRightOf="@id/btnR2C3" />
 
     <!-- Guidelines -->
     <android.support.constraint.Guideline
@@ -431,6 +666,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineReportsVerticalGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
 </android.support.constraint.ConstraintLayout>
