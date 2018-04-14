@@ -45,13 +45,13 @@
         android:id="@+id/txt_pitcher_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="12dp"
         android:text="@string/string_pitcher_header"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/btn_ball_right"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@+id/scrollview_stats"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_pitcher_name"
@@ -71,13 +71,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/tagging_event_info_button"
+        android:background="@drawable/tagging_change_pitcher_button"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/string_change_pitcher"
-        android:textColor="@color/white"
+        android:textColor="@color/ichabodYellow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Button Grid -->

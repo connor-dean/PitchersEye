@@ -25,12 +25,8 @@ public class StatisticsActivity extends AppCompatActivity {
     private static RecyclerView mEventRecyclerView;
     private DatabaseReference mRef;
     private static Context mContext;
-    private static String eventName;
     public static ArrayList<String> eventNameList = new ArrayList<>();
     public static ArrayList<Integer> eventPitchCount = new ArrayList<>();
-
-    // Trying a multidimensional arraylist
-    List<ArrayList<Integer>> strikeArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventStrikeCountArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR1C1ArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR1C2ArrayList = new ArrayList<>();
@@ -68,7 +64,6 @@ public class StatisticsActivity extends AppCompatActivity {
                 viewHolder.setEventDate(model.getEventDate());
                 viewHolder.setEventType(model.getGame());
                 viewHolder.setEventLocation(model.getHome());
-
                 viewHolder.loadIndexArray(model.getEventName(), model.getPitchCount(), position);
                 viewHolder.loadStrikeLocationArray(model.getStrikeCount(), model.getEventR1C1Count(), model.getEventR1C2Count(),
                                                     model.getEventR1C3Count(), model.getEventR2C1Count(), model.getEventR2C2Count(),
@@ -88,8 +83,6 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView mStatisticsEventType;
         TextView mStatisticsEventLocation;
         ImageButton mStatisticsViewEvent;
-
-        StatisticsActivity statisticsActivity = new StatisticsActivity();
 
         public EventStatsViewHolder(final View itemView) {
             super(itemView);
