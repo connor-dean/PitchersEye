@@ -23,9 +23,6 @@ public class EventStats {
     public int eventBallCountRight;
     public int eventR1C1Count;
     public int eventR1C2Count;
-
-
-
     public int eventR1C3Count;
     public int eventR2C1Count;
     public int eventR2C2Count;

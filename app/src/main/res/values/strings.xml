@@ -94,5 +94,6 @@
     <string name="string_reports_r3c1">R3C1: </string>
     <string name="string_reports_r3c2">R3C2: </string>
     <string name="string_reports_r3c3">R3C3: </string>
+    <string name="title_activity_reports">ReportsActivity</string>
 
 </resources>

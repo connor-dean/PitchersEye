@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -66,35 +67,11 @@ public class StatisticsActivity extends AppCompatActivity {
                 viewHolder.setEventType(model.getGame());
                 viewHolder.setEventLocation(model.getHome());
 
-                loadIndexArray(model.getEventName(), model.getPitchCount(), position);
-                loadStrikeLocationArray(model.getStrikeCount(), model.eventR1C1Count, model.eventR1C2Count, model.eventR1C3Count,
-                                        model.eventR2C1Count, model.eventR2C2Count, model.eventR2C3Count,
-                                        model.eventR3C1Count, model.eventR3C2Count, model.eventR3C3Count,
-                                        position);
-            }
-
-            public void loadIndexArray(String eventName, int totalPitchCount,  int position) {
-                eventNameList.add(eventName);
-                eventPitchCount.add(totalPitchCount);
-                Log.e("Loaded pitch # array", eventNameList.get(position) + "");
-            }
-
-            // Load Strike information
-            public void loadStrikeLocationArray(int eventStrikeCount, int eventR1C1Count, int eventR1C2Count, int eventR1C3Count,
-                                                int eventR2C1Count, int eventR2C2Count, int eventR2C3Count,
-                                                int eventR3C1Count, int eventR3C2Count, int eventR3C3Count,
-                                                int position) {
-                // Investigate a better model to store these
-                 eventStrikeCountArrayList.add(eventStrikeCount);
-                 eventR1C1ArrayList.add(eventR1C1Count);
-                 eventR1C2ArrayList.add(eventR1C2Count);
-                 eventR1C3ArrayList.add(eventR1C3Count);
-                 eventR2C1ArrayList.add(eventR2C1Count);
-                 eventR2C2ArrayList.add(eventR2C2Count);
-                 eventR2C3ArrayList.add(eventR2C3Count);
-                 eventR3C1ArrayList.add(eventR3C1Count);
-                 eventR3C2ArrayList.add(eventR3C2Count);
-                 eventR3C3ArrayList.add(eventR3C3Count);
+                viewHolder.loadIndexArray(model.getEventName(), model.getPitchCount(), position);
+                viewHolder.loadStrikeLocationArray(model.getStrikeCount(), model.getEventR1C1Count(), model.getEventR1C2Count(),
+                                                    model.getEventR1C3Count(), model.getEventR2C1Count(), model.getEventR2C2Count(),
+                                                    model.getEventR2C3Count(), model.getEventR3C1Count(), model.getEventR3C2Count(),
+                                                    model.getEventR3C3Count(), position);
             }
         };
         mEventRecyclerView.setAdapter(recyclerAdapter);
@@ -175,10 +152,53 @@ public class StatisticsActivity extends AppCompatActivity {
                 mStatisticsEventLocation.setText("Away");
             }
         }
+
+        public void loadIndexArray(String eventName, int totalPitchCount,  int position) {
+            eventNameList.add(eventName);
+            eventPitchCount.add(totalPitchCount);
+            Log.e("Loaded pitch # array", eventNameList.get(position) + "");
+        }
+
+        // Load Strike information
+        public void loadStrikeLocationArray(int eventStrikeCount, int eventR1C1Count, int eventR1C2Count, int eventR1C3Count,
+                                            int eventR2C1Count, int eventR2C2Count, int eventR2C3Count,
+                                            int eventR3C1Count, int eventR3C2Count, int eventR3C3Count,
+                                            int position) {
+            // Investigate a better model to store these
+            eventStrikeCountArrayList.add(eventStrikeCount);
+            eventR1C1ArrayList.add(eventR1C1Count);
+            eventR1C2ArrayList.add(eventR1C2Count);
+            eventR1C3ArrayList.add(eventR1C3Count);
+            eventR2C1ArrayList.add(eventR2C1Count);
+            eventR2C2ArrayList.add(eventR2C2Count);
+            eventR2C3ArrayList.add(eventR2C3Count);
+            eventR3C1ArrayList.add(eventR3C1Count);
+            eventR3C2ArrayList.add(eventR3C2Count);
+            eventR3C3ArrayList.add(eventR3C3Count);
+            Log.e("R1C1: ", eventR1C1ArrayList.get(position) + "");
+        }
     }
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    // Clear out the ArrayLists to ensure that we're reloading them
+    @Override
+    public void onBackPressed() {
+        eventNameList.clear();
+        eventPitchCount.clear();
+        eventStrikeCountArrayList.clear();
+        eventR1C1ArrayList.clear();
+        eventR1C2ArrayList.clear();
+        eventR1C3ArrayList.clear();
+        eventR2C1ArrayList.clear();
+        eventR2C2ArrayList.clear();
+        eventR2C3ArrayList.clear();
+        eventR3C1ArrayList.clear();
+        eventR3C2ArrayList.clear();
+        eventR3C3ArrayList.clear();
+        finish();
     }
 
     public static Intent newIntent(Context packageContext) {
