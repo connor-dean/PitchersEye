@@ -33,6 +33,11 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<String> eventNameList = new ArrayList<>();
     public static ArrayList<Integer> eventPitchCount = new ArrayList<>();
     public static ArrayList<Integer> eventStrikeCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventFastballCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventChangeupCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventCurveballCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventSliderCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> eventOtherCountArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR1C1ArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR1C2ArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventR1C3ArrayList = new ArrayList<>();
@@ -52,6 +57,11 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<String> pitcherEventNameList = new ArrayList<>();
     public static ArrayList<Integer> pitcherPitchCount = new ArrayList<>();
     public static ArrayList<Integer> pitcherStrikeCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherFastballCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherChangeupCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherCurveballCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherSliderCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherOtherCountArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherR1C1ArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherR1C2ArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherR1C3ArrayList = new ArrayList<>();
@@ -119,6 +129,8 @@ public class StatisticsActivity extends AppCompatActivity {
                 viewHolder.setEventType(model.getGame());
                 viewHolder.setEventLocation(model.getHome());
                 viewHolder.loadIndexArray(model.getEventName(), model.getPitchCount(), position);
+                viewHolder.loadPitchTypeArray(model.getEventFastballCount(), model.getEventChangeupCount(), model.getEventCurveballCount(),
+                        model.getEventSliderCount(), model.getEventOtherCount(), position);
                 viewHolder.loadStrikeLocationArray(model.getStrikeCount(), model.getEventR1C1Count(), model.getEventR1C2Count(),
                         model.getEventR1C3Count(), model.getEventR2C1Count(), model.getEventR2C2Count(),
                         model.getEventR2C3Count(), model.getEventR3C1Count(), model.getEventR3C2Count(),
@@ -143,6 +155,8 @@ public class StatisticsActivity extends AppCompatActivity {
                 viewHolder.setPitcherEventLocation(model.getHome());
                 viewHolder.loadPitcherIndexArray(model.getPitcherName(), model.getEventName(),
                         model.getPitchCount(), position);
+                viewHolder.loadPitcherPitchTypeArray(model.getPitcherFastballCount(), model.getPitcherChangeupCount(), model.getPitcherCurveballCount(),
+                        model.getPitcherSliderCount(), model.getPitcherOtherCount(), position);
                 viewHolder.loadPitcherStrikeLocationArray(model.getStrikeCount(), model.getPitcherR1C1Count(), model.getPitcherR1C2Count(),
                         model.getPitcherR1C3Count(), model.getPitcherR2C1Count(), model.getPitcherR2C2Count(),
                         model.getPitcherR2C3Count(), model.getPitcherR3C1Count(), model.getPitcherR3C2Count(),
@@ -187,6 +201,11 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("eventName", eventNameList.get(getAdapterPosition()));
             intent.putExtra("totalPitchCount", eventPitchCount.get(getAdapterPosition()));
             intent.putExtra("eventStrikeCount", eventStrikeCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventFastballCount", eventFastballCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventChangeupCount", eventChangeupCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventCurveballCount", eventCurveballCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventSliderCount", eventSliderCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventOtherCount", eventOtherCountArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR1C1", eventR1C1ArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR1C2", eventR1C2ArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR1C3", eventR1C3ArrayList.get(getAdapterPosition()));
@@ -240,6 +259,16 @@ public class StatisticsActivity extends AppCompatActivity {
             eventNameList.add(eventName);
             eventPitchCount.add(totalPitchCount);
             Log.e("Loaded pitch # array", eventNameList.get(position) + "");
+        }
+        
+        public void loadPitchTypeArray(int eventFastballCount, int eventChangeupCount, int eventCurveballCount,
+                                       int eventSliderCount, int eventOtherCount, int position) {
+            eventFastballCountArrayList.add(eventFastballCount);
+            eventChangeupCountArrayList.add(eventChangeupCount);
+            eventCurveballCountArrayList.add(eventCurveballCount);
+            eventSliderCountArrayList.add(eventSliderCount);
+            eventOtherCountArrayList.add(eventOtherCount);
+            Log.e("Loaded pitch fastball", eventFastballCountArrayList.get(position) + "");
         }
 
         // Load Strike information
@@ -308,6 +337,12 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("eventName", pitcherEventNameList.get(getAdapterPosition()));
             intent.putExtra("totalPitchCount", pitcherPitchCount.get(getAdapterPosition()));
             intent.putExtra("eventStrikeCount", pitcherStrikeCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventStrikeCount", pitcherStrikeCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventFastballCount", pitcherFastballCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventChangeupCount", pitcherChangeupCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventCurveballCount", pitcherCurveballCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventSliderCount", pitcherSliderCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventOtherCount", pitcherOtherCountArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR1C1", pitcherR1C1ArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR1C2", pitcherR1C2ArrayList.get(getAdapterPosition()));
             intent.putExtra("eventR1C3", pitcherR1C3ArrayList.get(getAdapterPosition()));
@@ -331,6 +366,16 @@ public class StatisticsActivity extends AppCompatActivity {
             pitcherEventNameList.add(pitcherEventName);
             pitcherPitchCount.add(totalPitchCount);
             Log.e("Loaded pitch # array", pitcherEventNameList.get(position) + "");
+        }
+
+        public void loadPitcherPitchTypeArray(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+                                       int pitcherSliderCount, int pitcherOtherCount, int position) {
+            pitcherFastballCountArrayList.add(pitcherFastballCount);
+            pitcherChangeupCountArrayList.add(pitcherChangeupCount);
+            pitcherCurveballCountArrayList.add(pitcherCurveballCount);
+            pitcherSliderCountArrayList.add(pitcherSliderCount);
+            pitcherOtherCountArrayList.add(pitcherOtherCount);
+            Log.e("Loaded pitch fastball", pitcherFastballCountArrayList.get(position) + "");
         }
 
         // Load Strike information

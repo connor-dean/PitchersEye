@@ -13,6 +13,11 @@ public class ReportsActivity extends AppCompatActivity {
     TextView mReportsPitchCount;
     TextView mReportsStrikeCount;
     TextView mReportsBallCount;
+    TextView mReportsFastballCount;
+    TextView mReportsChangeupCount;
+    TextView mReportsCurveballCount;
+    TextView mReportsSliderCount;
+    TextView mReportsOtherCount;
     TextView mReportsR1C1;
     TextView mReportsR1C2;
     TextView mReportsR1C3;
@@ -48,6 +53,11 @@ public class ReportsActivity extends AppCompatActivity {
     int index;
     int eventPitchCount;
     int eventStrikeCount;
+    int eventFastballCount;
+    int eventChangeupCount;
+    int eventCurveballCount;
+    int eventSliderCount;
+    int eventOtherCount;
     int eventR1C1;
     int eventR1C2;
     int eventR1C3;
@@ -77,6 +87,11 @@ public class ReportsActivity extends AppCompatActivity {
         eventPitchCount = getIntent().getIntExtra("totalPitchCount", 99);
         eventStrikeCount = getIntent().getIntExtra("eventStrikeCount", 99);
         eventBallCount = getIntent().getIntExtra("eventBallCount", 99);
+        eventFastballCount = getIntent().getIntExtra("eventFastballCount", 99);
+        eventChangeupCount = getIntent().getIntExtra("eventChangeupCount", 99);;
+        eventCurveballCount = getIntent().getIntExtra("eventCurveballCount", 99);;
+        eventSliderCount = getIntent().getIntExtra("eventSliderCount", 99);;
+        eventOtherCount = getIntent().getIntExtra("eventOtherCount", 99);;
         eventR1C1 = getIntent().getIntExtra("eventR1C1", 99);
         eventR1C2 = getIntent().getIntExtra("eventR1C2", 99);
         eventR1C3 = getIntent().getIntExtra("eventR1C3", 99);
@@ -96,6 +111,12 @@ public class ReportsActivity extends AppCompatActivity {
         mReportsPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
         mReportsStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
         mReportsBallCount = (TextView) findViewById(R.id.txt_reports_event_balls_count);
+        mReportsFastballCount = (TextView) findViewById(R.id.txt_reports_event_fastball_count);
+        mReportsChangeupCount = (TextView) findViewById(R.id.txt_reports_event_changeup_count);
+        mReportsCurveballCount = (TextView) findViewById(R.id.txt_reports_event_curveball_count);
+        mReportsSliderCount = (TextView) findViewById(R.id.txt_reports_event_slider_count);
+        mReportsOtherCount = (TextView) findViewById(R.id.txt_reports_event_other_count);
+
         mReportsR1C1 = (TextView) findViewById(R.id.txt_reports_event_r1c1_count);
         mReportsR1C2 = (TextView) findViewById(R.id.txt_reports_event_r1c2_count);
         mReportsR1C3 = (TextView) findViewById(R.id.txt_reports_event_r1c3_count);
@@ -203,6 +224,12 @@ public class ReportsActivity extends AppCompatActivity {
         mReportsPitchCount.setText(Integer.toString(eventPitchCount));
         mReportsStrikeCount.setText(Integer.toString(eventStrikeCount));
         mReportsBallCount.setText(Integer.toString(eventBallCount));
+        mReportsFastballCount.setText(Integer.toString(eventFastballCount));
+        mReportsChangeupCount.setText(Integer.toString(eventChangeupCount));
+        mReportsCurveballCount.setText(Integer.toString(eventCurveballCount));
+        mReportsSliderCount.setText(Integer.toString(eventSliderCount));
+        mReportsOtherCount.setText(Integer.toString(eventOtherCount));
+
         mReportsR1C1.setText(Integer.toString(eventR1C1));
         mReportsR1C2.setText(Integer.toString(eventR1C2));
         mReportsR1C3.setText(Integer.toString(eventR1C3));
