@@ -199,4 +199,6 @@ public class EventInfoFragment extends DialogFragment {
             Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
     }
+
+    public String getPitcherName() { return pitcherName; }
 }

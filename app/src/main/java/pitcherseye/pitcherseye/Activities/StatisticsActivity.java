@@ -3,6 +3,7 @@ package pitcherseye.pitcherseye.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +19,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import pitcherseye.pitcherseye.Objects.EventStats;
+import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 
 public class StatisticsActivity extends AppCompatActivity {
     private static RecyclerView mEventRecyclerView;
-    private DatabaseReference mRef;
+    private DatabaseReference mEventRef;
+    private DatabaseReference mPitcherRef;
     private static Context mContext;
+    int tabPosition = 0;
+    private TabLayout mStatisticsTabLayout;
+
     public static ArrayList<String> eventNameList = new ArrayList<>();
     public static ArrayList<Integer> eventPitchCount = new ArrayList<>();
     public static ArrayList<Integer> eventStrikeCountArrayList = new ArrayList<>();
@@ -42,6 +48,28 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<Integer> eventBallLeftArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventBallRightArrayList = new ArrayList<>();
 
+    public static ArrayList<String> pitcherNameList = new ArrayList<>();
+    public static ArrayList<String> pitcherEventNameList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherPitchCount = new ArrayList<>();
+    public static ArrayList<Integer> pitcherStrikeCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR1C1ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR1C2ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR1C3ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR2C1ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR2C2ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR2C3ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR3C1ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR3C2ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherR3C3ArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherBallCountArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherBallLowArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherBallHighArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherBallLeftArrayList = new ArrayList<>();
+    public static ArrayList<Integer> pitcherBallRightArrayList = new ArrayList<>();
+    FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> eventRecyclerAdapter;
+    FirebaseRecyclerAdapter<PitcherStats, PitcherStatsViewHolder> pitcherRecyclerAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +77,40 @@ public class StatisticsActivity extends AppCompatActivity {
         mEventRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_eventstats);
         mEventRecyclerView.setHasFixedSize(true);
         mEventRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRef = FirebaseDatabase.getInstance().getReference("/eventStats");
+        mStatisticsTabLayout = (TabLayout) findViewById(R.id.tablayout_statistics);
+        mEventRef = FirebaseDatabase.getInstance().getReference("/eventStats");
+        mPitcherRef = FirebaseDatabase.getInstance().getReference("/pitcherStats");
 
-        FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> recyclerAdapter = new FirebaseRecyclerAdapter<EventStats, EventStatsViewHolder>(
+        // Set the adapter on startup
+        //mEventRecyclerView.setAdapter(eventRecyclerAdapter);
+
+        // See which tab is selected
+        mStatisticsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    mEventRecyclerView.setAdapter(eventRecyclerAdapter);
+                } else {
+                    mEventRecyclerView.setAdapter(pitcherRecyclerAdapter);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        eventRecyclerAdapter = new FirebaseRecyclerAdapter<EventStats, EventStatsViewHolder>(
                 EventStats.class,
-                R.layout.individual_row,
+                R.layout.individual_row_events,
                 EventStatsViewHolder.class,
-                mRef
+                mEventRef
         ) {
             @Override
             protected void populateViewHolder(EventStatsViewHolder viewHolder, EventStats model, int position) {
@@ -65,14 +120,32 @@ public class StatisticsActivity extends AppCompatActivity {
                 viewHolder.setEventLocation(model.getHome());
                 viewHolder.loadIndexArray(model.getEventName(), model.getPitchCount(), position);
                 viewHolder.loadStrikeLocationArray(model.getStrikeCount(), model.getEventR1C1Count(), model.getEventR1C2Count(),
-                                                    model.getEventR1C3Count(), model.getEventR2C1Count(), model.getEventR2C2Count(),
-                                                    model.getEventR2C3Count(), model.getEventR3C1Count(), model.getEventR3C2Count(),
-                                                    model.getEventR3C3Count(), position);
+                        model.getEventR1C3Count(), model.getEventR2C1Count(), model.getEventR2C2Count(),
+                        model.getEventR2C3Count(), model.getEventR3C1Count(), model.getEventR3C2Count(),
+                        model.getEventR3C3Count(), position);
                 viewHolder.loadBallLocationArray(model.getEventBallCount(), model.getEventBallCountLow(), model.getEventBallCountHigh(),
-                                                  model.getEventBallCountLeft(), model.getEventBallCountRight(), position);
+                        model.getEventBallCountLeft(), model.getEventBallCountRight(), position);
             }
         };
-        mEventRecyclerView.setAdapter(recyclerAdapter);
+
+        pitcherRecyclerAdapter = new FirebaseRecyclerAdapter<PitcherStats, PitcherStatsViewHolder>(
+                PitcherStats.class,
+                R.layout.individual_row_pitchers,
+                PitcherStatsViewHolder.class,
+                mPitcherRef
+        ) {
+            @Override
+            protected void populateViewHolder(PitcherStatsViewHolder viewHolder, PitcherStats model, int position) {
+                viewHolder.setPitcherName(model.getPitcherName());
+                viewHolder.setPitcherEventName(model.getEventName());
+                viewHolder.setPitcherDate(model.getEventDate());
+                viewHolder.setPitcherEventType(model.getGame());
+                viewHolder.setPitcherEventLocation(model.getHome());
+            }
+        };
+
+        // TODO this is where the adapter sets
+        mEventRecyclerView.setAdapter(eventRecyclerAdapter);
     }
 
     public static class EventStatsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -191,7 +264,97 @@ public class StatisticsActivity extends AppCompatActivity {
         }
     }
 
-    // Clear out the ArrayLists to ensure that we're reloading them
+    public static class PitcherStatsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        View mPitcherView;
+        TextView mStatisticsPitcherName;
+        TextView mStatisticsPitcherEventName;
+        TextView mStatisticsPitcherDate;
+        TextView mStatisticsPitcherEventType;
+        TextView mStatisticsPitcherEventLocation;
+        ImageButton mStatisticsPitcherViewEvent;
+
+        public PitcherStatsViewHolder(final View itemView) {
+            super(itemView);
+            mContext = itemView.getContext();
+            mPitcherView = itemView;
+
+            mStatisticsPitcherName = (TextView) itemView.findViewById(R.id.txt_pitcher_stats_name);
+            mStatisticsPitcherEventName = (TextView) itemView.findViewById(R.id.txt_pitcher_event_name);
+            mStatisticsPitcherDate = (TextView) itemView.findViewById(R.id.txt_pitcher_stats_date);
+            mStatisticsPitcherEventType = (TextView) itemView.findViewById(R.id.txt_stats_pitcher_type);
+            mStatisticsPitcherEventLocation = (TextView) itemView.findViewById(R.id.txt_stats_pitcher_location);
+            mStatisticsPitcherViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_pitcher);
+            mStatisticsPitcherViewEvent.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            final Intent intent;
+            intent = new Intent(view.getContext(), ReportsActivity.class);
+
+            // Send values through the intent to ReportsActivity
+            intent.putExtra("index", getAdapterPosition());
+            intent.putExtra("pitcherName", pitcherNameList.get(getAdapterPosition()));
+            intent.putExtra("pitcherEventName", pitcherEventNameList.get(getAdapterPosition()));
+            intent.putExtra("pitcherTotalPitchCount", pitcherPitchCount.get(getAdapterPosition()));
+            intent.putExtra("pitcherStrikeCount", pitcherStrikeCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR1C1", pitcherR1C1ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR1C2", pitcherR1C2ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR1C3", pitcherR1C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR2C1", pitcherR2C1ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR2C2", pitcherR2C2ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR2C3", pitcherR2C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR3C1", pitcherR3C1ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR3C2", pitcherR3C2ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherR3C3", pitcherR3C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherBallCount", pitcherBallCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherBallLow", pitcherBallLowArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherBallHigh", pitcherBallHighArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherBallLeft", pitcherBallLeftArrayList.get(getAdapterPosition()));
+            intent.putExtra("pitcherBallRight", pitcherBallRightArrayList.get(getAdapterPosition()));
+
+            mContext.startActivity(intent);
+        }
+
+        public void setPitcherName(String pitcherName)
+        {
+            mStatisticsPitcherName.setText(pitcherName);
+        }
+
+        public void setPitcherEventName(String pitcherEventName) {
+            mStatisticsPitcherEventName.setText(pitcherEventName);
+        }
+
+        public void setPitcherDate(String pitcherDate) {
+            mStatisticsPitcherDate.setText(pitcherDate);
+        }
+
+        public void setPitcherEventType(Boolean pitcherEventType) {
+            // TODO
+            // Need to fix the null error once we sanitize Firebase
+            if (pitcherEventType == null) {
+                mStatisticsPitcherEventType.setText("Null");
+            } else if (pitcherEventType){
+                mStatisticsPitcherEventType.setText("Game");
+            } else {
+                mStatisticsPitcherEventType.setText("Practice");
+            }
+        }
+
+        public void setPitcherEventLocation(Boolean pitcherEventLocation) {
+            // TODO
+            // Need to fix the null error once we sanitize Firebase
+            if (pitcherEventLocation == null) {
+                mStatisticsPitcherEventLocation.setText("Null");
+            } else if (pitcherEventLocation){
+                mStatisticsPitcherEventLocation.setText("Game");
+            } else {
+                mStatisticsPitcherEventLocation.setText("Practice");
+            }
+        }
+    }
+
+        // Clear out the ArrayLists to ensure that we're reloading them
     @Override
     public void onBackPressed() {
         eventNameList.clear();
@@ -206,6 +369,21 @@ public class StatisticsActivity extends AppCompatActivity {
         eventR3C1ArrayList.clear();
         eventR3C2ArrayList.clear();
         eventR3C3ArrayList.clear();
+
+        pitcherNameList.clear();
+        pitcherEventNameList.clear();
+        pitcherPitchCount.clear();
+        pitcherStrikeCountArrayList.clear();
+        pitcherR1C1ArrayList.clear();
+        pitcherR1C2ArrayList.clear();
+        pitcherR1C3ArrayList.clear();
+        pitcherR2C1ArrayList.clear();
+        pitcherR2C2ArrayList.clear();
+        pitcherR2C3ArrayList.clear();
+        pitcherR3C1ArrayList.clear();
+        pitcherR3C2ArrayList.clear();
+        pitcherR3C3ArrayList.clear();
+        
         finish();
     }
 

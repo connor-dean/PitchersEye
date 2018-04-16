@@ -56,6 +56,25 @@ public class ReportsActivity extends AppCompatActivity {
     int eventBallLeft;
     int eventBallRight;
 
+    String pitcherName;
+    String pitcherEventName;
+    int pitcherPitchCount;
+    int pitcherStrikeCount;
+    int pitcherR1C1;
+    int pitcherR1C2;
+    int pitcherR1C3;
+    int pitcherR2C1;
+    int pitcherR2C2;
+    int pitcherR2C3;
+    int pitcherR3C1;
+    int pitcherR3C2;
+    int pitcherR3C3;
+    int pitcherBallCount;
+    int pitcherBallLow;
+    int pitcherBallHigh;
+    int pitcherBallLeft;
+    int pitcherBallRight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +100,25 @@ public class ReportsActivity extends AppCompatActivity {
         eventBallLeft = getIntent().getIntExtra("eventBallLeft", 99);
         eventBallRight = getIntent().getIntExtra("eventBallRight", 99);
 
+        pitcherName = getIntent().getStringExtra("pitcherName");
+        pitcherEventName = getIntent().getStringExtra("pitcherEventName");
+        pitcherPitchCount = getIntent().getIntExtra("pitcherTotalPitchCount", 99);
+        pitcherStrikeCount = getIntent().getIntExtra("pitcherStrikeCount", 99);
+        pitcherBallCount = getIntent().getIntExtra("pitcherBallCount", 99);
+        pitcherR1C1 = getIntent().getIntExtra("pitcherR1C1", 99);
+        pitcherR1C2 = getIntent().getIntExtra("pitcherR1C2", 99);
+        pitcherR1C3 = getIntent().getIntExtra("pitcherR1C3", 99);
+        pitcherR2C1 = getIntent().getIntExtra("pitcherR2C1", 99);
+        pitcherR2C2 = getIntent().getIntExtra("pitcherR2C2", 99);
+        pitcherR2C3 = getIntent().getIntExtra("pitcherR2C3", 99);
+        pitcherR3C1 = getIntent().getIntExtra("pitcherR3C1", 99);
+        pitcherR3C2 = getIntent().getIntExtra("pitcherR3C2", 99);
+        pitcherR3C3 = getIntent().getIntExtra("pitcherR3C3", 99);
+        pitcherBallLow = getIntent().getIntExtra("pitcherBallLow", 99);
+        pitcherBallHigh = getIntent().getIntExtra("pitcherBallHigh", 99);
+        pitcherBallLeft = getIntent().getIntExtra("pitcherBallLeft", 99);
+        pitcherBallRight = getIntent().getIntExtra("pitcherBallRight", 99);
+        
         // Instantiate widgets
         mReportsEventHeader = (TextView) findViewById(R.id.txt_reports_event_header);
         mReportsEventPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
@@ -133,31 +171,47 @@ public class ReportsActivity extends AppCompatActivity {
     // from other Activities.
     private void adjustHeatMap() {
         // TODO refactor this. Will throw error when dividing by 0.
-        if (eventR1C1 > 0) mR1C1.getBackground().setAlpha(eventR1C1  * 255 / eventPitchCount);
+        if (eventPitchCount > 0) {
+            if (eventR1C1 > 0) mR1C1.getBackground().setAlpha(eventR1C1  * 255 / eventPitchCount);
             else mR1C1.getBackground().setAlpha(0);
-        if (eventR1C2 > 0) mR1C2.getBackground().setAlpha(eventR1C2  * 255 / eventPitchCount);
+            if (eventR1C2 > 0) mR1C2.getBackground().setAlpha(eventR1C2  * 255 / eventPitchCount);
             else mR1C2.getBackground().setAlpha(0);
-        if (eventR1C3 > 0) mR1C3.getBackground().setAlpha(eventR1C3  * 255 / eventPitchCount);
+            if (eventR1C3 > 0) mR1C3.getBackground().setAlpha(eventR1C3  * 255 / eventPitchCount);
             else mR1C3.getBackground().setAlpha(0);
-        if (eventR2C1 > 0) mR2C1.getBackground().setAlpha(eventR2C1  * 255 / eventPitchCount);
+            if (eventR2C1 > 0) mR2C1.getBackground().setAlpha(eventR2C1  * 255 / eventPitchCount);
             else mR2C1.getBackground().setAlpha(0);
-        if (eventR2C2 > 0) mR2C2.getBackground().setAlpha(eventR2C2  * 255 / eventPitchCount);
+            if (eventR2C2 > 0) mR2C2.getBackground().setAlpha(eventR2C2  * 255 / eventPitchCount);
             else mR2C2.getBackground().setAlpha(0);
-        if (eventR2C3 > 0) mR2C3.getBackground().setAlpha(eventR2C3  * 255 / eventPitchCount);
+            if (eventR2C3 > 0) mR2C3.getBackground().setAlpha(eventR2C3  * 255 / eventPitchCount);
             else mR2C3.getBackground().setAlpha(0);
-        if (eventR3C1 > 0) mR3C1.getBackground().setAlpha(eventR3C1  * 255 / eventPitchCount);
+            if (eventR3C1 > 0) mR3C1.getBackground().setAlpha(eventR3C1  * 255 / eventPitchCount);
             else mR3C1.getBackground().setAlpha(0);
-        if (eventR3C2 > 0) mR3C2.getBackground().setAlpha(eventR3C2  * 255 / eventPitchCount);
+            if (eventR3C2 > 0) mR3C2.getBackground().setAlpha(eventR3C2  * 255 / eventPitchCount);
             else mR3C2.getBackground().setAlpha(0);
-        if (eventR3C3 > 0) mR3C3.getBackground().setAlpha(eventR3C3  * 255 / eventPitchCount);
+            if (eventR3C3 > 0) mR3C3.getBackground().setAlpha(eventR3C3  * 255 / eventPitchCount);
             else mR3C3.getBackground().setAlpha(0);
-        if (eventBallLow > 0) mBallLow.getBackground().setAlpha(eventBallLow * 255 / eventPitchCount);
+            if (eventBallLow > 0) mBallLow.getBackground().setAlpha(eventBallLow * 255 / eventPitchCount);
             else mBallLow.getBackground().setAlpha(0);
-        if (eventBallHigh > 0) mBallHigh.getBackground().setAlpha(eventBallHigh * 255 / eventPitchCount);
+            if (eventBallHigh > 0) mBallHigh.getBackground().setAlpha(eventBallHigh * 255 / eventPitchCount);
             else mBallHigh.getBackground().setAlpha(0);
-        if (eventBallLeft > 0) mBallLeft.getBackground().setAlpha(eventBallLeft * 255 / eventPitchCount);
+            if (eventBallLeft > 0) mBallLeft.getBackground().setAlpha(eventBallLeft * 255 / eventPitchCount);
             else mBallLeft.getBackground().setAlpha(0);
-        if (eventBallRight > 0) mBallRight.getBackground().setAlpha(eventBallRight * 255 / eventPitchCount);
+            if (eventBallRight > 0) mBallRight.getBackground().setAlpha(eventBallRight * 255 / eventPitchCount);
             else mBallRight.getBackground().setAlpha(0);
+        } else {
+            mR1C1.getBackground().setAlpha(0);
+            mR1C2.getBackground().setAlpha(0);
+            mR1C3.getBackground().setAlpha(0);
+            mR2C1.getBackground().setAlpha(0);
+            mR2C2.getBackground().setAlpha(0);
+            mR2C3.getBackground().setAlpha(0);
+            mR3C1.getBackground().setAlpha(0);
+            mR3C2.getBackground().setAlpha(0);
+            mR3C3.getBackground().setAlpha(0);
+            mBallLow.getBackground().setAlpha(0);
+            mBallHigh.getBackground().setAlpha(0);
+            mBallLeft.getBackground().setAlpha(0);
+            mBallRight.getBackground().setAlpha(0);
+        }
     }
 }

@@ -30,11 +30,11 @@ public class EventStats {
     public int eventR3C1Count;
     public int eventR3C2Count;
     public int eventR3C3Count;
-    public int fastballCount;
-    public int changeupCount;
-    public int curveballCount;
-    public int sliderCount;
-    public int otherCount;
+    public int eventFastballCount;
+    public int eventChangeupCount;
+    public int eventCurveballCount;
+    public int eventSliderCount;
+    public int eventOtherCount;
 
     public EventStats() { }
 
@@ -67,11 +67,11 @@ public class EventStats {
         this.eventR3C1Count = R3C1Count;
         this.eventR3C2Count = R3C2Count;
         this.eventR3C3Count = R3C3Count;
-        this.fastballCount = fastballCount;
-        this.changeupCount = changeupCount;
-        this.curveballCount = curveballCount;
-        this.sliderCount = sliderCount;
-        this.otherCount = otherCount;
+        this.eventFastballCount = fastballCount;
+        this.eventChangeupCount = changeupCount;
+        this.eventCurveballCount = curveballCount;
+        this.eventSliderCount = sliderCount;
+        this.eventOtherCount = otherCount;
     }
     public String getEventName() { return eventName; }
 
@@ -143,23 +143,23 @@ public class EventStats {
         return eventBallCountRight;
     }
 
-    public int getFastballCount() {
-        return fastballCount;
+    public int getEventFastballCount() {
+        return eventFastballCount;
     }
 
-    public int getChangeupCount() {
-        return changeupCount;
+    public int getEventChangeupCount() {
+        return eventChangeupCount;
     }
 
-    public int getCurveballCount() {
-        return curveballCount;
+    public int getEventCurveballCount() {
+        return eventCurveballCount;
     }
 
-    public int getSliderCount() {
-        return sliderCount;
+    public int getEventSliderCount() {
+        return eventSliderCount;
     }
 
-    public int getOtherCount() {
-        return otherCount;
+    public int getEventOtherCount() {
+        return eventOtherCount;
     }
 }

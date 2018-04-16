@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:background="@color/white"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        android:background="@color/ichabodYellow" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_pitcher_stats_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="8dp"
+                android:text="title"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:id="@+id/txt_pitcher_event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingBottom="8dp"
+                android:text="title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_pitcher_stats_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/txt_stats_pitcher_type_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Type: " />
+
+            <TextView
+                android:id="@+id/txt_stats_pitcher_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="type" />
+
+            <TextView
+                android:id="@+id/txt_stats_pitcher_location_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Location: " />
+
+            <TextView
+                android:id="@+id/txt_stats_pitcher_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="location" />
+
+            <ImageButton
+                android:id="@+id/img_button_view_pitcher"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_marginStart="16dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_right_black_24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

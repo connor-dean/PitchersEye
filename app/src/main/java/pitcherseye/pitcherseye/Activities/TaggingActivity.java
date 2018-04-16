@@ -890,11 +890,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         }
     }
 
-    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
+    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment TODO THIS IS WHERE STUFF
     public void sendPitcherStatsHelper() {
         String eventID = Utilities.createRandomHex(6);
         sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
-                pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
+                "TESTNAME",0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
                 pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
                 pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
