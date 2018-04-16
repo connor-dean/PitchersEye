@@ -22,6 +22,10 @@ public class ReportsActivity extends AppCompatActivity {
     TextView mReportsR3C1;
     TextView mReportsR3C2;
     TextView mReportsR3C3;
+    TextView mReportsBallLow;
+    TextView mReportsBallHigh;
+    TextView mReportsBallLeft;
+    TextView mReportsBallRight;
 
     Button mR1C1;
     Button mR1C2;
@@ -101,6 +105,10 @@ public class ReportsActivity extends AppCompatActivity {
         mReportsR3C1 = (TextView) findViewById(R.id.txt_reports_event_r3c1_count);
         mReportsR3C2 = (TextView) findViewById(R.id.txt_reports_event_r3c2_count);
         mReportsR3C3 = (TextView) findViewById(R.id.txt_reports_event_r3c3_count);
+        mReportsBallLow = (TextView) findViewById(R.id.txt_reports_event_ball_low_count);
+        mReportsBallHigh = (TextView) findViewById(R.id.txt_reports_event_ball_high_count);
+        mReportsBallLeft = (TextView) findViewById(R.id.txt_reports_event_ball_left_count);
+        mReportsBallRight = (TextView) findViewById(R.id.txt_reports_event_ball_right_count);
 
         // TODO rename these and fix xml
         mR1C1 = (Button) findViewById(R.id.btnR1C1);
@@ -204,5 +212,9 @@ public class ReportsActivity extends AppCompatActivity {
         mReportsR3C1.setText(Integer.toString(eventR3C1));
         mReportsR3C2.setText(Integer.toString(eventR3C2));
         mReportsR3C3.setText(Integer.toString(eventR3C3));
+        mReportsBallLow.setText(Integer.toString(eventBallLow));
+        mReportsBallHigh.setText(Integer.toString(eventBallHigh));
+        mReportsBallLeft.setText(Integer.toString(eventBallLeft));
+        mReportsBallRight.setText(Integer.toString(eventBallRight));
     }
 }
