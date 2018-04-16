@@ -40,31 +40,6 @@ import pitcherseye.pitcherseye.Utilities;
 
 import static java.lang.Math.round;
 
-// TODO master list
-/* - Change pitcher workflow XXX
-        - Spinner validation is giving me issues  XXX
-   - Fix undo workflow XXX
-        - Adjust for Result type XXX
-        - Do something similar that we did for updating result count, save class level booleans in updatePitcherResultsCounts XXX
-        - Refactor mUndo, can keep it similar, but need to break down. XXX
-        - Fix undo button's disabled state XXX
-   - Add "Ball" selection XXX
-        - Hook up to "Undo" XXX
-        - New Pitcher XXX
-        - Adjust Objects to take balls regions XXX
-   - Styling XXX
-        - Add header to tagging XXX
-        - Move colors and strings to res files XXX
-   - Disable back button on dialog <---
-   - Rework workflow for pitcher/event fragments XXX
-   - Add speed workflow dialog
-   - Pick backstack on main menu after finishing game XXX
-   - Refactor code
-   - Full testing regression
-   - Heatmap (Tentative)
-   - Task to check for Firebase send success
-*/
-
 public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
                                                             ChangePitcherFragment.OnInputListener {
 
@@ -894,7 +869,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     public void sendPitcherStatsHelper() {
         String eventID = Utilities.createRandomHex(6);
         sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
-                "TESTNAME",0, pitcherPitchCount, pitcherStrikesCount,
+                pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
                 pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
                 pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
