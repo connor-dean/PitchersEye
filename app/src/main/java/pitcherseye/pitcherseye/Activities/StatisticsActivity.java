@@ -305,23 +305,23 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("index", getAdapterPosition());
             intent.putExtra("tabSelection", false);
             intent.putExtra("pitcherName", pitcherNameList.get(getAdapterPosition()));
-            intent.putExtra("pitcherEventName", pitcherEventNameList.get(getAdapterPosition()));
-            intent.putExtra("pitcherTotalPitchCount", pitcherPitchCount.get(getAdapterPosition()));
-            intent.putExtra("pitcherStrikeCount", pitcherStrikeCountArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR1C1", pitcherR1C1ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR1C2", pitcherR1C2ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR1C3", pitcherR1C3ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR2C1", pitcherR2C1ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR2C2", pitcherR2C2ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR2C3", pitcherR2C3ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR3C1", pitcherR3C1ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR3C2", pitcherR3C2ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherR3C3", pitcherR3C3ArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherBallCount", pitcherBallCountArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherBallLow", pitcherBallLowArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherBallHigh", pitcherBallHighArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherBallLeft", pitcherBallLeftArrayList.get(getAdapterPosition()));
-            intent.putExtra("pitcherBallRight", pitcherBallRightArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventName", pitcherEventNameList.get(getAdapterPosition()));
+            intent.putExtra("totalPitchCount", pitcherPitchCount.get(getAdapterPosition()));
+            intent.putExtra("eventStrikeCount", pitcherStrikeCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR1C1", pitcherR1C1ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR1C2", pitcherR1C2ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR1C3", pitcherR1C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR2C1", pitcherR2C1ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR2C2", pitcherR2C2ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR2C3", pitcherR2C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR3C1", pitcherR3C1ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR3C2", pitcherR3C2ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventR3C3", pitcherR3C3ArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallCount", pitcherBallCountArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallLow", pitcherBallLowArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallHigh", pitcherBallHighArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallLeft", pitcherBallLeftArrayList.get(getAdapterPosition()));
+            intent.putExtra("eventBallRight", pitcherBallRightArrayList.get(getAdapterPosition()));
 
             mContext.startActivity(intent);
         }
@@ -394,9 +394,9 @@ public class StatisticsActivity extends AppCompatActivity {
             if (pitcherEventLocation == null) {
                 mStatisticsPitcherEventLocation.setText("Null");
             } else if (pitcherEventLocation){
-                mStatisticsPitcherEventLocation.setText("Game");
+                mStatisticsPitcherEventLocation.setText("Home");
             } else {
-                mStatisticsPitcherEventLocation.setText("Practice");
+                mStatisticsPitcherEventLocation.setText("Away");
             }
         }
     }
