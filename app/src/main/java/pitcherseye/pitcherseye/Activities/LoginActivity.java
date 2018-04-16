@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Hide keyboard
-                Utilities.hideSoftKeyboard(LoginActivity.this);
+                //Utilities.hideSoftKeyboard(LoginActivity.this);
                 logInUser();
             }
         });

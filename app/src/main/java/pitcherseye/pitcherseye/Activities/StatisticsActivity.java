@@ -141,6 +141,14 @@ public class StatisticsActivity extends AppCompatActivity {
                 viewHolder.setPitcherDate(model.getEventDate());
                 viewHolder.setPitcherEventType(model.getGame());
                 viewHolder.setPitcherEventLocation(model.getHome());
+                viewHolder.loadPitcherIndexArray(model.getPitcherName(), model.getEventName(),
+                        model.getPitchCount(), position);
+                viewHolder.loadPitcherStrikeLocationArray(model.getStrikeCount(), model.getPitcherR1C1Count(), model.getPitcherR1C2Count(),
+                        model.getPitcherR1C3Count(), model.getPitcherR2C1Count(), model.getPitcherR2C2Count(),
+                        model.getPitcherR2C3Count(), model.getPitcherR3C1Count(), model.getPitcherR3C2Count(),
+                        model.getPitcherR3C3Count(), position);
+                viewHolder.loadPitcherBallLocationArray(model.getPitcherBallCount(), model.getPitcherBallCountLow(), model.getPitcherBallCountHigh(),
+                        model.getPitcherBallCountLeft(), model.getPitcherBallCountRight(), position);
             }
         };
 
@@ -175,6 +183,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
             // Send values through the intent to ReportsActivity
             intent.putExtra("index", getAdapterPosition());
+            intent.putExtra("tabSelection", true);
             intent.putExtra("eventName", eventNameList.get(getAdapterPosition()));
             intent.putExtra("totalPitchCount", eventPitchCount.get(getAdapterPosition()));
             intent.putExtra("eventStrikeCount", eventStrikeCountArrayList.get(getAdapterPosition()));
@@ -294,6 +303,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
             // Send values through the intent to ReportsActivity
             intent.putExtra("index", getAdapterPosition());
+            intent.putExtra("tabSelection", false);
             intent.putExtra("pitcherName", pitcherNameList.get(getAdapterPosition()));
             intent.putExtra("pitcherEventName", pitcherEventNameList.get(getAdapterPosition()));
             intent.putExtra("pitcherTotalPitchCount", pitcherPitchCount.get(getAdapterPosition()));
@@ -314,6 +324,43 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("pitcherBallRight", pitcherBallRightArrayList.get(getAdapterPosition()));
 
             mContext.startActivity(intent);
+        }
+
+        public void loadPitcherIndexArray(String pitcherName, String pitcherEventName, int totalPitchCount,  int position) {
+            pitcherNameList.add(pitcherName);
+            pitcherEventNameList.add(pitcherEventName);
+            pitcherPitchCount.add(totalPitchCount);
+            Log.e("Loaded pitch # array", pitcherEventNameList.get(position) + "");
+        }
+
+        // Load Strike information
+        public void loadPitcherStrikeLocationArray(int pitcherStrikeCount, int pitcherR1C1Count, int pitcherR1C2Count, int pitcherR1C3Count,
+                                            int pitcherR2C1Count, int pitcherR2C2Count, int pitcherR2C3Count,
+                                            int pitcherR3C1Count, int pitcherR3C2Count, int pitcherR3C3Count,
+                                            int position) {
+            // Investigate a better model to store these
+            pitcherStrikeCountArrayList.add(pitcherStrikeCount);
+            pitcherR1C1ArrayList.add(pitcherR1C1Count);
+            pitcherR1C2ArrayList.add(pitcherR1C2Count);
+            pitcherR1C3ArrayList.add(pitcherR1C3Count);
+            pitcherR2C1ArrayList.add(pitcherR2C1Count);
+            pitcherR2C2ArrayList.add(pitcherR2C2Count);
+            pitcherR2C3ArrayList.add(pitcherR2C3Count);
+            pitcherR3C1ArrayList.add(pitcherR3C1Count);
+            pitcherR3C2ArrayList.add(pitcherR3C2Count);
+            pitcherR3C3ArrayList.add(pitcherR3C3Count);
+            Log.e("Pitcher R1C1: ", pitcherR1C1ArrayList.get(position) + "");
+        }
+
+        // Load Ball information
+        public void loadPitcherBallLocationArray(int pitcherBallCount, int pitcherBallLow, int pitcherBallHigh,
+                                          int pitcherBallLeft, int pitcherBallRight, int position) {
+            pitcherBallCountArrayList.add(pitcherBallCount);
+            pitcherBallLowArrayList.add(pitcherBallLow);
+            pitcherBallHighArrayList.add(pitcherBallHigh);
+            pitcherBallLeftArrayList.add(pitcherBallLeft);
+            pitcherBallRightArrayList.add(pitcherBallRight);
+            Log.e("Pitcher Ball Count: ", pitcherBallCountArrayList.get(position) + "");
         }
 
         public void setPitcherName(String pitcherName)

@@ -9,19 +9,19 @@ import pitcherseye.pitcherseye.R;
 
 public class ReportsActivity extends AppCompatActivity {
 
-    TextView mReportsEventHeader;
-    TextView mReportsEventPitchCount;
-    TextView mReportsEventStrikeCount;
-    TextView mReportsEventBallCount;
-    TextView mReportsEventR1C1;
-    TextView mReportsEventR1C2;
-    TextView mReportsEventR1C3;
-    TextView mReportsEventR2C1;
-    TextView mReportsEventR2C2;
-    TextView mReportsEventR2C3;
-    TextView mReportsEventR3C1;
-    TextView mReportsEventR3C2;
-    TextView mReportsEventR3C3;
+    TextView mReportsHeader;
+    TextView mReportsPitchCount;
+    TextView mReportsStrikeCount;
+    TextView mReportsBallCount;
+    TextView mReportsR1C1;
+    TextView mReportsR1C2;
+    TextView mReportsR1C3;
+    TextView mReportsR2C1;
+    TextView mReportsR2C2;
+    TextView mReportsR2C3;
+    TextView mReportsR3C1;
+    TextView mReportsR3C2;
+    TextView mReportsR3C3;
 
     Button mR1C1;
     Button mR1C2;
@@ -36,6 +36,8 @@ public class ReportsActivity extends AppCompatActivity {
     Button mBallHigh;
     Button mBallRight;
     Button mBallLeft;
+
+    Boolean tabSelection;
 
     String eventName;
     int index;
@@ -82,6 +84,9 @@ public class ReportsActivity extends AppCompatActivity {
 
         // Load values into variables
         index = getIntent().getIntExtra("index", 99);
+        tabSelection = getIntent().getBooleanExtra("tabSelection", true);
+
+
         eventName = getIntent().getStringExtra("eventName");
         eventPitchCount = getIntent().getIntExtra("totalPitchCount", 99);
         eventStrikeCount = getIntent().getIntExtra("eventStrikeCount", 99);
@@ -118,21 +123,21 @@ public class ReportsActivity extends AppCompatActivity {
         pitcherBallHigh = getIntent().getIntExtra("pitcherBallHigh", 99);
         pitcherBallLeft = getIntent().getIntExtra("pitcherBallLeft", 99);
         pitcherBallRight = getIntent().getIntExtra("pitcherBallRight", 99);
-        
+
         // Instantiate widgets
-        mReportsEventHeader = (TextView) findViewById(R.id.txt_reports_event_header);
-        mReportsEventPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
-        mReportsEventStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
-        mReportsEventBallCount = (TextView) findViewById(R.id.txt_reports_event_balls_count);
-        mReportsEventR1C1 = (TextView) findViewById(R.id.txt_reports_event_r1c1_count);
-        mReportsEventR1C2 = (TextView) findViewById(R.id.txt_reports_event_r1c2_count);
-        mReportsEventR1C3 = (TextView) findViewById(R.id.txt_reports_event_r1c3_count);
-        mReportsEventR2C1 = (TextView) findViewById(R.id.txt_reports_event_r2c1_count);
-        mReportsEventR2C2 = (TextView) findViewById(R.id.txt_reports_event_r2c2_count);
-        mReportsEventR2C3 = (TextView) findViewById(R.id.txt_reports_event_r2c3_count);
-        mReportsEventR3C1 = (TextView) findViewById(R.id.txt_reports_event_r3c1_count);
-        mReportsEventR3C2 = (TextView) findViewById(R.id.txt_reports_event_r3c2_count);
-        mReportsEventR3C3 = (TextView) findViewById(R.id.txt_reports_event_r3c3_count);
+        mReportsHeader = (TextView) findViewById(R.id.txt_reports_event_header);
+        mReportsPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
+        mReportsStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
+        mReportsBallCount = (TextView) findViewById(R.id.txt_reports_event_balls_count);
+        mReportsR1C1 = (TextView) findViewById(R.id.txt_reports_event_r1c1_count);
+        mReportsR1C2 = (TextView) findViewById(R.id.txt_reports_event_r1c2_count);
+        mReportsR1C3 = (TextView) findViewById(R.id.txt_reports_event_r1c3_count);
+        mReportsR2C1 = (TextView) findViewById(R.id.txt_reports_event_r2c1_count);
+        mReportsR2C2 = (TextView) findViewById(R.id.txt_reports_event_r2c2_count);
+        mReportsR2C3 = (TextView) findViewById(R.id.txt_reports_event_r2c3_count);
+        mReportsR3C1 = (TextView) findViewById(R.id.txt_reports_event_r3c1_count);
+        mReportsR3C2 = (TextView) findViewById(R.id.txt_reports_event_r3c2_count);
+        mReportsR3C3 = (TextView) findViewById(R.id.txt_reports_event_r3c3_count);
 
         // TODO rename these and fix xml
         mR1C1 = (Button) findViewById(R.id.btnR1C1);
@@ -149,69 +154,164 @@ public class ReportsActivity extends AppCompatActivity {
         mBallRight = (Button) findViewById(R.id.btn_ball_right);
         mBallLeft = (Button) findViewById(R.id.btn_ball_left);
 
-        mReportsEventHeader.setText(eventName);
-        mReportsEventPitchCount.setText(Integer.toString(eventPitchCount));
-        mReportsEventStrikeCount.setText(Integer.toString(eventStrikeCount));
-        mReportsEventBallCount.setText(Integer.toString(eventBallCount));
-        mReportsEventR1C1.setText(Integer.toString(eventR1C1));
-        mReportsEventR1C2.setText(Integer.toString(eventR1C2));
-        mReportsEventR1C3.setText(Integer.toString(eventR1C3));
-        mReportsEventR2C1.setText(Integer.toString(eventR2C1));
-        mReportsEventR2C2.setText(Integer.toString(eventR2C2));
-        mReportsEventR2C3.setText(Integer.toString(eventR2C3));
-        mReportsEventR3C1.setText(Integer.toString(eventR3C1));
-        mReportsEventR3C2.setText(Integer.toString(eventR3C2));
-        mReportsEventR3C3.setText(Integer.toString(eventR3C3));
 
-        adjustHeatMap();
+        loadComponents(tabSelection);
+        adjustHeatMap(tabSelection);
     }
 
     // TODO we'll want to see if we can add this to Utilities eventually since we're duplicating
     // methods from TaggingActivity. UI components usually don't like to play well when coming
     // from other Activities.
-    private void adjustHeatMap() {
-        // TODO refactor this. Will throw error when dividing by 0.
-        if (eventPitchCount > 0) {
-            if (eventR1C1 > 0) mR1C1.getBackground().setAlpha(eventR1C1  * 255 / eventPitchCount);
-            else mR1C1.getBackground().setAlpha(0);
-            if (eventR1C2 > 0) mR1C2.getBackground().setAlpha(eventR1C2  * 255 / eventPitchCount);
-            else mR1C2.getBackground().setAlpha(0);
-            if (eventR1C3 > 0) mR1C3.getBackground().setAlpha(eventR1C3  * 255 / eventPitchCount);
-            else mR1C3.getBackground().setAlpha(0);
-            if (eventR2C1 > 0) mR2C1.getBackground().setAlpha(eventR2C1  * 255 / eventPitchCount);
-            else mR2C1.getBackground().setAlpha(0);
-            if (eventR2C2 > 0) mR2C2.getBackground().setAlpha(eventR2C2  * 255 / eventPitchCount);
-            else mR2C2.getBackground().setAlpha(0);
-            if (eventR2C3 > 0) mR2C3.getBackground().setAlpha(eventR2C3  * 255 / eventPitchCount);
-            else mR2C3.getBackground().setAlpha(0);
-            if (eventR3C1 > 0) mR3C1.getBackground().setAlpha(eventR3C1  * 255 / eventPitchCount);
-            else mR3C1.getBackground().setAlpha(0);
-            if (eventR3C2 > 0) mR3C2.getBackground().setAlpha(eventR3C2  * 255 / eventPitchCount);
-            else mR3C2.getBackground().setAlpha(0);
-            if (eventR3C3 > 0) mR3C3.getBackground().setAlpha(eventR3C3  * 255 / eventPitchCount);
-            else mR3C3.getBackground().setAlpha(0);
-            if (eventBallLow > 0) mBallLow.getBackground().setAlpha(eventBallLow * 255 / eventPitchCount);
-            else mBallLow.getBackground().setAlpha(0);
-            if (eventBallHigh > 0) mBallHigh.getBackground().setAlpha(eventBallHigh * 255 / eventPitchCount);
-            else mBallHigh.getBackground().setAlpha(0);
-            if (eventBallLeft > 0) mBallLeft.getBackground().setAlpha(eventBallLeft * 255 / eventPitchCount);
-            else mBallLeft.getBackground().setAlpha(0);
-            if (eventBallRight > 0) mBallRight.getBackground().setAlpha(eventBallRight * 255 / eventPitchCount);
-            else mBallRight.getBackground().setAlpha(0);
+    private void adjustHeatMap(Boolean tabSelection) {
+        if (tabSelection) {
+            // TODO refactor this. Will throw error when dividing by 0.
+            if (eventPitchCount > 0) {
+                if (eventR1C1 > 0)
+                    mR1C1.getBackground().setAlpha(eventR1C1 * 255 / eventPitchCount);
+                else mR1C1.getBackground().setAlpha(0);
+                if (eventR1C2 > 0)
+                    mR1C2.getBackground().setAlpha(eventR1C2 * 255 / eventPitchCount);
+                else mR1C2.getBackground().setAlpha(0);
+                if (eventR1C3 > 0)
+                    mR1C3.getBackground().setAlpha(eventR1C3 * 255 / eventPitchCount);
+                else mR1C3.getBackground().setAlpha(0);
+                if (eventR2C1 > 0)
+                    mR2C1.getBackground().setAlpha(eventR2C1 * 255 / eventPitchCount);
+                else mR2C1.getBackground().setAlpha(0);
+                if (eventR2C2 > 0)
+                    mR2C2.getBackground().setAlpha(eventR2C2 * 255 / eventPitchCount);
+                else mR2C2.getBackground().setAlpha(0);
+                if (eventR2C3 > 0)
+                    mR2C3.getBackground().setAlpha(eventR2C3 * 255 / eventPitchCount);
+                else mR2C3.getBackground().setAlpha(0);
+                if (eventR3C1 > 0)
+                    mR3C1.getBackground().setAlpha(eventR3C1 * 255 / eventPitchCount);
+                else mR3C1.getBackground().setAlpha(0);
+                if (eventR3C2 > 0)
+                    mR3C2.getBackground().setAlpha(eventR3C2 * 255 / eventPitchCount);
+                else mR3C2.getBackground().setAlpha(0);
+                if (eventR3C3 > 0)
+                    mR3C3.getBackground().setAlpha(eventR3C3 * 255 / eventPitchCount);
+                else mR3C3.getBackground().setAlpha(0);
+                if (eventBallLow > 0)
+                    mBallLow.getBackground().setAlpha(eventBallLow * 255 / eventPitchCount);
+                else mBallLow.getBackground().setAlpha(0);
+                if (eventBallHigh > 0)
+                    mBallHigh.getBackground().setAlpha(eventBallHigh * 255 / eventPitchCount);
+                else mBallHigh.getBackground().setAlpha(0);
+                if (eventBallLeft > 0)
+                    mBallLeft.getBackground().setAlpha(eventBallLeft * 255 / eventPitchCount);
+                else mBallLeft.getBackground().setAlpha(0);
+                if (eventBallRight > 0)
+                    mBallRight.getBackground().setAlpha(eventBallRight * 255 / eventPitchCount);
+                else mBallRight.getBackground().setAlpha(0);
+            } else {
+                mR1C1.getBackground().setAlpha(0);
+                mR1C2.getBackground().setAlpha(0);
+                mR1C3.getBackground().setAlpha(0);
+                mR2C1.getBackground().setAlpha(0);
+                mR2C2.getBackground().setAlpha(0);
+                mR2C3.getBackground().setAlpha(0);
+                mR3C1.getBackground().setAlpha(0);
+                mR3C2.getBackground().setAlpha(0);
+                mR3C3.getBackground().setAlpha(0);
+                mBallLow.getBackground().setAlpha(0);
+                mBallHigh.getBackground().setAlpha(0);
+                mBallLeft.getBackground().setAlpha(0);
+                mBallRight.getBackground().setAlpha(0);
+            }
         } else {
-            mR1C1.getBackground().setAlpha(0);
-            mR1C2.getBackground().setAlpha(0);
-            mR1C3.getBackground().setAlpha(0);
-            mR2C1.getBackground().setAlpha(0);
-            mR2C2.getBackground().setAlpha(0);
-            mR2C3.getBackground().setAlpha(0);
-            mR3C1.getBackground().setAlpha(0);
-            mR3C2.getBackground().setAlpha(0);
-            mR3C3.getBackground().setAlpha(0);
-            mBallLow.getBackground().setAlpha(0);
-            mBallHigh.getBackground().setAlpha(0);
-            mBallLeft.getBackground().setAlpha(0);
-            mBallRight.getBackground().setAlpha(0);
+            // TODO refactor this. Will throw error when dividing by 0.
+            if (pitcherPitchCount > 0) {
+                if (pitcherR1C1 > 0)
+                    mR1C1.getBackground().setAlpha(pitcherR1C1 * 255 / pitcherPitchCount);
+                else mR1C1.getBackground().setAlpha(0);
+                if (pitcherR1C2 > 0)
+                    mR1C2.getBackground().setAlpha(pitcherR1C2 * 255 / pitcherPitchCount);
+                else mR1C2.getBackground().setAlpha(0);
+                if (pitcherR1C3 > 0)
+                    mR1C3.getBackground().setAlpha(pitcherR1C3 * 255 / pitcherPitchCount);
+                else mR1C3.getBackground().setAlpha(0);
+                if (pitcherR2C1 > 0)
+                    mR2C1.getBackground().setAlpha(pitcherR2C1 * 255 / pitcherPitchCount);
+                else mR2C1.getBackground().setAlpha(0);
+                if (pitcherR2C2 > 0)
+                    mR2C2.getBackground().setAlpha(pitcherR2C2 * 255 / pitcherPitchCount);
+                else mR2C2.getBackground().setAlpha(0);
+                if (pitcherR2C3 > 0)
+                    mR2C3.getBackground().setAlpha(pitcherR2C3 * 255 / pitcherPitchCount);
+                else mR2C3.getBackground().setAlpha(0);
+                if (pitcherR3C1 > 0)
+                    mR3C1.getBackground().setAlpha(pitcherR3C1 * 255 / pitcherPitchCount);
+                else mR3C1.getBackground().setAlpha(0);
+                if (pitcherR3C2 > 0)
+                    mR3C2.getBackground().setAlpha(pitcherR3C2 * 255 / pitcherPitchCount);
+                else mR3C2.getBackground().setAlpha(0);
+                if (pitcherR3C3 > 0)
+                    mR3C3.getBackground().setAlpha(pitcherR3C3 * 255 / pitcherPitchCount);
+                else mR3C3.getBackground().setAlpha(0);
+                if (pitcherBallLow > 0)
+                    mBallLow.getBackground().setAlpha(pitcherBallLow * 255 / pitcherPitchCount);
+                else mBallLow.getBackground().setAlpha(0);
+                if (pitcherBallHigh > 0)
+                    mBallHigh.getBackground().setAlpha(pitcherBallHigh * 255 / pitcherPitchCount);
+                else mBallHigh.getBackground().setAlpha(0);
+                if (pitcherBallLeft > 0)
+                    mBallLeft.getBackground().setAlpha(pitcherBallLeft * 255 / pitcherPitchCount);
+                else mBallLeft.getBackground().setAlpha(0);
+                if (pitcherBallRight > 0)
+                    mBallRight.getBackground().setAlpha(pitcherBallRight * 255 / pitcherPitchCount);
+                else mBallRight.getBackground().setAlpha(0);
+            } else {
+                mR1C1.getBackground().setAlpha(0);
+                mR1C2.getBackground().setAlpha(0);
+                mR1C3.getBackground().setAlpha(0);
+                mR2C1.getBackground().setAlpha(0);
+                mR2C2.getBackground().setAlpha(0);
+                mR2C3.getBackground().setAlpha(0);
+                mR3C1.getBackground().setAlpha(0);
+                mR3C2.getBackground().setAlpha(0);
+                mR3C3.getBackground().setAlpha(0);
+                mBallLow.getBackground().setAlpha(0);
+                mBallHigh.getBackground().setAlpha(0);
+                mBallLeft.getBackground().setAlpha(0);
+                mBallRight.getBackground().setAlpha(0);
+            }
+        }
+    }
+
+
+
+    
+    public void loadComponents(Boolean tabSelection) {
+        if (tabSelection) {
+            mReportsHeader.setText(eventName);
+            mReportsPitchCount.setText(Integer.toString(eventPitchCount));
+            mReportsStrikeCount.setText(Integer.toString(eventStrikeCount));
+            mReportsBallCount.setText(Integer.toString(eventBallCount));
+            mReportsR1C1.setText(Integer.toString(eventR1C1));
+            mReportsR1C2.setText(Integer.toString(eventR1C2));
+            mReportsR1C3.setText(Integer.toString(eventR1C3));
+            mReportsR2C1.setText(Integer.toString(eventR2C1));
+            mReportsR2C2.setText(Integer.toString(eventR2C2));
+            mReportsR2C3.setText(Integer.toString(eventR2C3));
+            mReportsR3C1.setText(Integer.toString(eventR3C1));
+            mReportsR3C2.setText(Integer.toString(eventR3C2));
+            mReportsR3C3.setText(Integer.toString(eventR3C3));
+        } else {
+            mReportsHeader.setText(pitcherName + " - " + pitcherEventName);
+            mReportsPitchCount.setText(Integer.toString(pitcherPitchCount));
+            mReportsStrikeCount.setText(Integer.toString(pitcherStrikeCount));
+            mReportsBallCount.setText(Integer.toString(pitcherBallCount));
+            mReportsR1C1.setText(Integer.toString(pitcherR1C1));
+            mReportsR1C2.setText(Integer.toString(pitcherR1C2));
+            mReportsR1C3.setText(Integer.toString(pitcherR1C3));
+            mReportsR2C1.setText(Integer.toString(pitcherR2C1));
+            mReportsR2C2.setText(Integer.toString(pitcherR2C2));
+            mReportsR2C3.setText(Integer.toString(pitcherR2C3));
+            mReportsR3C1.setText(Integer.toString(pitcherR3C1));
+            mReportsR3C2.setText(Integer.toString(pitcherR3C2));
+            mReportsR3C3.setText(Integer.toString(pitcherR3C3));
         }
     }
 }
