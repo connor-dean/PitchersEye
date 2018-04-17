@@ -220,6 +220,13 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("eventBallHigh", eventBallHighArrayList.get(getAdapterPosition()));
             intent.putExtra("eventBallLeft", eventBallLeftArrayList.get(getAdapterPosition()));
             intent.putExtra("eventBallRight", eventBallRightArrayList.get(getAdapterPosition()));
+// TODO
+
+            /*intent.putExtra("eventBallCount", 1);
+            intent.putExtra("eventBallLow", 1);
+            intent.putExtra("eventBallHigh", 1);
+            intent.putExtra("eventBallLeft", 1);
+            intent.putExtra("eventBallRight", 1);*/
 
             mContext.startActivity(intent);
         }

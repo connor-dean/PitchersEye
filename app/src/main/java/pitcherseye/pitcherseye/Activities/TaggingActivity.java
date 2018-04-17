@@ -172,6 +172,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     Boolean eventInfoSet;
 
+    public String eventID = Utilities.createRandomHex(6);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -638,6 +640,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
                                   int changeupCount, int curveballCount, int sliderCount, int otherCount) {
 
+        String pitcherStatsID = Utilities.createRandomHex(6);
+
         PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, isGame, isHome,
                 playerID, pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount,
                 pitcherBallCountLow, pitcherBallCountHigh, pitcherBallCountLeft,
@@ -645,7 +649,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 R2C2Count, R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
                 changeupCount, curveballCount, sliderCount, otherCount);
 
-        mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
+        mDatabase.child("pitcherStats").child(pitcherStatsID).setValue(pitcherStats);
     }
 
     // Adjust the heatmap
@@ -867,7 +871,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     // Use this as a helper so we can call sendPitcherStats from EventInfoFragment TODO THIS IS WHERE STUFF
     public void sendPitcherStatsHelper() {
-        String eventID = Utilities.createRandomHex(6);
         sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
                 pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
@@ -908,7 +911,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mProgressFinishGame.setVisibility(View.VISIBLE);
 
         // Create the eventID and save with this event
-        String eventID = Utilities.createRandomHex(6);
+        // String eventID = Utilities.createRandomHex(6);
 
         // Send event stats
         sendEventStats(eventID, eventName, eventDate, isGame, isHome,0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,

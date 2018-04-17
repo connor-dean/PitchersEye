@@ -88,10 +88,10 @@ public class ReportsActivity extends AppCompatActivity {
         eventStrikeCount = getIntent().getIntExtra("eventStrikeCount", 99);
         eventBallCount = getIntent().getIntExtra("eventBallCount", 99);
         eventFastballCount = getIntent().getIntExtra("eventFastballCount", 99);
-        eventChangeupCount = getIntent().getIntExtra("eventChangeupCount", 99);;
-        eventCurveballCount = getIntent().getIntExtra("eventCurveballCount", 99);;
-        eventSliderCount = getIntent().getIntExtra("eventSliderCount", 99);;
-        eventOtherCount = getIntent().getIntExtra("eventOtherCount", 99);;
+        eventChangeupCount = getIntent().getIntExtra("eventChangeupCount", 99);
+        eventCurveballCount = getIntent().getIntExtra("eventCurveballCount", 99);
+        eventSliderCount = getIntent().getIntExtra("eventSliderCount", 99);
+        eventOtherCount = getIntent().getIntExtra("eventOtherCount", 99);
         eventR1C1 = getIntent().getIntExtra("eventR1C1", 99);
         eventR1C2 = getIntent().getIntExtra("eventR1C2", 99);
         eventR1C3 = getIntent().getIntExtra("eventR1C3", 99);
