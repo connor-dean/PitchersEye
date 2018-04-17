@@ -97,7 +97,7 @@ public class EventInfoFragment extends DialogFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> pitchers = new ArrayList<String>();
-                pitchers.add(getString(R.string.string_select_pitcher));
+                pitchers.add(getActivity().getResources().getString(R.string.string_select_pitcher));
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
@@ -190,6 +190,12 @@ public class EventInfoFragment extends DialogFragment {
         getDialog().dismiss();
     }
 
+    protected void onPostExecute(Void result){
+        if(isAdded()){
+            getResources().getString(R.string.app_name);
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -199,6 +205,4 @@ public class EventInfoFragment extends DialogFragment {
             Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
     }
-
-    public String getPitcherName() { return pitcherName; }
 }

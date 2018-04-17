@@ -22,6 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -174,6 +176,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     String eventID = Utilities.createRandomHex(6);
 
+    // TODO
+    long pitcherStatsIDCount;
+    long eventStatsIDCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,11 +189,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         setGame(true);
         setHome(true);
 
-        // Display DialogFragment for initial data entry
-        displayEventInfoFragment();
-
         // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Display DialogFragment for initial data entry
+        displayEventInfoFragment();
 
         // Instantiate Buttons
         mChangePitcher = (Button) findViewById(R.id.button_event_info);
@@ -250,6 +256,34 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                     // Add empty space for the start
                     pitchers.add(pitcherFullName);
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // Firebase doesn't have a built in auto-increment method for identifiers,
+        // so we're grabbing the count of children in the database and incrementing the ID
+        // and assigning the value to our counter. This will help with sorting in the RecyclerViews
+        // in StatisticsActivity.
+        mDatabase.child("pitcherStats").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                pitcherStatsIDCount = dataSnapshot.getChildrenCount() + 1;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("eventStats").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                eventStatsIDCount = dataSnapshot.getChildrenCount() + 1;
             }
 
             @Override
@@ -628,7 +662,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count, eventFastballCount,
                 eventChangeupCount, eventCurveballCount, eventSliderCount, eventOtherCount);
 
-        mDatabase.child("eventStats").child(eventID).setValue(eventStats);
+        // TODO decide if we still need eventID or if we want to implement this in User as well
+        mDatabase.child("eventStats").child(Long.toString(eventStatsIDCount)).setValue(eventStats);
     }
 
     // Once a pitcher has been changed, grab the pitcher's information and send that to Firebase
@@ -639,7 +674,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
                                   int changeupCount, int curveballCount, int sliderCount, int otherCount) {
 
-        String pitcherStatsID = Utilities.createRandomHex(6);
+        // TODO decide if we still need this or eventID
+        // String pitcherStatsID = Utilities.createRandomHex(6);
 
         PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, isGame, isHome,
                 playerID, pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount,
@@ -648,7 +684,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 R2C2Count, R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
                 changeupCount, curveballCount, sliderCount, otherCount);
 
-        mDatabase.child("pitcherStats").child(pitcherStatsID).setValue(pitcherStats);
+        mDatabase.child("pitcherStats").child(Long.toString(pitcherStatsIDCount)).setValue(pitcherStats);
     }
 
     // Adjust the heatmap
