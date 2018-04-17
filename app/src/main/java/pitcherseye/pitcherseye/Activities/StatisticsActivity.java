@@ -75,8 +75,8 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<Integer> pitcherBallHighArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherBallLeftArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherBallRightArrayList = new ArrayList<>();
-    FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> eventRecyclerAdapter;
-    FirebaseRecyclerAdapter<PitcherStats, PitcherStatsViewHolder> pitcherRecyclerAdapter;
+    static FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> eventRecyclerAdapter;
+    static FirebaseRecyclerAdapter<PitcherStats, PitcherStatsViewHolder> pitcherRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,8 @@ public class StatisticsActivity extends AppCompatActivity {
 
             }
         });
+
+        // ImageButton
 
         eventRecyclerAdapter = new FirebaseRecyclerAdapter<EventStats, EventStatsViewHolder>(
                 EventStats.class,
@@ -171,6 +173,7 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView mStatisticsDate;
         TextView mStatisticsEventType;
         TextView mStatisticsEventLocation;
+        ImageButton mDeleteRecylerStatistic;
         ImageButton mStatisticsViewEvent;
 
         public EventStatsViewHolder(final View itemView) {
@@ -182,8 +185,20 @@ public class StatisticsActivity extends AppCompatActivity {
             mStatisticsEventType = (TextView) itemView.findViewById(R.id.txt_stats_event_type);
             mStatisticsEventLocation = (TextView) itemView.findViewById(R.id.txt_stats_event_location);
             mStatisticsViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_event);
+            mDeleteRecylerStatistic = (ImageButton) itemView.findViewById(R.id.img_button_event_delete);
+
+            // TODO
+            mDeleteRecylerStatistic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("Delete pressed", "pressed");
+                    eventRecyclerAdapter.getRef(getLayoutPosition()).removeValue();
+                }
+            });
+
             mStatisticsViewEvent.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {
@@ -218,6 +233,8 @@ public class StatisticsActivity extends AppCompatActivity {
 
             mContext.startActivity(intent);
         }
+
+        // Image Button TODO
 
         public void setEventName(String eventName)
         {
@@ -304,6 +321,7 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView mStatisticsPitcherDate;
         TextView mStatisticsPitcherEventType;
         TextView mStatisticsPitcherEventLocation;
+        ImageButton mDeleteRecylerStatistic; // TODO
         ImageButton mStatisticsPitcherViewEvent;
 
         public PitcherStatsViewHolder(final View itemView) {
