@@ -190,12 +190,6 @@ public class EventInfoFragment extends DialogFragment {
         getDialog().dismiss();
     }
 
-    protected void onPostExecute(Void result){
-        if(isAdded()){
-            getResources().getString(R.string.app_name);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

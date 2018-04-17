@@ -191,7 +191,7 @@ public class StatisticsActivity extends AppCompatActivity {
             mDeleteRecylerStatistic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("Delete pressed", "pressed");
+                    Log.e("Delete pressed", "event");
                     eventRecyclerAdapter.getRef(getLayoutPosition()).removeValue();
                 }
             });
@@ -321,7 +321,7 @@ public class StatisticsActivity extends AppCompatActivity {
         TextView mStatisticsPitcherDate;
         TextView mStatisticsPitcherEventType;
         TextView mStatisticsPitcherEventLocation;
-        ImageButton mDeleteRecylerStatistic; // TODO
+        ImageButton mDeleteRecylerStatistic;
         ImageButton mStatisticsPitcherViewEvent;
 
         public PitcherStatsViewHolder(final View itemView) {
@@ -335,6 +335,17 @@ public class StatisticsActivity extends AppCompatActivity {
             mStatisticsPitcherEventType = (TextView) itemView.findViewById(R.id.txt_stats_pitcher_type);
             mStatisticsPitcherEventLocation = (TextView) itemView.findViewById(R.id.txt_stats_pitcher_location);
             mStatisticsPitcherViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_pitcher);
+            mDeleteRecylerStatistic = (ImageButton) itemView.findViewById(R.id.img_button_pitcher_delete);
+
+            // TODO
+            mDeleteRecylerStatistic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("Delete pressed", "pitcher");
+                    pitcherRecyclerAdapter.getRef(getLayoutPosition()).removeValue();
+                }
+            });
+
             mStatisticsPitcherViewEvent.setOnClickListener(this);
         }
 
