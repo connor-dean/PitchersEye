@@ -27,7 +27,6 @@ public class StatisticsActivity extends AppCompatActivity {
     private DatabaseReference mEventRef;
     private DatabaseReference mPitcherRef;
     private static Context mContext;
-    int tabPosition = 0;
     private TabLayout mStatisticsTabLayout;
 
     public static ArrayList<String> eventNameList = new ArrayList<>();
@@ -79,7 +78,6 @@ public class StatisticsActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> eventRecyclerAdapter;
     FirebaseRecyclerAdapter<PitcherStats, PitcherStatsViewHolder> pitcherRecyclerAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,9 +88,6 @@ public class StatisticsActivity extends AppCompatActivity {
         mStatisticsTabLayout = (TabLayout) findViewById(R.id.tablayout_statistics);
         mEventRef = FirebaseDatabase.getInstance().getReference("/eventStats");
         mPitcherRef = FirebaseDatabase.getInstance().getReference("/pitcherStats");
-
-        // Set the adapter on startup
-        //mEventRecyclerView.setAdapter(eventRecyclerAdapter);
 
         // See which tab is selected
         mStatisticsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -220,13 +215,6 @@ public class StatisticsActivity extends AppCompatActivity {
             intent.putExtra("eventBallHigh", eventBallHighArrayList.get(getAdapterPosition()));
             intent.putExtra("eventBallLeft", eventBallLeftArrayList.get(getAdapterPosition()));
             intent.putExtra("eventBallRight", eventBallRightArrayList.get(getAdapterPosition()));
-// TODO
-
-            /*intent.putExtra("eventBallCount", 1);
-            intent.putExtra("eventBallLow", 1);
-            intent.putExtra("eventBallHigh", 1);
-            intent.putExtra("eventBallLeft", 1);
-            intent.putExtra("eventBallRight", 1);*/
 
             mContext.startActivity(intent);
         }
@@ -243,22 +231,22 @@ public class StatisticsActivity extends AppCompatActivity {
             // TODO
             // Need to fix the null error once we sanitize Firebase
             if (eventType == null) {
-                mStatisticsEventType.setText("Null");
+                mStatisticsEventType.setText(R.string.string_reports_location_type_placeholder);
             } else if (eventType){
-                mStatisticsEventType.setText("Game");
+                mStatisticsEventType.setText(R.string.string_reports_type_game);
             } else {
-                mStatisticsEventType.setText("Practice");
+                mStatisticsEventType.setText(R.string.string_reports_type_practice);
             }
         }
         public void setEventLocation(Boolean eventLocation) {
             // TODO
             // Need to fix the null error once we sanitize Firebase
             if (eventLocation == null) {
-                mStatisticsEventLocation.setText("Null");
+                mStatisticsEventLocation.setText(R.string.string_reports_location_type_placeholder);
             } else if (eventLocation){
-                mStatisticsEventLocation.setText("Home");
+                mStatisticsEventLocation.setText(R.string.string_reports_location_home);
             } else {
-                mStatisticsEventLocation.setText("Away");
+                mStatisticsEventLocation.setText(R.string.string_reports_location_away);
             }
         }
 
@@ -432,11 +420,11 @@ public class StatisticsActivity extends AppCompatActivity {
             // TODO
             // Need to fix the null error once we sanitize Firebase
             if (pitcherEventType == null) {
-                mStatisticsPitcherEventType.setText("Null");
+                mStatisticsPitcherEventType.setText(R.string.string_reports_location_type_placeholder);
             } else if (pitcherEventType){
-                mStatisticsPitcherEventType.setText("Game");
+                mStatisticsPitcherEventType.setText(R.string.string_reports_type_game);
             } else {
-                mStatisticsPitcherEventType.setText("Practice");
+                mStatisticsPitcherEventType.setText(R.string.string_reports_type_practice);
             }
         }
 
@@ -444,11 +432,11 @@ public class StatisticsActivity extends AppCompatActivity {
             // TODO
             // Need to fix the null error once we sanitize Firebase
             if (pitcherEventLocation == null) {
-                mStatisticsPitcherEventLocation.setText("Null");
+                mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_type_placeholder);
             } else if (pitcherEventLocation){
-                mStatisticsPitcherEventLocation.setText("Home");
+                mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_home);
             } else {
-                mStatisticsPitcherEventLocation.setText("Away");
+                mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_away);
             }
         }
     }

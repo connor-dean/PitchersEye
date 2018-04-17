@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingBottom="8dp"
-                android:text="title"
+                android:text="@string/string_reports_pitcher_name"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingBottom="8dp"
-                android:text="title"
+                android:text="@string/string_reports_event_name"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -59,34 +59,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="date"
+                android:text="@string/string_reports_date"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/txt_stats_pitcher_type_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:layout_marginStart="16dp"
-                android:text="Type: " />
+                android:text="@string/string_reports_type" />
 
             <TextView
                 android:id="@+id/txt_stats_pitcher_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="type" />
+                android:text="@string/string_reports_location_type_placeholder" />
 
             <TextView
                 android:id="@+id/txt_stats_pitcher_location_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:layout_marginStart="16dp"
-                android:text="Location: " />
+                android:text="@string/string_reports_location" />
 
             <TextView
                 android:id="@+id/txt_stats_pitcher_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="location" />
+                android:text="@string/string_reports_location_type_placeholder" />
 
             <ImageButton
                 android:id="@+id/img_button_view_pitcher"

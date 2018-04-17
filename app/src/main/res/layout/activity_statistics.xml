@@ -51,12 +51,12 @@
         <android.support.design.widget.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Events" />
+            android:text="@string/string_reports_tab_events" />
 
         <android.support.design.widget.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pitchers" />
+            android:text="@string/string_reports_tab_pitchers" />
 
     </android.support.design.widget.TabLayout>
 

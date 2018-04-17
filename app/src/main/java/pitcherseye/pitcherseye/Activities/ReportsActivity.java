@@ -155,7 +155,6 @@ public class ReportsActivity extends AppCompatActivity {
     // methods from TaggingActivity. UI components usually don't like to play well when coming
     // from other Activities.
     private void adjustHeatMap(Boolean tabSelection) {
-        //if (tabSelection) {
         // TODO refactor this. Will throw error when dividing by 0.
         if (eventPitchCount > 0) {
             if (eventR1C1 > 0)

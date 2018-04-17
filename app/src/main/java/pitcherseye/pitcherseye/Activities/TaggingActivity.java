@@ -172,7 +172,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     Boolean eventInfoSet;
 
-    public String eventID = Utilities.createRandomHex(6);
+    String eventID = Utilities.createRandomHex(6);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,7 +287,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
-
                 adjustHeatMap();
 
                 // Open ResultsFragment
@@ -909,9 +908,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     public void finishGameHelper() {
         // Display ProgressBar
         mProgressFinishGame.setVisibility(View.VISIBLE);
-
-        // Create the eventID and save with this event
-        // String eventID = Utilities.createRandomHex(6);
 
         // Send event stats
         sendEventStats(eventID, eventName, eventDate, isGame, isHome,0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,

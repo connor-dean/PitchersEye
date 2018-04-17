@@ -426,7 +426,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Ball Low: "
+                        android:text="@string/string_reports_ball_low"
                         android:textStyle="bold" />
 
                     <TextView
@@ -447,7 +447,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Ball High: "
+                        android:text="@string/string_reports_ball_high"
                         android:textStyle="bold" />
 
                     <TextView
@@ -468,7 +468,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Ball Left: "
+                        android:text="@string/string_reports_ball_left"
                         android:textStyle="bold" />
 
                     <TextView
@@ -489,7 +489,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Ball Right: "
+                        android:text="@string/string_reports_ball_right"
                         android:textStyle="bold" />
 
                     <TextView
@@ -623,8 +623,8 @@
         android:layout_width="80dp"
         android:layout_height="120dp"
         android:background="@drawable/grid_view_strike"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C1"
-        app:layout_constraintRight_toLeftOf="@id/btnR3C2" />
+        app:layout_constraintRight_toLeftOf="@id/btnR3C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C1" />
 
     <Button
         android:id="@+id/btnR3C1"
@@ -634,15 +634,15 @@
         android:elevation="10dp"
         android:stateListAnimator="@null"
         android:text="@string/string_r3c1"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C1"
-        app:layout_constraintRight_toLeftOf="@id/btnR3C2"  />
+        app:layout_constraintRight_toLeftOf="@id/btnR3C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C1" />
 
     <View
         android:layout_width="80dp"
         android:layout_height="120dp"
         android:background="@drawable/grid_view_strike"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C2"
-        app:layout_constraintRight_toLeftOf="@id/btnR3C3"  />
+        app:layout_constraintRight_toLeftOf="@id/btnR3C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
 
     <Button
         android:id="@+id/btnR3C2"
@@ -652,8 +652,8 @@
         android:elevation="10dp"
         android:stateListAnimator="@null"
         android:text="@string/string_r3c2"
-        app:layout_constraintTop_toBottomOf="@id/btnR2C2"
-        app:layout_constraintRight_toLeftOf="@id/btnR3C3" />
+        app:layout_constraintRight_toLeftOf="@id/btnR3C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
 
     <View
         android:layout_width="80dp"
@@ -677,9 +677,9 @@
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:background="@drawable/grid_view_ball"
-        app:layout_constraintTop_toBottomOf="@id/btnR3C2"
+        app:layout_constraintEnd_toEndOf="@id/btnR3C3"
         app:layout_constraintStart_toStartOf="@id/btnR3C1"
-        app:layout_constraintEnd_toEndOf="@id/btnR3C3" />
+        app:layout_constraintTop_toBottomOf="@id/btnR3C2" />
 
     <Button
         android:id="@+id/btn_ball_low"
@@ -687,17 +687,17 @@
         android:layout_height="45dp"
         android:background="@drawable/ball_button"
         android:text="@string/string_ball_low"
-        app:layout_constraintTop_toBottomOf="@id/btnR3C2"
+        app:layout_constraintEnd_toEndOf="@id/btnR3C3"
         app:layout_constraintStart_toStartOf="@id/btnR3C1"
-        app:layout_constraintEnd_toEndOf="@id/btnR3C3"/>
+        app:layout_constraintTop_toBottomOf="@id/btnR3C2" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:background="@drawable/grid_view_ball"
-        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner"
         app:layout_constraintEnd_toEndOf="@id/btnR1C3"
-        app:layout_constraintStart_toStartOf="@id/btnR1C1"/>
+        app:layout_constraintStart_toStartOf="@id/btnR1C1"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
 
     <Button
         android:id="@+id/btn_ball_high"
@@ -705,17 +705,17 @@
         android:layout_height="45dp"
         android:background="@drawable/ball_button"
         android:text="@string/string_ball_high"
-        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner"
         app:layout_constraintEnd_toEndOf="@id/btnR1C3"
-        app:layout_constraintStart_toStartOf="@id/btnR1C1" />
+        app:layout_constraintStart_toStartOf="@id/btnR1C1"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
 
     <View
         android:layout_width="45dp"
         android:layout_height="0dp"
         android:background="@drawable/grid_view_ball"
-        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
         app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
-        app:layout_constraintRight_toLeftOf="@id/btnR2C1"/>
+        app:layout_constraintRight_toLeftOf="@id/btnR2C1"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
 
     <Button
         android:id="@+id/btn_ball_left"
@@ -723,17 +723,17 @@
         android:layout_height="0dp"
         android:background="@drawable/ball_button"
         android:text="@string/string_ball_left"
-        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
         app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
-        app:layout_constraintRight_toLeftOf="@id/btnR2C1"/>
+        app:layout_constraintRight_toLeftOf="@id/btnR2C1"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
 
     <View
         android:layout_width="45dp"
         android:layout_height="0dp"
         android:background="@drawable/grid_view_ball"
-        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
         app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
-        app:layout_constraintLeft_toRightOf="@id/btnR2C3" />
+        app:layout_constraintLeft_toRightOf="@id/btnR2C3"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
 
     <Button
         android:id="@+id/btn_ball_right"
@@ -741,9 +741,9 @@
         android:layout_height="0dp"
         android:background="@drawable/ball_button"
         android:text="@string/string_ball_right"
-        app:layout_constraintTop_toTopOf="@id/btn_ball_high"
         app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
-        app:layout_constraintLeft_toRightOf="@id/btnR2C3" />
+        app:layout_constraintLeft_toRightOf="@id/btnR2C3"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
 
     <!-- Guidelines -->
     <android.support.constraint.Guideline
