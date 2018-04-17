@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,7 +43,7 @@ import pitcherseye.pitcherseye.Utilities;
 
 import static java.lang.Math.round;
 
-public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
+    public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
                                                             ChangePitcherFragment.OnInputListener {
 
     // Buttons
@@ -271,7 +272,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("pitcherStats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                pitcherStatsIDCount = dataSnapshot.getChildrenCount() + 1;
+                String max = "";
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    max = child.getKey();
+                    Log.i("Max pitcher", max);
+                }
+                pitcherStatsIDCount = Long.parseLong(max) + 1;
             }
 
             @Override
@@ -283,7 +290,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("eventStats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                eventStatsIDCount = dataSnapshot.getChildrenCount() + 1;
+                String max = "";
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    max = child.getKey();
+                    Log.i("Max event", max);
+                }
+                eventStatsIDCount = Long.parseLong(max) + 1;
             }
 
             @Override
