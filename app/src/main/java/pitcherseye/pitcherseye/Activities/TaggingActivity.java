@@ -261,7 +261,7 @@ import static java.lang.Math.round;
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -283,7 +283,7 @@ import static java.lang.Math.round;
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -301,7 +301,7 @@ import static java.lang.Math.round;
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

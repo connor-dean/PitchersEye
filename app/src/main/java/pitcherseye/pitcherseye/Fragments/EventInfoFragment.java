@@ -115,7 +115,7 @@ public class EventInfoFragment extends DialogFragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(getActivity().getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
