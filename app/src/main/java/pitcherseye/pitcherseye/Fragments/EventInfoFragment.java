@@ -114,7 +114,8 @@ public class EventInfoFragment extends DialogFragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> pitchers = new ArrayList<String>();
-                pitchers.add(getActivity().getResources().getString(R.string.string_select_pitcher));
+                pitchers.add(getString(R.string.string_select_pitcher));
+
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
