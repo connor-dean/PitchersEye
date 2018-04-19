@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -262,7 +263,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("pitcherStats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String max = "";
+                String max = "0";
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     max = child.getKey();
@@ -280,7 +281,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("eventStats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String max = "";
+                String max = "0";
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     max = child.getKey();
