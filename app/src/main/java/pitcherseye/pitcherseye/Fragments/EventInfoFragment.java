@@ -109,33 +109,36 @@ public class EventInfoFragment extends DialogFragment {
             mRadioAway.setChecked(true);
         }
 
-        // Instantiate and load pitchers into spinner
-        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final List<String> pitchers = new ArrayList<String>();
-                pitchers.add(getString(R.string.string_select_pitcher));
+        if(isAdded() && taggingActivity != null) {
+            // Instantiate and load pitchers into spinner
+            mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final List<String> pitchers = new ArrayList<String>();
+                    pitchers.add(getString(R.string.string_select_pitcher));
 
-                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                    String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
-                    String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
-                    String pitcherFullName = pitcherFName + " " + pitcherLName;
-                    pitchers.add(pitcherFullName);
+                    for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                        String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
+                        String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
+                        String pitcherFullName = pitcherFName + " " + pitcherLName;
+                        pitchers.add(pitcherFullName);
+                    }
+
+                    // Load values into Spinner and set the index
+                    TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+                    ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, pitchers);
+                    pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mSpinnerPitchers.setAdapter(pitchersAdapter);
+                    mSpinnerPitchers.setSelection(taggingActivity.getPitcherSpinnerIndex());
                 }
 
-                // Load values into Spinner and set the index
-                TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-                ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, pitchers);
-                pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mSpinnerPitchers.setAdapter(pitchersAdapter);
-                mSpinnerPitchers.setSelection(taggingActivity.getPitcherSpinnerIndex());
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(getActivity().getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity().getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         mRadioGroupEventType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
