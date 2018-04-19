@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
 
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, MainActivity.class);
+        return i;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +82,5 @@ public class MainActivity extends AppCompatActivity {
                 finish(); // Don't add to the backstack
             }
         });
-    }
-
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, MainActivity.class);
-        return i;
     }
 }

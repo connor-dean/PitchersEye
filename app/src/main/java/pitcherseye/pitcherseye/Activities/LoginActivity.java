@@ -26,6 +26,7 @@ import pitcherseye.pitcherseye.Utilities;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static Activity loginActivity;
     // UI Components
     Button mLoginButton;
     EditText mLoginEmail;
@@ -33,11 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar mLogInProgress;
     TextView mSignUp;
-
-    public static Activity loginActivity;
-
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
+
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, LoginActivity.class);
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Validate password, we'll probably want to require special characters/casing in the future
-        if (password.isEmpty()  || password == null) {
+        if (password.isEmpty() || password == null) {
             mLoginPassword.setError("Password is required.");
             mLoginPassword.requestFocus();
             Log.d("Password", "Password failed" + password);
@@ -133,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Hide the progress bar
                 mLogInProgress.setVisibility(View.GONE);
 
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     // If the login was successful, direct user to the MainActivity
                     Intent i = MainActivity.newIntent(LoginActivity.this);
                     startActivityForResult(i, REQUEST_CODE_CALCULATE);
@@ -155,11 +158,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
             }
         });
-    }
-
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, LoginActivity.class);
-        return i;
     }
 
 }
