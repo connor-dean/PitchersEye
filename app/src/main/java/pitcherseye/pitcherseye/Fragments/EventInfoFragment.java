@@ -1,12 +1,9 @@
 package pitcherseye.pitcherseye.Fragments;
 
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
