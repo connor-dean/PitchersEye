@@ -20,12 +20,12 @@ import pitcherseye.pitcherseye.R;
 
 public class ResultsFragment extends DialogFragment {
 
+    public OnInputListener mOnInputResultsListener;
     Button mFastball;
     Button mChangeup;
     Button mCurveball;
     Button mSlider;
     Button mOther;
-
     int pitcherFastballCount;
     int eventFastballCount;
     int pitcherChangeupCount;
@@ -36,15 +36,7 @@ public class ResultsFragment extends DialogFragment {
     int eventSliderCount;
     int pitcherOtherCount;
     int eventOtherCount;
-
     TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-
-    public interface OnInputListener {
-        void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
-                       int pitcherSliderCount, int pitcherOtherCount);
-    }
-
-    public OnInputListener mOnInputResultsListener;
 
     @Nullable
     @Override
@@ -57,15 +49,13 @@ public class ResultsFragment extends DialogFragment {
         // Disable the back button on selection
         view.setFocusableInTouchMode(true);
         view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener(){
+        view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        Toast.makeText(getActivity(), "Please select a pitch result", Toast.LENGTH_SHORT).show();
-                        Log.i("Back Pressed", "ResultsFragment");
-                        return true;
-                    }
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Toast.makeText(getActivity(), "Please select a pitch result", Toast.LENGTH_SHORT).show();
+                    Log.i("Back Pressed", "ResultsFragment");
+                    return true;
                 }
                 return false;
             }
@@ -138,5 +128,10 @@ public class ResultsFragment extends DialogFragment {
         });
 
         return view;
+    }
+
+    public interface OnInputListener {
+        void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+                              int pitcherSliderCount, int pitcherOtherCount);
     }
 }
