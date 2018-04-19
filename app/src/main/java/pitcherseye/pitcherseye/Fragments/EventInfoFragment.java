@@ -33,6 +33,8 @@ import pitcherseye.pitcherseye.R;
 public class EventInfoFragment extends DialogFragment {
 
     public OnInputListener mOnInputListener;
+    public ValueEventListener mValueReadUsersFirebase;
+    DatabaseReference mUserReference;
     Button mConfirmChange;
     RadioGroup mRadioGroupEventType;
     RadioButton mRadioGame;
@@ -49,6 +51,22 @@ public class EventInfoFragment extends DialogFragment {
     String pitcherName = "";
     String eventName = "";
 
+    @Override
+    public void onStop() {
+        if (mValueReadUsersFirebase != null && mUserReference != null) {
+            mUserReference.removeEventListener(mValueReadUsersFirebase);
+        }
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        if (mValueReadUsersFirebase != null && mUserReference != null) {
+            mUserReference.removeEventListener(mValueReadUsersFirebase);
+        }
+        super.onPause();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +75,9 @@ public class EventInfoFragment extends DialogFragment {
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
+
+        // TODO Reference
+        mUserReference = FirebaseDatabase.getInstance().getReference().child("users");
 
         // Disable the back button on selection
         // We'll check if the original event info is set, if it hasn't been, disable the back button.
@@ -107,36 +128,6 @@ public class EventInfoFragment extends DialogFragment {
         }
         if (!isHome) {
             mRadioAway.setChecked(true);
-        }
-
-        if(isAdded() && taggingActivity != null) {
-            // Instantiate and load pitchers into spinner
-            mDatabase.child("users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    final List<String> pitchers = new ArrayList<String>();
-                    pitchers.add(getString(R.string.string_select_pitcher));
-
-                    for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                        String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
-                        String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
-                        String pitcherFullName = pitcherFName + " " + pitcherLName;
-                        pitchers.add(pitcherFullName);
-                    }
-
-                    // Load values into Spinner and set the index
-                    TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-                    ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, pitchers);
-                    pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mSpinnerPitchers.setAdapter(pitchersAdapter);
-                    mSpinnerPitchers.setSelection(taggingActivity.getPitcherSpinnerIndex());
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Toast.makeText(getActivity().getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
-                }
-            });
         }
 
 
@@ -191,6 +182,7 @@ public class EventInfoFragment extends DialogFragment {
                         }
                         saveEventInputs();
                         getDialog().dismiss();
+
                     }
                 }
             }
@@ -209,6 +201,40 @@ public class EventInfoFragment extends DialogFragment {
         taggingActivity.setEventInfoSet(true); // Event info has been set
 
         getDialog().dismiss();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mValueReadUsersFirebase = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> pitchers = new ArrayList<String>();
+                pitchers.add(getActivity().getResources().getString(R.string.string_select_pitcher));
+
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
+                    String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
+                    String pitcherFullName = pitcherFName + " " + pitcherLName;
+                    pitchers.add(pitcherFullName);
+                }
+
+                // Load values into Spinner and set the index
+                TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+                ArrayAdapter<String> pitchersAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, pitchers);
+                pitchersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mSpinnerPitchers.setAdapter(pitchersAdapter);
+                mSpinnerPitchers.setSelection(taggingActivity.getPitcherSpinnerIndex());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getActivity().getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        mUserReference.addValueEventListener(mValueReadUsersFirebase);
     }
 
     @Override
