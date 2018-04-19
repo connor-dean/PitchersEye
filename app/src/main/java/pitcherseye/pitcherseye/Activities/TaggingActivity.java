@@ -964,10 +964,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
                 pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
 
-        // TODO
-        EventInfoFragment eventInfoFragment = new EventInfoFragment();
-        getFragmentManager().beginTransaction().remove(eventInfoFragment).commitAllowingStateLoss();
-
         // Send back to MainActivity
         Intent i = MainActivity.newIntent(TaggingActivity.this);
         startActivityForResult(i, REQUEST_CODE_CALCULATE);
