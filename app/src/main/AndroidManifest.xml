@@ -24,7 +24,8 @@
             android:screenOrientation="sensorLandscape"/>
         <activity android:name=".Activities.StatisticsActivity" />
         <activity android:name=".Activities.TaggingActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape"
+            android:noHistory="true"/>
         <activity
             android:name=".Activities.SignUpActivity"
             android:windowSoftInputMode="stateHidden" />
