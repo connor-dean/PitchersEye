@@ -51,6 +51,11 @@ public class SignUpActivity extends AppCompatActivity {
     String teamID;
     String registrationID;
 
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, SignUpActivity.class);
+        return i;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
         if (validateInput(confirmPassword, mSignUpConfirmPassword, "Password")) return;
-        if(confirmPassword.compareTo(password) != 0) {
+        if (confirmPassword.compareTo(password) != 0) {
             mSignUpConfirmPassword.setError("Passwords do no match.");
             return;
         }
@@ -163,7 +168,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Made sure that fields aren't empty
     private boolean validateInput(String checkedString, EditText editText, String errorMessage) {
-        if(checkedString.isEmpty() || checkedString == null) {
+        if (checkedString.isEmpty() || checkedString == null) {
             editText.setError(errorMessage + " is required.");
             editText.requestFocus();
             return true;
@@ -178,10 +183,5 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Send user information to Firebase
         mDatabase.child("users").child(userID).setValue(user);
-    }
-
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, SignUpActivity.class);
-        return i;
     }
 }

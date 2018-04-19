@@ -1,10 +1,11 @@
 package pitcherseye.pitcherseye.Fragments;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.DialogFragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import pitcherseye.pitcherseye.R;
 
 public class EventInfoFragment extends DialogFragment {
 
+    public OnInputListener mOnInputListener;
     Button mConfirmChange;
     RadioGroup mRadioGroupEventType;
     RadioButton mRadioGame;
@@ -42,18 +44,10 @@ public class EventInfoFragment extends DialogFragment {
     EditText mEventName;
     Spinner mSpinnerPitchers;
     TextView mEventInfo;
-
     Boolean isGame;
     Boolean isHome;
-
     String pitcherName = "";
     String eventName = "";
-
-    public interface OnInputListener {
-        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
-    }
-
-    public OnInputListener mOnInputListener;
 
     @Nullable
     @Override
@@ -63,6 +57,25 @@ public class EventInfoFragment extends DialogFragment {
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
+
+        // Disable the back button on selection
+        // We'll check if the original event info is set, if it hasn't been, disable the back button.
+        // If it HAS been set, enable the back button in case the user wants to keep tagging.
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (!taggingActivity.getEventInfoSet()) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        Toast.makeText(getActivity(), "Please enter event info", Toast.LENGTH_SHORT).show();
+                        Log.i("Back Pressed", "EventInfoFragment");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         isGame = taggingActivity.getGame();
         isHome = taggingActivity.getHome();
@@ -79,7 +92,7 @@ public class EventInfoFragment extends DialogFragment {
         mRadioHome = (RadioButton) view.findViewById(R.id.radio_event_location_home);
         mRadioAway = (RadioButton) view.findViewById(R.id.radio_event_location_away);
 
-       // Check to see if we are finishing the game or doing the initial entry
+        // Check to see if we are finishing the game or doing the initial entry
         if (taggingActivity.getEventInfoSet()) {
             mEventInfo.setText("Confirm Information");
             mConfirmChange.setText("Finish Event");
@@ -89,8 +102,12 @@ public class EventInfoFragment extends DialogFragment {
             mEventName.setText(taggingActivity.getEventName());
         }
 
-        if (!isGame) { mRadioPractice.setChecked(true); }
-        if (!isHome) { mRadioAway.setChecked(true); }
+        if (!isGame) {
+            mRadioPractice.setChecked(true);
+        }
+        if (!isHome) {
+            mRadioAway.setChecked(true);
+        }
 
         // Instantiate and load pitchers into spinner
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
@@ -159,7 +176,7 @@ public class EventInfoFragment extends DialogFragment {
                     // Check to make sure there is an entry in the spinner
                     if (mEventName.getText().toString().trim().isEmpty()) {
                         Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
-                    } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty()  || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
+                    } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
                         Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
                     } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName()) && taggingActivity.getEventInfoSet()) {
                         getDialog().dismiss();
@@ -195,8 +212,12 @@ public class EventInfoFragment extends DialogFragment {
         super.onAttach(context);
         try {
             mOnInputListener = (OnInputListener) getActivity();
-        } catch (ClassCastException cce){
+        } catch (ClassCastException cce) {
             Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
+    }
+
+    public interface OnInputListener {
+        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
     }
 }

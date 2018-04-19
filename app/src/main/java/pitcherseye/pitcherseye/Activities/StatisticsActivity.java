@@ -1,9 +1,11 @@
 package pitcherseye.pitcherseye.Activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +25,6 @@ import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 
 public class StatisticsActivity extends AppCompatActivity {
-    private static RecyclerView mEventRecyclerView;
-    private DatabaseReference mEventRef;
-    private DatabaseReference mPitcherRef;
-    private static Context mContext;
-    private TabLayout mStatisticsTabLayout;
-
     public static ArrayList<String> eventNameList = new ArrayList<>();
     public static ArrayList<Integer> eventPitchCount = new ArrayList<>();
     public static ArrayList<Integer> eventStrikeCountArrayList = new ArrayList<>();
@@ -51,7 +47,6 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<Integer> eventBallHighArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventBallLeftArrayList = new ArrayList<>();
     public static ArrayList<Integer> eventBallRightArrayList = new ArrayList<>();
-
     public static ArrayList<String> pitcherNameList = new ArrayList<>();
     public static ArrayList<String> pitcherEventNameList = new ArrayList<>();
     public static ArrayList<Integer> pitcherPitchCount = new ArrayList<>();
@@ -75,8 +70,18 @@ public class StatisticsActivity extends AppCompatActivity {
     public static ArrayList<Integer> pitcherBallHighArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherBallLeftArrayList = new ArrayList<>();
     public static ArrayList<Integer> pitcherBallRightArrayList = new ArrayList<>();
-    static FirebaseRecyclerAdapter<EventStats,EventStatsViewHolder> eventRecyclerAdapter;
+    static FirebaseRecyclerAdapter<EventStats, EventStatsViewHolder> eventRecyclerAdapter;
     static FirebaseRecyclerAdapter<PitcherStats, PitcherStatsViewHolder> pitcherRecyclerAdapter;
+    private static RecyclerView mEventRecyclerView;
+    private static Context mContext;
+    private DatabaseReference mEventRef;
+    private DatabaseReference mPitcherRef;
+    private TabLayout mStatisticsTabLayout;
+
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, StatisticsActivity.class);
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +107,12 @@ public class StatisticsActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                Log.i("Tab unselected", tab.toString());
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                Log.i("Tab reselected", tab.toString());
             }
         });
 
@@ -167,6 +172,61 @@ public class StatisticsActivity extends AppCompatActivity {
         mEventRecyclerView.setAdapter(eventRecyclerAdapter);
     }
 
+    // This is an AlertDialog confirming or canceling the deletion of an item in the RecylerView
+    // Selecting cancel will just dismiss the dialog, but confirming with the delete button
+    // will delete the passed RecyclerView's adapter.
+    private void deleteRecyclerAlertDialog(final String message, final String title, final FirebaseRecyclerAdapter recyclerAdapter, final int layoutPostition) {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+        dialog.setTitle(title).setMessage(message).setPositiveButton(
+                "Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        recyclerAdapter.getRef(layoutPostition).removeValue();
+                        Log.i("Delete pressed", title);
+                    }
+                }
+        ).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.i("Delete cancelled", title);
+                dialogInterface.dismiss();
+            }
+        }).show();
+    }
+
+    // Clear out the ArrayLists to ensure that we're reloading them
+    @Override
+    public void onBackPressed() {
+        eventNameList.clear();
+        eventPitchCount.clear();
+        eventStrikeCountArrayList.clear();
+        eventR1C1ArrayList.clear();
+        eventR1C2ArrayList.clear();
+        eventR1C3ArrayList.clear();
+        eventR2C1ArrayList.clear();
+        eventR2C2ArrayList.clear();
+        eventR2C3ArrayList.clear();
+        eventR3C1ArrayList.clear();
+        eventR3C2ArrayList.clear();
+        eventR3C3ArrayList.clear();
+
+        pitcherNameList.clear();
+        pitcherEventNameList.clear();
+        pitcherPitchCount.clear();
+        pitcherStrikeCountArrayList.clear();
+        pitcherR1C1ArrayList.clear();
+        pitcherR1C2ArrayList.clear();
+        pitcherR1C3ArrayList.clear();
+        pitcherR2C1ArrayList.clear();
+        pitcherR2C2ArrayList.clear();
+        pitcherR2C3ArrayList.clear();
+        pitcherR3C1ArrayList.clear();
+        pitcherR3C2ArrayList.clear();
+        pitcherR3C3ArrayList.clear();
+
+        finish();
+    }
+
     public static class EventStatsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         View mView;
         TextView mStatisticsEventName;
@@ -187,18 +247,18 @@ public class StatisticsActivity extends AppCompatActivity {
             mStatisticsViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_event);
             mDeleteRecylerStatistic = (ImageButton) itemView.findViewById(R.id.img_button_event_delete);
 
-            // TODO
             mDeleteRecylerStatistic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("Delete pressed", "event");
-                    eventRecyclerAdapter.getRef(getLayoutPosition()).removeValue();
+                    StatisticsActivity statisticsActivity = new StatisticsActivity();
+                    statisticsActivity.deleteRecyclerAlertDialog("\nDo you want to permanently delete this event's statistics?",
+                            "Delete Event Stats",
+                            eventRecyclerAdapter, getLayoutPosition());
                 }
             });
 
             mStatisticsViewEvent.setOnClickListener(this);
         }
-
 
         @Override
         public void onClick(View view) {
@@ -234,45 +294,44 @@ public class StatisticsActivity extends AppCompatActivity {
             mContext.startActivity(intent);
         }
 
-        // Image Button TODO
-
-        public void setEventName(String eventName)
-        {
+        public void setEventName(String eventName) {
             mStatisticsEventName.setText(eventName + "");
         }
 
         public void setEventDate(String eventDate) {
             mStatisticsDate.setText(eventDate + "");
         }
+
         public void setEventType(Boolean eventType) {
             // TODO
             // Need to fix the null error once we sanitize Firebase
             if (eventType == null) {
                 mStatisticsEventType.setText(R.string.string_reports_location_type_placeholder);
-            } else if (eventType){
+            } else if (eventType) {
                 mStatisticsEventType.setText(R.string.string_reports_type_game);
             } else {
                 mStatisticsEventType.setText(R.string.string_reports_type_practice);
             }
         }
+
         public void setEventLocation(Boolean eventLocation) {
             // TODO
             // Need to fix the null error once we sanitize Firebase
             if (eventLocation == null) {
                 mStatisticsEventLocation.setText(R.string.string_reports_location_type_placeholder);
-            } else if (eventLocation){
+            } else if (eventLocation) {
                 mStatisticsEventLocation.setText(R.string.string_reports_location_home);
             } else {
                 mStatisticsEventLocation.setText(R.string.string_reports_location_away);
             }
         }
 
-        public void loadIndexArray(String eventName, int totalPitchCount,  int position) {
+        public void loadIndexArray(String eventName, int totalPitchCount, int position) {
             eventNameList.add(eventName);
             eventPitchCount.add(totalPitchCount);
             Log.e("Loaded pitch # array", eventNameList.get(position) + "");
         }
-        
+
         public void loadPitchTypeArray(int eventFastballCount, int eventChangeupCount, int eventCurveballCount,
                                        int eventSliderCount, int eventOtherCount, int position) {
             eventFastballCountArrayList.add(eventFastballCount);
@@ -337,12 +396,13 @@ public class StatisticsActivity extends AppCompatActivity {
             mStatisticsPitcherViewEvent = (ImageButton) itemView.findViewById(R.id.img_button_view_pitcher);
             mDeleteRecylerStatistic = (ImageButton) itemView.findViewById(R.id.img_button_pitcher_delete);
 
-            // TODO
             mDeleteRecylerStatistic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("Delete pressed", "pitcher");
-                    pitcherRecyclerAdapter.getRef(getLayoutPosition()).removeValue();
+                    StatisticsActivity statisticsActivity = new StatisticsActivity();
+                    statisticsActivity.deleteRecyclerAlertDialog("\nDo you want to permanently delete this pitcher's statistics?",
+                            "Delete Pitcher Stats",
+                            pitcherRecyclerAdapter, getLayoutPosition());
                 }
             });
 
@@ -385,7 +445,7 @@ public class StatisticsActivity extends AppCompatActivity {
             mContext.startActivity(intent);
         }
 
-        public void loadPitcherIndexArray(String pitcherName, String pitcherEventName, int totalPitchCount,  int position) {
+        public void loadPitcherIndexArray(String pitcherName, String pitcherEventName, int totalPitchCount, int position) {
             pitcherNameList.add(pitcherName);
             pitcherEventNameList.add(pitcherEventName);
             pitcherPitchCount.add(totalPitchCount);
@@ -393,7 +453,7 @@ public class StatisticsActivity extends AppCompatActivity {
         }
 
         public void loadPitcherPitchTypeArray(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
-                                       int pitcherSliderCount, int pitcherOtherCount, int position) {
+                                              int pitcherSliderCount, int pitcherOtherCount, int position) {
             pitcherFastballCountArrayList.add(pitcherFastballCount);
             pitcherChangeupCountArrayList.add(pitcherChangeupCount);
             pitcherCurveballCountArrayList.add(pitcherCurveballCount);
@@ -404,9 +464,9 @@ public class StatisticsActivity extends AppCompatActivity {
 
         // Load Strike information
         public void loadPitcherStrikeLocationArray(int pitcherStrikeCount, int pitcherR1C1Count, int pitcherR1C2Count, int pitcherR1C3Count,
-                                            int pitcherR2C1Count, int pitcherR2C2Count, int pitcherR2C3Count,
-                                            int pitcherR3C1Count, int pitcherR3C2Count, int pitcherR3C3Count,
-                                            int position) {
+                                                   int pitcherR2C1Count, int pitcherR2C2Count, int pitcherR2C3Count,
+                                                   int pitcherR3C1Count, int pitcherR3C2Count, int pitcherR3C3Count,
+                                                   int position) {
             // Investigate a better model to store these
             pitcherStrikeCountArrayList.add(pitcherStrikeCount);
             pitcherR1C1ArrayList.add(pitcherR1C1Count);
@@ -423,7 +483,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         // Load Ball information
         public void loadPitcherBallLocationArray(int pitcherBallCount, int pitcherBallLow, int pitcherBallHigh,
-                                          int pitcherBallLeft, int pitcherBallRight, int position) {
+                                                 int pitcherBallLeft, int pitcherBallRight, int position) {
             pitcherBallCountArrayList.add(pitcherBallCount);
             pitcherBallLowArrayList.add(pitcherBallLow);
             pitcherBallHighArrayList.add(pitcherBallHigh);
@@ -432,8 +492,7 @@ public class StatisticsActivity extends AppCompatActivity {
             Log.e("Pitcher Ball Count: ", pitcherBallCountArrayList.get(position) + "");
         }
 
-        public void setPitcherName(String pitcherName)
-        {
+        public void setPitcherName(String pitcherName) {
             mStatisticsPitcherName.setText(pitcherName);
         }
 
@@ -450,7 +509,7 @@ public class StatisticsActivity extends AppCompatActivity {
             // Need to fix the null error once we sanitize Firebase
             if (pitcherEventType == null) {
                 mStatisticsPitcherEventType.setText(R.string.string_reports_location_type_placeholder);
-            } else if (pitcherEventType){
+            } else if (pitcherEventType) {
                 mStatisticsPitcherEventType.setText(R.string.string_reports_type_game);
             } else {
                 mStatisticsPitcherEventType.setText(R.string.string_reports_type_practice);
@@ -462,50 +521,12 @@ public class StatisticsActivity extends AppCompatActivity {
             // Need to fix the null error once we sanitize Firebase
             if (pitcherEventLocation == null) {
                 mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_type_placeholder);
-            } else if (pitcherEventLocation){
+            } else if (pitcherEventLocation) {
                 mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_home);
             } else {
                 mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_away);
             }
         }
-    }
-
-        // Clear out the ArrayLists to ensure that we're reloading them
-    @Override
-    public void onBackPressed() {
-        eventNameList.clear();
-        eventPitchCount.clear();
-        eventStrikeCountArrayList.clear();
-        eventR1C1ArrayList.clear();
-        eventR1C2ArrayList.clear();
-        eventR1C3ArrayList.clear();
-        eventR2C1ArrayList.clear();
-        eventR2C2ArrayList.clear();
-        eventR2C3ArrayList.clear();
-        eventR3C1ArrayList.clear();
-        eventR3C2ArrayList.clear();
-        eventR3C3ArrayList.clear();
-
-        pitcherNameList.clear();
-        pitcherEventNameList.clear();
-        pitcherPitchCount.clear();
-        pitcherStrikeCountArrayList.clear();
-        pitcherR1C1ArrayList.clear();
-        pitcherR1C2ArrayList.clear();
-        pitcherR1C3ArrayList.clear();
-        pitcherR2C1ArrayList.clear();
-        pitcherR2C2ArrayList.clear();
-        pitcherR2C3ArrayList.clear();
-        pitcherR3C1ArrayList.clear();
-        pitcherR3C2ArrayList.clear();
-        pitcherR3C3ArrayList.clear();
-        
-        finish();
-    }
-
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, StatisticsActivity.class);
-        return i;
     }
 
 }
