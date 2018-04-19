@@ -21,20 +21,20 @@ public class EventStats {
     public int eventBallCountHigh;
     public int eventBallCountLeft;
     public int eventBallCountRight;
-    public int R1C1Count;
-    public int R1C2Count;
-    public int R1C3Count;
-    public int R2C1Count;
-    public int R2C2Count;
-    public int R2C3Count;
-    public int R3C1Count;
-    public int R3C2Count;
-    public int R3C3Count;
-    public int fastballCount;
-    public int changeupCount;
-    public int curveballCount;
-    public int sliderCount;
-    public int otherCount;
+    public int eventR1C1Count;
+    public int eventR1C2Count;
+    public int eventR1C3Count;
+    public int eventR2C1Count;
+    public int eventR2C2Count;
+    public int eventR2C3Count;
+    public int eventR3C1Count;
+    public int eventR3C2Count;
+    public int eventR3C3Count;
+    public int eventFastballCount;
+    public int eventChangeupCount;
+    public int eventCurveballCount;
+    public int eventSliderCount;
+    public int eventOtherCount;
 
     public EventStats() { }
 
@@ -58,19 +58,108 @@ public class EventStats {
         this.eventBallCountHigh = eventBallCountHigh;
         this.eventBallCountLeft = eventBallCountLeft;
         this.eventBallCountRight = eventBallCountRight;
-        this.R1C1Count = R1C1Count;
-        this.R1C2Count = R1C2Count;
-        this.R1C3Count = R1C3Count;
-        this.R2C1Count = R2C1Count;
-        this.R2C2Count = R2C2Count;
-        this.R2C3Count = R2C3Count;
-        this.R3C1Count = R3C1Count;
-        this.R3C2Count = R3C2Count;
-        this.R3C3Count = R3C3Count;
-        this.fastballCount = fastballCount;
-        this.changeupCount = changeupCount;
-        this.curveballCount = curveballCount;
-        this.sliderCount = sliderCount;
-        this.otherCount = otherCount;
+        this.eventR1C1Count = R1C1Count;
+        this.eventR1C2Count = R1C2Count;
+        this.eventR1C3Count = R1C3Count;
+        this.eventR2C1Count = R2C1Count;
+        this.eventR2C2Count = R2C2Count;
+        this.eventR2C3Count = R2C3Count;
+        this.eventR3C1Count = R3C1Count;
+        this.eventR3C2Count = R3C2Count;
+        this.eventR3C3Count = R3C3Count;
+        this.eventFastballCount = fastballCount;
+        this.eventChangeupCount = changeupCount;
+        this.eventCurveballCount = curveballCount;
+        this.eventSliderCount = sliderCount;
+        this.eventOtherCount = otherCount;
+    }
+    public String getEventName() { return eventName; }
+
+    public String getEventDate() { return eventDate; }
+
+    public Boolean getGame() { return isGame; }
+
+    public Boolean getHome() { return isHome; }
+
+    public int getPitchCount() { return pitchCount; }
+
+    public int getStrikeCount() {
+        return strikeCount;
+    }
+
+    public int getEventR1C1Count() {
+        return eventR1C1Count;
+    }
+
+    public int getEventR1C2Count() {
+        return eventR1C2Count;
+    }
+
+    public int getEventR1C3Count() {
+        return eventR1C3Count;
+    }
+
+    public int getEventR2C1Count() {
+        return eventR2C1Count;
+    }
+
+    public int getEventR2C2Count() {
+        return eventR2C2Count;
+    }
+
+    public int getEventR2C3Count() {
+        return eventR2C3Count;
+    }
+
+    public int getEventR3C1Count() {
+        return eventR3C1Count;
+    }
+
+    public int getEventR3C2Count() {
+        return eventR3C2Count;
+    }
+
+    public int getEventR3C3Count() {
+        return eventR3C3Count;
+    }
+
+    public int getEventBallCount() {
+        return eventBallCount;
+    }
+
+    public int getEventBallCountLow() {
+        return eventBallCountLow;
+    }
+
+    public int getEventBallCountHigh() {
+        return eventBallCountHigh;
+    }
+
+    public int getEventBallCountLeft() {
+        return eventBallCountLeft;
+    }
+
+    public int getEventBallCountRight() {
+        return eventBallCountRight;
+    }
+
+    public int getEventFastballCount() {
+        return eventFastballCount;
+    }
+
+    public int getEventChangeupCount() {
+        return eventChangeupCount;
+    }
+
+    public int getEventCurveballCount() {
+        return eventCurveballCount;
+    }
+
+    public int getEventSliderCount() {
+        return eventSliderCount;
+    }
+
+    public int getEventOtherCount() {
+        return eventOtherCount;
     }
 }

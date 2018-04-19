@@ -6,9 +6,11 @@
     <color name="colorTaggingBackground">#dcdde1</color>
     <color name="ichabodNavyBlue">#003A70</color>
     <color name="ichabodMediumBlue">#608EB5</color>
+    <color name="ichabodYellow">#ECAA00</color>
     <color name="colorAccent">#A3C8E3</color>
     <color name="colorWhiteOpaque">#CCFFFFFF</color>
     <color name="cardBackground">#E6E6E6</color>
     <color name="gridStrikeColor">#d8d5d3</color>
     <color name="gridBallColor">#b7b0ac</color>
+    <color name="greyBackground">#E0E0E0</color>
 </resources>

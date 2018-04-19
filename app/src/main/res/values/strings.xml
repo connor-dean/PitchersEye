@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">PitchersEye</string>
 
-    <!-- Main menu -->
+    <!-- Main Menu -->
 
     <string name="string_schedule">Schedule</string>
-    <string name="string_statistics">Stats</string>
+    <string name="string_statistics">Statistics</string>
     <string name="string_new_game">New Game</string>
 
 
@@ -84,7 +84,34 @@
 
     <string name="string_pitch_result_header">Pitch Type</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Reports -->
+
+    <string name="string_reports_event_name">EventName</string>
+    <string name="string_reports_pitcher_name">PitcherName</string>
+    <string name="string_reports_type">Type: </string>
+    <string name="string_reports_type_game">Game</string>
+    <string name="string_reports_type_practice">Practice</string>
+    <string name="string_reports_location">Location: </string>
+    <string name="string_reports_location_home">Home</string>
+    <string name="string_reports_location_away">Away</string>
+    <string name="string_reports_location_type_placeholder">Null</string>
+    <string name="string_reports_date">Date</string>
+    <string name="string_reports_tab_events">Events</string>
+    <string name="string_reports_tab_pitchers">Pitchers</string>
+    <string name="string_reports_r1c1">R1C1: </string>
+    <string name="string_reports_r1c2">R1C2: </string>
+    <string name="string_reports_r1c3">R1C3: </string>
+    <string name="string_reports_r2c1">R2C1: </string>
+    <string name="string_reports_r2c2">R2C2: </string>
+    <string name="string_reports_r2c3">R2C3: </string>
+    <string name="string_reports_r3c1">R3C1: </string>
+    <string name="string_reports_r3c2">R3C2: </string>
+    <string name="string_reports_r3c3">R3C3: </string>
+    <string name="string_reports_ball_low">Ball Low: </string>
+    <string name="string_reports_ball_high">Ball High: </string>
+    <string name="string_reports_ball_left">Ball Left: </string>
+    <string name="string_reports_ball_right">Ball Right: </string>
+    <string name="title_activity_reports">ReportsActivity</string>
 
 </resources>

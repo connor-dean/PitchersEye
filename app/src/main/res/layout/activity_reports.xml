@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorTaggingBackground"
+    tools:context="pitcherseye.pitcherseye.Activities.ReportsActivity">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_header_reports"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/greyBackground"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view_reports_event_header"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@color/ichabodNavyBlue"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_reports_event_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/string_statistics"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_pitch_count_label"
+                        android:layout_width="127dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_pitch_count"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_pitch_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_strikes_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_strikes"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_strikes_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_balls_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_balls"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_balls_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_fastball_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_pitch_fastball_count"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_fastball_count"
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_changeup_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_pitch_changeup_count"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_changeup_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_curveball_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_pitch_curveballs_count"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_curveball_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_slider_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_pitch_sliders_count"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_slider_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_other_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_pitch_other_count"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_other_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r1c1_count_label"
+                        android:layout_width="127dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_reports_r1c1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r1c1_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r1c2_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r1c2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r1c2_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r1c3_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r1c3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r1c3_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r2c1_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r2c1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r2c1_count"
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r2c2_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r2c2"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/guidelineVertStats"
+                        app:layout_constraintTop_toBottomOf="@id/txt_fastball_label" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r2c2_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r2c3_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r2c3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r2c3_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r3c1_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r3c1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r3c1_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r3c2_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r3c2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r3c2_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r3c3_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_r3c3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_r3c3_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_low_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_ball_low"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_low_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_high_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_ball_high"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_high_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_left_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_ball_left"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_left_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_right_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_reports_ball_right"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_reports_event_ball_right_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/string_initialize_count" />
+
+                </TableRow>
+
+
+            </TableLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C2"
+        app:layout_constraintTop_toBottomOf="@id/btn_ball_high" />
+
+    <Button
+        android:id="@+id/btnR1C1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r1c1"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C2"
+        app:layout_constraintTop_toBottomOf="@id/btn_ball_high" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C3"
+        app:layout_constraintTop_toBottomOf="@id/btn_ball_high" />
+
+    <Button
+        android:id="@+id/btnR1C2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r1c2"
+        app:layout_constraintEnd_toStartOf="@id/btnR1C3"
+        app:layout_constraintTop_toBottomOf="@id/btn_ball_high" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/btn_ball_high" />
+
+    <Button
+        android:id="@+id/btnR1C3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r1c3"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/btn_ball_high" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C1" />
+
+    <Button
+        android:id="@+id/btnR2C1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r2c1"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C1" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C2" />
+
+    <Button
+        android:id="@+id/btnR2C2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r2c2"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C2" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C3" />
+
+    <Button
+        android:id="@+id/btnR2C3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r2c3"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@id/btnR1C3" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C1" />
+
+    <Button
+        android:id="@+id/btnR3C1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r3c1"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C2"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C1" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
+
+    <Button
+        android:id="@+id/btnR3C2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r3c2"
+        app:layout_constraintRight_toLeftOf="@id/btnR3C3"
+        app:layout_constraintTop_toBottomOf="@id/btnR2C2" />
+
+    <View
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_view_strike"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@+id/btnR2C3" />
+
+    <Button
+        android:id="@+id/btnR3C3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@drawable/grid_button"
+        android:elevation="10dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_r3c3"
+        app:layout_constraintRight_toLeftOf="@id/guidelineReportsVerticalGrid"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintEnd_toEndOf="@id/btnR3C3"
+        app:layout_constraintStart_toStartOf="@id/btnR3C1"
+        app:layout_constraintTop_toBottomOf="@id/btnR3C2" />
+
+    <Button
+        android:id="@+id/btn_ball_low"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_low"
+        app:layout_constraintEnd_toEndOf="@id/btnR3C3"
+        app:layout_constraintStart_toStartOf="@id/btnR3C1"
+        app:layout_constraintTop_toBottomOf="@id/btnR3C2" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintEnd_toEndOf="@id/btnR1C3"
+        app:layout_constraintStart_toStartOf="@id/btnR1C1"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <Button
+        android:id="@+id/btn_ball_high"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_high"
+        app:layout_constraintEnd_toEndOf="@id/btnR1C3"
+        app:layout_constraintStart_toStartOf="@id/btnR1C1"
+        app:layout_constraintTop_toBottomOf="@id/guidelineReportsHorizontalBanner" />
+
+    <View
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C1"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
+
+    <Button
+        android:id="@+id/btn_ball_left"
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_left"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintRight_toLeftOf="@id/btnR2C1"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
+
+    <View
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/grid_view_ball"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintLeft_toRightOf="@id/btnR2C3"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
+
+    <Button
+        android:id="@+id/btn_ball_right"
+        android:layout_width="45dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ball_button"
+        android:text="@string/string_ball_right"
+        app:layout_constraintBottom_toBottomOf="@id/btn_ball_low"
+        app:layout_constraintLeft_toRightOf="@id/btnR2C3"
+        app:layout_constraintTop_toTopOf="@id/btn_ball_high" />
+
+    <!-- Guidelines -->
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineReportsHorizontalBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineReportsVerticalGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+</android.support.constraint.ConstraintLayout>

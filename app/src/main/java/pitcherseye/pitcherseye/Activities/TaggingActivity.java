@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -40,32 +43,7 @@ import pitcherseye.pitcherseye.Utilities;
 
 import static java.lang.Math.round;
 
-// TODO master list
-/* - Change pitcher workflow XXX
-        - Spinner validation is giving me issues  XXX
-   - Fix undo workflow XXX
-        - Adjust for Result type XXX
-        - Do something similar that we did for updating result count, save class level booleans in updatePitcherResultsCounts XXX
-        - Refactor mUndo, can keep it similar, but need to break down. XXX
-        - Fix undo button's disabled state XXX
-   - Add "Ball" selection XXX
-        - Hook up to "Undo" XXX
-        - New Pitcher XXX
-        - Adjust Objects to take balls regions XXX
-   - Styling XXX
-        - Add header to tagging XXX
-        - Move colors and strings to res files XXX
-   - Disable back button on dialog <---
-   - Rework workflow for pitcher/event fragments XXX
-   - Add speed workflow dialog
-   - Pick backstack on main menu after finishing game XXX
-   - Refactor code
-   - Full testing regression
-   - Heatmap (Tentative)
-   - Task to check for Firebase send success
-*/
-
-public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
+    public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
                                                             ChangePitcherFragment.OnInputListener {
 
     // Buttons
@@ -197,6 +175,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     Boolean eventInfoSet;
 
+    String eventID = Utilities.createRandomHex(6);
+
+    // TODO
+    long pitcherStatsIDCount;
+    long eventStatsIDCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,11 +190,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         setGame(true);
         setHome(true);
 
-        // Display DialogFragment for initial data entry
-        displayEventInfoFragment();
-
         // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Display DialogFragment for initial data entry
+        displayEventInfoFragment();
 
         // Instantiate Buttons
         mChangePitcher = (Button) findViewById(R.id.button_event_info);
@@ -257,8 +241,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
 
         // Disable undo button at startup
-        mUndo.setEnabled(false);
-
         // Set opacity on start
         resetHeatMap();
 
@@ -279,7 +261,47 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        // Firebase doesn't have a built in auto-increment method for identifiers,
+        // so we're grabbing the count of children in the database and incrementing the ID
+        // and assigning the value to our counter. This will help with sorting in the RecyclerViews
+        // in StatisticsActivity.
+        mDatabase.child("pitcherStats").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String max = "";
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    max = child.getKey();
+                    Log.i("Max pitcher", max);
+                }
+                pitcherStatsIDCount = Long.parseLong(max) + 1;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mDatabase.child("eventStats").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String max = "";
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    max = child.getKey();
+                    Log.i("Max event", max);
+                }
+                eventStatsIDCount = Long.parseLong(max) + 1;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -287,9 +309,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mChangePitcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*FragmentManager fm = getFragmentManager();
-                EventInfoFragment infoFragment = new EventInfoFragment();
-                infoFragment.show(fm, "Open EventInfoFragment");*/
                 FragmentManager fm = getFragmentManager();
                 ChangePitcherFragment pitcherFragment = new ChangePitcherFragment();
                 pitcherFragment.show(fm, "Open ChangePitcherFragment");
@@ -315,7 +334,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false);
 
                 mUndo.setEnabled(true);
-
                 adjustHeatMap();
 
                 // Open ResultsFragment
@@ -657,7 +675,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count, eventFastballCount,
                 eventChangeupCount, eventCurveballCount, eventSliderCount, eventOtherCount);
 
-        mDatabase.child("eventStats").child(eventID).setValue(eventStats);
+        // TODO decide if we still need eventID or if we want to implement this in User as well
+        mDatabase.child("eventStats").child(Long.toString(eventStatsIDCount)).setValue(eventStats);
     }
 
     // Once a pitcher has been changed, grab the pitcher's information and send that to Firebase
@@ -668,6 +687,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
                                   int changeupCount, int curveballCount, int sliderCount, int otherCount) {
 
+        // TODO decide if we still need this or eventID
+        // String pitcherStatsID = Utilities.createRandomHex(6);
+
         PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, isGame, isHome,
                 playerID, pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount,
                 pitcherBallCountLow, pitcherBallCountHigh, pitcherBallCountLeft,
@@ -675,7 +697,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 R2C2Count, R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
                 changeupCount, curveballCount, sliderCount, otherCount);
 
-        mDatabase.child("pitcherStats").child(eventID).setValue(pitcherStats);
+        mDatabase.child("pitcherStats").child(Long.toString(pitcherStatsIDCount)).setValue(pitcherStats);
     }
 
     // Adjust the heatmap
@@ -693,11 +715,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mBallHigh.getBackground().setAlpha(0);
         mBallLeft.getBackground().setAlpha(0);
         mBallRight.getBackground().setAlpha(0);
+        mUndo.setEnabled(false);
     }
 
     private void adjustHeatMap() {
-        // Keep borders
-
         mR1C1.getBackground().setAlpha(pitcherCount_R1C1  * 255 / pitcherPitchCount);
         mR1C2.getBackground().setAlpha(pitcherCount_R1C2  * 255 / pitcherPitchCount);
         mR1C3.getBackground().setAlpha(pitcherCount_R1C3  * 255 / pitcherPitchCount);
@@ -896,9 +917,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         }
     }
 
-    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
+    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment TODO THIS IS WHERE STUFF
     public void sendPitcherStatsHelper() {
-        String eventID = Utilities.createRandomHex(6);
         sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
                 pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
@@ -937,9 +957,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     public void finishGameHelper() {
         // Display ProgressBar
         mProgressFinishGame.setVisibility(View.VISIBLE);
-
-        // Create the eventID and save with this event
-        String eventID = Utilities.createRandomHex(6);
 
         // Send event stats
         sendEventStats(eventID, eventName, eventDate, isGame, isHome,0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
