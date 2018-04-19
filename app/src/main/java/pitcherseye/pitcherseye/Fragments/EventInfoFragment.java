@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.DialogFragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,23 @@ public class EventInfoFragment extends DialogFragment {
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
+
+        // Disable the back button on selection
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        Toast.makeText(getActivity(), "Please enter event info", Toast.LENGTH_SHORT).show();
+                        Log.i("Back Pressed", "EventInfoFragment");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         isGame = taggingActivity.getGame();
         isHome = taggingActivity.getHome();

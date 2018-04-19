@@ -3,10 +3,13 @@ package pitcherseye.pitcherseye.Fragments;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
@@ -50,6 +53,23 @@ public class ResultsFragment extends DialogFragment {
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
+
+        // Disable the back button on selection
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        Toast.makeText(getActivity(), "Please select a pitch result", Toast.LENGTH_SHORT).show();
+                        Log.i("Back Pressed", "ResultsFragment");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         // Buttons
         mFastball = (Button) view.findViewById(R.id.btn_result_fastball);

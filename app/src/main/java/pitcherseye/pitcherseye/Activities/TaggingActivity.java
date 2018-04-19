@@ -1,21 +1,15 @@
 package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -41,10 +33,8 @@ import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
 
-import static java.lang.Math.round;
-
-    public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
-                                                            ChangePitcherFragment.OnInputListener {
+public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
+        ChangePitcherFragment.OnInputListener {
 
     // Buttons
     Button mR1C1;
@@ -250,7 +240,7 @@ import static java.lang.Math.round;
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> pitchers = new ArrayList<String>();
                 pitchers.add(" ");
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
                     String pitcherFullName = pitcherFName + " " + pitcherLName;
@@ -665,7 +655,7 @@ import static java.lang.Math.round;
     private void sendEventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
                                 int playerID, int teamID, int pitchCount, int strikeCount, int eventBallCount,
                                 int eventBallCountLow, int eventBallCountHigh, int eventBallCountLeft, int eventBallCountRight,
-                                int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
+                                int R1C1Count, int R1C2Count, int R1C3Count, int R2C1Count, int R2C2Count,
                                 int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int eventFastballCount,
                                 int eventChangeupCount, int eventCurveballCount, int eventSliderCount, int eventOtherCount) {
         // Defaulting some statistics to 0 until we establish further IDs
@@ -683,7 +673,7 @@ import static java.lang.Math.round;
     private void sendPitcherStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
                                   int playerID, String pitcherName, int teamID, int pitchCount, int strikeCount, int pitcherBallCount,
                                   int pitcherBallCountLow, int pitcherBallCountHigh, int pitcherBallCountLeft, int pitcherBallCountRight,
-                                  int R1C1Count, int R1C2Count,  int R1C3Count, int R2C1Count, int R2C2Count,
+                                  int R1C1Count, int R1C2Count, int R1C3Count, int R2C1Count, int R2C2Count,
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
                                   int changeupCount, int curveballCount, int sliderCount, int otherCount) {
 
@@ -719,15 +709,15 @@ import static java.lang.Math.round;
     }
 
     private void adjustHeatMap() {
-        mR1C1.getBackground().setAlpha(pitcherCount_R1C1  * 255 / pitcherPitchCount);
-        mR1C2.getBackground().setAlpha(pitcherCount_R1C2  * 255 / pitcherPitchCount);
-        mR1C3.getBackground().setAlpha(pitcherCount_R1C3  * 255 / pitcherPitchCount);
-        mR2C1.getBackground().setAlpha(pitcherCount_R2C1  * 255 / pitcherPitchCount);
-        mR2C2.getBackground().setAlpha(pitcherCount_R2C2  * 255 / pitcherPitchCount);
-        mR2C3.getBackground().setAlpha(pitcherCount_R2C3  * 255 / pitcherPitchCount);
-        mR3C1.getBackground().setAlpha(pitcherCount_R3C1  * 255 / pitcherPitchCount);
-        mR3C2.getBackground().setAlpha(pitcherCount_R3C2  * 255 / pitcherPitchCount);
-        mR3C3.getBackground().setAlpha(pitcherCount_R3C3  * 255 / pitcherPitchCount);
+        mR1C1.getBackground().setAlpha(pitcherCount_R1C1 * 255 / pitcherPitchCount);
+        mR1C2.getBackground().setAlpha(pitcherCount_R1C2 * 255 / pitcherPitchCount);
+        mR1C3.getBackground().setAlpha(pitcherCount_R1C3 * 255 / pitcherPitchCount);
+        mR2C1.getBackground().setAlpha(pitcherCount_R2C1 * 255 / pitcherPitchCount);
+        mR2C2.getBackground().setAlpha(pitcherCount_R2C2 * 255 / pitcherPitchCount);
+        mR2C3.getBackground().setAlpha(pitcherCount_R2C3 * 255 / pitcherPitchCount);
+        mR3C1.getBackground().setAlpha(pitcherCount_R3C1 * 255 / pitcherPitchCount);
+        mR3C2.getBackground().setAlpha(pitcherCount_R3C2 * 255 / pitcherPitchCount);
+        mR3C3.getBackground().setAlpha(pitcherCount_R3C3 * 255 / pitcherPitchCount);
         mBallLow.getBackground().setAlpha(pitcherBallsCountLow * 255 / pitcherPitchCount);
         mBallHigh.getBackground().setAlpha(pitcherBallsCountHigh * 255 / pitcherPitchCount);
         mBallLeft.getBackground().setAlpha(pitcherBallsCountLeft * 255 / pitcherPitchCount);
@@ -917,10 +907,10 @@ import static java.lang.Math.round;
         }
     }
 
-    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment TODO THIS IS WHERE STUFF
+    // Use this as a helper so we can call sendPitcherStats from EventInfoFragment
     public void sendPitcherStatsHelper() {
         sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
-                pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
+                pitcherName, 0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
                 pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
                 pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
@@ -959,7 +949,7 @@ import static java.lang.Math.round;
         mProgressFinishGame.setVisibility(View.VISIBLE);
 
         // Send event stats
-        sendEventStats(eventID, eventName, eventDate, isGame, isHome,0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
+        sendEventStats(eventID, eventName, eventDate, isGame, isHome, 0, 0, eventPitchCount, eventStrikesCount, eventBallsCount,
                 eventBallsCountLow, eventBallsCountHigh, eventBallsCountLeft, eventBallsCountRight,
                 eventCount_R1C1, eventCount_R1C2, eventCount_R1C3, eventCount_R2C1, eventCount_R2C2, eventCount_R2C3,
                 eventCount_R3C1, eventCount_R3C2, eventCount_R3C3, eventFastballCount, eventChangeupCount,
@@ -967,7 +957,7 @@ import static java.lang.Math.round;
 
         // Send individual stats as well
         sendPitcherStats(eventID, eventName, eventDate, isGame, isHome, 0,
-                pitcherName,0, pitcherPitchCount, pitcherStrikesCount,
+                pitcherName, 0, pitcherPitchCount, pitcherStrikesCount,
                 pitcherBallsCount, pitcherBallsCountLow, pitcherBallsCountHigh, pitcherBallsCountLeft, pitcherBallsCountRight,
                 pitcherCount_R1C1, pitcherCount_R1C2, pitcherCount_R1C3, pitcherCount_R2C1,
                 pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
@@ -1005,7 +995,7 @@ import static java.lang.Math.round;
 
     @Override
     public void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
-                          int pitcherSliderCount, int pitcherOtherCount) {
+                                 int pitcherSliderCount, int pitcherOtherCount) {
         mPitcherFastballCount.setText(Integer.toString(pitcherFastballCount));
         mPitcherChangeupCount.setText(Integer.toString(pitcherChangeupCount));
         mPitcherCurveballCount.setText(Integer.toString(pitcherCurveballCount));
@@ -1026,13 +1016,17 @@ import static java.lang.Math.round;
         return isGame;
     }
 
-    public void setGame(Boolean game) { isGame = game; }
+    public void setGame(Boolean game) {
+        isGame = game;
+    }
 
     public Boolean getHome() {
         return isHome;
     }
 
-    public void setHome(Boolean home) { isHome = home; }
+    public void setHome(Boolean home) {
+        isHome = home;
+    }
 
     public String getPitcherName() {
         return pitcherName;
@@ -1046,9 +1040,13 @@ import static java.lang.Math.round;
         return pitcherPitchCount;
     }
 
-    public Boolean getEventInfoSet() { return eventInfoSet; }
+    public Boolean getEventInfoSet() {
+        return eventInfoSet;
+    }
 
-    public void setEventInfoSet(Boolean eventInfoSet) { this.eventInfoSet = eventInfoSet; }
+    public void setEventInfoSet(Boolean eventInfoSet) {
+        this.eventInfoSet = eventInfoSet;
+    }
 
     @Override
     public void onBackPressed() {
