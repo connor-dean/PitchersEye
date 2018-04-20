@@ -84,6 +84,16 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart() {
+        if (eventRecyclerAdapter != null && pitcherRecyclerAdapter != null) {
+            eventRecyclerAdapter.notifyDataSetChanged();
+            pitcherRecyclerAdapter.notifyDataSetChanged();
+        }
+
+        super.onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
@@ -91,8 +101,8 @@ public class StatisticsActivity extends AppCompatActivity {
         mEventRecyclerView.setHasFixedSize(true);
         mEventRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mStatisticsTabLayout = (TabLayout) findViewById(R.id.tablayout_statistics);
-        mEventRef = FirebaseDatabase.getInstance().getReference("/eventStats");
-        mPitcherRef = FirebaseDatabase.getInstance().getReference("/pitcherStats");
+        mEventRef = FirebaseDatabase.getInstance().getReference("eventStats");
+        mPitcherRef = FirebaseDatabase.getInstance().getReference("pitcherStats");
 
         // See which tab is selected
         mStatisticsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -116,8 +126,6 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         });
 
-        // ImageButton
-
         eventRecyclerAdapter = new FirebaseRecyclerAdapter<EventStats, EventStatsViewHolder>(
                 EventStats.class,
                 R.layout.individual_row_events,
@@ -139,6 +147,9 @@ public class StatisticsActivity extends AppCompatActivity {
                         model.getEventR3C3Count(), position);
                 viewHolder.loadBallLocationArray(model.getEventBallCount(), model.getEventBallCountLow(), model.getEventBallCountHigh(),
                         model.getEventBallCountLeft(), model.getEventBallCountRight(), position);
+                Log.i("Child key ", mEventRef.child(Integer.toString(position + 1)).getKey() + " " + model.getEventName()
+                        + "\n\tTotal: " + model.getPitchCount() + "\n\tStrike: " + model.getStrikeCount() +
+                        "\n\tBall: " + model.getEventBallCount());
             }
         };
 
@@ -150,6 +161,7 @@ public class StatisticsActivity extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(PitcherStatsViewHolder viewHolder, PitcherStats model, int position) {
+                //if (Integer.parseInt(mPitcherRef.child(Integer.toString(position)).getKey()) == position) {
                 viewHolder.setPitcherName(model.getPitcherName());
                 viewHolder.setPitcherEventName(model.getEventName());
                 viewHolder.setPitcherDate(model.getEventDate());
@@ -165,6 +177,9 @@ public class StatisticsActivity extends AppCompatActivity {
                         model.getPitcherR3C3Count(), position);
                 viewHolder.loadPitcherBallLocationArray(model.getPitcherBallCount(), model.getPitcherBallCountLow(), model.getPitcherBallCountHigh(),
                         model.getPitcherBallCountLeft(), model.getPitcherBallCountRight(), position);
+                Log.i("Child key ", mEventRef.child(Integer.toString(position + 1)).getKey() + " " + model.getEventName()
+                        + "\n\tTotal: " + model.getPitchCount() + "\n\tStrike: " + model.getStrikeCount() +
+                        "\n\tBall: " + model.getPitcherBallCount());
             }
         };
 
@@ -175,14 +190,16 @@ public class StatisticsActivity extends AppCompatActivity {
     // This is an AlertDialog confirming or canceling the deletion of an item in the RecylerView
     // Selecting cancel will just dismiss the dialog, but confirming with the delete button
     // will delete the passed RecyclerView's adapter.
-    private void deleteRecyclerAlertDialog(final String message, final String title, final FirebaseRecyclerAdapter recyclerAdapter, final int layoutPostition) {
+    private void deleteRecyclerAlertDialog(final String message, final String title, final FirebaseRecyclerAdapter recyclerAdapter, final int layoutPostition, final RecyclerView recyclerView, final Boolean isEventView) {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
         dialog.setTitle(title).setMessage(message).setPositiveButton(
                 "Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         recyclerAdapter.getRef(layoutPostition).removeValue();
-                        Log.i("Delete pressed", title);
+                        recyclerAdapter.notifyDataSetChanged();
+                        recyclerView.invalidate();
+                        adjustArrayLists(layoutPostition, isEventView);
                     }
                 }
         ).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -194,9 +211,61 @@ public class StatisticsActivity extends AppCompatActivity {
         }).show();
     }
 
-    // Clear out the ArrayLists to ensure that we're reloading them
+    public void adjustArrayLists(int position, Boolean isEventView) {
+        if (isEventView) {
+            eventNameList.remove(position);
+            eventPitchCount.remove(position);
+            eventStrikeCountArrayList.remove(position);
+            eventFastballCountArrayList.remove(position);
+            eventChangeupCountArrayList.remove(position);
+            eventCurveballCountArrayList.remove(position);
+            eventSliderCountArrayList.remove(position);
+            eventOtherCountArrayList.remove(position);
+            eventR1C1ArrayList.remove(position);
+            eventR1C2ArrayList.remove(position);
+            eventR1C3ArrayList.remove(position);
+            eventR2C1ArrayList.remove(position);
+            eventR2C2ArrayList.remove(position);
+            eventR2C3ArrayList.remove(position);
+            eventR3C1ArrayList.remove(position);
+            eventR3C2ArrayList.remove(position);
+            eventR3C3ArrayList.remove(position);
+            eventBallCountArrayList.remove(position);
+            eventBallLowArrayList.remove(position);
+            eventBallHighArrayList.remove(position);
+            eventBallLeftArrayList.remove(position);
+            eventBallRightArrayList.remove(position);
+        } else {
+            pitcherNameList.remove(position);
+            pitcherEventNameList.remove(position);
+            pitcherPitchCount.remove(position);
+            pitcherStrikeCountArrayList.remove(position);
+            pitcherFastballCountArrayList.remove(position);
+            pitcherChangeupCountArrayList.remove(position);
+            pitcherCurveballCountArrayList.remove(position);
+            pitcherSliderCountArrayList.remove(position);
+            pitcherOtherCountArrayList.remove(position);
+            pitcherR1C1ArrayList.remove(position);
+            pitcherR1C2ArrayList.remove(position);
+            pitcherR1C3ArrayList.remove(position);
+            pitcherR2C1ArrayList.remove(position);
+            pitcherR2C2ArrayList.remove(position);
+            pitcherR2C3ArrayList.remove(position);
+            pitcherR3C1ArrayList.remove(position);
+            pitcherR3C2ArrayList.remove(position);
+            pitcherR3C3ArrayList.remove(position);
+            pitcherBallCountArrayList.remove(position);
+            pitcherBallLowArrayList.remove(position);
+            pitcherBallHighArrayList.remove(position);
+            pitcherBallLeftArrayList.remove(position);
+            pitcherBallRightArrayList.remove(position);
+        }
+    }
+
     @Override
-    public void onBackPressed() {
+    public void onDestroy() {
+        // RecyclerViews seem lazy and don't adjust internally, so when we exit the Activity
+        // completely clear them out to make sure they adjust
         eventNameList.clear();
         eventPitchCount.clear();
         eventStrikeCountArrayList.clear();
@@ -209,11 +278,26 @@ public class StatisticsActivity extends AppCompatActivity {
         eventR3C1ArrayList.clear();
         eventR3C2ArrayList.clear();
         eventR3C3ArrayList.clear();
+        eventFastballCountArrayList.clear();
+        eventChangeupCountArrayList.clear();
+        eventCurveballCountArrayList.clear();
+        eventSliderCountArrayList.clear();
+        eventOtherCountArrayList.clear();
+        eventBallCountArrayList.clear();
+        eventBallLowArrayList.clear();
+        eventBallHighArrayList.clear();
+        eventBallLeftArrayList.clear();
+        eventBallRightArrayList.clear();
 
         pitcherNameList.clear();
         pitcherEventNameList.clear();
         pitcherPitchCount.clear();
         pitcherStrikeCountArrayList.clear();
+        pitcherFastballCountArrayList.clear();
+        pitcherChangeupCountArrayList.clear();
+        pitcherCurveballCountArrayList.clear();
+        pitcherSliderCountArrayList.clear();
+        pitcherOtherCountArrayList.clear();
         pitcherR1C1ArrayList.clear();
         pitcherR1C2ArrayList.clear();
         pitcherR1C3ArrayList.clear();
@@ -223,8 +307,13 @@ public class StatisticsActivity extends AppCompatActivity {
         pitcherR3C1ArrayList.clear();
         pitcherR3C2ArrayList.clear();
         pitcherR3C3ArrayList.clear();
+        pitcherBallCountArrayList.clear();
+        pitcherBallLowArrayList.clear();
+        pitcherBallHighArrayList.clear();
+        pitcherBallLeftArrayList.clear();
+        pitcherBallRightArrayList.clear();
 
-        finish();
+        super.onDestroy();
     }
 
     public static class EventStatsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -253,7 +342,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     StatisticsActivity statisticsActivity = new StatisticsActivity();
                     statisticsActivity.deleteRecyclerAlertDialog("\nDo you want to permanently delete this event's statistics?",
                             "Delete Event Stats",
-                            eventRecyclerAdapter, getLayoutPosition());
+                            eventRecyclerAdapter, getLayoutPosition(), mEventRecyclerView, true);
                 }
             });
 
@@ -296,6 +385,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         public void setEventName(String eventName) {
             mStatisticsEventName.setText(eventName + "");
+
         }
 
         public void setEventDate(String eventDate) {
@@ -328,18 +418,26 @@ public class StatisticsActivity extends AppCompatActivity {
 
         public void loadIndexArray(String eventName, int totalPitchCount, int position) {
             eventNameList.add(eventName);
+            Log.i("eventName", eventName);
             eventPitchCount.add(totalPitchCount);
-            Log.e("Loaded pitch # array", eventNameList.get(position) + "");
+            Log.i("Loaded pitch # array", eventNameList.get(position) + " position " + position);
         }
 
         public void loadPitchTypeArray(int eventFastballCount, int eventChangeupCount, int eventCurveballCount,
                                        int eventSliderCount, int eventOtherCount, int position) {
             eventFastballCountArrayList.add(eventFastballCount);
+            Log.i("Loaded pitch fastball", eventFastballCountArrayList.get(position) + " position " + position);
             eventChangeupCountArrayList.add(eventChangeupCount);
+            Log.i("Loaded pitch changeup", eventChangeupCountArrayList.get(position) + " position " + position);
+
             eventCurveballCountArrayList.add(eventCurveballCount);
+            Log.i("Loaded pitch curveball", eventCurveballCountArrayList.get(position) + " position " + position);
+
             eventSliderCountArrayList.add(eventSliderCount);
+            Log.i("Loaded pitch slider", eventSliderCountArrayList.get(position) + " position " + position);
+
             eventOtherCountArrayList.add(eventOtherCount);
-            Log.e("Loaded pitch fastball", eventFastballCountArrayList.get(position) + "");
+            Log.i("Loaded pitch other", eventSliderCountArrayList.get(position) + " position " + position);
         }
 
         // Load Strike information
@@ -402,7 +500,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     StatisticsActivity statisticsActivity = new StatisticsActivity();
                     statisticsActivity.deleteRecyclerAlertDialog("\nDo you want to permanently delete this pitcher's statistics?",
                             "Delete Pitcher Stats",
-                            pitcherRecyclerAdapter, getLayoutPosition());
+                            pitcherRecyclerAdapter, getLayoutPosition(), mEventRecyclerView, false);
                 }
             });
 
@@ -449,7 +547,7 @@ public class StatisticsActivity extends AppCompatActivity {
             pitcherNameList.add(pitcherName);
             pitcherEventNameList.add(pitcherEventName);
             pitcherPitchCount.add(totalPitchCount);
-            Log.e("Loaded pitch # array", pitcherEventNameList.get(position) + "");
+            Log.e("Loaded pitch # array", pitcherEventNameList.get(position) + " position " + position);
         }
 
         public void loadPitcherPitchTypeArray(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
@@ -528,5 +626,4 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         }
     }
-
 }
