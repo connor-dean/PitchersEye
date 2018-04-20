@@ -168,7 +168,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     String eventID = Utilities.createRandomHex(6);
 
-    // TODO
     long pitcherStatsIDCount;
     long eventStatsIDCount;
 
