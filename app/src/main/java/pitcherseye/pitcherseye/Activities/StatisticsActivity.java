@@ -161,7 +161,6 @@ public class StatisticsActivity extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(PitcherStatsViewHolder viewHolder, PitcherStats model, int position) {
-                //if (Integer.parseInt(mPitcherRef.child(Integer.toString(position)).getKey()) == position) {
                 viewHolder.setPitcherName(model.getPitcherName());
                 viewHolder.setPitcherEventName(model.getEventName());
                 viewHolder.setPitcherDate(model.getEventDate());
@@ -426,18 +425,10 @@ public class StatisticsActivity extends AppCompatActivity {
         public void loadPitchTypeArray(int eventFastballCount, int eventChangeupCount, int eventCurveballCount,
                                        int eventSliderCount, int eventOtherCount, int position) {
             eventFastballCountArrayList.add(eventFastballCount);
-            Log.i("Loaded pitch fastball", eventFastballCountArrayList.get(position) + " position " + position);
             eventChangeupCountArrayList.add(eventChangeupCount);
-            Log.i("Loaded pitch changeup", eventChangeupCountArrayList.get(position) + " position " + position);
-
             eventCurveballCountArrayList.add(eventCurveballCount);
-            Log.i("Loaded pitch curveball", eventCurveballCountArrayList.get(position) + " position " + position);
-
             eventSliderCountArrayList.add(eventSliderCount);
-            Log.i("Loaded pitch slider", eventSliderCountArrayList.get(position) + " position " + position);
-
             eventOtherCountArrayList.add(eventOtherCount);
-            Log.i("Loaded pitch other", eventSliderCountArrayList.get(position) + " position " + position);
         }
 
         // Load Strike information
