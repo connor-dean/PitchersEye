@@ -1,3 +1,11 @@
+/*
+ This Activity manages the process of logging in for the user and is the first thing the user
+ will see when opening the application unless they have an authentication token. The user has the option to enter
+ their credentials, if it's unsuccessful than we'll display a message stating so.
+
+ The user also has an option to register for an account by selecting the link below the login button.
+ */
+
 package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
@@ -22,11 +30,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import pitcherseye.pitcherseye.R;
-import pitcherseye.pitcherseye.Utilities;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Instantiate LoginActivity object to manage backstack
     public static Activity loginActivity;
+
     // UI Components
     Button mLoginButton;
     EditText mLoginEmail;
@@ -34,9 +43,11 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar mLogInProgress;
     TextView mSignUp;
+
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
 
+    // We'll call this in other Activities to access this Activity
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, LoginActivity.class);
         return i;
@@ -67,16 +78,16 @@ public class LoginActivity extends AppCompatActivity {
         signUp();
     }
 
+    // This is the magic behind our token persistence. When we open the app, we'll check to see
+    // if the user still has an authentication token. If they do, just direct them to the MainActivity.
     public void loginPersistance() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // User is signed in successfully
         if (user != null) {
-            // User is signed in
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
-        } else {
-            // User is signed out
-            //Log.d(TAG, "onAuthStateChanged:signed_out");
         }
     }
 
@@ -86,8 +97,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Hide keyboard
-                //Utilities.hideSoftKeyboard(LoginActivity.this);
                 logInUser();
             }
         });
@@ -136,13 +145,13 @@ public class LoginActivity extends AppCompatActivity {
                 // Hide the progress bar
                 mLogInProgress.setVisibility(View.GONE);
 
+                // If the login was successful, direct user to the MainActivity
                 if (task.isSuccessful()) {
-                    // If the login was successful, direct user to the MainActivity
                     Intent i = MainActivity.newIntent(LoginActivity.this);
                     startActivityForResult(i, REQUEST_CODE_CALCULATE);
                     finish(); // Don't add to the backstack
                 } else {
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show(); // Display error message
                 }
             }
         });

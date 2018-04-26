@@ -1,3 +1,11 @@
+/*
+ This Activity handles all of the reports that are created in the StatisticsActivity. We don't
+ handle any calculations yet, since StatisticsActivity handles most of the heavy lifting. All we do
+ is grab the intents from the StatisticsActivity and save them as variables and assign them to UI
+ components based on what type of statistics the user selects from the RecyclerView in
+ StatisticsActivity (ex. Events vs. Pitcher).
+ */
+
 package pitcherseye.pitcherseye.Activities;
 
 import android.os.Bundle;
@@ -9,6 +17,7 @@ import pitcherseye.pitcherseye.R;
 
 public class ReportsActivity extends AppCompatActivity {
 
+    // UI Components
     TextView mReportsHeader;
     TextView mReportsPitchCount;
     TextView mReportsStrikeCount;
@@ -46,8 +55,11 @@ public class ReportsActivity extends AppCompatActivity {
     Button mBallRight;
     Button mBallLeft;
 
+    // Used to determine if the user selected a Event or Pitchers RecyclerView
+    // item in StatisticsActivity. Events = true, Pitchers = false.
     Boolean tabSelection;
 
+    // Variables that we'll use to assign values coming from intents in StatisticsActivity
     String eventName;
     String pitcherName;
     int index;
@@ -79,9 +91,8 @@ public class ReportsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reports);
 
         // Load values into variables
-        index = getIntent().getIntExtra("index", 99);
-        tabSelection = getIntent().getBooleanExtra("tabSelection", true);
-
+        index = getIntent().getIntExtra("index", 99); // Doesn't get used for now but can be used for debugging in the future
+        tabSelection = getIntent().getBooleanExtra("tabSelection", true); // Determines if an Event or Pitcher RecyclerView item was selected
         pitcherName = getIntent().getStringExtra("pitcherName");
         eventName = getIntent().getStringExtra("eventName");
         eventPitchCount = getIntent().getIntExtra("totalPitchCount", 99);
@@ -106,7 +117,7 @@ public class ReportsActivity extends AppCompatActivity {
         eventBallLeft = getIntent().getIntExtra("eventBallLeft", 99);
         eventBallRight = getIntent().getIntExtra("eventBallRight", 99);
 
-        // Instantiate widgets
+        // Instantiate UI Components
         mReportsHeader = (TextView) findViewById(R.id.txt_reports_event_header);
         mReportsPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
         mReportsStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
@@ -131,7 +142,6 @@ public class ReportsActivity extends AppCompatActivity {
         mReportsBallLeft = (TextView) findViewById(R.id.txt_reports_event_ball_left_count);
         mReportsBallRight = (TextView) findViewById(R.id.txt_reports_event_ball_right_count);
 
-        // TODO rename these and fix xml
         mR1C1 = (Button) findViewById(R.id.btnR1C1);
         mR1C2 = (Button) findViewById(R.id.btnR1C2);
         mR1C3 = (Button) findViewById(R.id.btnR1C3);
@@ -146,16 +156,53 @@ public class ReportsActivity extends AppCompatActivity {
         mBallRight = (Button) findViewById(R.id.btn_ball_right);
         mBallLeft = (Button) findViewById(R.id.btn_ball_left);
 
+        // Use this to load information from intents to the UI components based off the tab selection in
+        // StatisticsActivity
+        loadUIComponents(tabSelection);
 
-        loadComponents(tabSelection);
+        // Use this to adjust the heat map accordingly based on the values loaded from StatisticsActivity
         adjustHeatMap(tabSelection);
+    }
+
+    // Use this to load information from intents to the UI components based off the tab selection in
+    // StatisticsActivity
+    public void loadUIComponents(Boolean tabSelection) {
+        if (tabSelection) {
+            mReportsHeader.setText(eventName);
+        } else {
+            // It will be beneficial to still see what event was associated with the pitcher's statistics
+            mReportsHeader.setText(pitcherName + " - " + eventName);
+        }
+        mReportsPitchCount.setText(Integer.toString(eventPitchCount));
+        mReportsStrikeCount.setText(Integer.toString(eventStrikeCount));
+        mReportsBallCount.setText(Integer.toString(eventBallCount));
+        mReportsFastballCount.setText(Integer.toString(eventFastballCount));
+        mReportsChangeupCount.setText(Integer.toString(eventChangeupCount));
+        mReportsCurveballCount.setText(Integer.toString(eventCurveballCount));
+        mReportsSliderCount.setText(Integer.toString(eventSliderCount));
+        mReportsOtherCount.setText(Integer.toString(eventOtherCount));
+
+        mReportsR1C1.setText(Integer.toString(eventR1C1));
+        mReportsR1C2.setText(Integer.toString(eventR1C2));
+        mReportsR1C3.setText(Integer.toString(eventR1C3));
+        mReportsR2C1.setText(Integer.toString(eventR2C1));
+        mReportsR2C2.setText(Integer.toString(eventR2C2));
+        mReportsR2C3.setText(Integer.toString(eventR2C3));
+        mReportsR3C1.setText(Integer.toString(eventR3C1));
+        mReportsR3C2.setText(Integer.toString(eventR3C2));
+        mReportsR3C3.setText(Integer.toString(eventR3C3));
+        mReportsBallLow.setText(Integer.toString(eventBallLow));
+        mReportsBallHigh.setText(Integer.toString(eventBallHigh));
+        mReportsBallLeft.setText(Integer.toString(eventBallLeft));
+        mReportsBallRight.setText(Integer.toString(eventBallRight));
     }
 
     // TODO we'll want to see if we can add this to Utilities eventually since we're duplicating
     // methods from TaggingActivity. UI components usually don't like to play well when coming
-    // from other Activities.
+    // from other Activities or else you'll get a lot of NullPointerExceptions.
     private void adjustHeatMap(Boolean tabSelection) {
         // TODO refactor this. Will throw error when dividing by 0.
+        // Need to investigate a better way of processing this.
         if (eventPitchCount > 0) {
             if (eventR1C1 > 0)
                 mR1C1.getBackground().setAlpha(eventR1C1 * 255 / eventPitchCount);
@@ -197,6 +244,7 @@ public class ReportsActivity extends AppCompatActivity {
                 mBallRight.getBackground().setAlpha(eventBallRight * 255 / eventPitchCount);
             else mBallRight.getBackground().setAlpha(0);
         } else {
+            // If the pitch count is zero, just display a blank heat map
             mR1C1.getBackground().setAlpha(0);
             mR1C2.getBackground().setAlpha(0);
             mR1C3.getBackground().setAlpha(0);
@@ -211,36 +259,5 @@ public class ReportsActivity extends AppCompatActivity {
             mBallLeft.getBackground().setAlpha(0);
             mBallRight.getBackground().setAlpha(0);
         }
-    }
-
-
-    public void loadComponents(Boolean tabSelection) {
-        if (tabSelection) {
-            mReportsHeader.setText(eventName);
-        } else {
-            mReportsHeader.setText(pitcherName + " - " + eventName);
-        }
-        mReportsPitchCount.setText(Integer.toString(eventPitchCount));
-        mReportsStrikeCount.setText(Integer.toString(eventStrikeCount));
-        mReportsBallCount.setText(Integer.toString(eventBallCount));
-        mReportsFastballCount.setText(Integer.toString(eventFastballCount));
-        mReportsChangeupCount.setText(Integer.toString(eventChangeupCount));
-        mReportsCurveballCount.setText(Integer.toString(eventCurveballCount));
-        mReportsSliderCount.setText(Integer.toString(eventSliderCount));
-        mReportsOtherCount.setText(Integer.toString(eventOtherCount));
-
-        mReportsR1C1.setText(Integer.toString(eventR1C1));
-        mReportsR1C2.setText(Integer.toString(eventR1C2));
-        mReportsR1C3.setText(Integer.toString(eventR1C3));
-        mReportsR2C1.setText(Integer.toString(eventR2C1));
-        mReportsR2C2.setText(Integer.toString(eventR2C2));
-        mReportsR2C3.setText(Integer.toString(eventR2C3));
-        mReportsR3C1.setText(Integer.toString(eventR3C1));
-        mReportsR3C2.setText(Integer.toString(eventR3C2));
-        mReportsR3C3.setText(Integer.toString(eventR3C3));
-        mReportsBallLow.setText(Integer.toString(eventBallLow));
-        mReportsBallHigh.setText(Integer.toString(eventBallHigh));
-        mReportsBallLeft.setText(Integer.toString(eventBallLeft));
-        mReportsBallRight.setText(Integer.toString(eventBallRight));
     }
 }

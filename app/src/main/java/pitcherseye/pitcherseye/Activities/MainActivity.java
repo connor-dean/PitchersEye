@@ -1,3 +1,13 @@
+/*
+ This Activity acts as our "home page". It hosts several buttons that redirect you to the LoginActivity,
+ TaggingActivity or the StatisticsActivity.
+
+ If the user has an authentication token assigned to them then this is the first Activity they'll see
+ when opening the application.
+
+ When selecting the "Logout" option, we also clear the user's authentication token.
+ */
+
 package pitcherseye.pitcherseye.Activities;
 
 import android.content.Context;
@@ -14,7 +24,7 @@ import pitcherseye.pitcherseye.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Buttons
+    // UI Components
     Button mLogoutButton;
     Button mNewGameButton;
     Button mStatsButton;
@@ -24,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     // Request Code
     int REQUEST_CODE_CALCULATE = 0;
 
+    // We'll call this in other Activities to access this Activity
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, MainActivity.class);
         return i;
@@ -34,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Redirect to the StatisticsActivity
         mStatsImageButton = (ImageButton) findViewById(R.id.img_button_statistics);
         mStatsImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Redirect to the StatisticsActivity
         mStatsButton = (Button) findViewById(R.id.button_statistics);
         mStatsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Redirect to the TaggingActivity
         mNewGameImageButton = (ImageButton) findViewById(R.id.img_button_new_game);
         mNewGameImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Redirect to the TaggingActivity
         mNewGameButton = (Button) findViewById(R.id.button_new_game);
         mNewGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Redirect to the LoginActivity
         mLogoutButton = (Button) findViewById(R.id.button_logout);
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut(); // Clear authentication token
                 Intent i = LoginActivity.newIntent(MainActivity.this);
                 startActivityForResult(i, REQUEST_CODE_CALCULATE);
                 finish(); // Don't add to the backstack
