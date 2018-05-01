@@ -1,10 +1,9 @@
+/*
+  This class is our model for our eventStats child in Firebase.
+ */
+
 package pitcherseye.pitcherseye.Objects;
 
-import java.util.Date;
-
-/**
- * Created by Connor on 2/25/2018.
- */
 public class EventStats {
 
     public String eventID;
@@ -35,8 +34,6 @@ public class EventStats {
     public int eventCurveballCount;
     public int eventSliderCount;
     public int eventOtherCount;
-
-    public EventStats() { }
 
     public EventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
                       int playerID, int teamID, int pitchCount, int strikeCount,

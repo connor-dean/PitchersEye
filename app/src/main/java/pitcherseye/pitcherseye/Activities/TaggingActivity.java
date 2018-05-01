@@ -1058,6 +1058,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount));
     }
 
+    // Force the user to finish the event in case of an accidental exit with the back button
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Please finish the game to exit the event", Toast.LENGTH_SHORT).show();
+    }
+
     // Getters/Setters
     public String getEventName() {
         return eventName;
@@ -1101,11 +1107,5 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     public void setEventInfoSet(Boolean eventInfoSet) {
         this.eventInfoSet = eventInfoSet;
-    }
-
-    // Force the user to finish the event in case of an accidental exit with the back button
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "Please finish the game to exit the event", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,13 +1,12 @@
-package pitcherseye.pitcherseye.Objects;
-
-import java.util.Date;
-
-/**
- * Created by Connor on 2/25/2018.
+/*
+  This class is our model for our pitcherStats child in Firebase.
  */
+
+package pitcherseye.pitcherseye.Objects;
 
 public class PitcherStats {
 
+    // Values stored in pitcherStats
     public String eventID;
     public String eventName;
     public String eventDate;
@@ -37,8 +36,6 @@ public class PitcherStats {
     public int pitcherCurveballCount;
     public int pitcherSliderCount;
     public int pitcherOtherCount;
-
-    public PitcherStats() {}
 
     public PitcherStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
                         int pitcherID, String pitcherName, int teamID, int pitchCount, int strikeCount,

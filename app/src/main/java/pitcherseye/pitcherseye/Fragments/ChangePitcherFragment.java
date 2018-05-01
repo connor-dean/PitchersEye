@@ -1,3 +1,10 @@
+/*
+ This Fragment is used for the change pitcher workflow. When a user is ready to change pitchers,
+ they can select the link in the banner to display this dialog. If the user doesn't change the user,
+ we'll just dismiss the dialog. If the user does select a different pitcher, we'll send send the pitcher's
+ session using the PitcherStats object to Firebase.
+ */
+
 package pitcherseye.pitcherseye.Fragments;
 
 import android.app.DialogFragment;
@@ -27,44 +34,48 @@ import pitcherseye.pitcherseye.R;
 
 public class ChangePitcherFragment extends DialogFragment {
 
+    // UI Components
     Button mConfirmChange;
-    DatabaseReference mDatabase;
     Spinner mSpinnerPitchers;
 
+    DatabaseReference mDatabase;
     String pitcherName = "";
 
+    public OnInputListener mOnInputListenerChangePitcher;
+
+    // Send the pitcher information to TaggingActivity
     public interface OnInputListener {
         void sendInput(String pitcherName, int pitcherSpinnerIndex);
     }
-
-    public OnInputListener mOnInputListenerChangePitcher;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_change_pitcher, container, false);
+        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
+        // Instantiate UI components
         mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_pitcher_change);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_change_pitcher_names);
 
-        // Display previously entered values
-        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-
         // Instantiate and load pitchers into spinner
+        // TODO see if there's a better way to handle this so that we keep this saved locally
+        // after we log in
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> pitchers = new ArrayList<String>();
                 pitchers.add(getString(R.string.string_select_pitcher));
+
+                // Load pitcher information from the "users" child in Firebase and concatenate the values into List.
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
                     String pitcherFullName = pitcherFName + " " + pitcherLName;
-                    // Add empty space for the start
                     pitchers.add(pitcherFullName);
                 }
 
@@ -82,6 +93,7 @@ public class ChangePitcherFragment extends DialogFragment {
             }
         });
 
+        // Confirmation handler for the mConfirmChange button
         mConfirmChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +118,7 @@ public class ChangePitcherFragment extends DialogFragment {
         return view;
     }
 
+    // This method helps with saving the information that we gather from the user inputs
     public void savePitcherInputs() {
         int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
 
@@ -113,6 +126,7 @@ public class ChangePitcherFragment extends DialogFragment {
         mOnInputListenerChangePitcher.sendInput(pitcherName, pitcherIndex); // Send the information to TaggingActivity
     }
 
+    // Exception handling for the interface
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

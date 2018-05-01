@@ -1,3 +1,9 @@
+/*
+ This Fragment handles the input from the user after a pitch region has been selected in the TaggingActivity.
+ It will display a dialog prompting the user to select a pitch type, and the user will not be able to exit this dialog
+ without selecting a result.
+ */
+
 package pitcherseye.pitcherseye.Fragments;
 
 import android.app.DialogFragment;
@@ -14,13 +20,9 @@ import android.widget.Toast;
 import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
-/**
- * Created by Connor on 3/29/2018.
- */
-
 public class ResultsFragment extends DialogFragment {
 
-    public OnInputListener mOnInputResultsListener;
+    // UI Components
     Button mFastball;
     Button mChangeup;
     Button mCurveball;
@@ -36,17 +38,25 @@ public class ResultsFragment extends DialogFragment {
     int eventSliderCount;
     int pitcherOtherCount;
     int eventOtherCount;
-    TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+
+    //public OnInputListener mOnInputResultsListener; TODO
+    //TaggingActivity taggingActivity = (TaggingActivity) getActivity(); TODO
+
+    public interface OnInputListener {
+        void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
+                              int pitcherSliderCount, int pitcherOtherCount);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_results, container, false);
+        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
-        // Disable the back button on selection
+        // Disable the back button on selection so the user has to select a result
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {
@@ -61,23 +71,22 @@ public class ResultsFragment extends DialogFragment {
             }
         });
 
-        // Buttons
+        // Instantiate Buttons
         mFastball = (Button) view.findViewById(R.id.btn_result_fastball);
         mChangeup = (Button) view.findViewById(R.id.btn_result_changeup);
         mCurveball = (Button) view.findViewById(R.id.btn_result_curve);
         mSlider = (Button) view.findViewById(R.id.btn_result_slider);
         mOther = (Button) view.findViewById(R.id.btn_result_other);
 
-        //final TaggingActivity taggingActivity = new TaggingActivity();
-        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
-
-        // Result events
+        // Event handlers for the result buttons
         mFastball.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Increase count
                 ++pitcherFastballCount;
                 ++eventFastballCount;
+
+                // Notify TaggingActivity the last result for the undo workflow
                 taggingActivity.updatePitcherResultsCounts(true, false, false, false, false);
                 getDialog().dismiss();
             }
@@ -89,6 +98,8 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherChangeupCount;
                 ++eventChangeupCount;
+
+                // Notify TaggingActivity the last result for the undo workflow
                 taggingActivity.updatePitcherResultsCounts(false, true, false, false, false);
                 getDialog().dismiss();
             }
@@ -100,6 +111,8 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherCurveballCount;
                 ++eventCurveballCount;
+
+                // Notify TaggingActivity the last result for the undo workflow
                 taggingActivity.updatePitcherResultsCounts(false, false, true, false, false);
                 getDialog().dismiss();
             }
@@ -111,6 +124,8 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherSliderCount;
                 ++eventSliderCount;
+
+                // Notify TaggingActivity the last result for the undo workflow
                 taggingActivity.updatePitcherResultsCounts(false, false, false, true, false);
                 getDialog().dismiss();
             }
@@ -122,16 +137,13 @@ public class ResultsFragment extends DialogFragment {
                 // Increase count
                 ++pitcherOtherCount;
                 ++eventOtherCount;
+
+                // Notify TaggingActivity the last result for the undo workflow
                 taggingActivity.updatePitcherResultsCounts(false, false, false, false, true);
                 getDialog().dismiss();
             }
         });
 
         return view;
-    }
-
-    public interface OnInputListener {
-        void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
-                              int pitcherSliderCount, int pitcherOtherCount);
     }
 }

@@ -1,8 +1,8 @@
-package pitcherseye.pitcherseye.Objects;
-
-/**
- * Created by Connor on 2/8/2018.
+/*
+  This class is our model for our users child in Firebase.
  */
+
+package pitcherseye.pitcherseye.Objects;
 
 public class User {
 
@@ -12,8 +12,6 @@ public class User {
     public String email;
     public String password;
     public String teamID;
-
-    public User() { }
 
     public User(String fname, String lname, String email, String password, String teamID) {
         this.fname = fname;
