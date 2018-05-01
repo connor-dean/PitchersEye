@@ -112,71 +112,6 @@ public class StatisticsActivity extends AppCompatActivity {
         return i;
     }
 
-    // When we were deleting items in the RecyclerView, the indexes weren't updating when directing to the
-    // ReportsActivity. This forces the RecyclerView adapters to reflect the changes when we enter the Activity.
-    @Override
-    public void onStart() {
-        if (eventRecyclerAdapter != null && pitcherRecyclerAdapter != null) {
-            eventRecyclerAdapter.notifyDataSetChanged();
-            pitcherRecyclerAdapter.notifyDataSetChanged();
-        }
-        super.onStart();
-    }
-
-    // RecyclerViews seem lazy and don't adjust internally, so when we exit the Activity
-    // completely clear them out to make sure they adjust
-    @Override
-    public void onDestroy() {
-        eventNameList.clear();
-        eventPitchCount.clear();
-        eventStrikeCountArrayList.clear();
-        eventR1C1ArrayList.clear();
-        eventR1C2ArrayList.clear();
-        eventR1C3ArrayList.clear();
-        eventR2C1ArrayList.clear();
-        eventR2C2ArrayList.clear();
-        eventR2C3ArrayList.clear();
-        eventR3C1ArrayList.clear();
-        eventR3C2ArrayList.clear();
-        eventR3C3ArrayList.clear();
-        eventFastballCountArrayList.clear();
-        eventChangeupCountArrayList.clear();
-        eventCurveballCountArrayList.clear();
-        eventSliderCountArrayList.clear();
-        eventOtherCountArrayList.clear();
-        eventBallCountArrayList.clear();
-        eventBallLowArrayList.clear();
-        eventBallHighArrayList.clear();
-        eventBallLeftArrayList.clear();
-        eventBallRightArrayList.clear();
-
-        pitcherNameList.clear();
-        pitcherEventNameList.clear();
-        pitcherPitchCount.clear();
-        pitcherStrikeCountArrayList.clear();
-        pitcherFastballCountArrayList.clear();
-        pitcherChangeupCountArrayList.clear();
-        pitcherCurveballCountArrayList.clear();
-        pitcherSliderCountArrayList.clear();
-        pitcherOtherCountArrayList.clear();
-        pitcherR1C1ArrayList.clear();
-        pitcherR1C2ArrayList.clear();
-        pitcherR1C3ArrayList.clear();
-        pitcherR2C1ArrayList.clear();
-        pitcherR2C2ArrayList.clear();
-        pitcherR2C3ArrayList.clear();
-        pitcherR3C1ArrayList.clear();
-        pitcherR3C2ArrayList.clear();
-        pitcherR3C3ArrayList.clear();
-        pitcherBallCountArrayList.clear();
-        pitcherBallLowArrayList.clear();
-        pitcherBallHighArrayList.clear();
-        pitcherBallLeftArrayList.clear();
-        pitcherBallRightArrayList.clear();
-
-        super.onDestroy();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -363,16 +298,20 @@ public class StatisticsActivity extends AppCompatActivity {
         // get NullPointerExceptions since we're using UI components
         // These methods will load the information we're pulling from our models and set them in
         // our adapter.
+
+        // Set the event name
         public void setEventName(String eventName) {
             mStatisticsEventName.setText(eventName + "");
         }
 
+        // Set the event date
         public void setEventDate(String eventDate) {
             mStatisticsDate.setText(eventDate + "");
         }
 
+        // Set the event type
         public void setEventType(Boolean eventType) {
-            // Need to fix the null error once we sanitize Firebase
+            // In case there's somehow a null value in Firebase
             if (eventType == null) {
                 mStatisticsEventType.setText(R.string.string_reports_location_type_placeholder);
             } else if (eventType) {
@@ -382,9 +321,9 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         }
 
+        // Set the event location
         public void setEventLocation(Boolean eventLocation) {
-            // TODO
-            // Need to fix the null error once we sanitize Firebase
+            // In case there's somehow a null value in Firebase
             if (eventLocation == null) {
                 mStatisticsEventLocation.setText(R.string.string_reports_location_type_placeholder);
             } else if (eventLocation) {
@@ -394,6 +333,7 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         }
 
+        // Load the eventName, totalPitchCount and the position
         public void loadIndexArray(String eventName, int totalPitchCount, int position) {
             eventNameList.add(eventName);
             Log.i("eventName", eventName);
@@ -401,6 +341,7 @@ public class StatisticsActivity extends AppCompatActivity {
             Log.i("Loaded pitch # array", eventNameList.get(position) + " position " + position);
         }
 
+        // Load the pitch type
         public void loadPitchTypeArray(int eventFastballCount, int eventChangeupCount, int eventCurveballCount,
                                        int eventSliderCount, int eventOtherCount, int position) {
             eventFastballCountArrayList.add(eventFastballCount);
@@ -522,21 +463,25 @@ public class StatisticsActivity extends AppCompatActivity {
         // get NullPointerExceptions since we're using UI components
         // These methods will load the information we're pulling from our models and set them in
         // our adapter.
+
+        // Set the pitcher name
         public void setPitcherName(String pitcherName) {
             mStatisticsPitcherName.setText(pitcherName);
         }
 
+        // Set the event name
         public void setPitcherEventName(String pitcherEventName) {
             mStatisticsPitcherEventName.setText(pitcherEventName);
         }
 
+        // Set the event date
         public void setPitcherDate(String pitcherDate) {
             mStatisticsPitcherDate.setText(pitcherDate);
         }
 
+        // Set the event type
         public void setPitcherEventType(Boolean pitcherEventType) {
-            // TODO
-            // Need to fix the null error once we sanitize Firebase
+            // In case there's somehow a null value in Firebase
             if (pitcherEventType == null) {
                 mStatisticsPitcherEventType.setText(R.string.string_reports_location_type_placeholder);
             } else if (pitcherEventType) {
@@ -546,8 +491,9 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         }
 
+        // Set the event location
         public void setPitcherEventLocation(Boolean pitcherEventLocation) {
-            // Need to fix the null error once we sanitize Firebase
+            // In case there's somehow a null value in Firebase
             if (pitcherEventLocation == null) {
                 mStatisticsPitcherEventLocation.setText(R.string.string_reports_location_type_placeholder);
             } else if (pitcherEventLocation) {
@@ -557,6 +503,7 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         }
 
+        // Load the pitcherName, eventName, totalPitchCount and the position
         public void loadPitcherIndexArray(String pitcherName, String pitcherEventName, int totalPitchCount, int position) {
             pitcherNameList.add(pitcherName);
             pitcherEventNameList.add(pitcherEventName);
@@ -564,6 +511,7 @@ public class StatisticsActivity extends AppCompatActivity {
             Log.e("Loaded pitch # array", pitcherEventNameList.get(position) + " position " + position);
         }
 
+        // Load the pitch type
         public void loadPitcherPitchTypeArray(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
                                               int pitcherSliderCount, int pitcherOtherCount, int position) {
             pitcherFastballCountArrayList.add(pitcherFastballCount);
@@ -681,5 +629,70 @@ public class StatisticsActivity extends AppCompatActivity {
             pitcherBallLeftArrayList.remove(position);
             pitcherBallRightArrayList.remove(position);
         }
+    }
+
+    // When we were deleting items in the RecyclerView, the indexes weren't updating when directing to the
+    // ReportsActivity. This forces the RecyclerView adapters to reflect the changes when we enter the Activity.
+    @Override
+    public void onStart() {
+        if (eventRecyclerAdapter != null && pitcherRecyclerAdapter != null) {
+            eventRecyclerAdapter.notifyDataSetChanged();
+            pitcherRecyclerAdapter.notifyDataSetChanged();
+        }
+        super.onStart();
+    }
+
+    // RecyclerViews seem lazy and don't adjust internally, so when we exit the Activity
+    // completely clear them out to make sure they adjust
+    @Override
+    public void onDestroy() {
+        eventNameList.clear();
+        eventPitchCount.clear();
+        eventStrikeCountArrayList.clear();
+        eventR1C1ArrayList.clear();
+        eventR1C2ArrayList.clear();
+        eventR1C3ArrayList.clear();
+        eventR2C1ArrayList.clear();
+        eventR2C2ArrayList.clear();
+        eventR2C3ArrayList.clear();
+        eventR3C1ArrayList.clear();
+        eventR3C2ArrayList.clear();
+        eventR3C3ArrayList.clear();
+        eventFastballCountArrayList.clear();
+        eventChangeupCountArrayList.clear();
+        eventCurveballCountArrayList.clear();
+        eventSliderCountArrayList.clear();
+        eventOtherCountArrayList.clear();
+        eventBallCountArrayList.clear();
+        eventBallLowArrayList.clear();
+        eventBallHighArrayList.clear();
+        eventBallLeftArrayList.clear();
+        eventBallRightArrayList.clear();
+
+        pitcherNameList.clear();
+        pitcherEventNameList.clear();
+        pitcherPitchCount.clear();
+        pitcherStrikeCountArrayList.clear();
+        pitcherFastballCountArrayList.clear();
+        pitcherChangeupCountArrayList.clear();
+        pitcherCurveballCountArrayList.clear();
+        pitcherSliderCountArrayList.clear();
+        pitcherOtherCountArrayList.clear();
+        pitcherR1C1ArrayList.clear();
+        pitcherR1C2ArrayList.clear();
+        pitcherR1C3ArrayList.clear();
+        pitcherR2C1ArrayList.clear();
+        pitcherR2C2ArrayList.clear();
+        pitcherR2C3ArrayList.clear();
+        pitcherR3C1ArrayList.clear();
+        pitcherR3C2ArrayList.clear();
+        pitcherR3C3ArrayList.clear();
+        pitcherBallCountArrayList.clear();
+        pitcherBallLowArrayList.clear();
+        pitcherBallHighArrayList.clear();
+        pitcherBallLeftArrayList.clear();
+        pitcherBallRightArrayList.clear();
+
+        super.onDestroy();
     }
 }

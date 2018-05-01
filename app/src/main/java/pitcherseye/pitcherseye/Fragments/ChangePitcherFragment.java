@@ -48,6 +48,20 @@ public class ChangePitcherFragment extends DialogFragment {
         void sendInput(String pitcherName, int pitcherSpinnerIndex);
     }
 
+    // Exception handling for the interface
+    // Makes sure that the Fragment is associated with an Activity
+    // Will throw java.lang.IllegalStateException: Fragment ChangePitcherFragment{9543f7f} not attached to Activity
+    // without when registering a new user.
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnInputListenerChangePitcher = (OnInputListener) getActivity();
+        } catch (ClassCastException cce){
+            Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -124,16 +138,5 @@ public class ChangePitcherFragment extends DialogFragment {
 
         pitcherName = mSpinnerPitchers.getSelectedItem().toString();
         mOnInputListenerChangePitcher.sendInput(pitcherName, pitcherIndex); // Send the information to TaggingActivity
-    }
-
-    // Exception handling for the interface
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mOnInputListenerChangePitcher = (OnInputListener) getActivity();
-        } catch (ClassCastException cce){
-            Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
-        }
     }
 }

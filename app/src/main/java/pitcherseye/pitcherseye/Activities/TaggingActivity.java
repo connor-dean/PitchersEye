@@ -249,7 +249,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         resetHeatMap();
 
         // Instantiate and load pitchers into spinner
-        // TODO TODO see if we even need this
+        // TODO see if we can get this into the Utility class
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -651,8 +651,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             }
         });
 
-        // TODO needs refactoring
-        // Event listener for the Undo workflow. Discrease the total pitch counts and find the last
+        // Event listener for the Undo workflow. Decrease the total pitch counts and find the last
         // entered statistics and decrement the counts appropriately.
         mUndo.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -64,6 +64,20 @@ public class EventInfoFragment extends DialogFragment {
         void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
     }
 
+    // Exception handling for the interface
+    // Makes sure that the Fragment is associated with an Activity
+    // Will throw java.lang.IllegalStateException: Fragment EventInfoFragment{9543f7f} not attached to Activity
+    // without when registering a new user.
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnInputListener = (OnInputListener) getActivity();
+        } catch (ClassCastException cce) {
+            Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +87,7 @@ public class EventInfoFragment extends DialogFragment {
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
-        // TODO Reference
+        // Get reference to users child node
         mUserReference = FirebaseDatabase.getInstance().getReference().child("users");
 
         // Disable the back button on selection
@@ -241,17 +255,6 @@ public class EventInfoFragment extends DialogFragment {
         };
 
         mUserReference.addValueEventListener(mValueReadUsersFirebase);
-    }
-
-    // Exception handling for the interface
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mOnInputListener = (OnInputListener) getActivity();
-        } catch (ClassCastException cce) {
-            Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
-        }
     }
 
     // Helps with connectivity issues in Firebase

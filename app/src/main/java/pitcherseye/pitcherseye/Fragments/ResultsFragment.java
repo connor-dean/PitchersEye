@@ -39,9 +39,6 @@ public class ResultsFragment extends DialogFragment {
     int pitcherOtherCount;
     int eventOtherCount;
 
-    //public OnInputListener mOnInputResultsListener; TODO
-    //TaggingActivity taggingActivity = (TaggingActivity) getActivity(); TODO
-
     public interface OnInputListener {
         void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
                               int pitcherSliderCount, int pitcherOtherCount);

@@ -13,6 +13,10 @@ public class User {
     public String password;
     public String teamID;
 
+    // Firebase requires a no-arg constructor or else you'll get:
+    // com.google.firebase.database.DatabaseException: Class pitcherseye.pitcherseye.Objects.EventStats is missing a constructor with no arguments
+    public User() { }
+
     public User(String fname, String lname, String email, String password, String teamID) {
         this.fname = fname;
         this.lname = lname;

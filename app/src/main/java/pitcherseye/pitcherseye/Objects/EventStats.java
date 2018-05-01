@@ -35,6 +35,10 @@ public class EventStats {
     public int eventSliderCount;
     public int eventOtherCount;
 
+    // Firebase requires a no-arg constructor or else you'll get:
+    // com.google.firebase.database.DatabaseException: Class pitcherseye.pitcherseye.Objects.EventStats is missing a constructor with no arguments
+    public EventStats() { }
+
     public EventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
                       int playerID, int teamID, int pitchCount, int strikeCount,
                       int eventBallCount, int eventBallCountLow, int eventBallCountHigh, int eventBallCountLeft,
