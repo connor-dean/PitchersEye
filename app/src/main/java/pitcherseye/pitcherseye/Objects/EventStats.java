@@ -1,10 +1,9 @@
+/*
+  This class is our model for our eventStats child in Firebase.
+ */
+
 package pitcherseye.pitcherseye.Objects;
 
-import java.util.Date;
-
-/**
- * Created by Connor on 2/25/2018.
- */
 public class EventStats {
 
     public String eventID;
@@ -36,6 +35,8 @@ public class EventStats {
     public int eventSliderCount;
     public int eventOtherCount;
 
+    // Firebase requires a no-arg constructor or else you'll get:
+    // com.google.firebase.database.DatabaseException: Class pitcherseye.pitcherseye.Objects.EventStats is missing a constructor with no arguments
     public EventStats() { }
 
     public EventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,

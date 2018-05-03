@@ -33,24 +33,24 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mSignUpFirstName;
     EditText mSignUpLastName;
     EditText mSignUpPassword;
-    EditText mSignUpRegistrationID;
-    EditText mSignUpTeamID;
+    EditText mSignUpRegistrationID; // Use this field later once we can scale
+    EditText mSignUpTeamID; // Use this field later once we can scale
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     ProgressBar mSignUpProgress;
 
-    // Request Code
-    int REQUEST_CODE_CALCULATE = 0;
-
-    // EditText strings to be used later
     String fname;
     String lname;
     String email;
     String password;
     String confirmPassword;
-    String teamID;
-    String registrationID;
+    String teamID; // Use this field later once we can scale
+    String registrationID; // Use this field later once we can scale
 
+    // Request Code
+    int REQUEST_CODE_CALCULATE = 0;
+
+    // We'll call this in other Activities to access this Activity
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, SignUpActivity.class);
         return i;
@@ -61,7 +61,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        // Instantiate Firebase object
+        // Instantiate Firebase objects
+        // We'll have one for our Authentication database and one for our Realtime Database
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -70,10 +71,11 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUpProgress.setVisibility(View.GONE);
 
         // Register event
-        registerEvent();
+        registerUserHelper();
     }
 
-    private void registerEvent() {
+    // Used as a helper method to wrap the loadRegistrationValues and registerUser methods
+    private void registerUserHelper() {
         mRegisterButton = (Button) findViewById(R.id.button_signup_register);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     // Receives input from text fields and verifies credentials
+    // TODO see if we can refactor this at all to have a better pattern
     private void registerUser() {
         // Iterate through inputs and validate
         if (validateInput(fname, mSignUpFirstName, "First name")) return;
@@ -121,11 +124,14 @@ public class SignUpActivity extends AppCompatActivity {
                         // Hide the progress bar
                         mSignUpProgress.setVisibility(View.GONE);
 
+                        // If the registration was successful, direct user to the MainActivity
                         if (task.isSuccessful()) {
-                            // If the registration was successful, direct user to the MainActivity
                             Intent i = MainActivity.newIntent(SignUpActivity.this);
                             startActivityForResult(i, REQUEST_CODE_CALCULATE);
 
+                            // Assign the user a randomly generated userID, this is up for change
+                            // and we'll see if we can make an incrementign value like to do for
+                            // PitcherStats and EventStats.
                             String userID = Utilities.createRandomHex(6);
 
                             // TeamID will default to 0 until we can scale
@@ -151,6 +157,7 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
         mSignUpPassword = (EditText) findViewById(R.id.edt_signup_password);
         mSignUpConfirmPassword = (EditText) findViewById(R.id.edt_confirm_signup_password);
+
         // Keep this commented out until we can scale
         /*mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
         mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);*/

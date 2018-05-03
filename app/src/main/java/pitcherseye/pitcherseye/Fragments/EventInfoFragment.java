@@ -1,3 +1,9 @@
+/*
+ This Fragment gathers user inputs about the event's information on startup and finish of the TaggingActivity.
+ On startup we'll ask for the user to input the information and on finish we'll ask for them to confirm the
+ information that they put in earlier.
+ */
+
 package pitcherseye.pitcherseye.Fragments;
 
 import android.app.DialogFragment;
@@ -32,8 +38,7 @@ import pitcherseye.pitcherseye.R;
 
 public class EventInfoFragment extends DialogFragment {
 
-    public OnInputListener mOnInputListener;
-    public ValueEventListener mValueReadUsersFirebase;
+    // UI Components
     DatabaseReference mUserReference;
     Button mConfirmChange;
     RadioGroup mRadioGroupEventType;
@@ -51,20 +56,26 @@ public class EventInfoFragment extends DialogFragment {
     String pitcherName = "";
     String eventName = "";
 
-    @Override
-    public void onStop() {
-        if (mValueReadUsersFirebase != null && mUserReference != null) {
-            mUserReference.removeEventListener(mValueReadUsersFirebase);
-        }
-        super.onStop();
+    public OnInputListener mOnInputListener;
+    public ValueEventListener mValueReadUsersFirebase;
+
+    // Send the user inputs from the dialog to TaggingActivity
+    public interface OnInputListener {
+        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
     }
 
+    // Exception handling for the interface
+    // Makes sure that the Fragment is associated with an Activity
+    // Will throw java.lang.IllegalStateException: Fragment EventInfoFragment{9543f7f} not attached to Activity
+    // without when registering a new user.
     @Override
-    public void onPause() {
-        if (mValueReadUsersFirebase != null && mUserReference != null) {
-            mUserReference.removeEventListener(mValueReadUsersFirebase);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnInputListener = (OnInputListener) getActivity();
+        } catch (ClassCastException cce) {
+            Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
         }
-        super.onPause();
     }
 
     @Nullable
@@ -76,7 +87,7 @@ public class EventInfoFragment extends DialogFragment {
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
-        // TODO Reference
+        // Get reference to users child node
         mUserReference = FirebaseDatabase.getInstance().getReference().child("users");
 
         // Disable the back button on selection
@@ -98,9 +109,12 @@ public class EventInfoFragment extends DialogFragment {
             }
         });
 
+        // Set the checkboxes on startup. This helps with confirming the event information at
+        // the end of the event.
         isGame = taggingActivity.getGame();
         isHome = taggingActivity.getHome();
 
+        // Instantiate UI Components
         mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
@@ -123,6 +137,7 @@ public class EventInfoFragment extends DialogFragment {
             mEventName.setText(taggingActivity.getEventName());
         }
 
+        // Set the checkboxes
         if (!isGame) {
             mRadioPractice.setChecked(true);
         }
@@ -130,7 +145,7 @@ public class EventInfoFragment extends DialogFragment {
             mRadioAway.setChecked(true);
         }
 
-
+        // Event handler for the RadioGroups. Set values on change.
         mRadioGroupEventType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -142,6 +157,7 @@ public class EventInfoFragment extends DialogFragment {
             }
         });
 
+        // Event handler for the RadioGroups. Set values on change.
         mRadioGroupLocation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -153,6 +169,7 @@ public class EventInfoFragment extends DialogFragment {
             }
         });
 
+        // Confirmation handler for the mConfirmChange button
         mConfirmChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +199,6 @@ public class EventInfoFragment extends DialogFragment {
                         }
                         saveEventInputs();
                         getDialog().dismiss();
-
                     }
                 }
             }
@@ -191,6 +207,7 @@ public class EventInfoFragment extends DialogFragment {
         return view;
     }
 
+    // This method helps with saving the information that we gather from the user inputs
     public void saveEventInputs() {
         final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
         int pitcherIndex = mSpinnerPitchers.getSelectedItemPosition();
@@ -203,6 +220,8 @@ public class EventInfoFragment extends DialogFragment {
         getDialog().dismiss();
     }
 
+    // Helper for loading the pitcher information into the spinner. Helps with avoiding
+    // NullPointerExceptions
     @Override
     public void onStart() {
         super.onStart();
@@ -213,6 +232,7 @@ public class EventInfoFragment extends DialogFragment {
                 final List<String> pitchers = new ArrayList<String>();
                 pitchers.add(getActivity().getResources().getString(R.string.string_select_pitcher));
 
+                // Load pitcher information from the "users" child in Firebase and concatenate the values into List.
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
@@ -237,17 +257,21 @@ public class EventInfoFragment extends DialogFragment {
         mUserReference.addValueEventListener(mValueReadUsersFirebase);
     }
 
+    // Helps with connectivity issues in Firebase
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mOnInputListener = (OnInputListener) getActivity();
-        } catch (ClassCastException cce) {
-            Log.e("CCE", "onAttach: ClassCastException: " + cce.getMessage());
+    public void onStop() {
+        if (mValueReadUsersFirebase != null && mUserReference != null) {
+            mUserReference.removeEventListener(mValueReadUsersFirebase);
         }
+        super.onStop();
     }
 
-    public interface OnInputListener {
-        void sendInput(String eventName, Boolean isGame, Boolean isHome, String pitcherName, int pitcherSpinnerIndex);
+    // Helps with connectivity issues in Firebase
+    @Override
+    public void onPause() {
+        if (mValueReadUsersFirebase != null && mUserReference != null) {
+            mUserReference.removeEventListener(mValueReadUsersFirebase);
+        }
+        super.onPause();
     }
 }

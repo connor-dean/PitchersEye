@@ -1,3 +1,21 @@
+/*
+ This Activity handles the majority of calculations and adjustments in the tracking of statistics in the
+ application. We have a 3x3 "grid" of buttons and 4 buttons that will indicate a "ball" that are red before
+ setting the opacity of the buttons completely. When a grid button is selected, we adjust the counts accordingly.
+
+ This also hosts several fragments that improve the workflow of the application.
+
+ We host:
+    EventInfoFragment - Shown on startup and finish of the Activity. Prompts the user for input of the Event.
+    ResultsFragment - Displays to prompt the user for the pitch type
+    ChangePitcherFragment - Shows a spinner of loaded pitchers from Firebase
+
+ We also have an undo workflow that will take the latest pitch type and region and adjust the counts.
+
+ The system of how we are handling the events for the pressing of those buttons will be refactored in the
+ future after a better alternative is found.
+ */
+
 package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
@@ -6,14 +24,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +53,7 @@ import pitcherseye.pitcherseye.Utilities;
 public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
         ChangePitcherFragment.OnInputListener {
 
-    // Buttons
+    // UI Components
     Button mR1C1;
     Button mR1C2;
     Button mR1C3;
@@ -56,9 +72,24 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Button mUndo;
     DatabaseReference mDatabase;
     Button mChangePitcher;
-
-    // Request Code
-    int REQUEST_CODE_CALCULATE = 0;
+    TextView mEventName;
+    TextView mPitcherName;
+    TextView mEventFastballCount;
+    TextView mEventStrikes;
+    TextView mEventBalls;
+    TextView mEventPitchCount;
+    TextView mEventChangeupCount;
+    TextView mEventCurveballCount;
+    TextView mEventSliderCount;
+    TextView mEventOtherCount;
+    TextView mPitcherPitchCount;
+    TextView mPitcherStrikes;
+    TextView mPitcherBalls;
+    TextView mPitcherFastballCount;
+    TextView mPitcherChangeupCount;
+    TextView mPitcherCurveballCount;
+    TextView mPitcherSliderCount;
+    TextView mPitcherOtherCount;
 
     // Event information
     String eventName;
@@ -70,32 +101,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     String eventDate = df.format(Calendar.getInstance().getTime());
 
-    TextView mEventName;
-    TextView mPitcherName;
-
-    TextView mEventFastballCount;
-    TextView mEventStrikes;
-    TextView mEventBalls;
-    TextView mEventPitchCount;
-    TextView mEventChangeupCount;
-    TextView mEventCurveballCount;
-    TextView mEventSliderCount;
-    TextView mEventOtherCount;
-
-    TextView mPitcherPitchCount;
-    TextView mPitcherStrikes;
-    TextView mPitcherBalls;
-    TextView mPitcherFastballCount;
-    TextView mPitcherChangeupCount;
-    TextView mPitcherCurveballCount;
-    TextView mPitcherSliderCount;
-    TextView mPitcherOtherCount;
-
     // Events count
     int eventPitchCount = 0;
     int eventStrikesCount = 0;
     int eventBallsCount = 0;
-
     int eventFastballCount = 0;
     int eventChangeupCount = 0;
     int eventCurveballCount = 0;
@@ -163,13 +172,21 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     Boolean isBallHigh;
     Boolean isBallLeft;
     Boolean isBallRight;
-
     Boolean eventInfoSet;
-
-    String eventID = Utilities.createRandomHex(6);
 
     long pitcherStatsIDCount;
     long eventStatsIDCount;
+
+    String eventID = Utilities.createRandomHex(6);
+
+    // Request Code
+    int REQUEST_CODE_CALCULATE = 0;
+
+    // We'll call this in other Activities to access this Activity
+    public static Intent newIntent(Context packageContext) {
+        Intent i = new Intent(packageContext, TaggingActivity.class);
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +194,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         setContentView(R.layout.activity_tagging);
 
         setEventInfoSet(false); // Default that the event isn't set
-        setGame(true);
-        setHome(true);
+        setGame(true); // Set to true on startup
+        setHome(true); // Set to true on startup
 
         // Instantiate Firebase object
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -211,7 +228,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         // Instantiate TextViews
         mEventName = (TextView) findViewById(R.id.txt_event_name);
         mPitcherName = (TextView) findViewById(R.id.txt_pitcher_name);
-
         mEventPitchCount = (TextView) findViewById(R.id.txt_event_pitch_count);
         mEventStrikes = (TextView) findViewById(R.id.txt_event_strikes_count);
         mEventBalls = (TextView) findViewById(R.id.txt_event_balls_count);
@@ -220,7 +236,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mEventCurveballCount = (TextView) findViewById(R.id.txt_event_curveball_count);
         mEventSliderCount = (TextView) findViewById(R.id.txt_event_slider_count);
         mEventOtherCount = (TextView) findViewById(R.id.txt_event_other_count);
-
         mPitcherPitchCount = (TextView) findViewById(R.id.txt_pitcher_pitch_count);
         mPitcherStrikes = (TextView) findViewById(R.id.txt_pitcher_strikes_count);
         mPitcherBalls = (TextView) findViewById(R.id.txt_pitcher_balls_count);
@@ -230,11 +245,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherSliderCount = (TextView) findViewById(R.id.txt_pitcher_slider_count);
         mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
 
-        // Disable undo button at startup
         // Set opacity on start
         resetHeatMap();
 
         // Instantiate and load pitchers into spinner
+        // TODO see if we can get this into the Utility class
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -244,7 +259,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                     String pitcherFName = areaSnapshot.child("fname").getValue(String.class);
                     String pitcherLName = areaSnapshot.child("lname").getValue(String.class);
                     String pitcherFullName = pitcherFName + " " + pitcherLName;
-                    // Add empty space for the start
                     pitchers.add(pitcherFullName);
                 }
             }
@@ -264,6 +278,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String max = "0";
 
+                // Grab the key of the children and increment by one
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     max = child.getKey();
                     Log.i("Max pitcher", max);
@@ -282,6 +297,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String max = "0";
 
+                // Grab the key of the children and increment by one
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     max = child.getKey();
                     Log.i("Max event", max);
@@ -306,6 +322,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         });
 
         // TODO Needs refactoring eventually
+        // Event handlers for the grid buttons
+        // We could have used a switch statement and had dedicated methods for each of these,
+        // but would be more difficult to debug. Also believe that this is the "cleaner" route
+        // for the time being until we can find a better convention.
         mR1C1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -323,8 +343,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -348,8 +368,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -373,8 +393,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -398,8 +418,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -423,8 +443,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -448,8 +468,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -473,8 +493,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -498,8 +518,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -523,8 +543,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                         false, false, false,
                         false);
 
-                mUndo.setEnabled(true);
-                adjustHeatMap();
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
 
                 // Open ResultsFragment
                 displayPitchResultsFragment();
@@ -540,14 +560,18 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
                 ++eventBallsCountLow;
                 ++pitcherBallsCountLow;
+
+                // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
                         false, false, false,
                         true, false, false,
                         false);
-                mUndo.setEnabled(true);
-                adjustHeatMap();
 
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
+
+                // Open ResultsFragment
                 displayPitchResultsFragment();
             }
         });
@@ -561,14 +585,18 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
                 ++eventBallsCountHigh;
                 ++pitcherBallsCountHigh;
+
+                // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
                         false, false, false,
                         false, true, false,
                         false);
-                mUndo.setEnabled(true);
-                adjustHeatMap();
 
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
+
+                // Open ResultsFragment
                 displayPitchResultsFragment();
             }
         });
@@ -582,14 +610,18 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
                 ++eventBallsCountLeft;
                 ++pitcherBallsCountLeft;
+
+                // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
                         false, false, false,
                         false, false, true,
                         false);
-                mUndo.setEnabled(true);
-                adjustHeatMap();
 
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
+
+                // Open ResultsFragment
                 displayPitchResultsFragment();
             }
         });
@@ -603,19 +635,24 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
                 ++eventBallsCountRight;
                 ++pitcherBallsCountRight;
+
+                // Undo workflow
                 setLastRegionResult(false, false, false,
                         false, false, false,
                         false, false, false,
                         false, false, false,
                         true);
-                mUndo.setEnabled(true);
-                adjustHeatMap();
 
+                mUndo.setEnabled(true); // Enable the undo button after entering selection
+                adjustHeatMap(); // Recalculate the heat map accordingly
+
+                // Open ResultsFragment
                 displayPitchResultsFragment();
             }
         });
 
-        // TODO needs refactoring
+        // Event listener for the Undo workflow. Decrease the total pitch counts and find the last
+        // entered statistics and decrement the counts appropriately.
         mUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -630,36 +667,39 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
             }
         });
 
+        // Display EventInfoFragment to confirm results
         mFinishGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayEventInfoFragment();  // Display EventInfoFragment to confirm results
+                displayEventInfoFragment();
             }
         });
     }
 
-    // TODO improve logs
+    // Helper method to display the EventInfoFragment
     private void displayEventInfoFragment() {
         FragmentManager fm = getFragmentManager();
         EventInfoFragment infoFragment = new EventInfoFragment();
         infoFragment.show(fm, "Open EventInfoFragment");
     }
 
+    // Helper method to display the PitchResultsFragment
     private void displayPitchResultsFragment() {
         FragmentManager fm = getFragmentManager();
         ResultsFragment resultsFragment = new ResultsFragment();
         resultsFragment.show(fm, "Open ResultsFragment");
     }
 
-    // Once a game has been finished, grab the event stats and send them to Firebase
+    // Once a game has been finished, grab the event stats and send them to Firebase using the EventStats object
     private void sendEventStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
-                                int playerID, int teamID, int pitchCount, int strikeCount, int eventBallCount,
+                                int pitcherID, int teamID, int pitchCount, int strikeCount, int eventBallCount,
                                 int eventBallCountLow, int eventBallCountHigh, int eventBallCountLeft, int eventBallCountRight,
                                 int R1C1Count, int R1C2Count, int R1C3Count, int R2C1Count, int R2C2Count,
                                 int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int eventFastballCount,
                                 int eventChangeupCount, int eventCurveballCount, int eventSliderCount, int eventOtherCount) {
+
         // Defaulting some statistics to 0 until we establish further IDs
-        EventStats eventStats = new EventStats(eventID, eventName, eventDate, isGame, isHome, playerID, teamID, pitchCount, strikeCount,
+        EventStats eventStats = new EventStats(eventID, eventName, eventDate, isGame, isHome, pitcherID, teamID, pitchCount, strikeCount,
                 eventBallCount, eventBallCountLow, eventBallCountHigh, eventBallCountLeft, eventBallCountRight,
                 R1C1Count, R1C2Count, R1C3Count, R2C1Count, R2C2Count,
                 R2C3Count, R3C1Count, R3C2Count, R3C3Count, eventFastballCount,
@@ -669,9 +709,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("eventStats").child(Long.toString(eventStatsIDCount)).setValue(eventStats);
     }
 
-    // Once a pitcher has been changed, grab the pitcher's information and send that to Firebase
+    // Once a pitcher has been changed, grab the pitcher's information and send that to Firebase using the PitcherStats object
     private void sendPitcherStats(String eventID, String eventName, String eventDate, Boolean isGame, Boolean isHome,
-                                  int playerID, String pitcherName, int teamID, int pitchCount, int strikeCount, int pitcherBallCount,
+                                  int pitcherID, String pitcherName, int teamID, int pitchCount, int strikeCount, int pitcherBallCount,
                                   int pitcherBallCountLow, int pitcherBallCountHigh, int pitcherBallCountLeft, int pitcherBallCountRight,
                                   int R1C1Count, int R1C2Count, int R1C3Count, int R2C1Count, int R2C2Count,
                                   int R2C3Count, int R3C1Count, int R3C2Count, int R3C3Count, int fastballCount,
@@ -681,7 +721,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         // String pitcherStatsID = Utilities.createRandomHex(6);
 
         PitcherStats pitcherStats = new PitcherStats(eventID, eventName, eventDate, isGame, isHome,
-                playerID, pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount,
+                pitcherID, pitcherName, teamID, pitchCount, strikeCount, pitcherBallCount,
                 pitcherBallCountLow, pitcherBallCountHigh, pitcherBallCountLeft,
                 pitcherBallCountRight, R1C1Count, R1C2Count, R1C3Count, R2C1Count,
                 R2C2Count, R2C3Count, R3C1Count, R3C2Count, R3C3Count, fastballCount,
@@ -690,7 +730,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mDatabase.child("pitcherStats").child(Long.toString(pitcherStatsIDCount)).setValue(pitcherStats);
     }
 
-    // Adjust the heatmap
+    // Reset the heat map on startup and when we select a new pitcher
     public void resetHeatMap() {
         mR1C1.getBackground().setAlpha(0);
         mR1C2.getBackground().setAlpha(0);
@@ -708,6 +748,10 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mUndo.setEnabled(false);
     }
 
+    // Calculate the percentages of the regions thrown to. We actually have the buttons set as
+    // completely red and set the opacity to 0 when we start the Activity. We use setAlpha to adjust
+    // the opacity. This method ranges from 0 to 255, with 0 having no opacity, resulting in red buttons.
+    // We increase the opacity of the button based on the percentage that that area was thrown to.
     private void adjustHeatMap() {
         mR1C1.getBackground().setAlpha(pitcherCount_R1C1 * 255 / pitcherPitchCount);
         mR1C2.getBackground().setAlpha(pitcherCount_R1C2 * 255 / pitcherPitchCount);
@@ -724,6 +768,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mBallRight.getBackground().setAlpha(pitcherBallsCountRight * 255 / pitcherPitchCount);
     }
 
+    // This is used to find hte last region that was thrown to for the "undo" workflow
     private void setLastRegionResult(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
                                      Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
                                      Boolean isR3C1, Boolean isR3C2, Boolean isR3C3,
@@ -744,6 +789,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         this.isBallRight = isBallRight;
     }
 
+    // The actual handler for resetting the counts. It'll grab the last region thrown to and decrement
+    // the counts.
     private void getLastRegionResults(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
                                       Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
                                       Boolean isR3C1, Boolean isR3C2, Boolean isR3C3,
@@ -842,11 +889,13 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isBallRight = false;
     }
 
+    // Lower the total pitch counts on undo
     private void decreaseTotalPitchCount() {
         mPitcherPitchCount.setText(Integer.toString(--pitcherPitchCount));
         mEventPitchCount.setText(Integer.toString(--eventPitchCount));
     }
 
+    // This handles the pitch "type" count decrement for the undo workflow
     private void checkLastPitchResult() {
         if (isFastball) {
             mPitcherFastballCount.setText(Integer.toString(--pitcherFastballCount));
@@ -875,6 +924,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isOther = false;
     }
 
+    // Used by ResultsFragment to adjust the pitch type counts in TaggingActivity
     public void updatePitcherResultsCounts(Boolean isFastball, Boolean isChangeup, Boolean isCurveball,
                                            Boolean isSlider, Boolean isOther) {
 
@@ -944,6 +994,9 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount = 0));
     }
 
+    // Helper method for when we finish an event. We'll display a progress spinner while it's sending information
+    // to Firebase, and we'll save the pitching and event sessions and save the statistics to EventStats and PitcherStats.
+    // On completion, we'll redirect the user back to MainActivity
     public void finishGameHelper() {
         // Display ProgressBar
         mProgressFinishGame.setVisibility(View.VISIBLE);
@@ -993,6 +1046,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         this.setPitcherName(changePitcherDialogName);
     }
 
+    // Use this to retrieve pitcher information from ResultsFragment
     @Override
     public void sendResultsInput(int pitcherFastballCount, int pitcherChangeupCount, int pitcherCurveballCount,
                                  int pitcherSliderCount, int pitcherOtherCount) {
@@ -1001,6 +1055,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         mPitcherCurveballCount.setText(Integer.toString(pitcherCurveballCount));
         mPitcherSliderCount.setText(Integer.toString(pitcherSliderCount));
         mPitcherOtherCount.setText(Integer.toString(pitcherOtherCount));
+    }
+
+    // Force the user to finish the event in case of an accidental exit with the back button
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Please finish the game to exit the event", Toast.LENGTH_SHORT).show();
     }
 
     // Getters/Setters
@@ -1046,15 +1106,5 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     public void setEventInfoSet(Boolean eventInfoSet) {
         this.eventInfoSet = eventInfoSet;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "Please finish the game to exit the event", Toast.LENGTH_SHORT).show();
-    }
-
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, TaggingActivity.class);
-        return i;
     }
 }

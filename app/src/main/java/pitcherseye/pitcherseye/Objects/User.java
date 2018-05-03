@@ -1,8 +1,8 @@
-package pitcherseye.pitcherseye.Objects;
-
-/**
- * Created by Connor on 2/8/2018.
+/*
+  This class is our model for our users child in Firebase.
  */
+
+package pitcherseye.pitcherseye.Objects;
 
 public class User {
 
@@ -13,6 +13,8 @@ public class User {
     public String password;
     public String teamID;
 
+    // Firebase requires a no-arg constructor or else you'll get:
+    // com.google.firebase.database.DatabaseException: Class pitcherseye.pitcherseye.Objects.EventStats is missing a constructor with no arguments
     public User() { }
 
     public User(String fname, String lname, String email, String password, String teamID) {
