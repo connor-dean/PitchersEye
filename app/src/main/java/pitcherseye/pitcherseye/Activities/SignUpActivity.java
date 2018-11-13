@@ -1,10 +1,10 @@
 package pitcherseye.pitcherseye.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pitcherseye.pitcherseye.Objects.User;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
@@ -27,39 +29,34 @@ import pitcherseye.pitcherseye.Utilities;
 public class SignUpActivity extends AppCompatActivity {
 
     // UI Components
-    Button mRegisterButton;
-    EditText mSignUpConfirmPassword;
-    EditText mSignUpEmail;
-    EditText mSignUpFirstName;
-    EditText mSignUpLastName;
-    EditText mSignUpPassword;
-    EditText mSignUpRegistrationID; // Use this field later once we can scale
-    EditText mSignUpTeamID; // Use this field later once we can scale
+    @BindView(R.id.button_signup_register) Button mRegisterButton;
+    @BindView(R.id.edt_confirm_signup_password) EditText mSignUpConfirmPassword;
+    @BindView(R.id.edt_signup_email) EditText mSignUpEmail;
+    @BindView(R.id.edt_first_name) EditText mSignUpFirstName;
+    @BindView(R.id.edt_last_name) EditText mSignUpLastName;
+    @BindView(R.id.edt_signup_password) EditText mSignUpPassword;
+    @BindView(R.id.progress_signup) ProgressBar mSignUpProgress;
+
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    ProgressBar mSignUpProgress;
+
+    //EditText mSignUpRegistrationID; // Use this field later once we can scale
+    //EditText mSignUpTeamID; // Use this field later once we can scale
 
     String fname;
     String lname;
     String email;
     String password;
     String confirmPassword;
-    String teamID; // Use this field later once we can scale
-    String registrationID; // Use this field later once we can scale
 
-    // Request Code
-    int REQUEST_CODE_CALCULATE = 0;
-
-    // We'll call this in other Activities to access this Activity
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, SignUpActivity.class);
-        return i;
-    }
+    // String teamID; // Use this field later once we can scale
+    // String registrationID; // Use this field later once we can scale
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        ButterKnife.bind(this);
 
         // Instantiate Firebase objects
         // We'll have one for our Authentication database and one for our Realtime Database
@@ -67,7 +64,6 @@ public class SignUpActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Instantiate and hide progress bar
-        mSignUpProgress = (ProgressBar) findViewById(R.id.progress_signup);
         mSignUpProgress.setVisibility(View.GONE);
 
         // Register event
@@ -76,7 +72,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Used as a helper method to wrap the loadRegistrationValues and registerUser methods
     private void registerUserHelper() {
-        mRegisterButton = (Button) findViewById(R.id.button_signup_register);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,8 +121,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                         // If the registration was successful, direct user to the MainActivity
                         if (task.isSuccessful()) {
-                            Intent i = MainActivity.newIntent(SignUpActivity.this);
-                            startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                            Intent intentTagging = new Intent(SignUpActivity. this, MainActivity.class);
+
+                            Log.i("SignUpActivity", "Opening MainActivity");
+                            Log.i("SignUpActivity", "Adding user");
+                            startActivity(intentTagging);
 
                             // Assign the user a randomly generated userID, this is up for change
                             // and we'll see if we can make an incrementign value like to do for
@@ -152,16 +150,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Initialize/instantiate inputs from EditText fields
     private void loadRegistrationValues() {
-        mSignUpFirstName = (EditText) findViewById(R.id.edt_first_name);
-        mSignUpLastName = (EditText) findViewById(R.id.edt_last_name);
-        mSignUpEmail = (EditText) findViewById(R.id.edt_signup_email);
-        mSignUpPassword = (EditText) findViewById(R.id.edt_signup_password);
-        mSignUpConfirmPassword = (EditText) findViewById(R.id.edt_confirm_signup_password);
-
-        // Keep this commented out until we can scale
-        /*mSignUpTeamID = (EditText) findViewById(R.id.edt_team_id);
-        mSignUpRegistrationID = (EditText) findViewById(R.id.edt_registration_id);*/
-
         fname = mSignUpFirstName.getText().toString().trim();
         lname = mSignUpLastName.getText().toString().trim();
         email = mSignUpEmail.getText().toString().trim();
