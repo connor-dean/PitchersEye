@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pitcherseye.pitcherseye.Fragments.ChangePitcherFragment;
 import pitcherseye.pitcherseye.Fragments.EventInfoFragment;
 import pitcherseye.pitcherseye.Fragments.ResultsFragment;
@@ -54,42 +56,43 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         ChangePitcherFragment.OnInputListener {
 
     // UI Components
-    Button mR1C1;
-    Button mR1C2;
-    Button mR1C3;
-    Button mR2C1;
-    Button mR2C2;
-    Button mR2C3;
-    Button mR3C1;
-    Button mR3C2;
-    Button mR3C3;
-    Button mBallLow;
-    Button mBallHigh;
-    Button mBallRight;
-    Button mBallLeft;
-    Button mFinishGame;
-    ProgressBar mProgressFinishGame;
-    Button mUndo;
+    @BindView(R.id.btnR1C1) Button mR1C1;
+    @BindView(R.id.btnR1C2) Button mR1C2;
+    @BindView(R.id.btnR1C3) Button mR1C3;
+    @BindView(R.id.btnR2C1) Button mR2C1;
+    @BindView(R.id.btnR2C2) Button mR2C2;
+    @BindView(R.id.btnR2C3) Button mR2C3;
+    @BindView(R.id.btnR3C1) Button mR3C1;
+    @BindView(R.id.btnR3C2) Button mR3C2;
+    @BindView(R.id.btnR3C3) Button mR3C3;
+    @BindView(R.id.btn_ball_low) Button mBallLow;
+    @BindView(R.id.btn_ball_high) Button mBallHigh;
+    @BindView(R.id.btn_ball_right) Button mBallRight;
+    @BindView(R.id.btn_ball_left) Button mBallLeft;
+    @BindView(R.id.btn_finish_game) Button mFinishGame;
+    @BindView(R.id.progress_finish_game) ProgressBar mProgressFinishGame;
+    @BindView(R.id.btn_undo) Button mUndo;
+    @BindView(R.id.button_event_info) Button mChangePitcher;
+    @BindView(R.id.txt_event_name) TextView mEventName;
+    @BindView(R.id.txt_pitcher_name) TextView mPitcherName;
+    @BindView(R.id.txt_event_fastball_count) TextView mEventFastballCount;
+    @BindView(R.id.txt_event_strikes_count) TextView mEventStrikes;
+    @BindView(R.id.txt_event_balls_count) TextView mEventBalls;
+    @BindView(R.id.txt_event_pitch_count) TextView mEventPitchCount;
+    @BindView(R.id.txt_event_changeup_count) TextView mEventChangeupCount;
+    @BindView(R.id.txt_event_curveball_count) TextView mEventCurveballCount;
+    @BindView(R.id.txt_event_slider_count) TextView mEventSliderCount;
+    @BindView(R.id.txt_event_other_count) TextView mEventOtherCount;
+    @BindView(R.id.txt_pitcher_pitch_count) TextView mPitcherPitchCount;
+    @BindView(R.id.txt_pitcher_strikes_count) TextView mPitcherStrikes;
+    @BindView(R.id.txt_pitcher_balls_count) TextView mPitcherBalls;
+    @BindView(R.id.txt_pitcher_fastball_count) TextView mPitcherFastballCount;
+    @BindView(R.id.txt_pitcher_changeup_count) TextView mPitcherChangeupCount;
+    @BindView(R.id.txt_pitcher_curveball_count) TextView mPitcherCurveballCount;
+    @BindView(R.id.txt_pitcher_slider_count) TextView mPitcherSliderCount;
+    @BindView(R.id.txt_pitcher_other_count) TextView mPitcherOtherCount;
+
     DatabaseReference mDatabase;
-    Button mChangePitcher;
-    TextView mEventName;
-    TextView mPitcherName;
-    TextView mEventFastballCount;
-    TextView mEventStrikes;
-    TextView mEventBalls;
-    TextView mEventPitchCount;
-    TextView mEventChangeupCount;
-    TextView mEventCurveballCount;
-    TextView mEventSliderCount;
-    TextView mEventOtherCount;
-    TextView mPitcherPitchCount;
-    TextView mPitcherStrikes;
-    TextView mPitcherBalls;
-    TextView mPitcherFastballCount;
-    TextView mPitcherChangeupCount;
-    TextView mPitcherCurveballCount;
-    TextView mPitcherSliderCount;
-    TextView mPitcherOtherCount;
 
     // Event information
     String eventName;
@@ -192,6 +195,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
+        ButterKnife.bind(this);
 
         setEventInfoSet(false); // Default that the event isn't set
         setGame(true); // Set to true on startup
@@ -203,48 +207,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         // Display DialogFragment for initial data entry
         displayEventInfoFragment();
 
-        // Instantiate Buttons
-        mChangePitcher = (Button) findViewById(R.id.button_event_info);
-        mR1C1 = (Button) findViewById(R.id.btnR1C1);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3);
-        mBallLow = (Button) findViewById(R.id.btn_ball_low);
-        mBallHigh = (Button) findViewById(R.id.btn_ball_high);
-        mBallRight = (Button) findViewById(R.id.btn_ball_right);
-        mBallLeft = (Button) findViewById(R.id.btn_ball_left);
-        mFinishGame = (Button) findViewById(R.id.btn_finish_game);
-        mUndo = (Button) findViewById(R.id.btn_undo);
-
-        // Instantiate ProgressBar
-        mProgressFinishGame = (ProgressBar) findViewById(R.id.progress_finish_game);
         mProgressFinishGame.setVisibility(View.GONE);
-
-        // Instantiate TextViews
-        mEventName = (TextView) findViewById(R.id.txt_event_name);
-        mPitcherName = (TextView) findViewById(R.id.txt_pitcher_name);
-        mEventPitchCount = (TextView) findViewById(R.id.txt_event_pitch_count);
-        mEventStrikes = (TextView) findViewById(R.id.txt_event_strikes_count);
-        mEventBalls = (TextView) findViewById(R.id.txt_event_balls_count);
-        mEventFastballCount = (TextView) findViewById(R.id.txt_event_fastball_count);
-        mEventChangeupCount = (TextView) findViewById(R.id.txt_event_changeup_count);
-        mEventCurveballCount = (TextView) findViewById(R.id.txt_event_curveball_count);
-        mEventSliderCount = (TextView) findViewById(R.id.txt_event_slider_count);
-        mEventOtherCount = (TextView) findViewById(R.id.txt_event_other_count);
-        mPitcherPitchCount = (TextView) findViewById(R.id.txt_pitcher_pitch_count);
-        mPitcherStrikes = (TextView) findViewById(R.id.txt_pitcher_strikes_count);
-        mPitcherBalls = (TextView) findViewById(R.id.txt_pitcher_balls_count);
-        mPitcherFastballCount = (TextView) findViewById(R.id.txt_pitcher_fastball_count);
-        mPitcherChangeupCount = (TextView) findViewById(R.id.txt_pitcher_changeup_count);
-        mPitcherCurveballCount = (TextView) findViewById(R.id.txt_pitcher_curveball_count);
-        mPitcherSliderCount = (TextView) findViewById(R.id.txt_pitcher_slider_count);
-        mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
-
+        
         // Set opacity on start
         resetHeatMap();
 
