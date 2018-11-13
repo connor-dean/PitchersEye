@@ -13,47 +13,49 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pitcherseye.pitcherseye.R;
 
 public class ReportsActivity extends AppCompatActivity {
 
     // UI Components
-    TextView mReportsHeader;
-    TextView mReportsPitchCount;
-    TextView mReportsStrikeCount;
-    TextView mReportsBallCount;
-    TextView mReportsFastballCount;
-    TextView mReportsChangeupCount;
-    TextView mReportsCurveballCount;
-    TextView mReportsSliderCount;
-    TextView mReportsOtherCount;
-    TextView mReportsR1C1;
-    TextView mReportsR1C2;
-    TextView mReportsR1C3;
-    TextView mReportsR2C1;
-    TextView mReportsR2C2;
-    TextView mReportsR2C3;
-    TextView mReportsR3C1;
-    TextView mReportsR3C2;
-    TextView mReportsR3C3;
-    TextView mReportsBallLow;
-    TextView mReportsBallHigh;
-    TextView mReportsBallLeft;
-    TextView mReportsBallRight;
+    @BindView(R.id.txt_reports_event_header) TextView mReportsHeader;
+    @BindView(R.id.txt_reports_event_pitch_count) TextView mReportsPitchCount;
+    @BindView(R.id.txt_reports_event_strikes_count) TextView mReportsStrikeCount;
+    @BindView(R.id.txt_reports_event_balls_count) TextView mReportsBallCount;
+    @BindView(R.id.txt_reports_event_fastball_count) TextView mReportsFastballCount;
+    @BindView(R.id.txt_reports_event_changeup_count) TextView mReportsChangeupCount;
+    @BindView(R.id.txt_reports_event_curveball_count) TextView mReportsCurveballCount;
+    @BindView(R.id.txt_reports_event_slider_count) TextView mReportsSliderCount;
+    @BindView(R.id.txt_reports_event_other_count) TextView mReportsOtherCount;
+    @BindView(R.id.txt_reports_event_r1c1_count) TextView mReportsR1C1;
+    @BindView(R.id.txt_reports_event_r1c2_count) TextView mReportsR1C2;
+    @BindView(R.id.txt_reports_event_r1c3_count) TextView mReportsR1C3;
+    @BindView(R.id.txt_reports_event_r2c1_count) TextView mReportsR2C1;
+    @BindView(R.id.txt_reports_event_r2c2_count) TextView mReportsR2C2;
+    @BindView(R.id.txt_reports_event_r2c3_count) TextView mReportsR2C3;
+    @BindView(R.id.txt_reports_event_r3c1_count) TextView mReportsR3C1;
+    @BindView(R.id.txt_reports_event_r3c2_count) TextView mReportsR3C2;
+    @BindView(R.id.txt_reports_event_r3c3_count) TextView mReportsR3C3;
+    @BindView(R.id.txt_reports_event_ball_low_count) TextView mReportsBallLow;
+    @BindView(R.id.txt_reports_event_ball_high_count) TextView mReportsBallHigh;
+    @BindView(R.id.txt_reports_event_ball_left_count) TextView mReportsBallLeft;
+    @BindView(R.id.txt_reports_event_ball_right_count) TextView mReportsBallRight;
 
-    Button mR1C1;
-    Button mR1C2;
-    Button mR1C3;
-    Button mR2C1;
-    Button mR2C2;
-    Button mR2C3;
-    Button mR3C1;
-    Button mR3C2;
-    Button mR3C3;
-    Button mBallLow;
-    Button mBallHigh;
-    Button mBallRight;
-    Button mBallLeft;
+    @BindView(R.id.btnR1C1) Button mR1C1;
+    @BindView(R.id.btnR1C2) Button mR1C2;
+    @BindView(R.id.btnR1C3) Button mR1C3;
+    @BindView(R.id.btnR2C1) Button mR2C1;
+    @BindView(R.id.btnR2C2) Button mR2C2;
+    @BindView(R.id.btnR2C3) Button mR2C3;
+    @BindView(R.id.btnR3C1) Button mR3C1;
+    @BindView(R.id.btnR3C2) Button mR3C2;
+    @BindView(R.id.btnR3C3) Button mR3C3;
+    @BindView(R.id.btn_ball_low) Button mBallLow;
+    @BindView(R.id.btn_ball_high) Button mBallHigh;
+    @BindView(R.id.btn_ball_right) Button mBallRight;
+    @BindView(R.id.btn_ball_left) Button mBallLeft;
 
     // Used to determine if the user selected a Event or Pitchers RecyclerView
     // item in StatisticsActivity. Events = true, Pitchers = false.
@@ -89,6 +91,7 @@ public class ReportsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
+        ButterKnife.bind(this);
 
         // Load values into variables
         index = getIntent().getIntExtra("index", 99); // Doesn't get used for now but can be used for debugging in the future
@@ -116,45 +119,6 @@ public class ReportsActivity extends AppCompatActivity {
         eventBallHigh = getIntent().getIntExtra("eventBallHigh", 99);
         eventBallLeft = getIntent().getIntExtra("eventBallLeft", 99);
         eventBallRight = getIntent().getIntExtra("eventBallRight", 99);
-
-        // Instantiate UI Components
-        mReportsHeader = (TextView) findViewById(R.id.txt_reports_event_header);
-        mReportsPitchCount = (TextView) findViewById(R.id.txt_reports_event_pitch_count);
-        mReportsStrikeCount = (TextView) findViewById(R.id.txt_reports_event_strikes_count);
-        mReportsBallCount = (TextView) findViewById(R.id.txt_reports_event_balls_count);
-        mReportsFastballCount = (TextView) findViewById(R.id.txt_reports_event_fastball_count);
-        mReportsChangeupCount = (TextView) findViewById(R.id.txt_reports_event_changeup_count);
-        mReportsCurveballCount = (TextView) findViewById(R.id.txt_reports_event_curveball_count);
-        mReportsSliderCount = (TextView) findViewById(R.id.txt_reports_event_slider_count);
-        mReportsOtherCount = (TextView) findViewById(R.id.txt_reports_event_other_count);
-
-        mReportsR1C1 = (TextView) findViewById(R.id.txt_reports_event_r1c1_count);
-        mReportsR1C2 = (TextView) findViewById(R.id.txt_reports_event_r1c2_count);
-        mReportsR1C3 = (TextView) findViewById(R.id.txt_reports_event_r1c3_count);
-        mReportsR2C1 = (TextView) findViewById(R.id.txt_reports_event_r2c1_count);
-        mReportsR2C2 = (TextView) findViewById(R.id.txt_reports_event_r2c2_count);
-        mReportsR2C3 = (TextView) findViewById(R.id.txt_reports_event_r2c3_count);
-        mReportsR3C1 = (TextView) findViewById(R.id.txt_reports_event_r3c1_count);
-        mReportsR3C2 = (TextView) findViewById(R.id.txt_reports_event_r3c2_count);
-        mReportsR3C3 = (TextView) findViewById(R.id.txt_reports_event_r3c3_count);
-        mReportsBallLow = (TextView) findViewById(R.id.txt_reports_event_ball_low_count);
-        mReportsBallHigh = (TextView) findViewById(R.id.txt_reports_event_ball_high_count);
-        mReportsBallLeft = (TextView) findViewById(R.id.txt_reports_event_ball_left_count);
-        mReportsBallRight = (TextView) findViewById(R.id.txt_reports_event_ball_right_count);
-
-        mR1C1 = (Button) findViewById(R.id.btnR1C1);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3);
-        mBallLow = (Button) findViewById(R.id.btn_ball_low);
-        mBallHigh = (Button) findViewById(R.id.btn_ball_high);
-        mBallRight = (Button) findViewById(R.id.btn_ball_right);
-        mBallLeft = (Button) findViewById(R.id.btn_ball_left);
 
         // Use this to load information from intents to the UI components based off the tab selection in
         // StatisticsActivity
