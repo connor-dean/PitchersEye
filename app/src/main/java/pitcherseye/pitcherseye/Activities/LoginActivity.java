@@ -9,7 +9,6 @@
 package pitcherseye.pitcherseye.Activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +28,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pitcherseye.pitcherseye.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,26 +38,18 @@ public class LoginActivity extends AppCompatActivity {
     public static Activity loginActivity;
 
     // UI Components
-    Button mLoginButton;
-    EditText mLoginEmail;
-    EditText mLoginPassword;
+    @BindView(R.id.button_login) Button mLoginButton;
+    @BindView(R.id.edt_email) EditText mLoginEmail;
+    @BindView(R.id.edt_password) EditText mLoginPassword;
+    @BindView(R.id.progress_login) ProgressBar mLogInProgress;
+    @BindView(R.id.txt_new_user) TextView mSignUp;
     FirebaseAuth mAuth;
-    ProgressBar mLogInProgress;
-    TextView mSignUp;
-
-    // Request Code
-    int REQUEST_CODE_CALCULATE = 0;
-
-    // We'll call this in other Activities to access this Activity
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, LoginActivity.class);
-        return i;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         // For backstack management
         loginActivity = this;
@@ -65,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Instantiate and hide progress bar
-        mLogInProgress = (ProgressBar) findViewById(R.id.progress_login);
+       // mLogInProgress = (ProgressBar) findViewById(R.id.progress_login);
         mLogInProgress.setVisibility(View.GONE);
 
         // Check if a user is already logged in
@@ -93,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
 
     // Helper method for logInUser()
     public void logInEvent() {
-        mLoginButton = (Button) findViewById(R.id.button_login);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,9 +96,6 @@ public class LoginActivity extends AppCompatActivity {
 
     // Receives input from text fields and verifies credentials
     public void logInUser() {
-        mLoginEmail = (EditText) findViewById(R.id.edt_email);
-        mLoginPassword = (EditText) findViewById(R.id.edt_password);
-
         final String email = mLoginEmail.getText().toString().trim();
         final String password = mLoginPassword.getText().toString().trim();
 
@@ -147,8 +136,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 // If the login was successful, direct user to the MainActivity
                 if (task.isSuccessful()) {
-                    Intent i = MainActivity.newIntent(LoginActivity.this);
-                    startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                    Intent intentLogin = new Intent(LoginActivity.this, MainActivity.class);
+
+                    Log.i("LoginActivity", "Opening MainActivity");
+                    startActivity(intentLogin);
                     finish(); // Don't add to the backstack
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show(); // Display error message
@@ -159,12 +150,13 @@ public class LoginActivity extends AppCompatActivity {
 
     // Redirect to the SignUpActivity
     public void signUp() {
-        mSignUp = (TextView) findViewById(R.id.txt_new_user);
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = SignUpActivity.newIntent(LoginActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
+                Intent intentSignUp = new Intent(LoginActivity.this, SignUpActivity.class);
+
+                Log.i("LoginActivity", "Opening SignUpActivity");
+                startActivity(intentSignUp);
             }
         });
     }
