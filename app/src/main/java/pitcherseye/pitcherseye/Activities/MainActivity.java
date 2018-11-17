@@ -24,12 +24,6 @@ import pitcherseye.pitcherseye.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    // We'll call this in other Activities to access this Activity
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, MainActivity.class);
-        return i;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
