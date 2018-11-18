@@ -17,17 +17,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
 public class ResultsFragment extends DialogFragment {
 
     // UI Components
-    Button mFastball;
-    Button mChangeup;
-    Button mCurveball;
-    Button mSlider;
-    Button mOther;
+    @BindView(R.id.btn_result_fastball) Button mFastball;
+    @BindView(R.id.btn_result_changeup) Button mChangeup;
+    @BindView(R.id.btn_result_curve) Button mCurveball;
+    @BindView(R.id.btn_result_slider) Button mSlider;
+    @BindView(R.id.btn_result_other) Button mOther;
+
     int pitcherFastballCount;
     int eventFastballCount;
     int pitcherChangeupCount;
@@ -49,6 +53,7 @@ public class ResultsFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_results, container, false);
         final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+        ButterKnife.bind(this, view);
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
@@ -67,80 +72,30 @@ public class ResultsFragment extends DialogFragment {
                 return false;
             }
         });
-
-        // Instantiate Buttons
-        mFastball = (Button) view.findViewById(R.id.btn_result_fastball);
-        mChangeup = (Button) view.findViewById(R.id.btn_result_changeup);
-        mCurveball = (Button) view.findViewById(R.id.btn_result_curve);
-        mSlider = (Button) view.findViewById(R.id.btn_result_slider);
-        mOther = (Button) view.findViewById(R.id.btn_result_other);
-
-        // Event handlers for the result buttons
-        mFastball.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                ++pitcherFastballCount;
-                ++eventFastballCount;
-
-                // Notify TaggingActivity the last result for the undo workflow
-                taggingActivity.updatePitcherResultsCounts(true, false, false, false, false);
-                getDialog().dismiss();
-            }
-        });
-
-        mChangeup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                ++pitcherChangeupCount;
-                ++eventChangeupCount;
-
-                // Notify TaggingActivity the last result for the undo workflow
-                taggingActivity.updatePitcherResultsCounts(false, true, false, false, false);
-                getDialog().dismiss();
-            }
-        });
-
-        mCurveball.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                ++pitcherCurveballCount;
-                ++eventCurveballCount;
-
-                // Notify TaggingActivity the last result for the undo workflow
-                taggingActivity.updatePitcherResultsCounts(false, false, true, false, false);
-                getDialog().dismiss();
-            }
-        });
-
-        mSlider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                ++pitcherSliderCount;
-                ++eventSliderCount;
-
-                // Notify TaggingActivity the last result for the undo workflow
-                taggingActivity.updatePitcherResultsCounts(false, false, false, true, false);
-                getDialog().dismiss();
-            }
-        });
-
-        mOther.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Increase count
-                ++pitcherOtherCount;
-                ++eventOtherCount;
-
-                // Notify TaggingActivity the last result for the undo workflow
-                taggingActivity.updatePitcherResultsCounts(false, false, false, false, true);
-                getDialog().dismiss();
-            }
-        });
-
         return view;
     }
+
+    @OnClick({ R.id.btn_result_fastball, R.id.btn_result_changeup, R.id.btn_result_curve, R.id.btn_result_slider, R.id.btn_result_other })
+    void pitchTypeResultIncrementer(View view) {
+        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+        switch (view.getId()) {
+            case R.id.btn_result_fastball:
+                taggingActivity.pitchResultHelper(++eventFastballCount, ++pitcherFastballCount, 0);
+                break;
+            case R.id.btn_result_changeup:
+                taggingActivity.pitchResultHelper(++eventChangeupCount, ++pitcherChangeupCount, 1);
+                break;
+            case R.id.btn_result_curve:
+                taggingActivity.pitchResultHelper(++eventCurveballCount, ++pitcherCurveballCount, 2);
+                break;
+            case R.id.btn_result_slider:
+                taggingActivity.pitchResultHelper(++eventSliderCount, ++pitcherSliderCount, 3);
+                break;
+            case R.id.btn_result_other:
+                taggingActivity.pitchResultHelper(++eventOtherCount, ++pitcherOtherCount, 4);
+                break;
+        }
+        getDialog().dismiss();
+    }
+
 }

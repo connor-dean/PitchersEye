@@ -372,6 +372,20 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         setLastRegionResult(locationBooleanArray);
     }
 
+    // Method to adjust counts for the pitch result workflow
+    // This will be called in ResultsFragment
+    public void pitchResultHelper(int eventPitchTypeCounter, int pitcherPitchTypeCounter, int lastPitchType) {
+        Boolean[] pitchTypeBooleanArray = new Boolean[5];
+        for (int i = 0; i < 5; i++) {
+            if (lastPitchType == i) {
+                pitchTypeBooleanArray[i] = true;
+            } else {
+                pitchTypeBooleanArray[i] = false;
+            }
+        }
+        updatePitcherResultsCounts(pitchTypeBooleanArray);
+    }
+
     // Helper method to display the EventInfoFragment
     private void displayEventInfoFragment() {
         FragmentManager fm = getFragmentManager();
@@ -479,20 +493,6 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         this.isBallRight = locationBooleanArray[10];
         this.isBallLow = locationBooleanArray[11];
         this.isBallHigh = locationBooleanArray[12];
-
-        Log.d("setLastRegionResult", "locationBooleanArray[0]: " + locationBooleanArray[0] +
-                "\nlocationBooleanArray[1]: " + locationBooleanArray[1]+
-                "\nlocationBooleanArray[2]: " + locationBooleanArray[2] +
-                "\nlocationBooleanArray[3]: " + locationBooleanArray[3] +
-                "\nlocationBooleanArray[4]: " + locationBooleanArray[4] +
-                "\nlocationBooleanArray[5]: " + locationBooleanArray[5] +
-                "\nlocationBooleanArray[6]: " + locationBooleanArray[6] +
-                "\nlocationBooleanArray[7]: " + locationBooleanArray[7] +
-                "\nlocationBooleanArray[8]: " + locationBooleanArray[8] +
-                "\nlocationBooleanArray[9]: " + locationBooleanArray[9] +
-                "\nlocationBooleanArray[10]: " + locationBooleanArray[10] +
-                "\nlocationBooleanArray[11]: " + locationBooleanArray[11] +
-                "\nlocationBooleanArray[12]: " + locationBooleanArray[12]);
     }
 
 
@@ -631,16 +631,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isOther = false;
     }
 
-    // Used by ResultsFragment to adjust the pitch type counts in TaggingActivity
-    public void updatePitcherResultsCounts(Boolean isFastball, Boolean isChangeup, Boolean isCurveball,
-                                           Boolean isSlider, Boolean isOther) {
-
-        // Save the results so we can tell which pitch was thrown last in case of an "undo"
-        this.isFastball = isFastball;
-        this.isChangeup = isChangeup;
-        this.isCurveball = isCurveball;
-        this.isSlider = isSlider;
-        this.isOther = isOther;
+    public void updatePitcherResultsCounts(Boolean[] pitchTypeBooleanArray) {
+        this.isFastball = pitchTypeBooleanArray[0];
+        this.isChangeup = pitchTypeBooleanArray[1];
+        this.isCurveball = pitchTypeBooleanArray[2];
+        this.isSlider = pitchTypeBooleanArray[3];
+        this.isOther = pitchTypeBooleanArray[4];
 
         if (isFastball) {
             mPitcherFastballCount.setText(Integer.toString(++pitcherFastballCount));
