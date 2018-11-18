@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,24 +34,29 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
-public class EventInfoFragment extends DialogFragment {
+public class  EventInfoFragment extends DialogFragment {
 
     // UI Components
+    @BindView(R.id.btn_confirm_info) Button mConfirmChange;
+    @BindView(R.id.radio_group_event_type) RadioGroup mRadioGroupEventType;
+    @BindView(R.id.radio_event_type_game) RadioButton mRadioGame;
+    @BindView(R.id.radio_event_type_practice) RadioButton mRadioPractice;
+    @BindView(R.id.radio_group_location) RadioGroup mRadioGroupLocation;
+    @BindView(R.id.radio_event_location_home) RadioButton mRadioHome;
+    @BindView(R.id.radio_event_location_away) RadioButton mRadioAway;
+    @BindView(R.id.edt_txt_event_name_entry) EditText mEventName;
+    @BindView(R.id.txt_edit_event) TextView mEventInfo;
+    @BindView(R.id.spin_pitcher_names) Spinner mSpinnerPitchers;
+
     DatabaseReference mUserReference;
-    Button mConfirmChange;
-    RadioGroup mRadioGroupEventType;
-    RadioButton mRadioGame;
-    RadioButton mRadioPractice;
-    RadioGroup mRadioGroupLocation;
-    RadioButton mRadioHome;
-    RadioButton mRadioAway;
     DatabaseReference mDatabase;
-    EditText mEventName;
-    Spinner mSpinnerPitchers;
-    TextView mEventInfo;
     Boolean isGame;
     Boolean isHome;
     String pitcherName = "";
@@ -83,6 +89,7 @@ public class EventInfoFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_event_info, container, false);
         final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+        ButterKnife.bind(this, view);
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
@@ -115,17 +122,7 @@ public class EventInfoFragment extends DialogFragment {
         isHome = taggingActivity.getHome();
 
         // Instantiate UI Components
-        mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_info);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mEventName = (EditText) view.findViewById(R.id.edt_txt_event_name_entry);
-        mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_pitcher_names);
-        mEventInfo = (TextView) view.findViewById(R.id.txt_edit_event);
-        mRadioGroupEventType = (RadioGroup) view.findViewById(R.id.radio_group_event_type);
-        mRadioGame = (RadioButton) view.findViewById(R.id.radio_event_type_game);
-        mRadioPractice = (RadioButton) view.findViewById(R.id.radio_event_type_practice);
-        mRadioGroupLocation = (RadioGroup) view.findViewById(R.id.radio_group_location);
-        mRadioHome = (RadioButton) view.findViewById(R.id.radio_event_location_home);
-        mRadioAway = (RadioButton) view.findViewById(R.id.radio_event_location_away);
 
         // Check to see if we are finishing the game or doing the initial entry
         if (taggingActivity.getEventInfoSet()) {
@@ -145,66 +142,69 @@ public class EventInfoFragment extends DialogFragment {
             mRadioAway.setChecked(true);
         }
 
-        // Event handler for the RadioGroups. Set values on change.
-        mRadioGroupEventType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (mRadioGame.isChecked()) {
-                    isGame = true;
-                } else {
-                    isGame = false;
-                }
-            }
-        });
-
-        // Event handler for the RadioGroups. Set values on change.
-        mRadioGroupLocation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if (mRadioHome.isChecked()) {
-                    isHome = true;
-                } else {
-                    isHome = false;
-                }
-            }
-        });
-
-        // Confirmation handler for the mConfirmChange button
-        mConfirmChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If the event info has been set before, this will ask for confirmation from the user
-                if (taggingActivity.getEventInfoSet()) {
-                    if (mEventName.getText().toString().trim().isEmpty()) {
-                        // Make sure there is a valid input for event name
-                        Toast.makeText(getActivity(), "Please enter an event name to end the session", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // If inputs are confirmed, save them, send them to TaggingActivity and end the event
-                        saveEventInputs();
-                        taggingActivity.finishGameHelper();
-                    }
-                } else {
-                    // If this is the first time that information is being entered, validate that inputs are correct
-                    // Check to make sure there is an entry in the spinner
-                    if (mEventName.getText().toString().trim().isEmpty()) {
-                        Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
-                    } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
-                    } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName()) && taggingActivity.getEventInfoSet()) {
-                        getDialog().dismiss();
-                    } else {
-                        // Check to see if it's the beginning of the game before we update the statistics in TaggingActivity
-                        if (taggingActivity.getPitcherPitchCount() > 0) {
-                            taggingActivity.sendPitcherStatsHelper();
-                        }
-                        saveEventInputs();
-                        getDialog().dismiss();
-                    }
-                }
-            }
-        });
-
         return view;
+    }
+
+    @OnCheckedChanged({ R.id.radio_event_type_game, R.id.radio_event_type_practice })
+    void radioEventTypeSelection(CompoundButton button, boolean checked) {
+        if (checked) {
+            switch (button.getId()) {
+                case R.id.radio_event_type_game:
+                    isGame = true;
+                    break;
+                case R.id.radio_event_type_practice:
+                    isGame = false;
+                    break;
+            }
+        }
+    }
+
+    @OnCheckedChanged({ R.id.radio_event_location_home, R.id.radio_event_location_away })
+    void radioLocationTypeSelection(CompoundButton button, boolean checked) {
+        if (checked) {
+            switch (button.getId()) {
+                case R.id.radio_event_location_home:
+                    isHome = true;
+                    break;
+                case R.id.radio_event_location_away:
+                    isHome = false;
+                    break;
+            }
+        }
+    }
+
+    @OnClick(R.id.btn_confirm_info)
+    void confirmInfoEntry() {
+        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+
+        // If the event info has been set before, this will ask for confirmation from the user
+        if (taggingActivity.getEventInfoSet()) {
+            if (mEventName.getText().toString().trim().isEmpty()) {
+                // Make sure there is a valid input for event name
+                Toast.makeText(getActivity(), "Please enter an event name to end the session", Toast.LENGTH_SHORT).show();
+            } else {
+                // If inputs are confirmed, save them, send them to TaggingActivity and end the event
+                saveEventInputs();
+                taggingActivity.finishGameHelper();
+            }
+        } else {
+            // If this is the first time that information is being entered, validate that inputs are correct
+            // Check to make sure there is an entry in the spinner
+            if (mEventName.getText().toString().trim().isEmpty()) {
+                Toast.makeText(getActivity(), "Enter an event name to start session", Toast.LENGTH_SHORT).show();
+            } else if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
+                Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
+            } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName()) && taggingActivity.getEventInfoSet()) {
+                getDialog().dismiss();
+            } else {
+                // Check to see if it's the beginning of the game before we update the statistics in TaggingActivity
+                if (taggingActivity.getPitcherPitchCount() > 0) {
+                    taggingActivity.sendPitcherStatsHelper();
+                }
+                saveEventInputs();
+                getDialog().dismiss();
+            }
+        }
     }
 
     // This method helps with saving the information that we gather from the user inputs

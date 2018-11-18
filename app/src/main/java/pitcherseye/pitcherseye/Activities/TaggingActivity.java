@@ -36,12 +36,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pitcherseye.pitcherseye.Fragments.ChangePitcherFragment;
 import pitcherseye.pitcherseye.Fragments.EventInfoFragment;
 import pitcherseye.pitcherseye.Fragments.ResultsFragment;
@@ -50,46 +55,49 @@ import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
         ChangePitcherFragment.OnInputListener {
 
     // UI Components
-    Button mR1C1;
-    Button mR1C2;
-    Button mR1C3;
-    Button mR2C1;
-    Button mR2C2;
-    Button mR2C3;
-    Button mR3C1;
-    Button mR3C2;
-    Button mR3C3;
-    Button mBallLow;
-    Button mBallHigh;
-    Button mBallRight;
-    Button mBallLeft;
-    Button mFinishGame;
-    ProgressBar mProgressFinishGame;
-    Button mUndo;
+    @BindView(R.id.btnR1C1) Button mR1C1;
+    @BindView(R.id.btnR1C2) Button mR1C2;
+    @BindView(R.id.btnR1C3) Button mR1C3;
+    @BindView(R.id.btnR2C1) Button mR2C1;
+    @BindView(R.id.btnR2C2) Button mR2C2;
+    @BindView(R.id.btnR2C3) Button mR2C3;
+    @BindView(R.id.btnR3C1) Button mR3C1;
+    @BindView(R.id.btnR3C2) Button mR3C2;
+    @BindView(R.id.btnR3C3) Button mR3C3;
+    @BindView(R.id.btn_ball_low) Button mBallLow;
+    @BindView(R.id.btn_ball_high) Button mBallHigh;
+    @BindView(R.id.btn_ball_right) Button mBallRight;
+    @BindView(R.id.btn_ball_left) Button mBallLeft;
+    @BindView(R.id.btn_finish_game) Button mFinishGame;
+    @BindView(R.id.progress_finish_game) ProgressBar mProgressFinishGame;
+    @BindView(R.id.btn_undo) Button mUndo;
+    @BindView(R.id.btn_change_pitcher) Button mChangePitcher;
+    @BindView(R.id.txt_event_name) TextView mEventName;
+    @BindView(R.id.txt_pitcher_name) TextView mPitcherName;
+    @BindView(R.id.txt_event_fastball_count) TextView mEventFastballCount;
+    @BindView(R.id.txt_event_strikes_count) TextView mEventStrikes;
+    @BindView(R.id.txt_event_balls_count) TextView mEventBalls;
+    @BindView(R.id.txt_event_pitch_count) TextView mEventPitchCount;
+    @BindView(R.id.txt_event_changeup_count) TextView mEventChangeupCount;
+    @BindView(R.id.txt_event_curveball_count) TextView mEventCurveballCount;
+    @BindView(R.id.txt_event_slider_count) TextView mEventSliderCount;
+    @BindView(R.id.txt_event_other_count) TextView mEventOtherCount;
+    @BindView(R.id.txt_pitcher_pitch_count) TextView mPitcherPitchCount;
+    @BindView(R.id.txt_pitcher_strikes_count) TextView mPitcherStrikes;
+    @BindView(R.id.txt_pitcher_balls_count) TextView mPitcherBalls;
+    @BindView(R.id.txt_pitcher_fastball_count) TextView mPitcherFastballCount;
+    @BindView(R.id.txt_pitcher_changeup_count) TextView mPitcherChangeupCount;
+    @BindView(R.id.txt_pitcher_curveball_count) TextView mPitcherCurveballCount;
+    @BindView(R.id.txt_pitcher_slider_count) TextView mPitcherSliderCount;
+    @BindView(R.id.txt_pitcher_other_count) TextView mPitcherOtherCount;
+
     DatabaseReference mDatabase;
-    Button mChangePitcher;
-    TextView mEventName;
-    TextView mPitcherName;
-    TextView mEventFastballCount;
-    TextView mEventStrikes;
-    TextView mEventBalls;
-    TextView mEventPitchCount;
-    TextView mEventChangeupCount;
-    TextView mEventCurveballCount;
-    TextView mEventSliderCount;
-    TextView mEventOtherCount;
-    TextView mPitcherPitchCount;
-    TextView mPitcherStrikes;
-    TextView mPitcherBalls;
-    TextView mPitcherFastballCount;
-    TextView mPitcherChangeupCount;
-    TextView mPitcherCurveballCount;
-    TextView mPitcherSliderCount;
-    TextView mPitcherOtherCount;
 
     // Event information
     String eventName;
@@ -179,19 +187,11 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     String eventID = Utilities.createRandomHex(6);
 
-    // Request Code
-    int REQUEST_CODE_CALCULATE = 0;
-
-    // We'll call this in other Activities to access this Activity
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, TaggingActivity.class);
-        return i;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tagging);
+        ButterKnife.bind(this);
 
         setEventInfoSet(false); // Default that the event isn't set
         setGame(true); // Set to true on startup
@@ -203,48 +203,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         // Display DialogFragment for initial data entry
         displayEventInfoFragment();
 
-        // Instantiate Buttons
-        mChangePitcher = (Button) findViewById(R.id.button_event_info);
-        mR1C1 = (Button) findViewById(R.id.btnR1C1);
-        mR1C2 = (Button) findViewById(R.id.btnR1C2);
-        mR1C3 = (Button) findViewById(R.id.btnR1C3);
-        mR2C1 = (Button) findViewById(R.id.btnR2C1);
-        mR2C2 = (Button) findViewById(R.id.btnR2C2);
-        mR2C3 = (Button) findViewById(R.id.btnR2C3);
-        mR3C1 = (Button) findViewById(R.id.btnR3C1);
-        mR3C2 = (Button) findViewById(R.id.btnR3C2);
-        mR3C3 = (Button) findViewById(R.id.btnR3C3);
-        mBallLow = (Button) findViewById(R.id.btn_ball_low);
-        mBallHigh = (Button) findViewById(R.id.btn_ball_high);
-        mBallRight = (Button) findViewById(R.id.btn_ball_right);
-        mBallLeft = (Button) findViewById(R.id.btn_ball_left);
-        mFinishGame = (Button) findViewById(R.id.btn_finish_game);
-        mUndo = (Button) findViewById(R.id.btn_undo);
-
-        // Instantiate ProgressBar
-        mProgressFinishGame = (ProgressBar) findViewById(R.id.progress_finish_game);
         mProgressFinishGame.setVisibility(View.GONE);
-
-        // Instantiate TextViews
-        mEventName = (TextView) findViewById(R.id.txt_event_name);
-        mPitcherName = (TextView) findViewById(R.id.txt_pitcher_name);
-        mEventPitchCount = (TextView) findViewById(R.id.txt_event_pitch_count);
-        mEventStrikes = (TextView) findViewById(R.id.txt_event_strikes_count);
-        mEventBalls = (TextView) findViewById(R.id.txt_event_balls_count);
-        mEventFastballCount = (TextView) findViewById(R.id.txt_event_fastball_count);
-        mEventChangeupCount = (TextView) findViewById(R.id.txt_event_changeup_count);
-        mEventCurveballCount = (TextView) findViewById(R.id.txt_event_curveball_count);
-        mEventSliderCount = (TextView) findViewById(R.id.txt_event_slider_count);
-        mEventOtherCount = (TextView) findViewById(R.id.txt_event_other_count);
-        mPitcherPitchCount = (TextView) findViewById(R.id.txt_pitcher_pitch_count);
-        mPitcherStrikes = (TextView) findViewById(R.id.txt_pitcher_strikes_count);
-        mPitcherBalls = (TextView) findViewById(R.id.txt_pitcher_balls_count);
-        mPitcherFastballCount = (TextView) findViewById(R.id.txt_pitcher_fastball_count);
-        mPitcherChangeupCount = (TextView) findViewById(R.id.txt_pitcher_changeup_count);
-        mPitcherCurveballCount = (TextView) findViewById(R.id.txt_pitcher_curveball_count);
-        mPitcherSliderCount = (TextView) findViewById(R.id.txt_pitcher_slider_count);
-        mPitcherOtherCount = (TextView) findViewById(R.id.txt_pitcher_other_count);
-
+        
         // Set opacity on start
         resetHeatMap();
 
@@ -310,370 +270,120 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 Toast.makeText(TaggingActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        // Open DialogFragment
-        mChangePitcher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                ChangePitcherFragment pitcherFragment = new ChangePitcherFragment();
-                pitcherFragment.show(fm, "Open ChangePitcherFragment");
+    @OnClick({ R.id.btnR1C1, R.id.btnR1C2, R.id.btnR1C3,
+            R.id.btnR2C1, R.id.btnR2C2, R.id.btnR2C3,
+            R.id.btnR3C1, R.id.btnR3C2, R.id.btnR3C3,
+            R.id.btn_ball_left, R.id.btn_ball_right,
+            R.id.btn_ball_high, R.id.btn_ball_low })
+    void strikeZoneButtonSelection(View view) {
+        switch (view.getId()) {
+            case R.id.btnR1C1:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R1C1, ++pitcherCount_R1C1, 0);
+                break;
+            case R.id.btnR1C2:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R1C2, ++pitcherCount_R1C2, 1);
+                break;
+            case R.id.btnR1C3:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R1C3, ++pitcherCount_R1C3, 2);
+                break;
+            case R.id.btnR2C1:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R2C1, ++pitcherCount_R2C1, 3);
+                break;
+            case R.id.btnR2C2:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R2C2, ++pitcherCount_R2C2, 4);
+                break;
+            case R.id.btnR2C3:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R2C3, ++pitcherCount_R2C3, 5);
+                break;
+            case R.id.btnR3C1:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R3C1, ++pitcherCount_R3C1, 6);
+                break;
+            case R.id.btnR3C2:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R3C2, ++pitcherCount_R3C2, 7);
+                break;
+            case R.id.btnR3C3:
+                pitchResultHelper(mEventStrikes, mPitcherStrikes, ++eventStrikesCount, ++pitcherStrikesCount, ++eventCount_R3C3, ++pitcherCount_R3C3, 8);
+                break;
+            case R.id.btn_ball_left:
+                pitchResultHelper(mEventBalls, mPitcherBalls, ++eventBallsCount, ++pitcherBallsCount, ++eventBallsCountLeft, ++pitcherBallsCountLeft, 9);
+                break;
+            case R.id.btn_ball_right:
+                pitchResultHelper(mEventBalls, mPitcherBalls, ++eventBallsCount, ++pitcherBallsCount, ++eventBallsCountRight, ++pitcherBallsCountRight, 10);
+                break;
+            case R.id.btn_ball_high:
+                pitchResultHelper(mEventBalls, mPitcherBalls, ++eventBallsCount, ++pitcherBallsCount, ++eventBallsCountHigh, ++pitcherBallsCountHigh, 11);
+                break;
+            case R.id.btn_ball_low:
+                pitchResultHelper(mEventBalls, mPitcherBalls, ++eventBallsCount, ++pitcherBallsCount, ++eventBallsCountLow, ++pitcherBallsCountLow, 12);
+                break;
+        }
+        mUndo.setEnabled(true); // Enable the undo button after entering selection
+        adjustHeatMap(); // Recalculate the heat map accordingly
+
+        // Open ResultsFragment
+        displayPitchResultsFragment();
+    }
+
+    // Open DialogFragment
+    @OnClick(R.id.btn_change_pitcher)
+    void changePitcher() {
+        FragmentManager fm = getFragmentManager();
+        ChangePitcherFragment pitcherFragment = new ChangePitcherFragment();
+        pitcherFragment.show(fm, "Open ChangePitcherFragment");
+    }
+
+    @OnClick(R.id.btn_undo)
+    void undoPitchSelection() {
+        mUndo.setEnabled(false);
+        decreaseTotalPitchCount();
+        getLastRegionResults(isR1C1, isR1C2, isR1C3,
+                isR2C1, isR2C2, isR2C3,
+                isR3C1, isR3C2, isR3C3,
+                isBallLow, isBallHigh,
+                isBallLeft, isBallRight);
+        checkLastPitchResult();
+    }
+
+    @OnClick(R.id.btn_finish_game)
+    void finishGame() {
+        displayEventInfoFragment();
+    }
+
+    // Method to adjust counts for the pitch result workflow
+    private void pitchResultHelper(TextView eventStrikeOrBallTextViewCount, TextView pitcherStrikeOrBallTextViewCount,
+                                   int eventStrikeOrBallCount, int pitcherStrikeOrBallCount,
+                                   int eventLocationCount, int pitcherLocationCount,
+                                   int lastPitchLocation) {
+        mEventPitchCount.setText(Integer.toString(++eventPitchCount));
+        mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
+        eventStrikeOrBallTextViewCount.setText(Integer.toString(eventStrikeOrBallCount));
+        pitcherStrikeOrBallTextViewCount.setText(Integer.toString(pitcherStrikeOrBallCount));
+
+        Boolean[] locationBooleanArray = new Boolean[13];
+        for (int i = 0; i < 13; i++) {
+            if (lastPitchLocation == i) {
+                locationBooleanArray[i] = true;
+            } else {
+                locationBooleanArray[i] = false;
             }
-        });
+        }
+        setLastRegionResult(locationBooleanArray);
+    }
 
-        // TODO Needs refactoring eventually
-        // Event handlers for the grid buttons
-        // We could have used a switch statement and had dedicated methods for each of these,
-        // but would be more difficult to debug. Also believe that this is the "cleaner" route
-        // for the time being until we can find a better convention.
-        mR1C1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R1C1; // Increase region count
-                ++pitcherCount_R1C1; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(true, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
+    // Method to adjust counts for the pitch result workflow
+    // This will be called in ResultsFragment
+    public void pitchResultHelper(int eventPitchTypeCounter, int pitcherPitchTypeCounter, int lastPitchType) {
+        Boolean[] pitchTypeBooleanArray = new Boolean[5];
+        for (int i = 0; i < 5; i++) {
+            if (lastPitchType == i) {
+                pitchTypeBooleanArray[i] = true;
+            } else {
+                pitchTypeBooleanArray[i] = false;
             }
-        });
-
-        mR1C2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R1C2; // Increase region count
-                ++pitcherCount_R1C2; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, true, false,
-                        false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR1C3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R1C3; // Increase region count
-                ++pitcherCount_R1C3; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, true,
-                        false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR2C1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R2C1; // Increase region count
-                ++pitcherCount_R2C1; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        true, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR2C2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R2C2; // Increase region count
-                ++pitcherCount_R2C2; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, true, false,
-                        false, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR2C3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R2C3; // Increase region count
-                ++pitcherCount_R2C3; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, true,
-                        false, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR3C1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R3C1; // Increase region count
-                ++pitcherCount_R3C1; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        true, false, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR3C2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R3C2; // Increase region count
-                ++pitcherCount_R3C2; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        false, true, false,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mR3C3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mEventStrikes.setText(Integer.toString(++eventStrikesCount)); // Increase strikes
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount)); // Increase pitcher count
-                mPitcherStrikes.setText(Integer.toString(++pitcherStrikesCount)); // Increase pitcher strikes
-                ++eventCount_R3C3; // Increase region count
-                ++pitcherCount_R3C3; // Increase pitcher region count
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        false, false, true,
-                        false, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mBallLow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
-                mEventBalls.setText(Integer.toString(++eventBallsCount));
-                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
-                ++eventBallsCountLow;
-                ++pitcherBallsCountLow;
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        true, false, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mBallHigh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
-                mEventBalls.setText(Integer.toString(++eventBallsCount));
-                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
-                ++eventBallsCountHigh;
-                ++pitcherBallsCountHigh;
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false, true, false,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mBallLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
-                mEventBalls.setText(Integer.toString(++eventBallsCount));
-                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
-                ++eventBallsCountLeft;
-                ++pitcherBallsCountLeft;
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false, false, true,
-                        false);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        mBallRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEventPitchCount.setText(Integer.toString(++eventPitchCount));
-                mPitcherPitchCount.setText(Integer.toString(++pitcherPitchCount));
-                mEventBalls.setText(Integer.toString(++eventBallsCount));
-                mPitcherBalls.setText(Integer.toString(++pitcherBallsCount));
-                ++eventBallsCountRight;
-                ++pitcherBallsCountRight;
-
-                // Undo workflow
-                setLastRegionResult(false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        false, false, false,
-                        true);
-
-                mUndo.setEnabled(true); // Enable the undo button after entering selection
-                adjustHeatMap(); // Recalculate the heat map accordingly
-
-                // Open ResultsFragment
-                displayPitchResultsFragment();
-            }
-        });
-
-        // Event listener for the Undo workflow. Decrease the total pitch counts and find the last
-        // entered statistics and decrement the counts appropriately.
-        mUndo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mUndo.setEnabled(false);
-                decreaseTotalPitchCount();
-                getLastRegionResults(isR1C1, isR1C2, isR1C3,
-                        isR2C1, isR2C2, isR2C3,
-                        isR3C1, isR3C2, isR3C3,
-                        isBallLow, isBallHigh,
-                        isBallLeft, isBallRight);
-                checkLastPitchResult();
-            }
-        });
-
-        // Display EventInfoFragment to confirm results
-        mFinishGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayEventInfoFragment();
-            }
-        });
+        }
+        updatePitcherResultsCounts(pitchTypeBooleanArray);
     }
 
     // Helper method to display the EventInfoFragment
@@ -769,25 +479,22 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
     }
 
     // This is used to find hte last region that was thrown to for the "undo" workflow
-    private void setLastRegionResult(Boolean isR1C1, Boolean isR1C2, Boolean isR1C3,
-                                     Boolean isR2C1, Boolean isR2C2, Boolean isR2C3,
-                                     Boolean isR3C1, Boolean isR3C2, Boolean isR3C3,
-                                     Boolean isBallLow, Boolean isBallHigh,
-                                     Boolean isBallLeft, Boolean isBallRight) {
-        this.isR1C1 = isR1C1;
-        this.isR1C2 = isR1C2;
-        this.isR1C3 = isR1C3;
-        this.isR2C1 = isR2C1;
-        this.isR2C2 = isR2C2;
-        this.isR2C3 = isR2C3;
-        this.isR3C1 = isR3C1;
-        this.isR3C2 = isR3C2;
-        this.isR3C3 = isR3C3;
-        this.isBallLow = isBallLow;
-        this.isBallHigh = isBallHigh;
-        this.isBallLeft = isBallLeft;
-        this.isBallRight = isBallRight;
+    private void setLastRegionResult(Boolean[] locationBooleanArray) {
+        this.isR1C1 = locationBooleanArray[0];
+        this.isR1C2 = locationBooleanArray[1];
+        this.isR1C3 = locationBooleanArray[2];
+        this.isR2C1 = locationBooleanArray[3];
+        this.isR2C2 = locationBooleanArray[4];
+        this.isR2C3 = locationBooleanArray[5];
+        this.isR3C1 = locationBooleanArray[6];
+        this.isR3C2 = locationBooleanArray[7];
+        this.isR3C3 = locationBooleanArray[8];
+        this.isBallLeft = locationBooleanArray[9];
+        this.isBallRight = locationBooleanArray[10];
+        this.isBallLow = locationBooleanArray[11];
+        this.isBallHigh = locationBooleanArray[12];
     }
+
 
     // The actual handler for resetting the counts. It'll grab the last region thrown to and decrement
     // the counts.
@@ -924,16 +631,12 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
         isOther = false;
     }
 
-    // Used by ResultsFragment to adjust the pitch type counts in TaggingActivity
-    public void updatePitcherResultsCounts(Boolean isFastball, Boolean isChangeup, Boolean isCurveball,
-                                           Boolean isSlider, Boolean isOther) {
-
-        // Save the results so we can tell which pitch was thrown last in case of an "undo"
-        this.isFastball = isFastball;
-        this.isChangeup = isChangeup;
-        this.isCurveball = isCurveball;
-        this.isSlider = isSlider;
-        this.isOther = isOther;
+    public void updatePitcherResultsCounts(Boolean[] pitchTypeBooleanArray) {
+        this.isFastball = pitchTypeBooleanArray[0];
+        this.isChangeup = pitchTypeBooleanArray[1];
+        this.isCurveball = pitchTypeBooleanArray[2];
+        this.isSlider = pitchTypeBooleanArray[3];
+        this.isOther = pitchTypeBooleanArray[4];
 
         if (isFastball) {
             mPitcherFastballCount.setText(Integer.toString(++pitcherFastballCount));
@@ -1017,8 +720,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
 
         // Send back to MainActivity
-        Intent i = MainActivity.newIntent(TaggingActivity.this);
-        startActivityForResult(i, REQUEST_CODE_CALCULATE);
+        Intent intentMainActivity = new Intent(TaggingActivity.this, MainActivity.class);
+        startActivity(intentMainActivity);
         finish();
     }
 

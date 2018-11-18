@@ -29,14 +29,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pitcherseye.pitcherseye.Activities.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
 public class ChangePitcherFragment extends DialogFragment {
 
     // UI Components
-    Button mConfirmChange;
-    Spinner mSpinnerPitchers;
+    @BindView(R.id.btn_confirm_pitcher_change) Button mConfirmChange;
+    @BindView(R.id.spin_change_pitcher_names) Spinner mSpinnerPitchers;
 
     DatabaseReference mDatabase;
     String pitcherName = "";
@@ -66,15 +69,13 @@ public class ChangePitcherFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_change_pitcher, container, false);
-        final TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+        ButterKnife.bind(this, view);
 
         // Make sure the user can't exit the DialogFragment without confirming their input
         getDialog().setCanceledOnTouchOutside(false);
 
         // Instantiate UI components
-        mConfirmChange = (Button) view.findViewById(R.id.btn_confirm_pitcher_change);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mSpinnerPitchers = (Spinner) view.findViewById(R.id.spin_change_pitcher_names);
 
         // Instantiate and load pitchers into spinner
         // TODO see if there's a better way to handle this so that we keep this saved locally
@@ -106,30 +107,28 @@ public class ChangePitcherFragment extends DialogFragment {
                 Toast.makeText(getActivity().getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Confirmation handler for the mConfirmChange button
-        mConfirmChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check to make sure there is an entry in the spinner
-                if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
-                } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName())) {
-                    // If a new pitcher isn't selected, just close the dialog
-                    getDialog().dismiss();
-                } else {
-                    // Check to see if it's the beginning of the game before we update the statistics in TaggingActivity
-                    if (taggingActivity.getPitcherPitchCount() > 0) {
-                        taggingActivity.sendPitcherStatsHelper();
-                    }
-                    savePitcherInputs();
-                    taggingActivity.resetHeatMap();
-                    getDialog().dismiss();
-                }
-            }
-        });
-
         return view;
+    }
+
+    @OnClick(R.id.btn_confirm_pitcher_change)
+    void confirmPitcherChange() {
+        TaggingActivity taggingActivity = (TaggingActivity) getActivity();
+
+        // Check to make sure there is an entry in the spinner
+        if (mSpinnerPitchers.getSelectedItem().toString().trim().isEmpty() || mSpinnerPitchers.getSelectedItem().toString().trim().equals("<Select Pitcher>")) {
+            Toast.makeText(getActivity().getApplicationContext(), "Enter a pitcher to start session", Toast.LENGTH_SHORT).show();
+        } else if (mSpinnerPitchers.getSelectedItem().toString().trim().equals(taggingActivity.getPitcherName())) {
+            // If a new pitcher isn't selected, just close the dialog
+            getDialog().dismiss();
+        } else {
+            // Check to see if it's the beginning of the game before we update the statistics in TaggingActivity
+            if (taggingActivity.getPitcherPitchCount() > 0) {
+                taggingActivity.sendPitcherStatsHelper();
+            }
+            savePitcherInputs();
+            taggingActivity.resetHeatMap();
+            getDialog().dismiss();
+        }
     }
 
     // This method helps with saving the information that we gather from the user inputs

@@ -10,93 +10,53 @@
 
 package pitcherseye.pitcherseye.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pitcherseye.pitcherseye.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    // UI Components
-    Button mLogoutButton;
-    Button mNewGameButton;
-    Button mStatsButton;
-    ImageButton mStatsImageButton;
-    ImageButton mNewGameImageButton;
-
-    // Request Code
-    int REQUEST_CODE_CALCULATE = 0;
-
-    // We'll call this in other Activities to access this Activity
-    public static Intent newIntent(Context packageContext) {
-        Intent i = new Intent(packageContext, MainActivity.class);
-        return i;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+    }
 
-        // Redirect to the StatisticsActivity
-        mStatsImageButton = (ImageButton) findViewById(R.id.img_button_statistics);
-        mStatsImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = StatisticsActivity.newIntent(MainActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
-            }
-        });
+    @OnClick({ R.id.img_button_statistics, R.id.button_statistics })
+    void openStatisticsActivity() {
+        Intent intentStatistics = new Intent(this, StatisticsActivity.class);
 
-        // Redirect to the StatisticsActivity
-        mStatsButton = (Button) findViewById(R.id.button_statistics);
-        mStatsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = StatisticsActivity.newIntent(MainActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
-            }
-        });
+        Log.i("MainActivity", "Opening StatisticsActivity");
+        startActivity(intentStatistics);
+    }
 
-        // Redirect to the TaggingActivity
-        mNewGameImageButton = (ImageButton) findViewById(R.id.img_button_new_game);
-        mNewGameImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = TaggingActivity.newIntent(MainActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
-                finish(); // Don't add to the backstack
-            }
-        });
+    // Redirect to the TaggingActivity
+    @OnClick({ R.id.img_button_new_game, R.id.button_new_game })
+    void openTaggingActivity() {
+        Intent intentTagging = new Intent(this, TaggingActivity.class);
 
-        // Redirect to the TaggingActivity
-        mNewGameButton = (Button) findViewById(R.id.button_new_game);
-        mNewGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = TaggingActivity.newIntent(MainActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
-                finish(); // Don't add to the backstack
-            }
-        });
+        Log.i("MainActivity", "Opening TaggingActivity");
+        startActivity(intentTagging);
+    }
 
-        // Redirect to the LoginActivity
-        mLogoutButton = (Button) findViewById(R.id.button_logout);
-        mLogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut(); // Clear authentication token
-                Intent i = LoginActivity.newIntent(MainActivity.this);
-                startActivityForResult(i, REQUEST_CODE_CALCULATE);
-                finish(); // Don't add to the backstack
-            }
-        });
+    // Log the user out and navigate to LoginActivity
+    @OnClick(R.id.button_logout)
+    void logout() {
+        FirebaseAuth.getInstance().signOut(); // Clear authentication token
+
+        Intent intentLogout = new Intent(this, LoginActivity.class);
+
+        Log.i("MainActivity", "Logging out");
+        Log.i("MainActivity", "Opening LoginActivity");
+        startActivity(intentLogout);
+        finish(); // Don't add to the backstack
     }
 }
