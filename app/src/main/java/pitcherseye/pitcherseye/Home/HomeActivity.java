@@ -8,7 +8,7 @@
  When selecting the "Logout" option, we also clear the user's authentication token.
  */
 
-package pitcherseye.pitcherseye.Activities;
+package pitcherseye.pitcherseye.Home;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +19,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pitcherseye.pitcherseye.Login.LoginActivity;
 import pitcherseye.pitcherseye.R;
+import pitcherseye.pitcherseye.Reports.StatisticsActivity;
+import pitcherseye.pitcherseye.Tagging.TaggingActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     void openStatisticsActivity() {
         Intent intentStatistics = new Intent(this, StatisticsActivity.class);
 
-        Log.i("MainActivity", "Opening StatisticsActivity");
+        Log.i("HomeActivity", "Opening StatisticsActivity");
         startActivity(intentStatistics);
     }
 
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     void openTaggingActivity() {
         Intent intentTagging = new Intent(this, TaggingActivity.class);
 
-        Log.i("MainActivity", "Opening TaggingActivity");
+        Log.i("HomeActivity", "Opening TaggingActivity");
         startActivity(intentTagging);
     }
 
@@ -54,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intentLogout = new Intent(this, LoginActivity.class);
 
-        Log.i("MainActivity", "Logging out");
-        Log.i("MainActivity", "Opening LoginActivity");
+        Log.i("HomeActivity", "Logging out");
+        Log.i("HomeActivity", "Opening LoginActivity");
         startActivity(intentLogout);
         finish(); // Don't add to the backstack
     }

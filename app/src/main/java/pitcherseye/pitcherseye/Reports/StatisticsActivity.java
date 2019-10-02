@@ -15,7 +15,7 @@
  of the ArrayLists and insert those values into intents to send to the ReportsActivity.
  */
 
-package pitcherseye.pitcherseye.Activities;
+package pitcherseye.pitcherseye.Reports;
 
 import android.content.Context;
 import android.content.DialogInterface;

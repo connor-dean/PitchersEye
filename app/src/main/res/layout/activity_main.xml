@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="pitcherseye.pitcherseye.Activities.MainActivity"
+    tools:context="pitcherseye.pitcherseye.Home.HomeActivity"
     android:background="@color/greyBackground">
 
     <android.support.v7.widget.CardView

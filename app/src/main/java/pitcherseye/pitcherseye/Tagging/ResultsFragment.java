@@ -4,7 +4,7 @@
  without selecting a result.
  */
 
-package pitcherseye.pitcherseye.Fragments;
+package pitcherseye.pitcherseye.Tagging;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import pitcherseye.pitcherseye.Activities.TaggingActivity;
+import pitcherseye.pitcherseye.Tagging.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
 public class ResultsFragment extends DialogFragment {

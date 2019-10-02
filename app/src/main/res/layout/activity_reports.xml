@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorTaggingBackground"
-    tools:context="pitcherseye.pitcherseye.Activities.ReportsActivity">
+    tools:context="pitcherseye.pitcherseye.Reports.ReportsActivity">
 
     <LinearLayout
         android:id="@+id/linear_layout_header_reports"

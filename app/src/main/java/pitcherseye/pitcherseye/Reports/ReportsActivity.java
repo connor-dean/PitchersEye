@@ -6,7 +6,7 @@
  StatisticsActivity (ex. Events vs. Pitcher).
  */
 
-package pitcherseye.pitcherseye.Activities;
+package pitcherseye.pitcherseye.Reports;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

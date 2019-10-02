@@ -4,7 +4,7 @@
  information that they put in earlier.
  */
 
-package pitcherseye.pitcherseye.Fragments;
+package pitcherseye.pitcherseye.Tagging;
 
 import android.app.DialogFragment;
 import android.content.Context;
@@ -38,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
-import pitcherseye.pitcherseye.Activities.TaggingActivity;
+import pitcherseye.pitcherseye.Tagging.TaggingActivity;
 import pitcherseye.pitcherseye.R;
 
 public class  EventInfoFragment extends DialogFragment {

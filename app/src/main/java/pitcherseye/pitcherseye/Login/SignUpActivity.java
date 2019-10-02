@@ -1,4 +1,4 @@
-package pitcherseye.pitcherseye.Activities;
+package pitcherseye.pitcherseye.Login;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pitcherseye.pitcherseye.Home.HomeActivity;
 import pitcherseye.pitcherseye.Objects.User;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
@@ -119,11 +120,11 @@ public class SignUpActivity extends AppCompatActivity {
                         // Hide the progress bar
                         mSignUpProgress.setVisibility(View.GONE);
 
-                        // If the registration was successful, direct user to the MainActivity
+                        // If the registration was successful, direct user to the HomeActivity
                         if (task.isSuccessful()) {
-                            Intent intentTagging = new Intent(SignUpActivity. this, MainActivity.class);
+                            Intent intentTagging = new Intent(SignUpActivity. this, HomeActivity.class);
 
-                            Log.i("SignUpActivity", "Opening MainActivity");
+                            Log.i("SignUpActivity", "Opening HomeActivity");
                             Log.i("SignUpActivity", "Adding user");
                             startActivity(intentTagging);
 
