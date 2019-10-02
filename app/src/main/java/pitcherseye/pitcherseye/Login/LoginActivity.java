@@ -34,17 +34,29 @@ import pitcherseye.pitcherseye.Home.HomeActivity;
 import pitcherseye.pitcherseye.R;
 
 public class LoginActivity extends AppCompatActivity {
+    static Activity loginActivity;
+    private FirebaseAuth mAuth;
 
-    // Instantiate LoginActivity object to manage backstack
-    public static Activity loginActivity;
-
-    // UI Components
     @BindView(R.id.button_login) Button mLoginButton;
     @BindView(R.id.edt_email) EditText mLoginEmail;
     @BindView(R.id.edt_password) EditText mLoginPassword;
     @BindView(R.id.progress_login) ProgressBar mLogInProgress;
     @BindView(R.id.txt_new_user) TextView mSignUp;
-    FirebaseAuth mAuth;
+
+    private View.OnClickListener loginClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            checkCredentials();
+        }
+    };
+
+    private View.OnClickListener signUpClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intentSignUp = new Intent(LoginActivity.this, SignUpActivity.class);
+            startActivity(intentSignUp);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,52 +67,20 @@ public class LoginActivity extends AppCompatActivity {
         // For backstack management
         loginActivity = this;
 
-        // Instantiate Firebase instance
         mAuth = FirebaseAuth.getInstance();
 
-        // Instantiate and hide progress bar
-       // mLogInProgress = (ProgressBar) findViewById(R.id.progress_login);
         mLogInProgress.setVisibility(View.GONE);
 
-        // Check if a user is already logged in
+        mLoginButton.setOnClickListener(loginClickListener);
+        mSignUp.setOnClickListener(signUpClickListener);
+
         loginPersistance();
-
-        // Log in event
-        logInEvent();
-
-        // Sign up event
-        signUp();
     }
 
-    // This is the magic behind our token persistence. When we open the app, we'll check to see
-    // if the user still has an authentication token. If they do, just direct them to the HomeActivity.
-    public void loginPersistance() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        // User is signed in successfully
-        if (user != null) {
-            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-        }
-    }
-
-    // Helper method for logInUser()
-    public void logInEvent() {
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logInUser();
-            }
-        });
-    }
-
-    // Receives input from text fields and verifies credentials
-    public void logInUser() {
+    public void checkCredentials() {
         final String email = mLoginEmail.getText().toString().trim();
         final String password = mLoginPassword.getText().toString().trim();
 
-        // Validate email, doesn't check valid emails, just the form for now
         if (email.isEmpty() || email == null) {
             mLoginEmail.setError("Email is required.");
             mLoginEmail.requestFocus();
@@ -111,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Validate password, we'll probably want to require special characters/casing in the future
         if (password.isEmpty() || password == null) {
             mLoginPassword.setError("Password is required.");
             mLoginPassword.requestFocus();
@@ -124,42 +103,34 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Display the progress bar while loading
         mLogInProgress.setVisibility(View.VISIBLE);
 
-        // Return if the login was successful or invalid
+        signIn(email, password);
+    }
+
+    private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
-                // Hide the progress bar
                 mLogInProgress.setVisibility(View.GONE);
 
-                // If the login was successful, direct user to the HomeActivity
                 if (task.isSuccessful()) {
                     Intent intentLogin = new Intent(LoginActivity.this, HomeActivity.class);
-
-                    Log.i("LoginActivity", "Opening HomeActivity");
                     startActivity(intentLogin);
-                    finish(); // Don't add to the backstack
+                    finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show(); // Display error message
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    // Redirect to the SignUpActivity
-    public void signUp() {
-        mSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentSignUp = new Intent(LoginActivity.this, SignUpActivity.class);
-
-                Log.i("LoginActivity", "Opening SignUpActivity");
-                startActivity(intentSignUp);
-            }
-        });
+    public void loginPersistance() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
     }
-
 }
