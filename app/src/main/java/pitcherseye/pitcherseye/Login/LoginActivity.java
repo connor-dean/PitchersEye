@@ -6,7 +6,7 @@
  The user also has an option to register for an account by selecting the link below the login button.
  */
 
-package pitcherseye.pitcherseye.Activities;
+package pitcherseye.pitcherseye.Login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pitcherseye.pitcherseye.Home.HomeActivity;
 import pitcherseye.pitcherseye.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -72,13 +73,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // This is the magic behind our token persistence. When we open the app, we'll check to see
-    // if the user still has an authentication token. If they do, just direct them to the MainActivity.
+    // if the user still has an authentication token. If they do, just direct them to the HomeActivity.
     public void loginPersistance() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         // User is signed in successfully
         if (user != null) {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            Intent i = new Intent(LoginActivity.this, HomeActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         }
@@ -134,11 +135,11 @@ public class LoginActivity extends AppCompatActivity {
                 // Hide the progress bar
                 mLogInProgress.setVisibility(View.GONE);
 
-                // If the login was successful, direct user to the MainActivity
+                // If the login was successful, direct user to the HomeActivity
                 if (task.isSuccessful()) {
-                    Intent intentLogin = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intentLogin = new Intent(LoginActivity.this, HomeActivity.class);
 
-                    Log.i("LoginActivity", "Opening MainActivity");
+                    Log.i("LoginActivity", "Opening HomeActivity");
                     startActivity(intentLogin);
                     finish(); // Don't add to the backstack
                 } else {

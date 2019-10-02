@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".Login.LoginActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,17 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity"
+        <activity android:name=".Home.HomeActivity"
             android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".Activities.StatisticsActivity" />
-        <activity android:name=".Activities.TaggingActivity"
+        <activity android:name=".Reports.StatisticsActivity" />
+        <activity android:name=".Tagging.TaggingActivity"
             android:screenOrientation="sensorLandscape"
             android:noHistory="true"/>
         <activity
-            android:name=".Activities.SignUpActivity"
+            android:name=".Login.SignUpActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".Activities.ReportsActivity"
+            android:name=".Reports.ReportsActivity"
             android:label="@string/title_activity_reports"
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"></activity>

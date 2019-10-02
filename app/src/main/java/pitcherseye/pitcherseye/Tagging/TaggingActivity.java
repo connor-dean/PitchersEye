@@ -16,11 +16,10 @@
  future after a better alternative is found.
  */
 
-package pitcherseye.pitcherseye.Activities;
+package pitcherseye.pitcherseye.Tagging;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,8 +35,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,15 +44,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import pitcherseye.pitcherseye.Fragments.ChangePitcherFragment;
-import pitcherseye.pitcherseye.Fragments.EventInfoFragment;
-import pitcherseye.pitcherseye.Fragments.ResultsFragment;
+import pitcherseye.pitcherseye.Home.HomeActivity;
 import pitcherseye.pitcherseye.Objects.EventStats;
 import pitcherseye.pitcherseye.Objects.PitcherStats;
 import pitcherseye.pitcherseye.R;
 import pitcherseye.pitcherseye.Utilities;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class TaggingActivity extends Activity implements EventInfoFragment.OnInputListener, ResultsFragment.OnInputListener,
         ChangePitcherFragment.OnInputListener {
@@ -699,7 +692,7 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
 
     // Helper method for when we finish an event. We'll display a progress spinner while it's sending information
     // to Firebase, and we'll save the pitching and event sessions and save the statistics to EventStats and PitcherStats.
-    // On completion, we'll redirect the user back to MainActivity
+    // On completion, we'll redirect the user back to HomeActivity
     public void finishGameHelper() {
         // Display ProgressBar
         mProgressFinishGame.setVisibility(View.VISIBLE);
@@ -719,8 +712,8 @@ public class TaggingActivity extends Activity implements EventInfoFragment.OnInp
                 pitcherCount_R2C2, pitcherCount_R2C3, pitcherCount_R3C1, pitcherCount_R3C2, pitcherCount_R3C3,
                 pitcherFastballCount, pitcherChangeupCount, pitcherCurveballCount, pitcherSliderCount, pitcherOtherCount);
 
-        // Send back to MainActivity
-        Intent intentMainActivity = new Intent(TaggingActivity.this, MainActivity.class);
+        // Send back to HomeActivity
+        Intent intentMainActivity = new Intent(TaggingActivity.this, HomeActivity.class);
         startActivity(intentMainActivity);
         finish();
     }
